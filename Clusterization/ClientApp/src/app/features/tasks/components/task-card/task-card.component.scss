@@ -1,0 +1,53 @@
+@import '/src/app/core/styles/colors.scss';
+
+.my-card{
+    padding: 10px;
+    background-color: $second-color-1;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &:hover{
+        background-color: $second-color-3;
+    }
+    .top-cont{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        .percent-text{
+            color: $first-color-1;
+            font-size: 1.5rem;
+        }
+        .title-text{
+            color: $first-color-2;
+        }
+    }
+    .progress-bar-cont{
+        width: 100%;
+        border-radius: 5px;
+        background-color: $second-color-2;
+        height: 25px;
+
+        .progress-bar{
+            height: 100%;
+            width: auto;
+            border-radius: 5px;
+        }
+        .error{
+            background-color:$warn-1;
+        }
+        .normal{
+            background-color: $first-color-1;
+        }
+        .complete{
+            background-color: $first-color-4;
+        }
+    }
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}

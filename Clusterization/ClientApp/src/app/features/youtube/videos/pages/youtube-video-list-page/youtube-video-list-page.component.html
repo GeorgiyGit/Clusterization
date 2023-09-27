@@ -1,0 +1,19 @@
+<section>
+    <h1>Список завантажених відео</h1>
+    <div class="mb-10">
+        <app-youtube-videos-search-filter (sendEvent)="changeFilter($event)"></app-youtube-videos-search-filter>
+    </div>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="!isLoading && (videos==null || videos.length==0)">
+        <p class="nothing-text">Відео не знайдено</p>
+    </div>
+    <app-youtube-video-list [class.disable]="isLoading" [videos]="videos"></app-youtube-video-list>
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="addMore()">Завантажити більше</button>
+    </div>
+</section>

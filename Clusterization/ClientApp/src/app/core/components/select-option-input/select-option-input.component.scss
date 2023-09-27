@@ -1,0 +1,69 @@
+@import '/src/app/core/styles/colors.scss';
+
+.input-cont{
+    background-color: $second-color-1;
+    border-bottom: 3.5px solid $first-color-2;
+
+    border-radius: 5px;
+    padding: 10px;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+
+    position: relative;
+
+    .custom-select{
+        width: 100%;
+        padding-right: 5px;
+        .selected-option{
+            display: flex;
+            justify-content: space-between;
+
+            color: $first-color-2;
+            width: 100%;
+
+            user-select: none;
+        }
+        &:hover{
+            .selected-option,
+            .icon{
+                color: $first-color-1;
+            }
+        }
+
+        .option-list{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+
+            z-index: 20;
+
+            left: 0;
+            top: calc(100% + 2px);
+            width: 100%;
+
+            border-radius: 5px;
+
+            background-color: $second-color-1;
+            border-bottom: 3.5px solid $first-color-2;
+
+            box-shadow: 0 0 5px 0.1px $first-color-0;
+            .option{
+                padding: 10px;
+                color: $first-color-2;
+
+                &:hover{
+                    background-color: $second-color-3;
+                }
+            }
+        }
+    }
+
+}
+.icon{
+    color: $first-color-2;
+    user-select: none;
+    cursor: pointer;
+}

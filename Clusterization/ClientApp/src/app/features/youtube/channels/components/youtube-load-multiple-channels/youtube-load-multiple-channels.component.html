@@ -1,0 +1,27 @@
+<div class="cont">
+    <div class="inputs-cont">
+        <div class="input-cont search">
+            <input type="text" [value]="value" (change)="changeValue($event)" (keydown.enter)="loadFirst()" placeholder="Шукати...">
+            <span class="material-symbols-outlined icon" translate="no" (click)="loadFirst()">manage_search</span>
+        </div>
+        <app-select-option-input class="options" (sendResultEvent)="filterTypeChanges($event)" [options]="options"></app-select-option-input>
+    </div>
+
+    <div class="scroll-cont">
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+        </div>
+        <app-youtube-channel-list [class.disable]="isLoading" [channels]="channels" (selectChannelEvent)="selectChannel($event)" (unselectChannelEvent)="unselectChannel($event)"></app-youtube-channel-list>
+        <div class="centered" *ngIf="isLoading2">
+            <app-loader></app-loader>
+        </div>
+        <div class="centered">
+            <button class="standard-btn" (click)="loadMore()" *ngIf="!isLoading && !isLoading2 && nextPageToken!=undefined">Завантажити більше</button>
+        </div>
+    </div>
+    
+    
+    <div class="centered">
+        <button class="standard-btn" (click)="load()" *ngIf="!isLoading && selectedChannels!=null && selectedChannels.length>0">Завантажити на сервер</button>
+    </div>
+</div>

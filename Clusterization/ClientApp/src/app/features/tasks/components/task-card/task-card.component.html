@@ -1,0 +1,14 @@
+<div class="my-card">
+    <div class="top-cont">
+        <p class="percent-text">{{task.percent}}%</p>
+        <p class="title-text">{{task.title}}</p>
+    </div>
+    <div class="progress-bar-cont">
+        <div class="progress-bar" [style.width.%]="task.percent"
+                                  [class.complete]="task.stateId=='Completed'"
+                                  [class.error]="task.stateId=='error'"
+                                  [class.normal]="task.stateId!='error'">
+
+        </div>
+    </div>
+</div>

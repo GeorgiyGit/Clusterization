@@ -1,0 +1,56 @@
+{
+  "name": "clusterization",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prestart": "node aspnetcore-https",
+    "start": "run-script-os",
+    "start:windows": "ng serve --port 44439 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
+    "start:default": "ng serve --port 44439 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
+    "build": "ng build",
+    "build:ssr": "ng run Clusterization:server:dev",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular-devkit/build-angular": "^16.2.2",
+    "@angular/animations": "^16.2.5",
+    "@angular/cdk": "^16.2.4",
+    "@angular/cli": "^16.2.2",
+    "@angular/compiler": "^16.2.5",
+    "@angular/compiler-cli": "^16.2.5",
+    "@angular/core": "^16.2.5",
+    "@angular/forms": "^16.2.5",
+    "@angular/material": "^16.2.4",
+    "@angular/platform-browser": "^16.2.5",
+    "@angular/platform-browser-dynamic": "^16.2.5",
+    "@angular/platform-server": "^16.2.5",
+    "@angular/router": "^16.2.5",
+    "@types/jasmine": "^4.3.6",
+    "@types/jasminewd2": "^2.0.11",
+    "@types/node": "^20.6.2",
+    "bootstrap": "^5.3.2",
+    "jasmine-core": "^5.1.1",
+    "jquery": "^3.7.1",
+    "karma": "^6.4.2",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
+    "ngx-popperjs": "^16.0.6",
+    "ngx-toastr": "^17.0.2",
+    "oidc-client": "^1.11.5",
+    "popper.js": "^1.16.1",
+    "run-script-os": "^1.1.6",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.6.2",
+    "zone.js": "^0.13.3"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

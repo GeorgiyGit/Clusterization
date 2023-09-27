@@ -1,0 +1,4 @@
+<div class="input-cont">
+    <input type="text" [value]="value" (change)="changeValue($event)" (keydown.enter)="sendText()" placeholder="Шукати...">
+    <span class="material-symbols-outlined icon" translate="no" (click)="sendText()">manage_search</span>
+</div>

@@ -1,0 +1,30 @@
+@import '/src/app/core/styles/base.scss';
+
+section {
+    opacity: 0;
+    transition: all 0.3s;
+
+    padding: 100px;
+    .main-cont{
+        background-color: $second-color-2;
+        padding: 20px;
+        
+        width: 100%;
+
+        height: fit-content;
+        min-height: 70vh;
+
+        h1{
+            color: $first-color-2;
+            text-align: center;
+        }
+
+        .inputs-cont{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+.open{
+    opacity: 1;
+}

@@ -1,0 +1,47 @@
+<div class="component-cont">
+    <div class="select-cont" [class.display]="video.isSelectAvailable">
+        <div class="radio-cont" (click)="toggleSelection()" [class.disable-radio-cont]="(this.isSelectOnlyLoaded && !this.video.isLoaded) ||
+                                                                                        (!this.isSelectOnlyLoaded && this.video.isLoaded)">
+            <div [class.selected]="this.video.isSelected" class="unselected">
+                <span class="material-symbols-outlined icon" translate="no">done</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-cont" (click)="openFull()">
+        <div class="img-cont">
+            <img [src]="video.videoImageUrl"
+                alt="channel profile image">
+        </div>
+        <div class="main-cont">
+            <div class="top-cont">
+                <div class="title-cont">
+                    <p class="title" *ngIf="!video.isLoaded">{{video.title}}</p>
+                    <p class="title warn" matTooltip="Відео вже завантажено" *ngIf="video.isLoaded">{{video.title}}</p>
+                    <span class="material-symbols-outlined icon" translate="no"
+                        (click)="copyToClipboard(video.id,$event)">file_copy</span>
+                </div>
+                <div class="my-tooltip">
+                    <span matTooltip="Дата останнього завантаження відео" *ngIf="video.isLoaded" class="time-text">{{video.loadedDate | normalizedDateTime}}</span>
+                    <span matTooltip="Дата створення відео" *ngIf="!video.isLoaded && video.publishedAtDateTimeOffset!=null" class="time-text">{{video.publishedAtDateTimeOffset | normalizedDateTime}}</span>
+                </div>
+            </div>
+            <div class="middle-cont">
+                <div class="block" (click)="copyToClipboard(video.likeCount+'',$event)">
+                    <span matTooltip="Кількість вподобайок" class="material-symbols-outlined icon" translate="no">thumb_up</span>
+                    <p>{{video.likeCount}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(video.viewCount+'',$event)">
+                    <span matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <p>{{video.viewCount}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Кількість коментарів" class="material-symbols-outlined icon" translate="no">chat</span>
+                    
+                    <p matTooltip="Загальна кількість коментарів" class="normal-color-text">{{video.commentCount}}</p>
+                    <span> / </span>
+                    <p matTooltip="Кількість завантажених коментарів в систему" class="first-color-text">{{video.loadedCommentCount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

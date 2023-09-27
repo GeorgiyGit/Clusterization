@@ -1,0 +1,41 @@
+<section>
+    <h1>Ютуб канал</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="image-cont">
+                <img [src]="video.videoImageUrl" alt="video image url">
+            </div>
+            <div class="text-info-cont">
+                <h2 class="title-text">{{video.title}}</h2>
+                <div class="block" (click)="copyToClipboard('Дату',video.publishedAtDateTimeOffset+'',$event)">
+                    <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                    <p>{{video.publishedAtDateTimeOffset | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Дату',video.loadedDate+'',$event)">
+                    <span matTooltip="Дата останнього завантаження" class="material-symbols-outlined icon" translate="no">download_for_offline</span>
+                    <p>{{video.loadedDate | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',video.likeCount+'',$event)">
+                    <span matTooltip="Кількість вподобайок" class="material-symbols-outlined icon" translate="no">thumb_up</span>
+                    <p>{{video.likeCount}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',video.viewCount+'',$event)">
+                    <span matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <p>{{video.viewCount}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Кількість коментарів" class="material-symbols-outlined icon" translate="no">chat</span>
+                    <p matTooltip="Загальна кількість коментарів" class="normal-color-text">{{video.commentCount}}</p>
+                    <span> / </span>
+                    <p matTooltip="Кількість завантажених коментарів в систему" class="first-color-text">{{video.loadedCommentCount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <ul class="ul-list-navigation">
+                <li routerLinkActive="active" (click)="navigateToLoadByVideo()">Завантажити багато коментарів</li>
+            </ul>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

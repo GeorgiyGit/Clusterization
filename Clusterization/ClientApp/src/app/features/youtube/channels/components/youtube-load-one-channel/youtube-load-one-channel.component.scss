@@ -1,0 +1,13 @@
+@import '/src/app/core/styles/base.scss';
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.centered{
+    display: flex;
+    justify-content: center;
+}

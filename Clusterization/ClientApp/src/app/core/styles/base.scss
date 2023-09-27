@@ -1,0 +1,252 @@
+@import '/src/app/core/styles/colors.scss';
+
+.my-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: $second-color-2;
+    border-radius: 4px;
+
+    .tooltip-text {
+        display: none;
+        position: absolute;
+        top: 100%;
+        transform: translateX(-50%);
+        background-color: $first-color-4;
+        color: $second-color-2;
+        border-radius: 4px;
+        white-space: nowrap;
+        z-index: 1;
+        padding: 5px;
+
+        &.right {
+            top: 100%;
+            left: 100%;
+
+            &:before {
+                top: 50%;
+                left: 0;
+            }
+        }
+
+        &.left {
+            top: 100%;
+            right: 100%;
+
+            &:before {
+                top: 50%;
+                right: 0;
+            }
+        }
+    }
+
+
+    i.material-symbols-outlined {
+        color: $second-color-2;
+        margin-left: 5px;
+    }
+
+    &:hover {
+        .tooltip-text {
+            display: block;
+        }
+    }
+}
+
+.radio-item {
+    display: inline-block;
+    position: relative;
+    padding: 0 6px;
+
+    input[type='radio'] {
+        display: none;
+    }
+
+    label {
+        color: $first-color-3;
+        font-weight: normal;
+
+        &:before {
+            content: " ";
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            margin: 0 5px 0 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 11px;
+            border: 2px solid $first-color-1;
+            background-color: transparent;
+        }
+    }
+
+    input[type=radio]:checked+label:after {
+        border-radius: 11px;
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        top: 9px;
+        left: 10px;
+        content: " ";
+        display: block;
+        background: $first-color-1;
+    }
+}
+
+
+.overflow-cont {
+    position: fixed;
+    background-color: rgba($first-color-2, 0.5);
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.close-cont {
+    color: $first-color-4;
+    user-select: none;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: flex-end;
+
+    .icon {
+        font-size: 36px;
+    }
+
+    &:hover {
+        color: $first-color-1;
+    }
+}
+
+.ul-list-navigation {
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+    display: flex;
+
+    li {
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+
+        border-bottom: 3.5px solid $first-color-2;
+
+        background-color: $second-color-1;
+        color: $first-color-2;
+
+        cursor: pointer;
+
+        &:hover {
+            border-color: $first-color-0;
+        }
+    }
+
+    li:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    li:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    li.active {
+        border-bottom-color: $first-color-1;
+    }
+}
+
+.input-cont {
+    box-sizing: border-box;
+
+    color: $first-color-2;
+    border-bottom: 3.5px solid $first-color-2;
+
+    border-radius: 5px;
+
+    background-color: $second-color-1;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    padding-right: 10px;
+
+    &:focus-within {
+        border-bottom-color: $first-color-4;
+    }
+
+    input {
+        width: 100%;
+        outline: none;
+
+        border: 0;
+
+        padding: 0;
+        margin: 0;
+
+        padding: 10px;
+
+        background-color: transparent;
+
+        color: $first-color-2;
+
+        &:focus {
+            color: $first-color-4;
+        }
+
+        &::placeholder {
+            color: $first-color-2;
+        }
+    }
+
+    .icon {
+        font-size: 32px;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            color: $first-color-1;
+        }
+    }
+}
+
+
+.standard-btn {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    padding: 10px 20px;
+
+    background-color: $first-color-2;
+    color: $second-color-1;
+
+    font-weight: bold;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    &:hover {
+        background-color: $first-color-3;
+    }
+
+    &:active {
+        background-color: $first-color-4;
+    }
+}

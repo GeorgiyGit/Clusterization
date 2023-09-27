@@ -1,0 +1,11 @@
+.cont{
+    display: flex;
+    gap: 10px;
+    
+    app-search-input{
+        flex: 3;
+    }
+    app-select-option-input{
+        flex: 1;
+    }
+}

@@ -1,0 +1,43 @@
+<section>
+    <h1>Ютуб канал</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="image-cont">
+                <img [src]="channel.channelImageUrl" alt="channel image url">
+            </div>
+            <div class="text-info-cont">
+                <h2 class="title-text">{{channel.title}}</h2>
+                <div class="block" (click)="copyToClipboard('Дату',channel.publishedAtDateTimeOffset+'',$event)">
+                    <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                    <p>{{channel.publishedAtDateTimeOffset | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Дату',channel.loadedDate+'',$event)">
+                    <span matTooltip="Дата останнього завантаження" class="material-symbols-outlined icon" translate="no">download_for_offline</span>
+                    <p>{{channel.loadedDate | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',channel.subscriberCount+'',$event)">
+                    <span matTooltip="Кількість підписників" class="material-symbols-outlined icon" translate="no">groups</span>
+                    <p>{{channel.subscriberCount}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',channel.viewCount+'',$event)">
+                    <span matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <p>{{channel.viewCount}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Кількість відео" class="material-symbols-outlined icon" translate="no">movie</span>
+                    <p matTooltip="Загальна кількість відео" class="normal-color-text">{{channel.videoCount}}</p>
+                    <span> / </span>
+                    <p matTooltip="Кількість завантажених відео в систему" class="first-color-text">{{channel.loadedVideoCount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <ul class="ul-list-navigation">
+                <li routerLinkActive="active" [routerLink]="'list/'+channel.id">Завантажені відео</li>
+                <li routerLinkActive="active" [routerLink]="'add_many/'+channel.id">Шукати нове відео</li>
+                <li routerLinkActive="active" (click)="navigateToLoadByChannel()">Завантажити багато відео</li>
+            </ul>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

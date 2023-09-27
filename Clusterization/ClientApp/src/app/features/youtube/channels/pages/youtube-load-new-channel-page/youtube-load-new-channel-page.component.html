@@ -1,0 +1,14 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1>Завантажити новий канал</h1>
+
+        <ul class="ul-list-navigation">
+            <li routerLinkActive="active" routerLink="by_id">Завантажити по id</li>
+            <li routerLinkActive="active" routerLink="by_name">Завантажити по назві</li>
+        </ul>
+        <router-outlet></router-outlet>
+    </div>
+</section>

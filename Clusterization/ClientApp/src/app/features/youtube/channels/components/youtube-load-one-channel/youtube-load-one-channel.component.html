@@ -1,0 +1,10 @@
+<div class="cont">
+    <div class="input-cont">
+        <input type="text" [value]="value" (change)="changeValue($event)" placeholder="Введіть id каналу...">
+        <span class="material-symbols-outlined icon" translate="no">policy</span>
+    </div>
+    <div class="centered">
+        <app-loader *ngIf="isLoading"></app-loader>
+        <button class="standard-btn" (click)="load()" *ngIf="!isLoading">Завантажити</button>
+    </div>
+</div>

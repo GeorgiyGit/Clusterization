@@ -1,0 +1,14 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1>Завантажити нове відео</h1>
+
+        <ul class="ul-list-navigation">
+            <li routerLinkActive="active" [routerLink]="channelId!=null?'by_id/'+channelId:'by_id'">Завантажити по id</li>
+            <li routerLinkActive="active" [routerLink]="channelId!=null?'by_name/'+channelId:'by_name'">Завантажити по назві</li>
+        </ul>
+        <router-outlet></router-outlet>
+    </div>
+</section>
