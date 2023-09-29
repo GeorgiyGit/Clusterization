@@ -5,7 +5,7 @@ namespace Clusterization.Controllers.Clusterization
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClusterizationTypesController:ControllerBase
+    public class ClusterizationTypesController : ControllerBase
     {
         private readonly IClusterizationTypeService service;
         public ClusterizationTypesController(IClusterizationTypeService service)

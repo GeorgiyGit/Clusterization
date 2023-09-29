@@ -7,25 +7,26 @@ import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-inp
   templateUrl: './clusterization-types-select.component.html',
   styleUrls: ['./clusterization-types-select.component.scss']
 })
-export class ClusterizationTypesSelectComponent implements OnInit{
-  @Output() sendEvent=new EventEmitter<string>();
+export class ClusterizationTypesSelectComponent implements OnInit {
+  @Output() sendEvent = new EventEmitter<string>();
 
-  options:IOptionForSelectInput[]=[];
-  constructor(private typesService:ClusterizationTypesService){}
+  options: IOptionForSelectInput[] = [];
+  constructor(private typesService: ClusterizationTypesService) { }
   ngOnInit(): void {
-      this.typesService.getAll().subscribe(res=>{
-        this.options=[];
-        res.forEach(type=>{
-          let option:IOptionForSelectInput={
-            value:type.id,
-            description:type.name
-          };
-          this.options.push(option);
-        });
+    this.typesService.getAll().subscribe(res => {
+      this.options = [];
+      this.sendEvent.emit(res[0].id);
+      res.forEach(type => {
+        let option: IOptionForSelectInput = {
+          value: type.id,
+          description: type.name
+        };
+        this.options.push(option);
       });
+    });
   }
 
-  select(option:IOptionForSelectInput){
+  select(option: IOptionForSelectInput) {
     this.sendEvent.emit(option.value);
   }
 }

@@ -215,6 +215,30 @@
         }
     }
 
+    textarea {
+        outline: 0;
+        resize: vertical;
+        border: 0;
+        width: 100%;
+
+        padding: 0;
+        margin: 0;
+
+        padding: 10px;
+
+        background-color: transparent;
+
+        color: $first-color-2;
+
+        &:focus {
+            color: $first-color-4;
+        }
+
+        &::placeholder {
+            color: $first-color-2;
+        }
+    }
+
     .icon {
         font-size: 32px;
         cursor: pointer;
@@ -226,6 +250,15 @@
     }
 }
 
+.errors {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .error {
+        color: $warn-2;
+    }
+}
 
 .standard-btn {
     padding: 0;
@@ -248,5 +281,10 @@
 
     &:active {
         background-color: $first-color-4;
+    }
+
+    &:disabled{
+        background-color: $warn-1;
+        cursor: no-drop;
     }
 }

@@ -20,7 +20,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class YoutubeLoadNewChannelPageComponent implements OnInit{
   animationState:string='in';
-  
 
   constructor(private router:Router,
     private route:ActivatedRoute){}

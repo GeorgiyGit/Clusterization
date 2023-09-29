@@ -43,6 +43,7 @@ import { YoutubeFullVideoPageComponent } from './features/youtube/videos/pages/y
 import { YoutubeLoadAllCommentsPageComponent } from './features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component';
 import { ClusterizationTypesSelectComponent } from './features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component';
 import { ClusterizationDimensionTypesInputComponent } from './features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component';
+import { AddWorkspacePageComponent } from './features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ClusterizationDimensionTypesInputComponent } from './features/clusteriz
     YoutubeLoadAllCommentsPageComponent,
     ClusterizationTypesSelectComponent,
     ClusterizationDimensionTypesInputComponent,
+    AddWorkspacePageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

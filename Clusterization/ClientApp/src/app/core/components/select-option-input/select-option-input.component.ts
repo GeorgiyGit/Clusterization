@@ -16,12 +16,14 @@ export class SelectOptionInputComponent implements OnInit,OnChanges{
     if (changes['options'] && !changes['options'].firstChange) {
       if(this.selectedOption==null){
         this.selectedOption=this.options[0];
+        this.sendResultEvent.emit(this.selectedOption);
       }
     }
   }
   ngOnInit(): void {
     if(this.selectedOption==null){
       this.selectedOption=this.options[0];
+      this.sendResultEvent.emit(this.selectedOption);
     }
   }
 

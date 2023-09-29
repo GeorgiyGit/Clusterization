@@ -46,7 +46,7 @@ namespace Clusterization.Controllers.Clusterization
         }
 
 
-        [HttpPost("get_by_id/{id}")]
+        [HttpGet("get_by_id/{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             return Ok(await service.GetById(id));

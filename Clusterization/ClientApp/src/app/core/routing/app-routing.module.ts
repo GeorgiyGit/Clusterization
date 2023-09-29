@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
+import { AddWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component";
 import { TaskListPageComponent } from "src/app/features/tasks/pages/task-list-page/task-list-page.component";
 import { YoutubeLoadMultipleChannelsComponent } from "src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component";
 import { YoutubeLoadOneChannelComponent } from "src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component";
@@ -80,6 +81,11 @@ const routes: Route[] = [
   {
     path:'load-comments-by-video/:videoId',
     component:YoutubeLoadAllCommentsPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'workspaces_add',
+    component:AddWorkspacePageComponent,
     outlet:'overflow'
   }
 ]

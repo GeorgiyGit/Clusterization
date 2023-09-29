@@ -8,6 +8,9 @@ using Domain.Services.Clusterization;
 using Domain.Services.Embeddings;
 using Domain.Services.TaskServices;
 using Domain.Services.Youtube;
+using Domain.Validators.Clusterization.Workspaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
 using Infrastructure;
@@ -50,6 +53,8 @@ builder.Services.AddHangfire(configuration => configuration
 
 builder.Services.AddHangfireServer();
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(AddWorkspaceValidator)));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
