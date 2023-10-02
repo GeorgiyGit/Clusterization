@@ -80,9 +80,24 @@ namespace Domain.Services.Clusterization
         {
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;
 
-            if (request.TypeId != null)
+
+            if (request.FilterStr != null && request.FilterStr!="")
             {
-                filterCondition = e => e.TypeId == request.TypeId;
+                if (request.TypeId != null)
+                {
+                    filterCondition = e => (e.TypeId == request.TypeId) && e.Title.Contains(request.FilterStr);
+                }
+                else
+                {
+                    filterCondition = e => e.Title.Contains(request.FilterStr);
+                }
+            }
+            else 
+            {
+                if (request.TypeId != null)
+                {
+                    filterCondition = e => (e.TypeId == request.TypeId);
+                }
             }
 
             var pageParameters = request.PageParameters;

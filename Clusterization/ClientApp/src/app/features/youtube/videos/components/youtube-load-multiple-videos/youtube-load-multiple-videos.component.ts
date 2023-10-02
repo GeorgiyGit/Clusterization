@@ -125,7 +125,7 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
   }
 
   filterTypeChanges(type:IOptionForSelectInput){
-    this.filterType=type.value;
+    if(type.value!=null)this.filterType=type.value;
     this.loadFirst();
   }
 }

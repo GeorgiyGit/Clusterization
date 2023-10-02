@@ -26,7 +26,9 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit{
   }
 
   select(option:IOptionForSelectInput){
-    var id = parseInt(option.value);
-    this.sendEvent.emit(id);
+    if(option.value!=null){
+      var id = parseInt(option.value);
+      this.sendEvent.emit(id);
+    }
   }
 }

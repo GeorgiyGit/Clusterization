@@ -10,5 +10,6 @@ namespace Domain.DTOs.ClusterizationDTOs.RequestDTOs
     {
         public string? TypeId { get; set; }
         public PageParametersDTO PageParameters { get; set; }
+        public string FilterStr { get; set; } = "";
     }
 }

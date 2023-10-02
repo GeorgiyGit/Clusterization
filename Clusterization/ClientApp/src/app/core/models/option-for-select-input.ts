@@ -1,4 +1,4 @@
 export interface IOptionForSelectInput{
-    value:string,
+    value:string | undefined,
     description:string
 };

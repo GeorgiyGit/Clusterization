@@ -44,6 +44,10 @@ import { YoutubeLoadAllCommentsPageComponent } from './features/youtube/comments
 import { ClusterizationTypesSelectComponent } from './features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component';
 import { ClusterizationDimensionTypesInputComponent } from './features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component';
 import { AddWorkspacePageComponent } from './features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component';
+import { WorkspaceCardComponent } from './features/clusterization/workspace/components/workspace-card/workspace-card.component';
+import { WorkspaceListComponent } from './features/clusterization/workspace/components/workspace-list/workspace-list.component';
+import { WorkspaceListPageComponent } from './features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component';
+import { WorkspaceSearchFilterComponent } from './features/clusterization/workspace/components/workspace-search-filter/workspace-search-filter.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +85,10 @@ import { AddWorkspacePageComponent } from './features/clusterization/workspace/p
     ClusterizationTypesSelectComponent,
     ClusterizationDimensionTypesInputComponent,
     AddWorkspacePageComponent,
+    WorkspaceCardComponent,
+    WorkspaceListComponent,
+    WorkspaceListPageComponent,
+    WorkspaceSearchFilterComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -51,7 +51,7 @@ export class YoutubeChannelsSearchFilterComponent {
   }
 
   filterTypeChanges(type:IOptionForSelectInput){
-    this.filter.filterType=type.value;
+    if(type.value!=null) this.filter.filterType=type.value;
     this.sendEvent.emit(this.filter);
   }
 }
