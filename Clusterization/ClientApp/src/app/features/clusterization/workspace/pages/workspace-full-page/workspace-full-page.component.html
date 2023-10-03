@@ -1,0 +1,33 @@
+<section>
+    <h1>Робочий простір</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="text-info-cont">
+                <h2 class="title-text">{{workspace.title}}</h2>
+                <p>{{workspace.description}}</p>
+                <div class="block" (click)="copyToClipboard('Дату',workspace.creationTime+'',$event)">
+                    <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                    <p>{{workspace.creationTime | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Тип',workspace.typeName+'',$event)">
+                    <span matTooltip="Тип" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
+                    <p>{{workspace.typeName}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',workspace.commentsCount+'',$event)">
+                    <span matTooltip="Кількість елементів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                    <p>{{workspace.commentsCount}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard('Кількість',workspace.profilesCount+'',$event)">
+                    <span matTooltip="Кількість профілів" class="material-symbols-outlined icon" translate="no">workspaces</span>
+                    <p>{{workspace.profilesCount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <ul class="ul-list-navigation">
+                <li routerLinkActive="active" [routerLink]="'profiles/'+workspace.id">Профілі</li>
+            </ul>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

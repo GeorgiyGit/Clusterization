@@ -7,5 +7,4 @@ export interface IClusterizationWorkspace{
     typeName:string,
     commentsCount:number,
     profilesCount:number,
-    
 }

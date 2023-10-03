@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
 import { AddWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component";
+import { WorkspaceFullPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component";
 import { WorkspaceListPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component";
 import { TaskListPageComponent } from "src/app/features/tasks/pages/task-list-page/task-list-page.component";
 import { YoutubeLoadMultipleChannelsComponent } from "src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component";
@@ -92,6 +93,10 @@ const routes: Route[] = [
   {
     path:'workspaces',
     component:WorkspaceListPageComponent,
+  },
+  {
+    path:'workspaces/full/:id',
+    component:WorkspaceFullPageComponent
   }
 ]
 

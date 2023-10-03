@@ -48,6 +48,7 @@ import { WorkspaceCardComponent } from './features/clusterization/workspace/comp
 import { WorkspaceListComponent } from './features/clusterization/workspace/components/workspace-list/workspace-list.component';
 import { WorkspaceListPageComponent } from './features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component';
 import { WorkspaceSearchFilterComponent } from './features/clusterization/workspace/components/workspace-search-filter/workspace-search-filter.component';
+import { WorkspaceFullPageComponent } from './features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { WorkspaceSearchFilterComponent } from './features/clusterization/worksp
     WorkspaceListComponent,
     WorkspaceListPageComponent,
     WorkspaceSearchFilterComponent,
+    WorkspaceFullPageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
