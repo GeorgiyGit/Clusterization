@@ -259,7 +259,7 @@ namespace Domain.Services.Youtube
             }
             else if (filterType == LoadFilterOptions.Rating)
             {
-                searchListRequest.Order = SearchResource.ListRequest.OrderEnum.ViewCount;
+                searchListRequest.Order = SearchResource.ListRequest.OrderEnum.Relevance;
             }
 
 
@@ -280,7 +280,16 @@ namespace Domain.Services.Youtube
                 };
             }
 
-            var channelIds = searchListResponse.Items.Select(item => item.Id.ChannelId).ToList();
+            var channelIds = searchListResponse.Items.Where(item => item.Id.Kind == "youtube#channel").Select(item => item.Id.ChannelId).ToList();
+
+            if (channelIds.Count() == 0)
+            {
+                return new ChannelsWithoutLoadingResponse()
+                {
+                    Channels = new List<SimpleChannelDTO>(),
+                    NextPageToken = null
+                };
+            }
 
             // Create the videos request to retrieve video statistics and tags
             var channelsRequest = youtubeService.Channels.List("snippet,statistics");
@@ -337,6 +346,15 @@ namespace Domain.Services.Youtube
                 catch { }
 
                 mappedChannels.Add(mapper.Map<SimpleChannelDTO>(newChannel));
+            }
+
+            if (filterType == LoadFilterOptions.Date)
+            {
+                mappedChannels = mappedChannels.OrderBy(e => e.PublishedAtDateTimeOffset).ToList();
+            }
+            else if (filterType == LoadFilterOptions.Rating)
+            {
+                mappedChannels = mappedChannels.OrderBy(e => e.ViewCount).ToList();
             }
 
             return new ChannelsWithoutLoadingResponse()

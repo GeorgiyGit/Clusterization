@@ -1,0 +1,10 @@
+<div class="input-cont select" (clickOutside)="close()">
+    <span class="material-symbols-outlined icon" translate="no"  (click)="toggleSelect($event)">more_vert</span>
+    <div class="custom-select"  (click)="toggleSelect($event)">
+        <div class="option-list" *ngIf="isOpen">
+         <div *ngFor="let action of actions" class="option" (click)="selectOption($event,action)">
+            <span>{{ action.name }}</span>
+          </div>
+        </div>
+    </div>
+</div>

@@ -24,13 +24,18 @@ export class YoutubeVideoListPageComponent implements OnInit{
   channelId:string;
   videos:ISimpleVideo[]=[];
 
+  isEmbedded:boolean;
+
   constructor(private videoService:YoutubeVideoService,
     private toastr:MyToastrService,
     private route:ActivatedRoute){}
   ngOnInit(): void {
     this.channelId=this.route.snapshot.params['id'] as string;
 
-    if(this.channelId!=null)this.request.channelId=this.channelId;
+    if(this.channelId!=null){
+      this.request.channelId=this.channelId;
+      this.isEmbedded=true;
+    }
     
     this.loadFirst();
   }

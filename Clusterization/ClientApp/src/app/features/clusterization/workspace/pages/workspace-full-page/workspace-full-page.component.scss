@@ -65,7 +65,13 @@ section {
         }
         .main-cont{
             width: 100%;
+
             flex: 3;
+            .nav-cont{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
     }
 }

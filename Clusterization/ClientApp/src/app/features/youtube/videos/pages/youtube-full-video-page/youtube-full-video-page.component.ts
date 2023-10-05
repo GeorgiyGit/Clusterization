@@ -4,6 +4,7 @@ import { ISimpleVideo } from '../../models/simple-video';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ISelectAction } from 'src/app/core/models/select-action';
 @Component({
   selector: 'app-youtube-full-video-page',
   templateUrl: './youtube-full-video-page.component.html',
@@ -12,6 +13,14 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class YoutubeFullVideoPageComponent implements OnInit {
   video: ISimpleVideo;
 
+  actions:ISelectAction[]=[
+    {
+      name:'Завантажити коментарі',
+      action:()=>{
+        this.router.navigate([{outlets: {overflow: 'load-comments-by-video/'+this.video.id}}]);
+      }
+    }
+  ]
 
   isLoading: boolean;
   constructor(private videoService: YoutubeVideoService,
@@ -42,9 +51,5 @@ export class YoutubeFullVideoPageComponent implements OnInit {
 
     this.toastr.success(msg + ' ' + 'скопійовано!!!');
 
-  }
-
-  navigateToLoadByVideo(){
-    this.router.navigate([{outlets: {overflow: 'load-comments-by-video/'+this.video.id}}]);
   }
 }

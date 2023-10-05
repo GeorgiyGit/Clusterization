@@ -49,6 +49,8 @@ import { WorkspaceListComponent } from './features/clusterization/workspace/comp
 import { WorkspaceListPageComponent } from './features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component';
 import { WorkspaceSearchFilterComponent } from './features/clusterization/workspace/components/workspace-search-filter/workspace-search-filter.component';
 import { WorkspaceFullPageComponent } from './features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component';
+import { MoreActionSelectComponent } from './core/components/more-action-select/more-action-select.component';
+import { AddChannelCommentsToWorkspacePageComponent } from './features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { WorkspaceFullPageComponent } from './features/clusterization/workspace/
     WorkspaceListPageComponent,
     WorkspaceSearchFilterComponent,
     WorkspaceFullPageComponent,
+    MoreActionSelectComponent,
+    AddChannelCommentsToWorkspacePageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

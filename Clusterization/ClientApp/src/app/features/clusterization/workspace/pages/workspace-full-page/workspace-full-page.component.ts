@@ -4,6 +4,8 @@ import { ClusterizationWorkspaceService } from '../../service/clusterization-wor
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
+import { ISelectAction } from 'src/app/core/models/select-action';
 
 @Component({
   selector: 'app-workspace-full-page',
@@ -13,13 +15,22 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class WorkspaceFullPageComponent implements OnInit {
   workspace: IClusterizationWorkspace;
 
+  actions:ISelectAction[]=[
+    {
+      name:'Встановити активним',
+      action:()=>{
+        this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
+      }
+    }
+  ]
 
   isLoading: boolean;
   constructor(private workspaceService: ClusterizationWorkspaceService,
     private route: ActivatedRoute,
     private router:Router,
     private toastr: MyToastrService,
-    private clipboard: Clipboard) { }
+    private clipboard: Clipboard,
+    private myLocalStorage:MyLocalStorageService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 

@@ -24,9 +24,13 @@
             </div>
         </div>
         <div class="main-cont">
-            <ul class="ul-list-navigation">
-                <li routerLinkActive="active" [routerLink]="'profiles/'+workspace.id">Профілі</li>
-            </ul>
+            <div class="nav-cont">
+                <ul class="ul-list-navigation">
+                    <li routerLinkActive="active" [routerLink]="'profiles/'+workspace.id">Профілі</li>
+                </ul>
+                <app-more-action-select [actions]="actions"></app-more-action-select>
+            </div>
+
             <router-outlet></router-outlet>
         </div>
     </div>

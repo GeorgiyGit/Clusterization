@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ISelectAction } from 'src/app/core/models/select-action';
 
 @Component({
   selector: 'app-youtube-full-channel-page',
@@ -13,6 +14,15 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 })
 export class YoutubeFullChannelPageComponent implements OnInit {
   channel: ISimpleChannel;
+
+  actions:ISelectAction[]=[
+    {
+      name:'Завантажити багато відео',
+      action:()=>{
+        this.router.navigate([{outlets: {overflow: 'load-videos-by-channel/'+this.channel.id}}]);
+      }
+    }
+  ]
 
 
   isLoading: boolean;
@@ -44,9 +54,5 @@ export class YoutubeFullChannelPageComponent implements OnInit {
 
     this.toastr.success(msg + ' ' + 'скопійовано!!!');
 
-  }
-
-  navigateToLoadByChannel(){
-    this.router.navigate([{outlets: {overflow: 'load-videos-by-channel/'+this.channel.id}}]);
   }
 }

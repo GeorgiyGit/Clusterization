@@ -6,7 +6,7 @@
                 <img [src]="video.videoImageUrl" alt="video image url">
             </div>
             <div class="text-info-cont">
-                <h2 class="title-text">{{video.title}}</h2>
+                <h4 class="title-text">{{video.title}}</h4>
                 <div class="block" (click)="copyToClipboard('Дату',video.publishedAtDateTimeOffset+'',$event)">
                     <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
                     <p>{{video.publishedAtDateTimeOffset | normalizedDateTime}}</p>
@@ -32,9 +32,12 @@
             </div>
         </div>
         <div class="main-cont">
-            <ul class="ul-list-navigation">
-                <li routerLinkActive="active" (click)="navigateToLoadByVideo()">Завантажити багато коментарів</li>
-            </ul>
+            <div class="nav-cont">
+                <ul class="ul-list-navigation">
+                    <li routerLinkActive="active">Статистика</li>
+                </ul>
+                <app-more-action-select [actions]="actions"></app-more-action-select>
+            </div>
             <router-outlet></router-outlet>
         </div>
     </div>

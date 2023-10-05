@@ -12,9 +12,7 @@ export class WorkspaceCardComponent {
   
   constructor(private router:Router){}
 
-
   openFull(){
     this.router.navigateByUrl('workspaces/full/'+this.workspace.id);
   }
-
 }

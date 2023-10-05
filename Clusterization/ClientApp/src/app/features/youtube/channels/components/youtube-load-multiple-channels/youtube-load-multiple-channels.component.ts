@@ -128,6 +128,9 @@ export class YoutubeLoadMultipleChannelsComponent {
 
   filterTypeChanges(type:IOptionForSelectInput){
     if(type.value!=null)this.filterType=type.value;
+
+    if(this.value==null || this.value=='')return;
+
     this.loadFirst();
   }
 }
