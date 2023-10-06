@@ -3,6 +3,6 @@ export interface IAddCommentsToWorkspaceByChannelRequest{
     maxCount:number,
     channelId:string,
     dateFrom:Date | undefined,
-    DateTo:Date | undefined,
+    dateTo:Date | undefined,
     isVideoDateCount:boolean
 }

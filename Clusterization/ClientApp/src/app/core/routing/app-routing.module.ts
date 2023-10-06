@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
+import { AddChannelCommentsToWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component";
 import { AddWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component";
 import { WorkspaceFullPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component";
 import { WorkspaceListPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component";
@@ -97,6 +98,10 @@ const routes: Route[] = [
   {
     path:'workspaces/full/:id',
     component:WorkspaceFullPageComponent
+  },
+  {
+    path:'workspaces/add-comments-by-channel/:channelId',
+    component:AddChannelCommentsToWorkspacePageComponent
   }
 ]
 
