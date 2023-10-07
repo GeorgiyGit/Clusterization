@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
+    <EmbeddedResource Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
+    <None Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -32,6 +38,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ChannelFilterTypes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Types\ClusterizationAlgorithmTypes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ClusterizationAlgorithmTypes.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Types\ClusterizationTypes.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -76,6 +87,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ChannelFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\ClusterizationAlgorithmTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClusterizationAlgorithmTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\ClusterizationTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ClusterizationTypes.Designer.cs</LastGenOutput>
@@ -99,7 +114,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ClusterizationDTOs\ResponseDTOs\" />
+    <Folder Include="DTOs\ClusterizationDTOs\AlghorithmDTOs\RequestDTOs\" />
+    <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 
 </Project>

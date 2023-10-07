@@ -1,0 +1,13 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1>Додати новий алгоритм</h1>
+        <app-clusterization-algorithm-types-select (sendEvent)="selectType($event)"></app-clusterization-algorithm-types-select>
+    
+        <div class="add-cont">
+            <app-add-k-means-algorithm *ngIf="typeId=='KMeans'"></app-add-k-means-algorithm>
+        </div>
+    </div>
+</section>

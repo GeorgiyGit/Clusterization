@@ -1,0 +1,27 @@
+<section>
+    <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
+        <div>
+            <div class="input-cont">
+                <input type="number" minlength="1" placeholder="Кількість кластерів *" formControlName="numClusters" id="numClusters">
+                <span class="material-symbols-outlined icon" translate="no">123</span>
+            </div>
+            <div class="errors" *ngIf="numClusters.invalid && (numClusters.touched)">
+                <p *ngIf="numClusters.errors?.['required']" class="error">Кількість кластерів може бути пустою</p>
+                <p *ngIf="numClusters.errors?.['minlength']" class="error">Мінімальна кількість - 1</p>
+            </div>
+        </div>
+        <div>
+            <div class="input-cont">
+                <input type="number" minlength="0" placeholder="Зерно *" formControlName="seed" id="seed">
+                <span class="material-symbols-outlined icon" translate="no">psychiatry</span>
+            </div>
+            <div class="errors" *ngIf="seed.invalid && (seed.touched)">
+                <p *ngIf="seed.errors?.['required']" class="error">Зерно не може бути пустим</p>
+            </div>
+        </div>
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+        </div>
+    </form>
+</section>

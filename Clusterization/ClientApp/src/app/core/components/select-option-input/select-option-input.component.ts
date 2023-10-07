@@ -7,6 +7,8 @@ import { IOptionForSelectInput } from '../../models/option-for-select-input';
   styleUrls: ['./select-option-input.component.scss']
 })
 export class SelectOptionInputComponent implements OnInit,OnChanges{
+  @Input() matTooltipForIcon:string;
+
   @Input() options:IOptionForSelectInput[]=[];
   @Input() selectedOption:IOptionForSelectInput;
 

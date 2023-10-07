@@ -1,4 +1,6 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.Clusterization.Algorithms;
+using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
@@ -35,7 +37,6 @@ namespace Infrastructure
 
         #region Clusterization
         public virtual DbSet<Cluster> Clusters { get; set; }
-        public virtual DbSet<ClusterizationAlgorithm> ClusterizationAlgorithms { get; set; }
         public virtual DbSet<ClusterizationColorValue> ClusterizationColorValues { get; set; }
         public virtual DbSet<ClusterizationDimensionType> ClusterizationDimensionTypes { get; set; }
         public virtual DbSet<ClusterizationEntity> ClusterizationEntites { get; set; }
@@ -45,6 +46,12 @@ namespace Infrastructure
         public virtual DbSet<ClusterizationWorkspace> ClusterizationWorkspaces { get; set; }
         public virtual DbSet<DisplayedPoint> DisplayedPoints { get; set; }
         public virtual DbSet<ClusterizationTile> ClusterizationTiles { get; set; }
+
+        #region Algorithms
+        public virtual DbSet<ClusterizationAbstactAlgorithm> ClusterizationAbstractAlgorithms { get; set; }
+        public virtual DbSet<KMeansAlgorithm> KMeansAlgorithms { get; set; }
+        #endregion
+
         #endregion
 
         public ClusterizationDbContext(DbContextOptions options) : base(options)
@@ -57,6 +64,7 @@ namespace Infrastructure
             MyTasksBuilder.BuildAll(modelBuilder);
             EmbeddingsBuilder.BuildAll(modelBuilder);
             ClusterizationBuilder.BuildAll(modelBuilder);
+            ClusterizationAlgorithmsBuilder.BuildAll(modelBuilder);
 
             CommentBuilder.CommentBuild(modelBuilder.Entity<Comment>());
             VideoBuilder.VideoBuild(modelBuilder.Entity<Video>());
@@ -70,6 +78,7 @@ namespace Infrastructure
             MyTaskSeeder.StateSeeder(modelBuilder.Entity<MyTaskState>());
             ClusterizationSeeder.ClusterizationTypeSeeder(modelBuilder.Entity<ClusterizationType>());
             ClusterizationSeeder.DimensionTypeSeeder(modelBuilder.Entity<ClusterizationDimensionType>());
+            ClusterizationAlgorithmTypesSeeder.TypesSeeder(modelBuilder.Entity<ClusterizationAlgorithmType>());
         }
     }
 }

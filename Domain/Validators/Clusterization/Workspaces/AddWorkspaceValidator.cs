@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using FluentValidation;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;

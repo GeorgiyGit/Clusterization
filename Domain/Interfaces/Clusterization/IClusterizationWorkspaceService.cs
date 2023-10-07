@@ -1,5 +1,5 @@
-﻿using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
-using Domain.DTOs.ClusterizationDTOs.RequestDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

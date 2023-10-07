@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.TypeDTO;
 using Domain.Entities.Clusterization;
 using System;
 using System.Collections.Generic;

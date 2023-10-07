@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.YoutubeDTOs.CommentDTOs;
 using Domain.Entities.Clusterization;
 using System;

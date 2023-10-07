@@ -1,4 +1,5 @@
 ﻿using AutoMapper.Configuration.Conventions;
+using Domain.Entities.Clusterization.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Domain.Entities.Clusterization
     {
         public int Id { get; set; }
         
-        public ClusterizationAlgorithm Algorithm { get; set; }
-        public string AlgorithmId { get; set; }
+        public ClusterizationAbstactAlgorithm Algorithm { get; set; }
+        public int AlgorithmId { get; set; }
 
         public ClusterizationDimensionType DimensionType { get; set; }
         public int DimensionTypeId { get; set; }

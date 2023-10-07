@@ -1,10 +1,14 @@
 using Clusterization.Middlewares;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Services.Clusterization;
+using Domain.Services.Clusterization.Algorithms;
+using Domain.Services.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Services.Embeddings;
 using Domain.Services.TaskServices;
 using Domain.Services.Youtube;
@@ -76,6 +80,10 @@ builder.Services.AddScoped<IClusterizationWorkspaceService, ClusterizationWorksp
 
 builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();
 builder.Services.AddScoped<ILoadEmbeddingsService, LoadEmbeddingsService>();
+
+builder.Services.AddScoped<IGeneralClusterizationAlgorithmService, GeneralClusterizationAlgorithmService>();
+builder.Services.AddScoped<IClusterizationAlgorithmTypesService, ClusterizationAlgorithmTypesService>();
+builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO,KMeansAlgorithmDTO>, KMeansAlgorithmService>();
 
 builder.Services.AddControllersWithViews();
 

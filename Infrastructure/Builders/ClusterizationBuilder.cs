@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Embeddings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,7 +16,6 @@ namespace Infrastructure.Builders
         public static void BuildAll(ModelBuilder modelBuilder)
         {
             ClusterBuild(modelBuilder.Entity<Cluster>());
-            AlgorithmBuild(modelBuilder.Entity<ClusterizationAlgorithm>());
             ColorValueBuild(modelBuilder.Entity<ClusterizationColorValue>());
             DimensionTypeBuild(modelBuilder.Entity<ClusterizationDimensionType>());
             EntityBuild(modelBuilder.Entity<ClusterizationEntity>());
@@ -38,12 +38,6 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Profile)
                         .WithMany(e => e.Clusters)
                         .HasForeignKey(e => e.ProfileId);
-        }
-        public static void AlgorithmBuild(EntityTypeBuilder<ClusterizationAlgorithm> modelBuilder)
-        {
-            modelBuilder.HasMany(e => e.Profiles)
-                        .WithOne(e => e.Algorithm)
-                        .HasForeignKey(e => e.AlgorithmId);
         }
         public static void ColorValueBuild(EntityTypeBuilder<ClusterizationColorValue> modelBuilder)
         {

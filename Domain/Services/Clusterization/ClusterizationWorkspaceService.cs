@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
-using Domain.DTOs.ClusterizationDTOs.RequestDTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Youtube;

@@ -1,5 +1,5 @@
-﻿using Domain.DTOs.ClusterizationDTOs.ModelDTOs;
-using Domain.DTOs.ClusterizationDTOs.RequestDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Embeddings;
 using Microsoft.AspNetCore.Mvc;

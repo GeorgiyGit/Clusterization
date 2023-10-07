@@ -61,6 +61,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Алгоритм з такими налаштуваннями вже існує.
+        /// </summary>
+        public static string AlgorithmAlreadyExists {
+            get {
+                return ResourceManager.GetString("AlgorithmAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вказаний тип не існує.
+        /// </summary>
+        public static string ClusterizationAlgorithmTypeIdNotExist {
+            get {
+                return ResourceManager.GetString("ClusterizationAlgorithmTypeIdNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сталася помилка при завантажені ембедінгів.
         /// </summary>
         public static string EmbeddingsLoadingError {

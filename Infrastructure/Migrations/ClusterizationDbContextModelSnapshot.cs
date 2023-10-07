@@ -52,6 +52,59 @@ namespace Infrastructure.Migrations
                     b.ToTable("ClusterizationWorkspaceComment");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("ClusterizationAbstractAlgorithms");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ClusterizationAbstactAlgorithm");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAlgorithmType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClusterizationAlgorithmType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "KMeans",
+                            Description = "Впорядкування множини об'єктів у порівняно однорідні групи.",
+                            Name = "k-means"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.Clusterization.Cluster", b =>
                 {
                     b.Property<int>("Id")
@@ -74,24 +127,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("Clusters");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationAlgorithm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClusterizationAlgorithms");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationColorValue", b =>
@@ -217,9 +252,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AlgorithmId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("AlgorithmId")
+                        .HasColumnType("int");
 
                     b.Property<int>("DimensionTypeId")
                         .HasColumnType("int");
@@ -722,6 +756,19 @@ namespace Infrastructure.Migrations
                     b.ToTable("Videos");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.KMeansAlgorithm", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
+
+                    b.Property<int>("NumClusters")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Seed")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("KMeansAlgorithm");
+                });
+
             modelBuilder.Entity("ClusterClusterizationEntity", b =>
                 {
                     b.HasOne("Domain.Entities.Clusterization.Cluster", null)
@@ -750,6 +797,17 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("WorkspacesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
+                {
+                    b.HasOne("Domain.Entities.Clusterization.Algorithms.ClusterizationAlgorithmType", "Type")
+                        .WithMany("ClusterizationAlgorithms")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Cluster", b =>
@@ -830,7 +888,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationProfile", b =>
                 {
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationAlgorithm", "Algorithm")
+                    b.HasOne("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", "Algorithm")
                         .WithMany("Profiles")
                         .HasForeignKey("AlgorithmId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -980,9 +1038,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("Channel");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationAlgorithm", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
                 {
                     b.Navigation("Profiles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAlgorithmType", b =>
+                {
+                    b.Navigation("ClusterizationAlgorithms");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationColorValue", b =>

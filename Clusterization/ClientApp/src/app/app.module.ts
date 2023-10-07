@@ -52,6 +52,9 @@ import { WorkspaceFullPageComponent } from './features/clusterization/workspace/
 import { MoreActionSelectComponent } from './core/components/more-action-select/more-action-select.component';
 import { AddChannelCommentsToWorkspacePageComponent } from './features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component';
 import { AddVideoCommentsToWorkspaceComponent } from './features/clusterization/workspace/pages/add-video-comments-to-workspace/add-video-comments-to-workspace.component';
+import { ClusterizationAlgorithmTypesSelectComponent } from './features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component';
+import { AbstractAlgorithmAddPageComponent } from './features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component';
+import { AddKMeansAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +100,9 @@ import { AddVideoCommentsToWorkspaceComponent } from './features/clusterization/
     MoreActionSelectComponent,
     AddChannelCommentsToWorkspacePageComponent,
     AddVideoCommentsToWorkspaceComponent,
+    ClusterizationAlgorithmTypesSelectComponent,
+    AbstractAlgorithmAddPageComponent,
+    AddKMeansAlgorithmComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

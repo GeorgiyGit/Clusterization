@@ -1,0 +1,10 @@
+@import '/src/app/core/styles/base.scss';
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.centered{
+    display: flex;
+    justify-content: center;
+}

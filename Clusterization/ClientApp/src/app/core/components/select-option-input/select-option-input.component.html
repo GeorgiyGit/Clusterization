@@ -1,5 +1,5 @@
 <div class="input-cont select" (clickOutside)="close()">
-    <span class="material-symbols-outlined icon" translate="no"  (click)="toggleSelect($event)">category</span>
+    <span class="material-symbols-outlined icon" translate="no" [matTooltip]="matTooltipForIcon" (click)="toggleSelect($event)">category</span>
     <div class="custom-select"  (click)="toggleSelect($event)">
         <div class="selected-option">
           <span>{{ selectedOption.description }}</span>
