@@ -12,7 +12,7 @@ namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
     {
         public AlgorithmTypeProfile()
         {
-            CreateMap<ClusterizationAlgorithmType, SimpleAlgoritmTypeDTO>();
+            CreateMap<ClusterizationAlgorithmType, SimpleAlgorithmTypeDTO>();
         }
     }
 }

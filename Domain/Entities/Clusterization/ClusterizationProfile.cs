@@ -18,13 +18,18 @@ namespace Domain.Entities.Clusterization
         public ClusterizationDimensionType DimensionType { get; set; }
         public int DimensionTypeId { get; set; }
 
-
         public ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
 
         public ICollection<ClusterizationPointColors> PointColorsCollection { get; set; } = new HashSet<ClusterizationPointColors>();
 
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
+
+        public bool IsCalculated { get; set; }
+        public bool IsFullyCalculated { get; set; }
+
+        public int MinTileLevel { get; set; }
+        public int MaxTileLevel { get; set; }
 
         public ICollection<ClusterizationTile> Tiles { get; set; } = new HashSet<ClusterizationTile>();
     }

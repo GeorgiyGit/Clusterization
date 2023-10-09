@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs
 {
-    public class SimpleAlgoritmTypeDTO
+    public class SimpleAlgorithmTypeDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }

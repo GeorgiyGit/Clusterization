@@ -8,5 +8,8 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 {
     public class AddClusterizationProfileDTO
     {
+        public int AlgorithmId { get; set; }
+        public int DimensionTypeId { get; set; }
+        public int WorkspaceId { get; set; }
     }
 }

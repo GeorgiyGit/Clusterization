@@ -132,6 +132,12 @@
   <data name="JobIsAlreadyInQueue" xml:space="preserve">
     <value>JobIsAlreadyInQueue</value>
   </data>
+  <data name="ProfileAlreadyExist" xml:space="preserve">
+    <value>ProfileAlreadyExist</value>
+  </data>
+  <data name="ProfileNotFound" xml:space="preserve">
+    <value>ProfileNotFound</value>
+  </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>TaskNotFound</value>
   </data>

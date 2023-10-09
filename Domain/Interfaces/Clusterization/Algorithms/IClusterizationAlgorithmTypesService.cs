@@ -9,6 +9,6 @@ namespace Domain.Interfaces.Clusterization.Algorithms
 {
     public interface IClusterizationAlgorithmTypesService
     {
-        public Task<ICollection<SimpleAlgoritmTypeDTO>> GetAllTypes();
+        public Task<ICollection<SimpleAlgorithmTypeDTO>> GetAllTypes();
     }
 }

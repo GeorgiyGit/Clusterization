@@ -106,6 +106,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Такий самий профіль уже завантажено.
+        /// </summary>
+        public static string ProfileAlreadyExist {
+            get {
+                return ResourceManager.GetString("ProfileAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Профіль не знайдено.
+        /// </summary>
+        public static string ProfileNotFound {
+            get {
+                return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завдання не знайдено.
         /// </summary>
         public static string TaskNotFound {

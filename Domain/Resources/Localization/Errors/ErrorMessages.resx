@@ -132,6 +132,12 @@
   <data name="JobIsAlreadyInQueue" xml:space="preserve">
     <value>Схожа задача вже в черзі</value>
   </data>
+  <data name="ProfileAlreadyExist" xml:space="preserve">
+    <value>Такий самий профіль уже завантажено</value>
+  </data>
+  <data name="ProfileNotFound" xml:space="preserve">
+    <value>Профіль не знайдено</value>
+  </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>Завдання не знайдено</value>
   </data>

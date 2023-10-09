@@ -22,11 +22,11 @@ namespace Domain.Services.Clusterization.Algorithms
             this.repository = repository;
             this.mapper = mapper;
         }
-        public async Task<ICollection<SimpleAlgoritmTypeDTO>> GetAllTypes()
+        public async Task<ICollection<SimpleAlgorithmTypeDTO>> GetAllTypes()
         {
             var types = await repository.GetAsync();
 
-            return mapper.Map<ICollection<SimpleAlgoritmTypeDTO>>(types);
+            return mapper.Map<ICollection<SimpleAlgorithmTypeDTO>>(types);
         }
     }
 }
