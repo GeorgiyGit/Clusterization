@@ -18,7 +18,6 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
   ngOnInit(): void {
     this.algorithmTypesService.getAll().subscribe(res => {
       this.options = [];
-
       
       if(this.isNullAvailable==true){
         let nullOption:IOptionForSelectInput={

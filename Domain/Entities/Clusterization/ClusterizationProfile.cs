@@ -16,7 +16,7 @@ namespace Domain.Entities.Clusterization
         public int AlgorithmId { get; set; }
 
         public ClusterizationDimensionType DimensionType { get; set; }
-        public int DimensionTypeId { get; set; }
+        public int DimensionCount { get; set; }
 
         public ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
 

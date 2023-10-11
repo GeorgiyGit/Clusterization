@@ -1,0 +1,11 @@
+.cont{
+    display: flex;
+    gap: 10px;
+    
+    app-clusterization-dimension-types-input{
+        flex: 1;
+    }
+    app-clusterization-algorithm-types-select{
+        flex: 1;
+    }
+}

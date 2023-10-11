@@ -1,0 +1,21 @@
+@import '/src/app/core/styles/base.scss';
+
+.card{
+    background-color: $second-color-1;
+    //padding: 20px;
+    border-radius: 10px;
+
+    border: 0;
+    color: $first-color-3;
+
+    display: flex;
+    gap: 10px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+}

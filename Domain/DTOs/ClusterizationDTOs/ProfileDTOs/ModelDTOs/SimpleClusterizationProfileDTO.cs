@@ -11,9 +11,8 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
     public class SimpleClusterizationProfileDTO
     {
         public int Id { get; set; }
-        public string AlgorithmName { get; set; }
-        public int DimensionId { get; set; }
+        public int DimensionCount { get; set; }
 
-        public SimpleAlgorithmTypeDTO AlgorithmTypeDTO;
+        public SimpleAlgorithmTypeDTO AlgorithmType;
     }
 }

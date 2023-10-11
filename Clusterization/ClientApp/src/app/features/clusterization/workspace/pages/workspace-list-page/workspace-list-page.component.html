@@ -7,7 +7,7 @@
         <app-loader></app-loader>
     </div>
     <div class="centered" *ngIf="!isLoading && (workspaces==null || workspaces.length==0)">
-        <p class="nothing-text">Каналів не знайдено</p>
+        <p class="nothing-text">Робочих просторів не знайдено</p>
     </div>
     <app-workspace-list [workspaces]="workspaces" [class.disable]="isLoading"></app-workspace-list>
     <div class="centered" *ngIf="isLoadMoreAvailable">

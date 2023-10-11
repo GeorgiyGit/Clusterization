@@ -18,7 +18,6 @@ export class ClusterizationTypesSelectComponent implements OnInit {
     this.typesService.getAll().subscribe(res => {
       this.options = [];
 
-      
       if(this.isNullAvailable==true){
         let nullOption:IOptionForSelectInput={
           value:undefined,

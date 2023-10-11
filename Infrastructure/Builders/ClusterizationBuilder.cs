@@ -57,7 +57,7 @@ namespace Infrastructure.Builders
 
             modelBuilder.HasMany(e => e.Profiles)
                         .WithOne(e => e.DimensionType)
-                        .HasForeignKey(e => e.DimensionTypeId);
+                        .HasForeignKey(e => e.DimensionCount);
 
             modelBuilder.HasMany(e => e.DimensionValues)
                         .WithOne(e => e.DimensionType)
@@ -109,7 +109,7 @@ namespace Infrastructure.Builders
 
             modelBuilder.HasOne(e => e.DimensionType)
                         .WithMany(e => e.Profiles)
-                        .HasForeignKey(e => e.DimensionTypeId);
+                        .HasForeignKey(e => e.DimensionCount);
 
             modelBuilder.HasOne(e => e.Workspace)
                         .WithMany(e => e.Profiles)

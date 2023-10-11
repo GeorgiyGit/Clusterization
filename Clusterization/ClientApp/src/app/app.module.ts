@@ -55,6 +55,11 @@ import { AddVideoCommentsToWorkspaceComponent } from './features/clusterization/
 import { ClusterizationAlgorithmTypesSelectComponent } from './features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component';
 import { AbstractAlgorithmAddPageComponent } from './features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component';
 import { AddKMeansAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component';
+import { ClusterizationProfileCardComponent } from './features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component';
+import { ClusterizationProfileListComponent } from './features/clusterization/profiles/components/clusterization-profile-list/clusterization-profile-list.component';
+import { ClusterizationProfileListPageComponent } from './features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component';
+import { ClusterizationProfileSearchFilterComponent } from './features/clusterization/profiles/components/clusterization-profile-search-filter/clusterization-profile-search-filter.component';
+import { AbstractAlgorithmsSelectComponent } from './features/clusterization/algorithms/abstractAlgorithm/abstract-algorithms-select/abstract-algorithms-select.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +108,11 @@ import { AddKMeansAlgorithmComponent } from './features/clusterization/algorithm
     ClusterizationAlgorithmTypesSelectComponent,
     AbstractAlgorithmAddPageComponent,
     AddKMeansAlgorithmComponent,
+    ClusterizationProfileCardComponent,
+    ClusterizationProfileListComponent,
+    ClusterizationProfileListPageComponent,
+    ClusterizationProfileSearchFilterComponent,
+    AbstractAlgorithmsSelectComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

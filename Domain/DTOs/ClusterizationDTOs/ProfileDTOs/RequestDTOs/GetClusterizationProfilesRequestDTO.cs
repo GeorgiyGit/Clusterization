@@ -13,6 +13,6 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs
         public PageParametersDTO PageParameters { get; set; }
 
         public string? AlgorithmTypeId { get; set; }
-        public int? DimensionTypeId { get; set; }
+        public int? DimensionCount { get; set; }
     }
 }
