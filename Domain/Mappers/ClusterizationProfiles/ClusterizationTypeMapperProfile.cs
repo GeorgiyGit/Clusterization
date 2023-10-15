@@ -1,4 +1,5 @@
-﻿using Domain.DTOs.ClusterizationDTOs.TypeDTO;
+﻿using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
+using Domain.DTOs.ClusterizationDTOs.TypeDTO;
 using Domain.Entities.Clusterization;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,9 @@ namespace Domain.Mappers.ClusterizationProfiles
     {
         public ClusterizationTypeMapperProfile()
         {
-            CreateMap<ClusterizationType, ClusterizationTypeDTO>();
+            CreateMap<ClusterizationProfile, ClusterizationTypeDTO>();
+
+            CreateMap<ClusterizationProfile, SimpleClusterizationProfileDTO>();
         }
     }
 }

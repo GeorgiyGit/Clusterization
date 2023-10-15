@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Mappers
 {
-    internal class ChannelProfile : AutoMapper.Profile
+    public class ChannelProfile : AutoMapper.Profile
     {
         public ChannelProfile()
         {

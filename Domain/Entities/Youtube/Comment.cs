@@ -3,11 +3,14 @@ using Domain.Entities.Embeddings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Entities.Youtube
 {
+    [DataContract(IsReference = true)]
     public class Comment: YoutubePublishingDate
     {
         public string Id { get; set; }
