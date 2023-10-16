@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Mappers
 {
-    internal class VideoProfile : AutoMapper.Profile
+    public class VideoProfile : AutoMapper.Profile
     {
         public VideoProfile()
         {

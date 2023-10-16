@@ -73,11 +73,124 @@ namespace Clusterization.Tests.Controllers.Youtube
         }
 
         #region load_by_id
+        [Fact]
+        public async void ChannelsController_LoadChannelById_ReturnsOkResult()
+        {
+            //Arrange
+            var dbContext = await GetDatabaseContext();
+            var channelRepository = new Repository<Domain.Entities.Youtube.Channel>(dbContext);
 
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
+            var mapper = new Mapper(mapperConfiguration);
+
+            var inMemorySettings = new Dictionary<string, string> {
+                    {"YoutubeOptions:ApiKey", StaticData.YoutubeOptions_ApiKey},
+                    {"YoutubeOptions:ApplicationName", "SectionValue"},
+            };
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();
+
+            var channelService = new YoutubeChannelService(channelRepository,
+                                                         A.Fake<IStringLocalizer<ErrorMessages>>(),
+                                                         configuration,
+                                                         mapper);
+
+
+            var controller = new ChannelsController(channelService);
+
+            string id = "UC_0MucSdwSqy8rJkSZpQ1kw";
+
+            //Act
+            var result = await controller.LoadChannelById(id);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<OkResult>();
+        }
+
+        [Fact]
+        public async void ChannelsController_LoadChannelById_ThrowException()
+        {
+            //Arrange
+            var dbContext = await GetDatabaseContext();
+            var channelRepository = new Repository<Domain.Entities.Youtube.Channel>(dbContext);
+
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
+            var mapper = new Mapper(mapperConfiguration);
+
+            var inMemorySettings = new Dictionary<string, string> {
+                    {"YoutubeOptions:ApiKey", StaticData.YoutubeOptions_ApiKey},
+                    {"YoutubeOptions:ApplicationName", "SectionValue"},
+            };
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();
+
+            var channelService = new YoutubeChannelService(channelRepository,
+                                                         A.Fake<IStringLocalizer<ErrorMessages>>(),
+                                                         configuration,
+                                                         mapper);
+
+
+            var controller = new ChannelsController(channelService);
+
+            string id = "5";
+
+            //Act
+            Func<Task> result = async () => await controller.LoadChannelById(id);
+
+            //Assert
+            await result.Should().ThrowAsync<HttpException>();
+        }
         #endregion
 
         #region load_many_by_ids
+        [Fact]
+        public async void ChannelsController_LoadMultipleChannels_ReturnsOkResult()
+        {
+            //Arrange
+            var dbContext = await GetDatabaseContext();
+            var channelRepository = new Repository<Domain.Entities.Youtube.Channel>(dbContext);
 
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
+            var mapper = new Mapper(mapperConfiguration);
+
+            var inMemorySettings = new Dictionary<string, string> {
+                    {"YoutubeOptions:ApiKey", StaticData.YoutubeOptions_ApiKey},
+                    {"YoutubeOptions:ApplicationName", "SectionValue"},
+            };
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();
+
+            var channelService = new YoutubeChannelService(channelRepository,
+                                                         A.Fake<IStringLocalizer<ErrorMessages>>(),
+                                                         configuration,
+                                                         mapper);
+
+
+            var controller = new ChannelsController(channelService);
+
+            var request = new LoadManyByIdsRequest()
+            {
+                Ids = new List<string>()
+                {
+                    "UC_0MucSdwSqy8rJkSZpQ1kw",
+                    "UCpJFDcvGuDMVE7GoAvkrGmw"
+                }
+            };
+
+            //Act
+            var result = await controller.LoadMultipleChannels(request);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<OkResult>();
+        }
         #endregion
 
         #region get_by_id
@@ -525,7 +638,6 @@ namespace Clusterization.Tests.Controllers.Youtube
             values[0].Should().NotBeNull();
             values[0].Id.Should().Be("5");
         }
-
         #endregion
 
         #region get_without_loading

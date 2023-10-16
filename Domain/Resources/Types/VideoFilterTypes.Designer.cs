@@ -22,7 +22,7 @@ namespace Domain.Resources.Types {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class VideoFilterTypes {
+    public class VideoFilterTypes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Domain.Resources.Types {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.VideoFilterTypes", typeof(VideoFilterTypes).Assembly);
@@ -51,7 +51,7 @@ namespace Domain.Resources.Types {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByCommentsDesc.
         /// </summary>
-        internal static string ByCommentsDesc {
+        public static string ByCommentsDesc {
             get {
                 return ResourceManager.GetString("ByCommentsDesc", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByCommentsInc.
         /// </summary>
-        internal static string ByCommentsInc {
+        public static string ByCommentsInc {
             get {
                 return ResourceManager.GetString("ByCommentsInc", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByTimeDesc.
         /// </summary>
-        internal static string ByTimeDesc {
+        public static string ByTimeDesc {
             get {
                 return ResourceManager.GetString("ByTimeDesc", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByTimeInc.
         /// </summary>
-        internal static string ByTimeInc {
+        public static string ByTimeInc {
             get {
                 return ResourceManager.GetString("ByTimeInc", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByViewsDesc.
         /// </summary>
-        internal static string ByViewsDesc {
+        public static string ByViewsDesc {
             get {
                 return ResourceManager.GetString("ByViewsDesc", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Domain.Resources.Types {
         /// <summary>
         ///   Looks up a localized string similar to ByViewsInc.
         /// </summary>
-        internal static string ByViewsInc {
+        public static string ByViewsInc {
             get {
                 return ResourceManager.GetString("ByViewsInc", resourceCulture);
             }

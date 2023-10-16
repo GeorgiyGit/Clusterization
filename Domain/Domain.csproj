@@ -108,7 +108,7 @@
       <LastGenOutput>TaskStates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\VideoFilterTypes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>VideoFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
