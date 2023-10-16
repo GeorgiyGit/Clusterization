@@ -7,10 +7,14 @@ using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Tasks;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Types;
+using Hangfire;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,16 +32,21 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<Comment> comments_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
-
+        private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IMyTaskService taskService;
         public ClusterizationWorkspaceService(IRepository<ClusterizationWorkspace> repository,
                                               IStringLocalizer<ErrorMessages> localizer,
                                               IMapper mapper,
-                                              IRepository<Comment> comments_repository)
+                                              IRepository<Comment> comments_repository,
+                                              IBackgroundJobClient backgroundJobClient,
+                                              IMyTaskService taskService)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
             this.comments_repository = comments_repository;
+            this.backgroundJobClient = backgroundJobClient;
+            this.taskService = taskService;
         }
 
         #region add-update
@@ -75,7 +84,6 @@ namespace Domain.Services.Clusterization
 
             return mapper.Map<ClusterizationWorkspaceDTO>(workspace);
         }
-
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(GetWorkspacesRequest request)
         {
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;
@@ -112,30 +120,99 @@ namespace Domain.Services.Clusterization
         #region add-entity
         public async Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+            backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request));
+        }
+        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request)
+        {
+            var taskId = await taskService.CreateTask("Додавання коментарів");
+            float percent = 0f;
 
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
-            Expression<Func<Comment, bool>> filterCondition = e => true;
-
-            if(request.DateFrom!=null || request.DateTo!=null)
+            try
             {
-                if (request.IsVideoDateCount)
+                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+
+                if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+
+                Expression<Func<Comment, bool>> filterCondition = e => true;
+
+                if (request.DateFrom != null || request.DateTo != null)
                 {
-                    if (request.DateFrom != null && request.DateTo != null)
+                    if (request.IsVideoDateCount)
                     {
-                        filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom && e.Video.PublishedAtDateTimeOffset < request.DateTo;
-                    }
-                    else if (request.DateFrom != null)
-                    {
-                        filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom;
+                        if (request.DateFrom != null && request.DateTo != null)
+                        {
+                            filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom && e.Video.PublishedAtDateTimeOffset < request.DateTo;
+                        }
+                        else if (request.DateFrom != null)
+                        {
+                            filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom;
+                        }
+                        else
+                        {
+                            filterCondition = e => e.Video.PublishedAtDateTimeOffset < request.DateTo;
+                        }
                     }
                     else
                     {
-                        filterCondition = e => e.Video.PublishedAtDateTimeOffset < request.DateTo;
+                        if (request.DateFrom != null && request.DateTo != null)
+                        {
+                            filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom && e.PublishedAtDateTimeOffset < request.DateTo;
+                        }
+                        else if (request.DateFrom != null)
+                        {
+                            filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom;
+                        }
+                        else
+                        {
+                            filterCondition = e => e.PublishedAtDateTimeOffset < request.DateTo;
+                        }
                     }
                 }
-                else
+
+                var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Comment.Workspaces)}")).Take(request.MaxCount);
+
+                foreach (var comment in comments)
+                {
+                    if (!workspace.Comments.Contains(comment))
+                    {
+                        workspace.Comments.Add(comment);
+                        comment.Workspaces.Add(workspace);
+                    }
+                }
+
+                await repository.SaveChangesAsync();
+
+                await taskService.ChangeTaskPercent(taskId, 100f);
+                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+            }
+            catch
+            {
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+            }
+        }
+
+        public async Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request)
+        {
+            backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request));
+        }
+        public async Task LoadCommentsByVideosBackgroundJob(AddCommentsToWorkspaceByVideosRequest request)
+        {
+            var taskId = await taskService.CreateTask("Додавання коментарів");
+            float percent = 0f;
+
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+
+            try
+            {
+                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+
+                if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+
+                Expression<Func<Comment, bool>> filterCondition = e => true;
+
+                if (request.DateFrom != null || request.DateTo != null)
                 {
                     if (request.DateFrom != null && request.DateTo != null)
                     {
@@ -150,60 +227,30 @@ namespace Domain.Services.Clusterization
                         filterCondition = e => e.PublishedAtDateTimeOffset < request.DateTo;
                     }
                 }
-            }
 
-            var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Comment.Workspaces)}")).Take(request.MaxCount);
-
-            foreach(var comment in comments)
-            {
-                if (!workspace.Comments.Contains(comment))
+                foreach (var id in request.VideoIds)
                 {
-                    workspace.Comments.Add(comment);
-                    comment.Workspaces.Add(workspace);
-                }
-            }
+                    var comments = (await comments_repository.GetAsync(c => c.Video.Id == id, includeProperties: $"{nameof(Comment.Video)},{nameof(Comment.Workspaces)}")).Take(request.MaxCountInVideo);
 
-            await repository.SaveChangesAsync();
-        }
-        public async Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request)
-        {
-            var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
-
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
-
-            Expression<Func<Comment, bool>> filterCondition = e => true;
-
-            if (request.DateFrom != null || request.DateTo != null)
-            {
-                if (request.DateFrom != null && request.DateTo != null)
-                {
-                    filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom && e.PublishedAtDateTimeOffset < request.DateTo;
-                }
-                else if (request.DateFrom != null)
-                {
-                    filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom;
-                }
-                else
-                {
-                    filterCondition = e => e.PublishedAtDateTimeOffset < request.DateTo;
-                }
-            }
-
-            foreach(var id in request.VideoIds)
-            {
-                var comments = (await comments_repository.GetAsync(c => c.Video.Id == id, includeProperties: $"{nameof(Comment.Video)},{nameof(Comment.Workspaces)}")).Take(request.MaxCountInVideo);
-
-                foreach (var comment in comments)
-                {
-                    if (!workspace.Comments.Contains(comment))
+                    foreach (var comment in comments)
                     {
-                        workspace.Comments.Add(comment);
-                        comment.Workspaces.Add(workspace);
+                        if (!workspace.Comments.Contains(comment))
+                        {
+                            workspace.Comments.Add(comment);
+                            comment.Workspaces.Add(workspace);
+                        }
                     }
                 }
-            }
 
-            await repository.SaveChangesAsync();
+                await repository.SaveChangesAsync();
+
+                await taskService.ChangeTaskPercent(taskId, 100f);
+                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+            }
+            catch
+            {
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+            }
         }
         #endregion
        

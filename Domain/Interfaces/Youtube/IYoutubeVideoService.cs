@@ -13,7 +13,7 @@ namespace Domain.Interfaces.Youtube
     public interface IYoutubeVideoService
     {
         public Task LoadVideoById(string id);
-        public Task LoadChannelVideosHangFire(LoadOptions options);
+        public Task LoadChannelVideos(LoadOptions options);
         public Task LoadManyByIds(ICollection<string> ids);
 
         public Task<SimpleVideoDTO> GetLoadedVideoById(string id);

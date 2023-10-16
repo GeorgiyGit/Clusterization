@@ -13,6 +13,7 @@ using Domain.Services.TaskServices;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using Hangfire;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System;
@@ -36,6 +37,7 @@ namespace Domain.Services.Youtube
         private readonly IMapper mapper;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMyTaskService taskService;
+        private readonly IBackgroundJobClient backgroundJobClient;
         public YoutubeCommentsService(IRepository<Entities.Youtube.Comment> repository,
                                       IConfiguration configuration,
                                       IPrivateYoutubeChannelService privateChannelService,
@@ -44,7 +46,8 @@ namespace Domain.Services.Youtube
                                       IYoutubeChannelService channelService,
                                       IMapper mapper,
                                       IStringLocalizer<ErrorMessages> localizer,
-                                      IMyTaskService taskService)
+                                      IMyTaskService taskService,
+                                      IBackgroundJobClient backgroundJobClient)
         {
             this.repository = repository;
             this.privateChannelService = privateChannelService;
@@ -54,6 +57,7 @@ namespace Domain.Services.Youtube
             this.mapper = mapper;
             this.localizer = localizer;
             this.taskService = taskService;
+            this.backgroundJobClient = backgroundJobClient;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -62,10 +66,15 @@ namespace Domain.Services.Youtube
                 ApiKey = youtubeOptions["ApiKey"],
                 ApplicationName = youtubeOptions["ApplicationName"]
             });
+
         }
 
         #region load
         public async Task LoadCommentsFromVideo(LoadOptions options)
+        {
+            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options));
+        }
+        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;
@@ -75,7 +84,7 @@ namespace Domain.Services.Youtube
                 isNewVideo = true;
             }
 
-            var taskId = await taskService.CreateTask("Завантаження відео");
+            var taskId = await taskService.CreateTask("Завантаження коментарів");
             float percent = 0f;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
@@ -162,10 +171,12 @@ namespace Domain.Services.Youtube
 
                         await taskService.ChangeTaskPercent(taskId, percent);
                     }
+
                     await repository.SaveChangesAsync();
 
                     if (nextPageToken == "" || nextPageToken == null) break;
                 }
+
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }

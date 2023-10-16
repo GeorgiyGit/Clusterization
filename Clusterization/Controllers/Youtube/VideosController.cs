@@ -26,7 +26,7 @@ namespace Clusterization.Controllers.Youtube
         [HttpPost("load_all_by_channel")]
         public async Task<IActionResult> LoadVideosByChannel([FromBody] LoadOptions options)
         {
-            await service.LoadChannelVideosHangFire(options);
+            await service.LoadChannelVideos(options);
             return Ok();
         }
 

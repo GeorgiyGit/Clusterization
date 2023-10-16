@@ -43,7 +43,6 @@ namespace Domain.Services.Youtube
         private readonly IMapper mapper;
         private readonly IMyTaskService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
-        private const string QUEUE_NAME = "load";
         public YoutubeVideoService(IRepository<Entities.Youtube.Video> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
@@ -71,11 +70,11 @@ namespace Domain.Services.Youtube
         }
 
         #region load
-        public async Task LoadChannelVideosHangFire(DTOs.YoutubeDTOs.Requests.LoadOptions options)
-        {
-            backgroundJobClient.Enqueue(() => LoadChannelVideos(options));
-        }
         public async Task LoadChannelVideos(DTOs.YoutubeDTOs.Requests.LoadOptions options)
+        {
+            backgroundJobClient.Enqueue(() => LoadChannelVideosBackgroundJob(options));
+        }
+        public async Task LoadChannelVideosBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options)
         {
             string channelId = options.ParentId;
 
@@ -210,6 +209,7 @@ namespace Domain.Services.Youtube
 
                     if (nextPageToken == "" || nextPageToken == null) break;
                 }
+
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }

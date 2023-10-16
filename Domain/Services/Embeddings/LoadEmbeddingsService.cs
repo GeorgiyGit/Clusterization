@@ -4,8 +4,11 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Embeddings;
+using Domain.Interfaces.Tasks;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Types;
+using Domain.Services.TaskServices;
 using Hangfire;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
@@ -15,6 +18,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +32,7 @@ namespace Domain.Services.Embeddings
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IEmbeddingsService embeddingsService;
         private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IMyTaskService taskService;
 
         private readonly string apiKey;
 
@@ -37,14 +42,15 @@ namespace Domain.Services.Embeddings
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IEmbeddingsService embeddingsService,
-                                     IBackgroundJobClient backgroundJobClient)
+                                     IBackgroundJobClient backgroundJobClient,
+                                     IMyTaskService taskService)
         {
             this.comment_repository = comment_repository;
             this.DimensionTypeService = DimensionTypeService;
             this.workspace_repository = workspace_repository;
             this.localizer = localizer;
             this.backgroundJobClient = backgroundJobClient;
-
+            this.taskService = taskService;
 
             var openAIOptions = configuration.GetSection("OpenAIOptions");
 
@@ -53,9 +59,9 @@ namespace Domain.Services.Embeddings
         }
         public async Task LoadEmbeddingsByWorkspace(int workspaceId)
         {
-            backgroundJobClient.Enqueue(() => LoadEmbeddingsBackProcess(workspaceId));
+            backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId));
         }
-        private async Task LoadEmbeddingsBackProcess(int workspaceId)
+        private async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId)
         {
             var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
 
@@ -70,58 +76,72 @@ namespace Domain.Services.Embeddings
             var Dimensions = (await DimensionTypeService.GetAll()).ToList();
 
             var comments = await comment_repository.GetAsync(c => c.Workspaces.Contains(workspace), includeProperties: $"{nameof(Comment.Workspaces)},{nameof(Comment.EmbeddingData)}");
-            foreach (var comment in comments)
+
+            var taskId = await taskService.CreateTask("Завантаження ембедингів");
+            float percent = 0f;
+
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            try
             {
-                if (comment.EmbeddingData != null) continue;
-
-                var inputText = comment.TextOriginal;
-
-                string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
-
-                using (var httpClient = new HttpClient())
+                foreach (var comment in comments)
                 {
-                    // Set the "Authorization" header
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                    if (comment.EmbeddingData != null) continue;
 
-                    // Create the HTTP request
-                    var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+                    var inputText = comment.TextOriginal;
 
-                    // Set the "Content-Type" header on the content
-                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                    string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
 
-                    var response = await httpClient.PostAsync(apiUrl, content);
-
-                    // Check if the response is successful
-                    if (response.IsSuccessStatusCode)
+                    using (var httpClient = new HttpClient())
                     {
-                        string responseContent = await response.Content.ReadAsStringAsync();
+                        // Set the "Authorization" header
+                        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
-                        var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<EmbeddingDataLoadModel>(responseContent);
+                        // Create the HTTP request
+                        var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
-                        // Extract the embeddings as a List<float>
-                        List<double> embeddings = responseObject.Data[0].Embedding;
+                        // Set the "Content-Type" header on the content
+                        content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
+                        var response = await httpClient.PostAsync(apiUrl, content);
 
-                        for(int i = 0; i < Dimensions.Count; i++)
+                        // Check if the response is successful
+                        if (response.IsSuccessStatusCode)
                         {
-                            if (Dimensions[i].DimensionCount == 1536)
-                            {
-                                await embeddingsService.AddEmbeddingToComment(embeddings.ToArray(), 1536, comment);
-                            }
-                            else
-                            {
-                                var res = await JohnsonLindenstraussProjection(embeddings.ToArray(), 1536, Dimensions[i].DimensionCount);
+                            string responseContent = await response.Content.ReadAsStringAsync();
 
-                                await embeddingsService.AddEmbeddingToComment(res, Dimensions[i].DimensionCount, comment);
-                            }
+                            var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<EmbeddingDataLoadModel>(responseContent);
 
+                            // Extract the embeddings as a List<float>
+                            List<double> embeddings = responseObject.Data[0].Embedding;
+
+
+                            for (int i = 0; i < Dimensions.Count; i++)
+                            {
+                                if (Dimensions[i].DimensionCount == 1536)
+                                {
+                                    await embeddingsService.AddEmbeddingToComment(embeddings.ToArray(), 1536, comment);
+                                }
+                                else
+                                {
+                                    var res = await JohnsonLindenstraussProjection(embeddings.ToArray(), 1536, Dimensions[i].DimensionCount);
+
+                                    await embeddingsService.AddEmbeddingToComment(res, Dimensions[i].DimensionCount, comment);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            throw new HttpException(localizer[ErrorMessagePatterns.EmbeddingsLoadingError], response.StatusCode);
                         }
                     }
-                    else
-                    {
-                        throw new HttpException(localizer[ErrorMessagePatterns.EmbeddingsLoadingError], response.StatusCode);
-                    }
                 }
+
+                await taskService.ChangeTaskPercent(taskId, 100f);
+                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+            }
+            catch{
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
             }
         }
 
