@@ -18,7 +18,7 @@ namespace Clusterization.Controllers.Clusterization.Algorithms
         [HttpGet("get_all")]
         public async Task<IActionResult> GetAllAlgorithmTypes()
         {
-            return Ok(await service.GetAllTypes());
+            return Ok(await service.GetAll());
         }
     }
 }

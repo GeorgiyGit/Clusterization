@@ -38,10 +38,10 @@ export class ClusterizationWorkspaceService {
     return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_by_id/"+id);
   }
   getWorkspaces(request:IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
-    return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_workspaces",request);
+    return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection",request);
   }
 
   embeddingData(id:number): Observable<any> {
-    return this.http.post(this.controllerUrl + "embedding_data/"+id,null);
+    return this.http.post(this.controllerUrl + "load_embedding_data/"+id,null);
   }
 }

@@ -22,14 +22,14 @@ namespace Clusterization.Controllers.Youtube
             return Ok();
         }
 
-        [HttpGet("get_by_id/{id}")]
-        public async Task<IActionResult> GetLoadedCommentById([FromRoute] string id)
+        [HttpGet("get_loaded_by_id/{id}")]
+        public async Task<IActionResult> GetLoadedById([FromRoute] string id)
         {
             return Ok(await service.GetLoadedById(id));
         }
 
-        [HttpPost("get_many")]
-        public async Task<IActionResult> GetLoadedComments([FromBody] GetCommentsRequest request)
+        [HttpPost("get_loaded_collection")]
+        public async Task<IActionResult> GetLoadedCollection([FromBody] GetCommentsRequest request)
         {
             return Ok(await service.GetLoadedCollection(request));
         }

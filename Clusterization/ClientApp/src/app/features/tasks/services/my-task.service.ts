@@ -11,7 +11,7 @@ export class MyTaskService {
   controllerUrl: string;
 
   constructor(private http: HttpClient) {
-    this.controllerUrl = environment.apiUrl + "myTask/";
+    this.controllerUrl = environment.apiUrl + "myTasks/";
   }
 
   getAll(): Observable<IMyTask[]> {

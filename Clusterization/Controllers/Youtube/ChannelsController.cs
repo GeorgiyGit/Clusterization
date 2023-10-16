@@ -15,27 +15,27 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_by_id/{id}")]
-        public async Task<IActionResult> LoadChannelById([FromRoute] string id)
+        public async Task<IActionResult> LoadById([FromRoute] string id)
         {
             await service.LoadById(id);
             return Ok();
         }
         [HttpPost("load_many_by_ids")]
-        public async Task<IActionResult> LoadMultipleChannels([FromBody] LoadManyByIdsRequest request)
+        public async Task<IActionResult> LoadManyByIds([FromBody] LoadManyByIdsRequest request)
         {
             await service.LoadManyByIds(request.Ids);
             return Ok();
         }
 
         [HttpGet]
-        [Route("get_by_id/{id}")]
-        public async Task<IActionResult> GetLoadedChannelById([FromRoute] string id)
+        [Route("get_loaded_by_id/{id}")]
+        public async Task<IActionResult> GetLoadedById([FromRoute] string id)
         {
             return Ok(await service.GetLoadedById(id));
         }
 
-        [HttpPost("get_many")]
-        public async Task<IActionResult> GetLoadedChannels([FromBody] GetChannelsRequest request)
+        [HttpPost("get_loaded_collection")]
+        public async Task<IActionResult> GetLoadedCollection([FromBody] GetChannelsRequest request)
         {
             return Ok(await service.GetLoadedCollection(request));
         }

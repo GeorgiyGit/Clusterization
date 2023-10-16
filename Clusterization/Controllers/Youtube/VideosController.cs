@@ -17,13 +17,13 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_by_id/{id}")]
-        public async Task<IActionResult> LoadVideoById([FromRoute] string id)
+        public async Task<IActionResult> LoadById([FromRoute] string id)
         {
             await service.LoadById(id);
             return Ok();
         }
 
-        [HttpPost("load_all_by_channel")]
+        [HttpPost("load_from_channel")]
         public async Task<IActionResult> LoadFromChannel([FromBody] LoadOptions options)
         {
             await service.LoadFromChannel(options);
@@ -37,14 +37,14 @@ namespace Clusterization.Controllers.Youtube
             return Ok();
         }
 
-        [HttpGet("get_by_id/{id}")]
-        public async Task<IActionResult> GetLoadedVideoById([FromRoute] string id)
+        [HttpGet("get_loaded_by_id/{id}")]
+        public async Task<IActionResult> GetLoadedById([FromRoute] string id)
         {
             return Ok(await service.GetLoadedById(id));
         }
 
-        [HttpPost("get_many")]
-        public async Task<IActionResult> GetLoadedVideos([FromBody] GetVideosRequest request)
+        [HttpPost("get_loaded_collection")]
+        public async Task<IActionResult> GetLoadedCollection([FromBody] GetVideosRequest request)
         {
             return Ok(await service.GetLoadedCollection(request));
         }

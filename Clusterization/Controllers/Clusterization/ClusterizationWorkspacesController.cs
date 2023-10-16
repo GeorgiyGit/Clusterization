@@ -47,19 +47,19 @@ namespace Clusterization.Controllers.Clusterization
 
 
         [HttpGet("get_by_id/{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetFullById([FromRoute] int id)
         {
             return Ok(await service.GetFullById(id));
         }
-        [HttpPost("get_workspaces")]
-        public async Task<IActionResult> GetMany([FromBody] GetWorkspacesRequest request)
+        [HttpPost("get_collection")]
+        public async Task<IActionResult> GetCollection([FromBody] GetWorkspacesRequest request)
         {
             return Ok(await service.GetCollection(request));
         }
 
 
-        [HttpPost("embedding_data/{id}")]
-        public async Task<IActionResult> EmbeddingData([FromRoute] int id)
+        [HttpPost("load_embedding_data/{id}")]
+        public async Task<IActionResult> LoadEmbeddingData([FromRoute] int id)
         {
             await embeddingsService.LoadEmbeddingsByWorkspace(id);
             return Ok();

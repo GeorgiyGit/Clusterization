@@ -13,9 +13,7 @@ namespace Domain.Mappers.ClusterizationProfiles
     {
         public ClusterizationTypeMapperProfile()
         {
-            CreateMap<ClusterizationProfile, ClusterizationTypeDTO>();
-
-            CreateMap<ClusterizationProfile, SimpleClusterizationProfileDTO>();
+            CreateMap<ClusterizationType, ClusterizationTypeDTO>();
         }
     }
 }

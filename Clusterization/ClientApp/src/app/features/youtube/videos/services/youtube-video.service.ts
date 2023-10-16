@@ -25,17 +25,17 @@ export class YoutubeVideoService {
   }
 
   loadByChannel(options:IVideoLoadOptions): Observable<any> {
-    return this.http.post(this.controllerUrl + "load_all_by_channel",options);
+    return this.http.post(this.controllerUrl + "load_from_channel",options);
   }
   loadManyByIds(ids:string[]): Observable<any> {
     return this.http.post(this.controllerUrl + "load_many_by_ids",{ids:ids});
   }
 
   getById(id:string): Observable<ISimpleVideo> {
-    return this.http.get<ISimpleVideo>(this.controllerUrl + "get_by_id/"+id);
+    return this.http.get<ISimpleVideo>(this.controllerUrl + "get_loaded_by_id/"+id);
   }
   getMany(request:IGetVideosRequest): Observable<ISimpleVideo[]> {
-    return this.http.post<ISimpleVideo[]>(this.controllerUrl + "get_many",request);
+    return this.http.post<ISimpleVideo[]>(this.controllerUrl + "get_loaded_collection",request);
   }
 
   getWithoutLoading(name:string,nextPageToken:string | undefined, channelId:string | undefined,filterType:string): Observable<IVideosWithoutLoadingResponse> {

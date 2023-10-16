@@ -25,10 +25,10 @@ export class YoutubeChannelService {
   }
 
   getById(id:string): Observable<ISimpleChannel> {
-    return this.http.get<ISimpleChannel>(this.controllerUrl + "get_by_id/"+id);
+    return this.http.get<ISimpleChannel>(this.controllerUrl + "get_loaded_by_id/"+id);
   }
   getMany(request:IGetChannelsRequest): Observable<ISimpleChannel[]> {
-    return this.http.post<ISimpleChannel[]>(this.controllerUrl + "get_many/",request);
+    return this.http.post<ISimpleChannel[]>(this.controllerUrl + "get_loaded_collection/",request);
   }
 
   getWithoutLoading(name:string,nextPageToken:string | undefined,filterType:string): Observable<IChannelsWithoutLoadingResponse> {
