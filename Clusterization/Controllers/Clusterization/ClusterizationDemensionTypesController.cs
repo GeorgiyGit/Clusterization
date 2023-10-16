@@ -9,8 +9,8 @@ namespace Clusterization.Controllers.Clusterization
     [ApiController]
     public class ClusterizationDimensionTypesController:ControllerBase
     {
-        private readonly IClusterizationDimensionTypeService service;
-        public ClusterizationDimensionTypesController(IClusterizationDimensionTypeService service)
+        private readonly IClusterizationDimensionTypesService service;
+        public ClusterizationDimensionTypesController(IClusterizationDimensionTypesService service)
         {
             this.service = service;
         }

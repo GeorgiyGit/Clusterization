@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {
-    public class ClusterizationTypeService : IClusterizationTypeService
+    public class ClusterizationTypeService : IClusterizationTypesService
     {
         private readonly IRepository<ClusterizationType> repository;
         private readonly IMapper mapper;

@@ -16,14 +16,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.TaskServices
 {
-    public class MyTaskService : IMyTaskService
+    public class MyTasksService : IMyTasksService
     {
         private readonly IRepository<MyTask> task_repository;
         private readonly IRepository<MyTaskState> state_repository;
         private readonly IMapper mapper;
         private readonly IStringLocalizer<ErrorMessages> localizer;
 
-        public MyTaskService(IRepository<MyTask> task_repository,
+        public MyTasksService(IRepository<MyTask> task_repository,
                              IRepository<MyTaskState> state_repository,
                              IMapper mapper,
                              IStringLocalizer<ErrorMessages> localizer)

@@ -30,23 +30,23 @@ namespace Domain.Services.Youtube
     {
         private readonly IRepository<Entities.Youtube.Comment> repository;
         private readonly YouTubeService youtubeService;
-        private readonly IPrivateYoutubeChannelService privateChannelService;
-        private readonly IPrivateYoutubeVideoService privateVideoService;
+        private readonly IPrivateYoutubeChannelsService privateChannelService;
+        private readonly IPrivateYoutubeVideosService privateVideoService;
         private readonly IYoutubeVideoService videoService;
-        private readonly IYoutubeChannelService channelService;
+        private readonly IYoutubeChannelsService channelService;
         private readonly IMapper mapper;
         private readonly IStringLocalizer<ErrorMessages> localizer;
-        private readonly IMyTaskService taskService;
+        private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
         public YoutubeCommentsService(IRepository<Entities.Youtube.Comment> repository,
                                       IConfiguration configuration,
-                                      IPrivateYoutubeChannelService privateChannelService,
-                                      IPrivateYoutubeVideoService privateVideoService,
+                                      IPrivateYoutubeChannelsService privateChannelService,
+                                      IPrivateYoutubeVideosService privateVideoService,
                                       IYoutubeVideoService videoService,
-                                      IYoutubeChannelService channelService,
+                                      IYoutubeChannelsService channelService,
                                       IMapper mapper,
                                       IStringLocalizer<ErrorMessages> localizer,
-                                      IMyTaskService taskService,
+                                      IMyTasksService taskService,
                                       IBackgroundJobClient backgroundJobClient)
         {
             this.repository = repository;
@@ -70,7 +70,7 @@ namespace Domain.Services.Youtube
         }
 
         #region load
-        public async Task LoadCommentsFromVideo(LoadOptions options)
+        public async Task LoadFromVideo(LoadOptions options)
         {
             backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options));
         }
@@ -80,7 +80,7 @@ namespace Domain.Services.Youtube
             bool isNewVideo = false;
             if ((await privateVideoService.GetById(videoId)) == null)
             {
-                await videoService.LoadVideoById(videoId);
+                await videoService.LoadById(videoId);
                 isNewVideo = true;
             }
 
@@ -188,7 +188,7 @@ namespace Domain.Services.Youtube
         #endregion
 
         #region get
-        public async Task<CommentDTO> GetLoadedCommentById(string commentId)
+        public async Task<CommentDTO> GetLoadedById(string commentId)
         {
             var comment = (await repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.Youtube.Comment.Video)},{nameof(Entities.Youtube.Comment.Channel)}")).FirstOrDefault();
 
@@ -196,13 +196,13 @@ namespace Domain.Services.Youtube
 
             return mapper.Map<CommentDTO>(comment);
         }
-        public async Task<ICollection<CommentDTO>> GetLoadedComments(GetCommentsRequest request)
+        public async Task<ICollection<CommentDTO>> GetLoadedCollection(GetCommentsRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
                 try
                 {
-                    var video = await GetLoadedCommentById(request.FilterStr);
+                    var video = await GetLoadedById(request.FilterStr);
 
                     return new List<CommentDTO>() { video };
                 }

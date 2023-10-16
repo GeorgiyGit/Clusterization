@@ -26,20 +26,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {
-    public class ClusterizationWorkspaceService : IClusterizationWorkspaceService
+    public class ClusterizationWorkspacesService : IClusterizationWorkspacesService
     {
         private readonly IRepository<ClusterizationWorkspace> repository;
         private readonly IRepository<Comment> comments_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         private readonly IBackgroundJobClient backgroundJobClient;
-        private readonly IMyTaskService taskService;
-        public ClusterizationWorkspaceService(IRepository<ClusterizationWorkspace> repository,
-                                              IStringLocalizer<ErrorMessages> localizer,
-                                              IMapper mapper,
-                                              IRepository<Comment> comments_repository,
-                                              IBackgroundJobClient backgroundJobClient,
-                                              IMyTaskService taskService)
+        private readonly IMyTasksService taskService;
+        public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
+                                               IStringLocalizer<ErrorMessages> localizer,
+                                               IMapper mapper,
+                                               IRepository<Comment> comments_repository,
+                                               IBackgroundJobClient backgroundJobClient,
+                                               IMyTasksService taskService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -76,7 +76,7 @@ namespace Domain.Services.Clusterization
         #endregion
 
         #region get
-        public async Task<ClusterizationWorkspaceDTO> GetById(int id)
+        public async Task<ClusterizationWorkspaceDTO> GetFullById(int id)
         {
             var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
@@ -84,7 +84,7 @@ namespace Domain.Services.Clusterization
 
             return mapper.Map<ClusterizationWorkspaceDTO>(workspace);
         }
-        public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(GetWorkspacesRequest request)
+        public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request)
         {
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;
 

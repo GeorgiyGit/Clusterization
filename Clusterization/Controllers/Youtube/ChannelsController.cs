@@ -8,8 +8,8 @@ namespace Clusterization.Controllers.Youtube
     [ApiController]
     public class ChannelsController : ControllerBase
     {
-        private readonly IYoutubeChannelService service;
-        public ChannelsController(IYoutubeChannelService service)
+        private readonly IYoutubeChannelsService service;
+        public ChannelsController(IYoutubeChannelsService service)
         {
             this.service = service;
         }
@@ -17,7 +17,7 @@ namespace Clusterization.Controllers.Youtube
         [HttpPost("load_by_id/{id}")]
         public async Task<IActionResult> LoadChannelById([FromRoute] string id)
         {
-            await service.LoadChannel(id);
+            await service.LoadById(id);
             return Ok();
         }
         [HttpPost("load_many_by_ids")]
@@ -31,19 +31,19 @@ namespace Clusterization.Controllers.Youtube
         [Route("get_by_id/{id}")]
         public async Task<IActionResult> GetLoadedChannelById([FromRoute] string id)
         {
-            return Ok(await service.GetLoadedChannelById(id));
+            return Ok(await service.GetLoadedById(id));
         }
 
         [HttpPost("get_many")]
         public async Task<IActionResult> GetLoadedChannels([FromBody] GetChannelsRequest request)
         {
-            return Ok(await service.GetLoadedChannels(request));
+            return Ok(await service.GetLoadedCollection(request));
         }
 
         [HttpPost("get_without_loading")]
         public async Task<IActionResult> GetWithoutLoading([FromBody] GetWithoutLoadingRequest request)
         {
-            return Ok(await service.GetChannelsWithoutLoadingByName(request.Name, request.NextPageToken,request.FilterType));
+            return Ok(await service.GetCollectionWithoutLoadingByName(request.Name, request.NextPageToken,request.FilterType));
         }
     }
 }

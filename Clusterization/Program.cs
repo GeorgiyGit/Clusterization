@@ -69,16 +69,16 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IPrivateYoutubeChannelService, PrivateYoutubeChannelService>();
-builder.Services.AddScoped<IPrivateYoutubeVideoService, PrivateYoutubeVideoService>();
-builder.Services.AddScoped<IYoutubeChannelService, YoutubeChannelService>();
-builder.Services.AddScoped<IYoutubeVideoService, YoutubeVideoService>();
+builder.Services.AddScoped<IPrivateYoutubeChannelsService, PrivateYoutubeChannelsService>();
+builder.Services.AddScoped<IPrivateYoutubeVideosService, PrivateYoutubeVideosService>();
+builder.Services.AddScoped<IYoutubeChannelsService, YoutubeChannelsService>();
+builder.Services.AddScoped<IYoutubeVideoService, YoutubeVideosService>();
 builder.Services.AddScoped<IYoutubeCommentsService, YoutubeCommentsService>();
-builder.Services.AddScoped<IMyTaskService, MyTaskService>();
+builder.Services.AddScoped<IMyTasksService, MyTasksService>();
 
-builder.Services.AddScoped<IClusterizationDimensionTypeService, ClusterizationDimensionTypeService>();
-builder.Services.AddScoped<IClusterizationTypeService, ClusterizationTypeService>();
-builder.Services.AddScoped<IClusterizationWorkspaceService, ClusterizationWorkspaceService>();
+builder.Services.AddScoped<IClusterizationDimensionTypesService, ClusterizationDimensionTypesService>();
+builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
+builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
 builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
 
 builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();

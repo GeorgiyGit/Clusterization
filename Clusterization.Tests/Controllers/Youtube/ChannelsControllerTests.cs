@@ -92,7 +92,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
                                                          mapper);
@@ -129,7 +129,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
                                                          mapper);
@@ -167,7 +167,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
                                                          mapper);
@@ -204,7 +204,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -238,7 +238,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -267,7 +267,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -315,7 +315,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -364,7 +364,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -412,7 +412,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -461,7 +461,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -509,7 +509,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -558,7 +558,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);
@@ -605,7 +605,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
-            var channelService = new YoutubeChannelService(channelRepository,
+            var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
                                                          mapper);

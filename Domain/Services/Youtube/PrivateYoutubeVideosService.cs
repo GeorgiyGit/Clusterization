@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Youtube
 {
-    public class PrivateYoutubeVideoService : IPrivateYoutubeVideoService
+    public class PrivateYoutubeVideosService : IPrivateYoutubeVideosService
     {
         private readonly IRepository<Video> repository;
-        public PrivateYoutubeVideoService(IRepository<Video> repository)
+        public PrivateYoutubeVideosService(IRepository<Video> repository)
         {
             this.repository = repository;
         }

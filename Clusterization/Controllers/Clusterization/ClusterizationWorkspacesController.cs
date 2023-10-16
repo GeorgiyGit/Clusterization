@@ -10,9 +10,9 @@ namespace Clusterization.Controllers.Clusterization
     [ApiController]
     public class ClusterizationWorkspacesController:ControllerBase
     {
-        private readonly IClusterizationWorkspaceService service;
+        private readonly IClusterizationWorkspacesService service;
         private readonly ILoadEmbeddingsService embeddingsService;
-        public ClusterizationWorkspacesController(IClusterizationWorkspaceService service,
+        public ClusterizationWorkspacesController(IClusterizationWorkspacesService service,
                                                   ILoadEmbeddingsService embeddingsService)
         {
             this.service = service;
@@ -49,12 +49,12 @@ namespace Clusterization.Controllers.Clusterization
         [HttpGet("get_by_id/{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            return Ok(await service.GetById(id));
+            return Ok(await service.GetFullById(id));
         }
         [HttpPost("get_workspaces")]
         public async Task<IActionResult> GetMany([FromBody] GetWorkspacesRequest request)
         {
-            return Ok(await service.GetWorkspaces(request));
+            return Ok(await service.GetCollection(request));
         }
 
 

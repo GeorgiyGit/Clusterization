@@ -11,9 +11,9 @@ namespace Domain.Interfaces.Youtube
 {
     public interface IYoutubeCommentsService
     {
-        public Task LoadCommentsFromVideo(LoadOptions options);
+        public Task LoadFromVideo(LoadOptions options);
 
-        public Task<CommentDTO> GetLoadedCommentById(string commentId);
-        public Task<ICollection<CommentDTO>> GetLoadedComments(GetCommentsRequest request);
+        public Task<CommentDTO> GetLoadedById(string commentId);
+        public Task<ICollection<CommentDTO>> GetLoadedCollection(GetCommentsRequest request);
     }
 }

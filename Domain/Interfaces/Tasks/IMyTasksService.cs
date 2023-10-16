@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Tasks
 {
-    public interface IMyTaskService
+    public interface IMyTasksService
     {
         public Task<int> CreateTask(string name);
         public Task ChangeTaskState(int id, string newStateId);

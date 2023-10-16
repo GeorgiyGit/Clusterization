@@ -23,13 +23,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Youtube
 {
-    public class YoutubeChannelService : IYoutubeChannelService
+    public class YoutubeChannelsService : IYoutubeChannelsService
     {
         private readonly IRepository<Entities.Youtube.Channel> repository;
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
-        public YoutubeChannelService(IRepository<Entities.Youtube.Channel> repository,
+        public YoutubeChannelsService(IRepository<Entities.Youtube.Channel> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IMapper mapper)
@@ -48,7 +48,7 @@ namespace Domain.Services.Youtube
         }
 
         #region load
-        public async Task LoadChannel(string id)
+        public async Task LoadById(string id)
         {
             if (await repository.FindAsync(id) != null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelAlreadyLoaded], System.Net.HttpStatusCode.Conflict);
 
@@ -168,7 +168,7 @@ namespace Domain.Services.Youtube
         #endregion
 
         #region get
-        public async Task<SimpleChannelDTO> GetLoadedChannelById(string id)
+        public async Task<SimpleChannelDTO> GetLoadedById(string id)
         {
             var channel = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.Youtube.Channel.Comments)},{nameof(Entities.Youtube.Channel.Videos)}")).FirstOrDefault();
 
@@ -179,13 +179,13 @@ namespace Domain.Services.Youtube
 
             return mappedChannel;
         }
-        public async Task<ICollection<SimpleChannelDTO>> GetLoadedChannels(GetChannelsRequest request)
+        public async Task<ICollection<SimpleChannelDTO>> GetLoadedCollection(GetChannelsRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
                 try
                 {
-                    var channel = await GetLoadedChannelById(request.FilterStr);
+                    var channel = await GetLoadedById(request.FilterStr);
 
                     return new List<SimpleChannelDTO>() { channel };
                 }
@@ -246,7 +246,7 @@ namespace Domain.Services.Youtube
         #endregion
 
         #region get-load
-        public async Task<ChannelsWithoutLoadingResponse> GetChannelsWithoutLoadingByName(string name, string? nextPageToken, string filterType)
+        public async Task<ChannelsWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string filterType)
         {
             var searchListRequest = youtubeService.Search.List("snippet");
             searchListRequest.Q = name;

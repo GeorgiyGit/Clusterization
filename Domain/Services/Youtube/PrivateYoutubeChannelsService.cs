@@ -12,10 +12,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Domain.Services.Youtube
 {
-    public class PrivateYoutubeChannelService : IPrivateYoutubeChannelService
+    public class PrivateYoutubeChannelsService : IPrivateYoutubeChannelsService
     {
         private readonly IRepository<Channel> repository;
-        public PrivateYoutubeChannelService(IRepository<Channel> repository)
+        public PrivateYoutubeChannelsService(IRepository<Channel> repository)
         {
             this.repository = repository;
         }

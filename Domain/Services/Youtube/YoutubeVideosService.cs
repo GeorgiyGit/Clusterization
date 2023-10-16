@@ -33,23 +33,23 @@ using System.ComponentModel;
 
 namespace Domain.Services.Youtube
 {
-    public class YoutubeVideoService : IYoutubeVideoService
+    public class YoutubeVideosService : IYoutubeVideoService
     {
         private readonly IRepository<Entities.Youtube.Video> repository;
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
-        private readonly IPrivateYoutubeChannelService privateChannelService;
-        private readonly IYoutubeChannelService youtubeChannelService;
+        private readonly IPrivateYoutubeChannelsService privateChannelService;
+        private readonly IYoutubeChannelsService youtubeChannelService;
         private readonly IMapper mapper;
-        private readonly IMyTaskService taskService;
+        private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
-        public YoutubeVideoService(IRepository<Entities.Youtube.Video> repository,
+        public YoutubeVideosService(IRepository<Entities.Youtube.Video> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
-                                     IPrivateYoutubeChannelService privateChannelService,
-                                     IYoutubeChannelService youtubeChannelService,
+                                     IPrivateYoutubeChannelsService privateChannelService,
+                                     IYoutubeChannelsService youtubeChannelService,
                                      IMapper mapper,
-                                     IMyTaskService taskService,
+                                     IMyTasksService taskService,
                                      IBackgroundJobClient backgroundJobClient)
         {
             this.repository = repository;
@@ -70,18 +70,18 @@ namespace Domain.Services.Youtube
         }
 
         #region load
-        public async Task LoadChannelVideos(DTOs.YoutubeDTOs.Requests.LoadOptions options)
+        public async Task LoadFromChannel(DTOs.YoutubeDTOs.Requests.LoadOptions options)
         {
-            backgroundJobClient.Enqueue(() => LoadChannelVideosBackgroundJob(options));
+            backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options));
         }
-        public async Task LoadChannelVideosBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options)
+        public async Task LoadFromChannelBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options)
         {
             string channelId = options.ParentId;
 
             bool isNewChannel = false;
             if ((await privateChannelService.GetById(channelId)) == null)
             {
-                await youtubeChannelService.LoadChannel(channelId);
+                await youtubeChannelService.LoadById(channelId);
                 isNewChannel = true;
             }
 
@@ -218,7 +218,7 @@ namespace Domain.Services.Youtube
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
             }
         }
-        public async Task LoadVideoById(string id)
+        public async Task LoadById(string id)
         {
             if (await repository.FindAsync(id) != null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeVideoAlreadyLoaded], System.Net.HttpStatusCode.Conflict);
 
@@ -342,7 +342,7 @@ namespace Domain.Services.Youtube
         #endregion
 
         #region get
-        public async Task<SimpleVideoDTO> GetLoadedVideoById(string id)
+        public async Task<SimpleVideoDTO> GetLoadedById(string id)
         {
             var video = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.Youtube.Video.Comments)},{nameof(Entities.Youtube.Video.Channel)}")).FirstOrDefault();
 
@@ -353,13 +353,13 @@ namespace Domain.Services.Youtube
 
             return mappedVideo;
         }
-        public async Task<ICollection<SimpleVideoDTO>> GetLoadedVideos(GetVideosRequest request)
+        public async Task<ICollection<SimpleVideoDTO>> GetLoadedCollection(GetVideosRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
                 try
                 {
-                    var video = await GetLoadedVideoById(request.FilterStr);
+                    var video = await GetLoadedById(request.FilterStr);
 
                     return new List<SimpleVideoDTO>() { video };
                 }
@@ -368,7 +368,7 @@ namespace Domain.Services.Youtube
             Expression<Func<Entities.Youtube.Video, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
             if (request.ChannelId != null && request.ChannelId != "")
             {
-                var channel = await youtubeChannelService.GetLoadedChannelById(request.ChannelId);
+                var channel = await youtubeChannelService.GetLoadedById(request.ChannelId);
 
                 if (channel != null)
                 {
@@ -430,7 +430,7 @@ namespace Domain.Services.Youtube
         #endregion
 
         #region get-load
-        public async Task<VideosWithoutLoadingResponse> GetVideosWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType)
+        public async Task<VideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType)
         {
             SearchResource.ListRequest.OrderEnum? orderType;
             if (filterType == LoadFilterOptions.Date)

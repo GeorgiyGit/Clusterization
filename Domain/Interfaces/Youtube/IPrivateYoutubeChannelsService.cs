@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Youtube
 {
-    public interface IPrivateYoutubeChannelService
+    public interface IPrivateYoutubeChannelsService
     {
         public Task<Channel?> GetById(string id);
     }

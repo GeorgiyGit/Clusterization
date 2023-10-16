@@ -12,13 +12,13 @@ namespace Domain.Interfaces.Youtube
 {
     public interface IYoutubeVideoService
     {
-        public Task LoadVideoById(string id);
-        public Task LoadChannelVideos(LoadOptions options);
+        public Task LoadById(string id);
+        public Task LoadFromChannel(LoadOptions options);
         public Task LoadManyByIds(ICollection<string> ids);
 
-        public Task<SimpleVideoDTO> GetLoadedVideoById(string id);
-        public Task<ICollection<SimpleVideoDTO>> GetLoadedVideos(GetVideosRequest request);
+        public Task<SimpleVideoDTO> GetLoadedById(string id);
+        public Task<ICollection<SimpleVideoDTO>> GetLoadedCollection(GetVideosRequest request);
         
-        public Task<VideosWithoutLoadingResponse> GetVideosWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType);
+        public Task<VideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType);
     }
 }

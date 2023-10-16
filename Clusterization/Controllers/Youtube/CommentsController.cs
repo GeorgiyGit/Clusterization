@@ -18,20 +18,20 @@ namespace Clusterization.Controllers.Youtube
         [HttpPost("load_from_video")]
         public async Task<IActionResult> LoadFromVideo([FromBody] LoadOptions options)
         {
-            await service.LoadCommentsFromVideo(options);
+            await service.LoadFromVideo(options);
             return Ok();
         }
 
         [HttpGet("get_by_id/{id}")]
         public async Task<IActionResult> GetLoadedCommentById([FromRoute] string id)
         {
-            return Ok(await service.GetLoadedCommentById(id));
+            return Ok(await service.GetLoadedById(id));
         }
 
         [HttpPost("get_many")]
         public async Task<IActionResult> GetLoadedComments([FromBody] GetCommentsRequest request)
         {
-            return Ok(await service.GetLoadedComments(request));
+            return Ok(await service.GetLoadedCollection(request));
         }
     }
 }

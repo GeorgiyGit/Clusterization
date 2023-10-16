@@ -28,22 +28,22 @@ namespace Domain.Services.Embeddings
     {
         private readonly IRepository<Comment> comment_repository;
         private readonly IRepository<ClusterizationWorkspace> workspace_repository;
-        private readonly IClusterizationDimensionTypeService DimensionTypeService;
+        private readonly IClusterizationDimensionTypesService DimensionTypeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IEmbeddingsService embeddingsService;
         private readonly IBackgroundJobClient backgroundJobClient;
-        private readonly IMyTaskService taskService;
+        private readonly IMyTasksService taskService;
 
         private readonly string apiKey;
 
         public LoadEmbeddingsService(IRepository<Comment> comment_repository,
-                                     IClusterizationDimensionTypeService DimensionTypeService,
+                                     IClusterizationDimensionTypesService DimensionTypeService,
                                      IRepository<ClusterizationWorkspace> workspace_repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IEmbeddingsService embeddingsService,
                                      IBackgroundJobClient backgroundJobClient,
-                                     IMyTaskService taskService)
+                                     IMyTasksService taskService)
         {
             this.comment_repository = comment_repository;
             this.DimensionTypeService = DimensionTypeService;

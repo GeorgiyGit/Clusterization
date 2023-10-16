@@ -133,13 +133,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          A.Fake<IMapper>(),
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -171,13 +171,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          A.Fake<IMapper>(),
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -210,13 +210,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          A.Fake<IMapper>(),
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -251,13 +251,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -290,13 +290,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -323,13 +323,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -377,13 +377,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -432,13 +432,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -486,13 +486,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -541,13 +541,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -595,13 +595,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -650,13 +650,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -704,13 +704,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 
@@ -759,13 +759,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<VideoProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            var videosService = new YoutubeVideoService(videoRepository,
+            var videosService = new YoutubeVideosService(videoRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         A.Fake<IPrivateYoutubeChannelService>(),
-                                                         A.Fake<IYoutubeChannelService>(),
+                                                         A.Fake<IPrivateYoutubeChannelsService>(),
+                                                         A.Fake<IYoutubeChannelsService>(),
                                                          mapper,
-                                                         A.Fake<IMyTaskService>(),
+                                                         A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>());
 
 

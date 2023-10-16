@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {
-    public class ClusterizationDimensionTypeService : IClusterizationDimensionTypeService
+    public class ClusterizationDimensionTypesService : IClusterizationDimensionTypesService
     {
         private readonly IRepository<ClusterizationDimensionType> repository;
         private readonly IMapper mapper;
-        public ClusterizationDimensionTypeService(IRepository<ClusterizationDimensionType> repository,
-                                                  IMapper mapper)
+        public ClusterizationDimensionTypesService(IRepository<ClusterizationDimensionType> repository,
+                                                   IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;

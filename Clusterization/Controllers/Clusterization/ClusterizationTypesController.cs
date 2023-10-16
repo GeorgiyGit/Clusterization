@@ -7,8 +7,8 @@ namespace Clusterization.Controllers.Clusterization
     [ApiController]
     public class ClusterizationTypesController : ControllerBase
     {
-        private readonly IClusterizationTypeService service;
-        public ClusterizationTypesController(IClusterizationTypeService service)
+        private readonly IClusterizationTypesService service;
+        public ClusterizationTypesController(IClusterizationTypesService service)
         {
             this.service = service;
         }

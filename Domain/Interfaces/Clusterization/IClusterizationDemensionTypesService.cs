@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Clusterization
 {
-    public interface IClusterizationDimensionTypeService
+    public interface IClusterizationDimensionTypesService
     {
         public Task<ICollection<ClusterizationDimensionTypeDTO>> GetAll();
     }

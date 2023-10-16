@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Clusterization
 {
-    public interface IClusterizationWorkspaceService
+    public interface IClusterizationWorkspacesService
     {
-        public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(GetWorkspacesRequest request);
-        public Task<ClusterizationWorkspaceDTO> GetById(int id);
+        public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request);
+        public Task<ClusterizationWorkspaceDTO> GetFullById(int id);
 
         public Task Add(AddClusterizationWorkspaceDTO model);
         public Task Update(UpdateClusterizationWorkspaceDTO model);

@@ -6,10 +6,10 @@ namespace Clusterization.Controllers.MyTasks
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MyTaskController : ControllerBase
+    public class MyTasksController : ControllerBase
     {
-        private readonly IMyTaskService service;
-        public MyTaskController(IMyTaskService service)
+        private readonly IMyTasksService service;
+        public MyTasksController(IMyTasksService service)
         {
             this.service = service;
         }
