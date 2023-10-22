@@ -35,11 +35,11 @@ namespace Domain.Services.Clusterization.Algorithms
             this.mapper = mapper;
         }
 
-        public async Task<AbstractAlgorithmDTO> GetAllAlgorithms(string typeId)
+        public async Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId)
         {
             if (typeId == ClusterizationAlgorithmTypes.KMeans)
             {
-                return (AbstractAlgorithmDTO)await kMeansService.GetAllAlgorithms();
+                return (await kMeansService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else
             {

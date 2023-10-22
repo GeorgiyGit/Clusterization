@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { GeneralClusterizationAlgorithmsService } from '../services/general-clusterization-algorithms.service';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
 
@@ -7,10 +7,11 @@ import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-inp
   templateUrl: './abstract-algorithms-select.component.html',
   styleUrls: ['./abstract-algorithms-select.component.scss']
 })
-export class AbstractAlgorithmsSelectComponent implements OnInit {
+export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable: boolean;
+  @Input() isActive:boolean=false;
 
   @Input() typeId: string;
 
@@ -59,6 +60,8 @@ export class AbstractAlgorithmsSelectComponent implements OnInit {
         };
         this.options.push(option);
       });
+
+      this.isActive=true;
     });
   }
 

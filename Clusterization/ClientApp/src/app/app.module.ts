@@ -60,6 +60,7 @@ import { ClusterizationProfileListComponent } from './features/clusterization/pr
 import { ClusterizationProfileListPageComponent } from './features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component';
 import { ClusterizationProfileSearchFilterComponent } from './features/clusterization/profiles/components/clusterization-profile-search-filter/clusterization-profile-search-filter.component';
 import { AbstractAlgorithmsSelectComponent } from './features/clusterization/algorithms/abstractAlgorithm/abstract-algorithms-select/abstract-algorithms-select.component';
+import { ClusterizationProfileAddPageComponent } from './features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { AbstractAlgorithmsSelectComponent } from './features/clusterization/alg
     ClusterizationProfileListPageComponent,
     ClusterizationProfileSearchFilterComponent,
     AbstractAlgorithmsSelectComponent,
+    ClusterizationProfileAddPageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

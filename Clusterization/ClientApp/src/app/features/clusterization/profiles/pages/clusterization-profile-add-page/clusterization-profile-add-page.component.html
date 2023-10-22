@@ -1,0 +1,22 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1>Додати робочий простір</h1>
+
+        <form action="">
+            <app-clusterization-algorithm-types-select
+                (sendEvent)="changeAlgorithmType($event)" [isNullAvailable]="true"></app-clusterization-algorithm-types-select>
+            <app-abstract-algorithms-select (sendEvent)="changeAlgorithm($event)" [typeId]="algorithmTypeId"></app-abstract-algorithms-select>
+
+            <app-clusterization-dimension-types-input [isNullAvailable]="true"
+                (sendEvent)="changeDimensionType($event)"></app-clusterization-dimension-types-input>
+
+            <div class="centered">
+                <app-loader *ngIf="isLoading"></app-loader>
+                <button class="standard-btn" type="submit" [disabled]="!isActive" *ngIf="!isLoading" (click)="submit()">Додати</button>
+            </div>
+        </form>
+    </div>
+</section>

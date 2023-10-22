@@ -10,7 +10,7 @@ namespace Domain.Interfaces.Clusterization.Algorithms
 {
     public interface IGeneralClusterizationAlgorithmService
     {
-        public Task<AbstractAlgorithmDTO> GetAllAlgorithms(string typeId);
+        public Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId);
         public Task<SimpleAlgorithmTypeDTO?> GetAlgorithmTypeByAlgorithmId(int algorithmId);
     }
 }

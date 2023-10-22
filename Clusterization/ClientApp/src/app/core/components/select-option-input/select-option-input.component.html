@@ -1,14 +1,14 @@
-<div class="input-cont select" (clickOutside)="close()">
+<div class="input-cont select" (clickOutside)="close()" [class.disable]="!isActive">
     <span class="material-symbols-outlined icon" translate="no" [matTooltip]="matTooltipForIcon" (click)="toggleSelect($event)">category</span>
     <div class="custom-select"  (click)="toggleSelect($event)">
         <div class="selected-option">
-          <span>{{ selectedOption.description }}</span>
+          <span>{{ selectedOption==null?'':selectedOption.description }}</span>
           <span class="material-symbols-outlined icon" translate="no" *ngIf="!isOpen">expand_more</span>
           <span class="material-symbols-outlined icon" translate="no" *ngIf="isOpen">expand_less</span>
         </div>
         <div class="option-list" *ngIf="isOpen">
          <div *ngFor="let option of options" class="option" (click)="selectOption($event,option)">
-            <span>{{ option.description }}</span>
+            <span>{{ option.description==null?'':option.description }}</span>
           </div>
         </div>
     </div>

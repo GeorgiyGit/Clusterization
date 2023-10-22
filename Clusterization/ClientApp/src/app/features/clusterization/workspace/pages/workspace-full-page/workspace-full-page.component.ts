@@ -21,6 +21,12 @@ export class WorkspaceFullPageComponent implements OnInit {
       action:()=>{
         this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
       }
+    },
+    {
+      name:'Додати профіль',
+      action:()=>{
+        this.router.navigate([{outlets: {overflow: 'profiles/add/'+this.workspace.id}}]);
+      }
     }
   ]
 

@@ -67,3 +67,7 @@
     user-select: none;
     cursor: pointer;
 }
+.disable{
+    cursor: no-drop;
+    background-color: $second-color-3;
+}

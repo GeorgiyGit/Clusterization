@@ -12,6 +12,8 @@ export class SelectOptionInputComponent implements OnInit,OnChanges{
   @Input() options:IOptionForSelectInput[]=[];
   @Input() selectedOption:IOptionForSelectInput;
 
+  @Input() isActive:boolean=true;
+
   @Output() sendResultEvent=new EventEmitter<IOptionForSelectInput>();
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,6 +38,9 @@ export class SelectOptionInputComponent implements OnInit,OnChanges{
   toggleSelect(event:MouseEvent){
     event.stopPropagation();
 
+    if(!this.isActive && this.isOpen==false){
+      return;
+    }
     this.isOpen=!this.isOpen;
   }
   selectOption(event:MouseEvent,newOption:IOptionForSelectInput){
