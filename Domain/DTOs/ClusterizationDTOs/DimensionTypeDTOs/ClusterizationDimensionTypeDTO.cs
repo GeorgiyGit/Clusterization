@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.DTOs.ClusterizationDTOs.DemensionTypeDTO
+namespace Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO
 {
     public class ClusterizationDimensionTypeDTO
     {

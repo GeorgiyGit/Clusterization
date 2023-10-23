@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.ClusterizationDTOs.DemensionTypeDTO;
+﻿using Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
