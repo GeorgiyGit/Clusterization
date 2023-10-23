@@ -148,7 +148,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             string id = "dQw4w9WgXcQ";
 
             //Act
-            var result = await controller.LoadVideoById(id);
+            var result = await controller.LoadById(id);
 
             //Assert
             result.Should().NotBeNull();
@@ -186,7 +186,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             string id = "5";
 
             //Act
-            Func<Task> result = async () => await controller.LoadVideoById(id);
+            Func<Task> result = async () => await controller.LoadById(id);
 
             //Assert
             await result.Should().ThrowAsync<HttpException>();
@@ -266,7 +266,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             string id = "5";
 
             //Act
-            var result = await controller.GetLoadedVideoById(id) as OkObjectResult;
+            var result = await controller.GetLoadedById(id) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -305,7 +305,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             string id = "-1";
 
             //Act
-            Func<Task> result = async () => await controller.GetLoadedVideoById(id);
+            Func<Task> result = async () => await controller.GetLoadedById(id);
 
             //Assert
             await result.Should().ThrowAsync<HttpException>();
@@ -346,7 +346,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -400,7 +400,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -455,7 +455,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -509,7 +509,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -564,7 +564,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -618,7 +618,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -675,7 +675,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -729,7 +729,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();
@@ -784,7 +784,7 @@ namespace Clusterization.Tests.Controllers.Youtube
             };
 
             //Act
-            var result = await controller.GetLoadedVideos(request) as OkObjectResult;
+            var result = await controller.GetLoadedCollection(request) as OkObjectResult;
 
             //Assert
             result.Should().NotBeNull();

@@ -2,6 +2,6 @@ import { ISimpleAlgorithmType } from "../../algorithms/algorithmType/models/simp
 
 export interface ISimpleClusterizationProfile{
     id:number,
-    dimensionType:number,
+    dimensionCount:number,
     algorithmType:ISimpleAlgorithmType
 }

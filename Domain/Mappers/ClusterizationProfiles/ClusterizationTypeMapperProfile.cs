@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Mappers.ClusterizationProfiles
 {
-    internal class ClusterizationTypeMapperProfile : AutoMapper.Profile
+    public class ClusterizationTypeMapperProfile : AutoMapper.Profile
     {
         public ClusterizationTypeMapperProfile()
         {

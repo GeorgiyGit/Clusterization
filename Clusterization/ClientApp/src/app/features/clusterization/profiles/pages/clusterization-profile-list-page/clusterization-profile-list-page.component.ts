@@ -38,15 +38,21 @@ export class ClusterizationProfileListPageComponent implements OnInit{
   }
 
   changeFilter(filter:IProfileFilter){
+    let flag=true;
+    if(this.request.algorithmTypeId==filter.algorithmTypeId &&
+       this.request.dimensionCount==filter.dimensionCount){
+        flag=false;
+    }
     this.request.algorithmTypeId=filter.algorithmTypeId;
     this.request.dimensionCount=filter.dimensionCount;
 
-    this.loadFirst();
+    if(flag){
+      this.loadFirst();
+    }
   }
 
   isLoading:boolean;
   loadFirst(){
-    console.log(this.request);
     this.request.pageParameters.pageNumber=0;
 
     this.isLoading=true;
@@ -56,6 +62,8 @@ export class ClusterizationProfileListPageComponent implements OnInit{
 
       if(res.length<this.request.pageParameters.pageSize)this.isLoadMoreAvailable=false;
       else this.isLoadMoreAvailable=true;
+
+      console.log(this.profiles);
     },error=>{
       this.isLoading=false;
       this.toastr.error(error.error.Message);

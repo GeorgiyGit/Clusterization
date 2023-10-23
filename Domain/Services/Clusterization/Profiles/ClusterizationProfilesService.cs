@@ -58,8 +58,8 @@ namespace Domain.Services.Clusterization.Profiles
         {
             Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.WorkspaceId == request.WorkspaceId;
 
-            if (request.AlgorithmTypeId != null) filterCondition.And(e => e.Algorithm.TypeId == request.AlgorithmTypeId);
-            if (request.DimensionCount != null) filterCondition.And(e => e.DimensionCount == request.DimensionCount);
+            if (request.AlgorithmTypeId != null) filterCondition = filterCondition.And(e => e.Algorithm.TypeId == request.AlgorithmTypeId);
+            if (request.DimensionCount != null) filterCondition = filterCondition.And(e => e.DimensionCount == request.DimensionCount);
 
             var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)}")).ToList();
 
