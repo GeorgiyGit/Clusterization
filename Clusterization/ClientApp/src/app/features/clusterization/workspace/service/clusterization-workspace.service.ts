@@ -42,6 +42,7 @@ export class ClusterizationWorkspaceService {
   }
 
   embeddingData(id:number): Observable<any> {
+    console.log(this.controllerUrl + "load_embedding_data/"+id);
     return this.http.post(this.controllerUrl + "load_embedding_data/"+id,null);
   }
 }

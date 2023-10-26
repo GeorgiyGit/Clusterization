@@ -27,6 +27,13 @@ export class WorkspaceFullPageComponent implements OnInit {
       action:()=>{
         this.router.navigate([{outlets: {overflow: 'profiles/add/'+this.workspace.id}}]);
       }
+    },
+    {
+      name:'Завантажити ембедінги',
+      action:()=>{
+        console.log(123);
+        this.workspaceService.embeddingData(this.workspace.id);
+      }
     }
   ]
 

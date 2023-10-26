@@ -1,18 +1,13 @@
-﻿using Domain.DTOs.ClusterizationDTOs.DemensionTypeDTO;
+﻿using Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO;
 using Domain.Entities.Clusterization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Mappers.ClusterizationProfiles
 {
-    internal class ClusterizationDimensionTypeMapperProfile:AutoMapper.Profile
+    public class ClusterizationDimensionTypeMapperProfile:AutoMapper.Profile
     {
         public ClusterizationDimensionTypeMapperProfile()
         {
-            CreateMap<ClusterizationDimensionType,ClusterizationDimensionTypeDTO>();
+            CreateMap<ClusterizationDimensionType, ClusterizationDimensionTypeDTO>();
         }
     }
 }

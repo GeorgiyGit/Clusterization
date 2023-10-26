@@ -61,7 +61,7 @@ namespace Domain.Services.Embeddings
         {
             backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId));
         }
-        private async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId)
+        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId)
         {
             var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
 
@@ -87,7 +87,7 @@ namespace Domain.Services.Embeddings
                 {
                     if (comment.EmbeddingData != null) continue;
 
-                    var inputText = comment.TextOriginal;
+                    var inputText = comment.TextOriginal.Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ');
 
                     string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
 
@@ -137,6 +137,8 @@ namespace Domain.Services.Embeddings
                     }
                 }
 
+
+                workspace.IsAllDataEmbedded = true;
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }

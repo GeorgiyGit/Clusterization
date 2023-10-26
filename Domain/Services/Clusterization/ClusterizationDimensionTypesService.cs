@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.DTOs.ClusterizationDTOs.DemensionTypeDTO;
+using Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO;
 using Domain.Entities.Clusterization;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;

@@ -182,6 +182,8 @@ namespace Domain.Services.Clusterization
                     }
                 }
 
+                workspace.IsAllDataEmbedded = false;
+
                 await repository.SaveChangesAsync();
 
                 await taskService.ChangeTaskPercent(taskId, 100f);
@@ -241,6 +243,8 @@ namespace Domain.Services.Clusterization
                         }
                     }
                 }
+
+                workspace.IsAllDataEmbedded = false;
 
                 await repository.SaveChangesAsync();
 

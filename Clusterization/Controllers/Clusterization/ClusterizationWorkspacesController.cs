@@ -8,7 +8,7 @@ namespace Clusterization.Controllers.Clusterization
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClusterizationWorkspacesController:ControllerBase
+    public class ClusterizationWorkspacesController : ControllerBase
     {
         private readonly IClusterizationWorkspacesService service;
         private readonly ILoadEmbeddingsService embeddingsService;

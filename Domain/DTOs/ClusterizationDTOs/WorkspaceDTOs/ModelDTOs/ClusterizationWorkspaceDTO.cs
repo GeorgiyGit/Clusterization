@@ -16,5 +16,6 @@ namespace Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs
         public string TypeName { get; set; }
         public int CommentsCount { get; set; }
         public int ProfilesCount { get; set; }
+        public bool IsAllDataEmbedded { get; set; }
     }
 }
