@@ -115,6 +115,7 @@
 
   <ItemGroup>
     <Folder Include="DTOs\ClusterizationDTOs\AlghorithmDTOs\RequestDTOs\" />
+    <Folder Include="DTOs\ClusterizationDTOs\DisplayedPointDTOs\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 

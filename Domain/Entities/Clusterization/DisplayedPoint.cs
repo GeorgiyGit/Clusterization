@@ -20,11 +20,6 @@ namespace Domain.Entities.Clusterization
         public ClusterizationTile Tile { get; set; }
         public int TileId { get; set; }
 
-        public ICollection<DisplayedPoint> Points { get; set; } = new HashSet<DisplayedPoint>();
-        
-        public DisplayedPoint? ParentPoint { get; set; }
-        public int? ParentPointId { get; set; }
-
         public ClusterizationEntity? ClusterizationEntity { get; set; }
         public int? ClusterizationEntityId { get; set; }
     }

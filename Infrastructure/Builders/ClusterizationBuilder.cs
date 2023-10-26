@@ -124,11 +124,6 @@ namespace Infrastructure.Builders
                         .WithMany(e => e.Points)
                         .HasForeignKey(e => e.TileId);
 
-            modelBuilder.HasMany(e => e.Points)
-                        .WithOne(e => e.ParentPoint)
-                        .HasForeignKey(e => e.ParentPointId)
-                        .IsRequired(false);
-
             modelBuilder.HasOne(e => e.ClusterizationEntity)
                         .WithOne(e => e.DisplayedPoint)
                         .HasForeignKey<ClusterizationEntity>(e => e.DisplayedPointId)
