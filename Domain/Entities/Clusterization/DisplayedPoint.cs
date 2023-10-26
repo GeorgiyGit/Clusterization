@@ -17,11 +17,8 @@ namespace Domain.Entities.Clusterization
 
         public string ValueId { get; set; }
 
-
         public ClusterizationTile Tile { get; set; }
         public int TileId { get; set; }
-
-        public ICollection<ClusterizationPointColors> Colors { get; set; } = new HashSet<ClusterizationPointColors>();
 
         public ICollection<DisplayedPoint> Points { get; set; } = new HashSet<DisplayedPoint>();
         

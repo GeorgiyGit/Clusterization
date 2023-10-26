@@ -16,10 +16,8 @@ namespace Infrastructure.Builders
         public static void BuildAll(ModelBuilder modelBuilder)
         {
             ClusterBuild(modelBuilder.Entity<Cluster>());
-            ColorValueBuild(modelBuilder.Entity<ClusterizationColorValue>());
             DimensionTypeBuild(modelBuilder.Entity<ClusterizationDimensionType>());
             EntityBuild(modelBuilder.Entity<ClusterizationEntity>());
-            PointColorsBuild(modelBuilder.Entity<ClusterizationPointColors>());
             ProfileBuild(modelBuilder.Entity<ClusterizationProfile>());
             ClusterTypeBuild(modelBuilder.Entity<ClusterizationType>());
             WorkspaceBuild(modelBuilder.Entity<ClusterizationWorkspace>());
@@ -28,9 +26,10 @@ namespace Infrastructure.Builders
         }
         public static void ClusterBuild(EntityTypeBuilder<Cluster> modelBuilder)
         {
-            modelBuilder.HasOne(e => e.Color)
-                        .WithOne(e => e.Cluster)
-                        .HasForeignKey<ClusterizationColorValue>(e => e.ClusterId);
+            modelBuilder.HasMany(e => e.ChildClusters)
+                        .WithOne(e => e.ParentCluster)
+                        .HasForeignKey(e => e.ParentClusterId)
+                        .IsRequired(false);
 
             modelBuilder.HasMany(e => e.Entities)
                         .WithMany(e => e.Clusters);
@@ -38,18 +37,6 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Profile)
                         .WithMany(e => e.Clusters)
                         .HasForeignKey(e => e.ProfileId);
-        }
-        public static void ColorValueBuild(EntityTypeBuilder<ClusterizationColorValue> modelBuilder)
-        {
-            modelBuilder.HasOne(e => e.PointColors)
-                        .WithMany(e => e.Colors)
-                        .HasForeignKey(e => e.PointColorsId)
-                        .IsRequired(false);
-
-            modelBuilder.HasOne(e => e.Cluster)
-                        .WithOne(e => e.Color)
-                        .HasForeignKey<Cluster>(e => e.ColorId)
-                        .IsRequired(false);
         }
         public static void DimensionTypeBuild(EntityTypeBuilder<ClusterizationDimensionType> modelBuilder)
         {
@@ -86,21 +73,6 @@ namespace Infrastructure.Builders
                         .WithMany(e => e.Entities)
                         .HasForeignKey(e => e.WorkspaceId);
         }
-        public static void PointColorsBuild(EntityTypeBuilder<ClusterizationPointColors> modelBuilder)
-        {
-            modelBuilder.HasOne(e => e.Point)
-                        .WithMany(e => e.Colors)
-                        .HasForeignKey(e => e.PointId)
-                        .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.HasOne(e => e.Profile)
-                        .WithMany(e => e.PointColorsCollection)
-                        .HasForeignKey(e => e.ProfileId);
-
-            modelBuilder.HasMany(e => e.Colors)
-                        .WithOne(e => e.PointColors)
-                        .HasForeignKey(e => e.PointColorsId);
-        }
         public static void ProfileBuild(EntityTypeBuilder<ClusterizationProfile> modelBuilder)
         {
             modelBuilder.HasOne(e => e.Algorithm)
@@ -116,10 +88,6 @@ namespace Infrastructure.Builders
                         .HasForeignKey(e => e.WorkspaceId);
 
             modelBuilder.HasMany(e => e.Clusters)
-                        .WithOne(e => e.Profile)
-                        .HasForeignKey(e => e.ProfileId);
-
-            modelBuilder.HasMany(e => e.PointColorsCollection)
                         .WithOne(e => e.Profile)
                         .HasForeignKey(e => e.ProfileId);
 
@@ -155,10 +123,6 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Tile)
                         .WithMany(e => e.Points)
                         .HasForeignKey(e => e.TileId);
-
-            modelBuilder.HasMany(e => e.Colors)
-                        .WithOne(e => e.Point)
-                        .HasForeignKey(e => e.PointId);
 
             modelBuilder.HasMany(e => e.Points)
                         .WithOne(e => e.ParentPoint)

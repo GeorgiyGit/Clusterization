@@ -20,8 +20,6 @@ namespace Domain.Entities.Clusterization
 
         public ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
 
-        public ICollection<ClusterizationPointColors> PointColorsCollection { get; set; } = new HashSet<ClusterizationPointColors>();
-
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
 

@@ -10,12 +10,16 @@ namespace Domain.Entities.Clusterization
     {
         public int Id { get; set; }
 
-        public ClusterizationColorValue Color { get; set; }
-        public int ColorId { get; set; }
+        public string Color { get; set; }
         
         public ICollection<ClusterizationEntity> Entities { get; set; } = new HashSet<ClusterizationEntity>();
 
         public ClusterizationProfile Profile { get; set; }
         public int ProfileId { get; set; }
+
+        public ICollection<Cluster> ChildClusters { get; set; } = new HashSet<Cluster>();
+
+        public Cluster? ParentCluster { get; set; }
+        public int? ParentClusterId { get; set; }
     }
 }

@@ -37,10 +37,8 @@ namespace Infrastructure
 
         #region Clusterization
         public virtual DbSet<Cluster> Clusters { get; set; }
-        public virtual DbSet<ClusterizationColorValue> ClusterizationColorValues { get; set; }
         public virtual DbSet<ClusterizationDimensionType> ClusterizationDimensionTypes { get; set; }
         public virtual DbSet<ClusterizationEntity> ClusterizationEntites { get; set; }
-        public virtual DbSet<ClusterizationPointColors> ClusterizationPointColors { get; set; }
         public virtual DbSet<ClusterizationProfile> ClusterizationProfiles { get; set; }
         public virtual DbSet<ClusterizationType> ClusterizationTypes { get; set; }
         public virtual DbSet<ClusterizationWorkspace> ClusterizationWorkspaces { get; set; }
