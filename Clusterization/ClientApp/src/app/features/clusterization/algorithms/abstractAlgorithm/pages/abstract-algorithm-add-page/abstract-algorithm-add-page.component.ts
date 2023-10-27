@@ -1,7 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
 
 @Component({
   selector: 'app-abstract-algorithm-add-page',
@@ -32,6 +31,7 @@ export class AbstractAlgorithmAddPageComponent implements OnInit{
 
   selectType(typeId:string){
     this.typeId=typeId;
+    console.log(this.typeId);
   }
 
   closeOverflow() {

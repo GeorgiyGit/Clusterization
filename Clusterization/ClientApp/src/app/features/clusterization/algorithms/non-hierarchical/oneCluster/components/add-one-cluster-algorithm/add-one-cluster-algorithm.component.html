@@ -1,0 +1,17 @@
+<section>
+    <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
+        <div>
+            <div class="input-cont">
+                <input type="color" placeholder="Колір кластера" formControlName="clusterColor" id="clusterColor">
+                <span class="material-symbols-outlined icon" translate="no">palette</span>
+            </div>
+            <div class="errors" *ngIf="clusterColor.invalid && (clusterColor.touched)">
+                <p *ngIf="clusterColor.errors?.['required']" class="error">Колір кластера обов'язковий</p>
+            </div>
+        </div>
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+        </div>
+    </form>
+</section>

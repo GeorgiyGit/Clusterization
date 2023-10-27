@@ -1,0 +1,19 @@
+@import '/src/app/core/styles/base.scss';
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .input-cont{
+        
+        input{
+            padding: 0;
+            padding: 2px;
+            padding-left: 10px;
+        }
+    }
+}
+.centered{
+    display: flex;
+    justify-content: center;
+}
