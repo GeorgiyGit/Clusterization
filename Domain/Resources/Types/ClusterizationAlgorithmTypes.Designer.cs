@@ -68,5 +68,14 @@ namespace Domain.Resources.Types {
                 return ResourceManager.GetString("KMeans", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OneCluster.
+        /// </summary>
+        public static string OneCluster {
+            get {
+                return ResourceManager.GetString("OneCluster", resourceCulture);
+            }
+        }
     }
 }

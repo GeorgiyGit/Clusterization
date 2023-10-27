@@ -257,6 +257,5 @@ namespace Domain.Services.Clusterization
             }
         }
         #endregion
-       
     }
 }

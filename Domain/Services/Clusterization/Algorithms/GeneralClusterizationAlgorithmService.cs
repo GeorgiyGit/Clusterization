@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
@@ -21,15 +22,18 @@ namespace Domain.Services.Clusterization.Algorithms
     public class GeneralClusterizationAlgorithmService : IGeneralClusterizationAlgorithmService
     {
         private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO> kMeansService;
+        private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO> oneClusterService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IRepository<ClusterizationAbstactAlgorithm> abstractRepository;
         private readonly IMapper mapper;
         public GeneralClusterizationAlgorithmService(IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO> kMeansService,
+                                                     IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO> oneClusterService,
                                                      IStringLocalizer<ErrorMessages> localizer,
                                                      IRepository<ClusterizationAbstactAlgorithm> abstractRepository,
                                                      IMapper mapper)
         {
             this.kMeansService = kMeansService;
+            this.oneClusterService = oneClusterService;
             this.localizer = localizer;
             this.abstractRepository = abstractRepository;
             this.mapper = mapper;
@@ -40,6 +44,10 @@ namespace Domain.Services.Clusterization.Algorithms
             if (typeId == ClusterizationAlgorithmTypes.KMeans)
             {
                 return (await kMeansService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else if (typeId == ClusterizationAlgorithmTypes.OneCluster)
+            {
+                return (await oneClusterService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else
             {

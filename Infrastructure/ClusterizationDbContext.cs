@@ -48,6 +48,7 @@ namespace Infrastructure
         #region Algorithms
         public virtual DbSet<ClusterizationAbstactAlgorithm> ClusterizationAbstractAlgorithms { get; set; }
         public virtual DbSet<KMeansAlgorithm> KMeansAlgorithms { get; set; }
+        public virtual DbSet<OneClusterAlgorithm> OneClusterAlgorithms { get; set; }
         #endregion
 
         #endregion

@@ -21,7 +21,14 @@ namespace Infrastructure.Seeders
                 Description = "Впорядкування множини об'єктів у порівняно однорідні групи."
             };
 
-            modelBuilder.HasData(kMeans);
+            var oneCluster = new ClusterizationAlgorithmType()
+            {
+                Id = ClusterizationAlgorithmTypes.OneCluster,
+                Name = "Один кластер",
+                Description = "Об'єднання елементів в один кластер"
+            };
+
+            modelBuilder.HasData(kMeans, oneCluster);
         }
     }
 }

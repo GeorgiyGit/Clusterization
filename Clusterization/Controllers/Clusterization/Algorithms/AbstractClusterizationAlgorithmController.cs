@@ -1,12 +1,12 @@
 ﻿using Domain.Interfaces.Clusterization.Algorithms;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Clusterization.Algorithms.Non_hierarchical
+namespace Clusterization.Controllers.Clusterization.Algorithms
 {
 
-    public abstract class AbstractClusterizationAlgorithmController<AddDTO,GetDTO> : ControllerBase
+    public abstract class AbstractClusterizationAlgorithmController<AddDTO, GetDTO> : ControllerBase
     {
-        private readonly IAbstractClusterizationAlgorithmService<AddDTO,GetDTO> service;
+        private readonly IAbstractClusterizationAlgorithmService<AddDTO, GetDTO> service;
         public AbstractClusterizationAlgorithmController(IAbstractClusterizationAlgorithmService<AddDTO, GetDTO> service)
         {
             this.service = service;

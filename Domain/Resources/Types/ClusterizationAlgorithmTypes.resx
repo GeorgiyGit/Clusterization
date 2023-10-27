@@ -120,4 +120,7 @@
   <data name="KMeans" xml:space="preserve">
     <value>KMeans</value>
   </data>
+  <data name="OneCluster" xml:space="preserve">
+    <value>OneCluster</value>
+  </data>
 </root>

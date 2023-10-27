@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Exceptions;
@@ -7,7 +8,6 @@ using Domain.Interfaces;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
-using Google.Apis.Util;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
-    public class KMeansAlgorithmService : IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO>
+    public class OneClusterAlgorithmService : IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO>
     {
-        private readonly IRepository<KMeansAlgorithm> repository;
+        private readonly IRepository<OneClusterAlgorithm> repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
-        public KMeansAlgorithmService(IRepository<KMeansAlgorithm> repository,
+        public OneClusterAlgorithmService(IRepository<OneClusterAlgorithm> repository,
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMapper mapper)
         {
@@ -32,28 +32,27 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.mapper = mapper;
         }
 
-        public async Task AddAlgorithm(AddKMeansAlgorithmDTO model)
+        public async Task AddAlgorithm(AddOneClusterAlgorithmDTO model)
         {
-            var list = await repository.GetAsync(c => c.NumClusters == model.NumClusters && c.Seed == model.Seed);
+            var list = await repository.GetAsync(c => c.ClusterColor == model.ClusterColor);
 
             if (list.Any()) throw new HttpException(localizer[ErrorMessagePatterns.AlgorithmAlreadyExists], HttpStatusCode.BadRequest);
 
-            var newAlg = new KMeansAlgorithm()
+            var newAlg = new OneClusterAlgorithm()
             {
-                NumClusters = model.NumClusters,
-                Seed = model.Seed,
-                TypeId = ClusterizationAlgorithmTypes.KMeans
+                ClusterColor = model.ClusterColor,
+                TypeId = ClusterizationAlgorithmTypes.OneCluster
             };
 
             await repository.AddAsync(newAlg);
             await repository.SaveChangesAsync();
         }
 
-        public async Task<ICollection<KMeansAlgorithmDTO>> GetAllAlgorithms()
+        public async Task<ICollection<OneClusterAlgorithmDTO>> GetAllAlgorithms()
         {
             var algorithms = await repository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}");
 
-            return mapper.Map<ICollection<KMeansAlgorithmDTO>>(algorithms);
+            return mapper.Map<ICollection<OneClusterAlgorithmDTO>>(algorithms);
         }
     }
 }
