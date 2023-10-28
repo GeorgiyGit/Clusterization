@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Clusterization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace Domain.Interfaces.Clusterization.Algorithms
     {
         public Task AddAlgorithm(AddDTO model);
         public Task<ICollection<GetDTO>> GetAllAlgorithms();
+
+        public Task ClusterData(int profileId);
     }
 }

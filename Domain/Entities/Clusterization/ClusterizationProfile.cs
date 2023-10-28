@@ -19,16 +19,14 @@ namespace Domain.Entities.Clusterization
         public int DimensionCount { get; set; }
 
         public ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
+        public ICollection<ClusterizationTile> Tiles { get; set; } = new HashSet<ClusterizationTile>();
 
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
 
         public bool IsCalculated { get; set; }
-        public bool IsFullyCalculated { get; set; }
 
         public int MinTileLevel { get; set; }
         public int MaxTileLevel { get; set; }
-
-        public ICollection<ClusterizationTile> Tiles { get; set; } = new HashSet<ClusterizationTile>();
     }
 }

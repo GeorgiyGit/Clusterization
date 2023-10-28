@@ -49,6 +49,11 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             await repository.SaveChangesAsync();
         }
 
+        public Task ClusterData(int profileId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ICollection<KMeansAlgorithmDTO>> GetAllAlgorithms()
         {
             var algorithms = await repository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}");
