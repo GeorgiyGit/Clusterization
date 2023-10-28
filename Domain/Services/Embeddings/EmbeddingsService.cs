@@ -55,7 +55,6 @@ namespace Domain.Services.Embeddings
             embeddingData.Embeddings.Add(DimensionValue);
 
             await Dimension_repository.AddAsync(DimensionValue);
-            await Dimension_repository.SaveChangesAsync();
 
             foreach(var embeddingValue in embedding)
             {
@@ -68,8 +67,6 @@ namespace Domain.Services.Embeddings
 
                 await value_repository.AddAsync(value);
             }
-
-            await value_repository.SaveChangesAsync();
         }
     }
 }

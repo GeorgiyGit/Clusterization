@@ -20,29 +20,28 @@ export class ClusterizationWorkspaceService {
     this.controllerUrl = environment.apiUrl + "clusterizationWorkspaces/";
   }
 
-  add(model:IAddClusterizationWorkspace): Observable<any> {
-    return this.http.post(this.controllerUrl + "add",model);
+  add(model: IAddClusterizationWorkspace): Observable<any> {
+    return this.http.post(this.controllerUrl + "add", model);
   }
-  update(model:IUpdateClusterizationWorkspace): Observable<any> {
-    return this.http.put(this.controllerUrl + "update",model);
-  }
-
-  addCommentsByChannel(request:IAddCommentsToWorkspaceByChannelRequest): Observable<any> {
-    return this.http.post(this.controllerUrl + "add_comments_by_channel",request);
-  }
-  addCommentsByVideos(request:IAddCommentsToWorkspaceByVideosRequest): Observable<any> {
-    return this.http.post(this.controllerUrl + "add_comments_by_videos",request);
+  update(model: IUpdateClusterizationWorkspace): Observable<any> {
+    return this.http.put(this.controllerUrl + "update", model);
   }
 
-  getById(id:number): Observable<IClusterizationWorkspace> {
-    return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_by_id/"+id);
+  addCommentsByChannel(request: IAddCommentsToWorkspaceByChannelRequest): Observable<any> {
+    return this.http.post(this.controllerUrl + "add_comments_by_channel", request);
   }
-  getWorkspaces(request:IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
-    return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection",request);
+  addCommentsByVideos(request: IAddCommentsToWorkspaceByVideosRequest): Observable<any> {
+    return this.http.post(this.controllerUrl + "add_comments_by_videos", request);
   }
 
-  embeddingData(id:number): Observable<any> {
-    console.log(this.controllerUrl + "load_embedding_data/"+id);
+  getById(id: number): Observable<IClusterizationWorkspace> {
+    return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_by_id/" + id);
+  }
+  getWorkspaces(request: IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
+    return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection", request);
+  }
+
+  embeddingData(id: number): Observable<any> {
     return this.http.post(this.controllerUrl + "load_embedding_data/"+id,null);
   }
 }

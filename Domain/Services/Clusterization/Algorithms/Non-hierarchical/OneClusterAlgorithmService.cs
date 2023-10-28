@@ -8,8 +8,11 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
+using Domain.Interfaces.Embeddings;
+using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
+using Hangfire;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IRepository<Cluster> clusters_repository;
 
         private readonly IClusterizationTilesService tilesService;
+        private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IMyTasksService taskService;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
@@ -41,7 +46,9 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IRepository<ClusterizationProfile> profile_repository,
                                       IRepository<ClusterizationEntity> entities_repository,
                                       IClusterizationTilesService tilesService,
-                                      IRepository<Cluster> clusters_repository)
+                                      IRepository<Cluster> clusters_repository,
+                                      IBackgroundJobClient backgroundJobClient,
+                                      IMyTasksService taskService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -50,6 +57,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.entities_repository = entities_repository;
             this.tilesService = tilesService;
             this.clusters_repository = clusters_repository;
+            this.backgroundJobClient = backgroundJobClient;
+            this.taskService = taskService;
         }
 
         public async Task AddAlgorithm(AddOneClusterAlgorithmDTO model)
@@ -77,34 +86,55 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
         public async Task ClusterData(int profileId)
         {
-            var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId));
+        }
 
-            if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
-
-            var clusterColor = (profile.Algorithm as OneClusterAlgorithm)?.ClusterColor;
-
-            var clusterizationEntities = (await entities_repository.GetAsync(e => e.WorkspaceId == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationEntity.EmbeddingData)}")).ToList();
-
-            var cluster = new Cluster()
+        public async Task ClusterDataBackgroundJob(int profileId)
+        {
+            var taskId = await taskService.CreateTask("Кластеризація (один кластер)");
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            try
             {
-                Color = clusterColor,
-                Profile = profile,
-                Entities = clusterizationEntities
-            };
-            await clusters_repository.AddAsync(cluster);
+                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
 
-            profile.Clusters.Clear();
-            profile.Clusters.Add(cluster);
+                if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
-            var tiles = await tilesService.GenerateOneLevelTiles(clusterizationEntities, TILES_COUNT, 0);
+                var clusterColor = (profile.Algorithm as OneClusterAlgorithm)?.ClusterColor;
 
-            profile.MaxTileLevel = 0;
-            profile.MinTileLevel = 0;
+                var clusterizationEntities = (await entities_repository.GetAsync(e => e.WorkspaceId == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationEntity.EmbeddingData)}")).ToList();
 
-            profile.Tiles = tiles;
-            profile.IsCalculated = true;
+                for (int i = 0; i < profile.Clusters.Count(); i++)
+                {
+                    clusters_repository.Remove(profile.Clusters.ElementAt(i));
+                }
 
-            await profile_repository.SaveChangesAsync();
+                var cluster = new Cluster()
+                {
+                    Color = clusterColor,
+                    Profile = profile,
+                    Entities = clusterizationEntities
+                };
+                await clusters_repository.AddAsync(cluster);
+
+                profile.Clusters.Add(cluster);
+
+                var tiles = await tilesService.GenerateOneLevelTiles(clusterizationEntities, TILES_COUNT, 0);
+
+                profile.MaxTileLevel = 0;
+                profile.MinTileLevel = 0;
+
+                profile.Tiles = tiles;
+                profile.IsCalculated = true;
+
+                await profile_repository.SaveChangesAsync();
+
+                await taskService.ChangeTaskPercent(taskId, 100f);
+                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+            }
+            catch
+            {
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+            }
         }
     }
 }

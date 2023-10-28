@@ -18,9 +18,6 @@ namespace Domain.Entities.Clusterization
         public Comment Comment { get; set; }
         public string CommentId { get; set; }
 
-        public DisplayedPoint? DisplayedPoint { get; set; }
-        public int? DisplayedPointId { get; set; }
-
         public ICollection<Cluster> Clusters { get; set; } = new HashSet<Cluster>();
 
         public ClusterizationWorkspace Workspace { get; set; }

@@ -14,7 +14,10 @@ export class OneClusterAlgorithmService {
     this.controllerUrl = environment.apiUrl + "oneClusterAlgorithm/";
   }
 
-  add(model:IAddOneClusterAlgorithm): Observable<any> {
+  add(model: IAddOneClusterAlgorithm): Observable<any> {
     return this.http.post(this.controllerUrl, model);
+  }
+  clusterData(profileId: number): Observable<any> {
+    return this.http.post(this.controllerUrl + 'cluster_data/' + profileId, null);
   }
 }

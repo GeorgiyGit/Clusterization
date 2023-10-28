@@ -58,7 +58,8 @@ namespace Clusterization.Controllers.Clusterization
         }
 
 
-        [HttpPost("load_embedding_data/{id}")]
+        [HttpPost]
+        [Route("load_embedding_data/{id}")]
         public async Task<IActionResult> LoadEmbeddingData([FromRoute] int id)
         {
             await embeddingsService.LoadEmbeddingsByWorkspace(id);

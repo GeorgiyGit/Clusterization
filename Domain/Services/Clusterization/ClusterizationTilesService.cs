@@ -36,7 +36,7 @@ namespace Domain.Services.Clusterization
 
                 var dimensionValue = embeddingData.Embeddings.First(e => e.DimensionTypeId == 2);
 
-                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id)).ToList();
+                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id,orderBy:e=>e.OrderBy(e=>e.Id))).ToList();
 
                 var helpModel = new TileGeneratingHelpModel()
                 {
@@ -87,7 +87,6 @@ namespace Domain.Services.Clusterization
                     {
                         var point = new DisplayedPoint()
                         {
-                            ClusterizationEntity = model.Entity,
                             OptimizationLevel = z,
                             X = model.EmbeddingValues[0].Value,
                             Y = model.EmbeddingValues[1].Value,
@@ -100,6 +99,8 @@ namespace Domain.Services.Clusterization
                     }
 
                     await tiles_repository.AddAsync(newTile);
+
+                    tiles.Add(newTile);
                 }
             }
 

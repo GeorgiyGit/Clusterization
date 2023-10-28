@@ -1,13 +1,13 @@
 <div class="my-card">
     <div class="top-cont">
         <p class="percent-text">{{task.percent}}%</p>
-        <p class="title-text">{{task.title}}</p>
+        <p class="title-text" [class.error-text]="task.stateId=='Error'">{{task.title}}</p>
     </div>
     <div class="progress-bar-cont">
         <div class="progress-bar" [style.width.%]="task.percent"
                                   [class.complete]="task.stateId=='Completed'"
-                                  [class.error]="task.stateId=='error'"
-                                  [class.normal]="task.stateId!='error'">
+                                  [class.error]="task.stateId=='Error'"
+                                  [class.normal]="task.stateId!='Error'">
 
         </div>
     </div>

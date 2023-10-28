@@ -24,6 +24,7 @@ export class TaskListPageComponent implements OnInit{
     this.myTaskService.getAll().subscribe(res=>{
       this.tasks=res;
       this.isLoading=false;
+      console.log(this.tasks);
     },error=>{
       this.isLoading=false;
       this.toastr.error(error.error.Message);

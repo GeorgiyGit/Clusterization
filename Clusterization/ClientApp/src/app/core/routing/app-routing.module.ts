@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
 import { AbstractAlgorithmAddPageComponent } from "src/app/features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component";
+import { ClusterizationFullProfilePageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component";
 import { ClusterizationProfileAddPageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component";
 import { ClusterizationProfileListPageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component";
 import { AddChannelCommentsToWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component";
@@ -101,6 +102,16 @@ const routes: Route[] = [
   {
     path:'workspaces/full/:id',
     component:WorkspaceFullPageComponent,
+    children:[
+      {
+        path:'profiles-list/:workspaceId',
+        component:ClusterizationProfileListPageComponent
+      }
+    ]
+  },
+  {
+    path:'profiles/full/:id',
+    component:ClusterizationFullProfilePageComponent,
     children:[
       {
         path:'profiles-list/:workspaceId',

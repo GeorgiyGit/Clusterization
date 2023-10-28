@@ -61,11 +61,6 @@ namespace Infrastructure.Builders
                         .WithMany(e => e.ClusterizationEntities)
                         .HasForeignKey(e => e.CommentId);
 
-            modelBuilder.HasOne(e => e.DisplayedPoint)
-                        .WithOne(e => e.ClusterizationEntity)
-                        .HasForeignKey<DisplayedPoint>(e => e.ClusterizationEntityId)
-                        .IsRequired(false);
-
             modelBuilder.HasMany(e => e.Clusters)
                         .WithMany(e => e.Entities);
 
@@ -123,11 +118,6 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Tile)
                         .WithMany(e => e.Points)
                         .HasForeignKey(e => e.TileId);
-
-            modelBuilder.HasOne(e => e.ClusterizationEntity)
-                        .WithOne(e => e.DisplayedPoint)
-                        .HasForeignKey<ClusterizationEntity>(e => e.DisplayedPointId)
-                        .IsRequired(false);
         }
         public static void TileBuild(EntityTypeBuilder<ClusterizationTile> modelBuilder)
         {

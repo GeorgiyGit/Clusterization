@@ -1,0 +1,82 @@
+@import '/src/app/core/styles/base.scss';
+
+section {
+    padding: 50px;
+    padding-top: 100px;
+
+    h1 {
+        text-align: center;
+        color: $first-color-2;
+    }
+
+    .all-cont {
+        display: flex;
+        gap: 20px;
+
+        .info-cont {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            flex: 1;
+
+            .image-cont{
+                width: 100%;
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 15px;
+                }
+            }
+            .text-info-cont{
+                display: flex;
+                flex-direction: column;
+                gap:5px;
+
+                .title-text{
+                    color: $first-color-1;
+                    margin-bottom: 10px;
+                }
+                .block {
+                    display: flex;
+                    cursor: pointer;
+                    gap: 5px;
+    
+                    width: fit-content;
+    
+                    .normal-color-text {
+                        color: $first-color-2;
+                    }
+    
+                    .first-color-text {
+                        color: $first-color-1;
+                    }
+    
+                    .icon {
+                        color: $first-color-2;
+                    }
+    
+                    p {
+                        height: fit-content;
+                    }
+                }
+            }
+        }
+        .main-cont{
+            width: 100%;
+
+            flex: 3;
+            .nav-cont{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    }
+}
+p{
+    margin: 0;
+    padding: 0;
+    color: $first-color-4;
+}

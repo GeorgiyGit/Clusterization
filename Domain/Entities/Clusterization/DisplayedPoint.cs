@@ -19,8 +19,5 @@ namespace Domain.Entities.Clusterization
 
         public ClusterizationTile Tile { get; set; }
         public int TileId { get; set; }
-
-        public ClusterizationEntity? ClusterizationEntity { get; set; }
-        public int? ClusterizationEntityId { get; set; }
     }
 }

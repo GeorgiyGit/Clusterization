@@ -20,13 +20,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Domain.Services.Embeddings
 {
     public class LoadEmbeddingsService : ILoadEmbeddingsService
     {
         private readonly IRepository<Comment> comment_repository;
+        private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IRepository<ClusterizationWorkspace> workspace_repository;
         private readonly IClusterizationDimensionTypesService DimensionTypeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
@@ -43,7 +46,8 @@ namespace Domain.Services.Embeddings
                                      IConfiguration configuration,
                                      IEmbeddingsService embeddingsService,
                                      IBackgroundJobClient backgroundJobClient,
-                                     IMyTasksService taskService)
+                                     IMyTasksService taskService,
+                                     IRepository<ClusterizationEntity> entities_repository)
         {
             this.comment_repository = comment_repository;
             this.DimensionTypeService = DimensionTypeService;
@@ -56,6 +60,7 @@ namespace Domain.Services.Embeddings
 
             this.apiKey = openAIOptions["ApiKey"];
             this.embeddingsService = embeddingsService;
+            this.entities_repository = entities_repository;
         }
         public async Task LoadEmbeddingsByWorkspace(int workspaceId)
         {
@@ -83,11 +88,30 @@ namespace Domain.Services.Embeddings
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
+                foreach(var entity in workspace.Entities)
+                {
+                    entities_repository.Remove(entity);
+                }
+                workspace.Entities.Clear();
+
                 foreach (var comment in comments)
                 {
-                    if (comment.EmbeddingData != null) continue;
+                    if (comment.EmbeddingData != null)
+                    {
+                        var entity = new ClusterizationEntity()
+                        {
+                            Comment = comment,
+                            EmbeddingData = comment.EmbeddingData,
+                            WorkspaceId = workspace.Id
+                        };
+                        workspace.Entities.Add(entity);
+                        await entities_repository.AddAsync(entity);
 
-                    var inputText = comment.TextOriginal.Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ');
+                        continue;
+                    }
+
+                    var inputText = HttpUtility.UrlEncodeUnicode(comment.TextOriginal);
+                    //var inputText = comment.TextOriginal.Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t").Replace("\"","\\\"").Replace("\\", "\\\\");
 
                     string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
 
@@ -127,8 +151,16 @@ namespace Domain.Services.Embeddings
 
                                     await embeddingsService.AddEmbeddingToComment(res, Dimensions[i].DimensionCount, comment);
                                 }
-
                             }
+
+                            var entity = new ClusterizationEntity()
+                            {
+                                Comment = comment,
+                                EmbeddingData = comment.EmbeddingData,
+                                WorkspaceId = workspace.Id
+                            };
+                            workspace.Entities.Add(entity);
+                            await entities_repository.AddAsync(entity);
                         }
                         else
                         {

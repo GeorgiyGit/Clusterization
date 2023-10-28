@@ -18,5 +18,13 @@ namespace Clusterization.Controllers.Clusterization.Algorithms
             await service.AddAlgorithm(model);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("cluster_data/{profileId}")]
+        public async Task<IActionResult> ClusterData([FromRoute] int profileId)
+        {
+            await service.ClusterData(profileId);
+            return Ok();
+        }
     }
 }

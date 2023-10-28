@@ -31,8 +31,10 @@ export class WorkspaceFullPageComponent implements OnInit {
     {
       name:'Завантажити ембедінги',
       action:()=>{
-        console.log(123);
-        this.workspaceService.embeddingData(this.workspace.id);
+        this.workspaceService.embeddingData(this.workspace.id).subscribe(res=>{
+        },error=>{
+          this.toastr.error(error.error.Message);
+        });
       }
     }
   ]

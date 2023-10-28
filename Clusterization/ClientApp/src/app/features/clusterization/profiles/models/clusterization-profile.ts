@@ -6,12 +6,11 @@ export interface IClusterizationProfile{
     algorithmId:number,
     algorithmType:ISimpleAlgorithmType,
 
-    dimensionTypeId:number,
+    dimensionCount:number,
 
     clustersCount:number,
     workspaceId:number,
     isCalculated:boolean,
-    isFullyCalculated:boolean,
 
     minTileLevel:number,
     maxTileLevel:number

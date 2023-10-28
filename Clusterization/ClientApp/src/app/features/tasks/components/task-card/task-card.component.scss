@@ -1,6 +1,6 @@
 @import '/src/app/core/styles/colors.scss';
 
-.my-card{
+.my-card {
     padding: 10px;
     background-color: $second-color-1;
     border-radius: 10px;
@@ -9,45 +9,55 @@
     flex-direction: column;
     gap: 10px;
 
-    &:hover{
+    &:hover {
         background-color: $second-color-3;
     }
-    .top-cont{
+
+    .top-cont {
         display: flex;
         gap: 10px;
         align-items: center;
-        .percent-text{
+
+        .percent-text {
             color: $first-color-1;
             font-size: 1.5rem;
         }
-        .title-text{
+
+        .title-text {
             color: $first-color-2;
         }
+        .error-text{
+            color: $warn-1;
+        }
     }
-    .progress-bar-cont{
+
+    .progress-bar-cont {
         width: 100%;
         border-radius: 5px;
         background-color: $second-color-2;
         height: 25px;
 
-        .progress-bar{
+        .progress-bar {
             height: 100%;
             width: auto;
             border-radius: 5px;
         }
-        .error{
-            background-color:$warn-1;
+
+        .error {
+            background-color: $warn-1 !important;
         }
-        .normal{
+
+        .normal {
             background-color: $first-color-1;
         }
-        .complete{
+
+        .complete {
             background-color: $first-color-4;
         }
     }
 }
 
-p{
+p {
     margin: 0;
     padding: 0;
 }
