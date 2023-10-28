@@ -128,7 +128,6 @@ namespace Domain.Services.Clusterization
             float percent = 0f;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
-
             try
             {
                 var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();

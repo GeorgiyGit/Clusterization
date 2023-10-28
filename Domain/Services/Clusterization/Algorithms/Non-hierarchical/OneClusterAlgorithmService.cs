@@ -126,8 +126,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 profile.Tiles = tiles;
                 profile.IsCalculated = true;
 
-                await profile_repository.SaveChangesAsync();
-
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }

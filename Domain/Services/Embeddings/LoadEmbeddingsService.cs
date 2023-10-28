@@ -161,6 +161,9 @@ namespace Domain.Services.Embeddings
                             };
                             workspace.Entities.Add(entity);
                             await entities_repository.AddAsync(entity);
+
+                            percent += 100 / comments.Count();
+                            await taskService.ChangeTaskPercent(taskId, percent);
                         }
                         else
                         {
@@ -168,7 +171,6 @@ namespace Domain.Services.Embeddings
                         }
                     }
                 }
-
 
                 workspace.IsAllDataEmbedded = true;
                 await taskService.ChangeTaskPercent(taskId, 100f);

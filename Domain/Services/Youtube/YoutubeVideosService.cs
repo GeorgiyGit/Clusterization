@@ -199,7 +199,7 @@ namespace Domain.Services.Youtube
                         await repository.AddAsync(newVideo);
                         i++;
 
-                        float plusPercent = 100 / options.MaxLoad;
+                        float plusPercent = 100f / options.MaxLoad;
                         percent += plusPercent;
 
                         await taskService.ChangeTaskPercent(taskId, percent);
