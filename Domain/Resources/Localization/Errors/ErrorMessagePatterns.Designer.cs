@@ -133,6 +133,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TileNotFound.
+        /// </summary>
+        public static string TileNotFound {
+            get {
+                return ResourceManager.GetString("TileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WorkspaceNotFound.
         /// </summary>
         public static string WorkspaceNotFound {

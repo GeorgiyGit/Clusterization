@@ -1,11 +1,17 @@
-﻿using Domain.Entities.Clusterization;
+﻿using AutoMapper;
+using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
+using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
+using Domain.Exceptions;
 using Domain.HelpModels;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
+using Domain.Resources.Localization.Errors;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,15 +23,21 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<EmbeddingValue> embeddingValue_repository;
         private readonly IRepository<DisplayedPoint> displayedPoints_repository;
         private readonly IRepository<ClusterizationTile> tiles_repository;
+        private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IMapper mapper;
         public ClusterizationTilesService(IRepository<EmbeddingData> embeddingData_repository,
                                           IRepository<EmbeddingValue> embeddingValue_repository,
                                           IRepository<DisplayedPoint> displayedPoints_repository,
-                                          IRepository<ClusterizationTile> tiles_repository)
+                                          IRepository<ClusterizationTile> tiles_repository,
+                                          IStringLocalizer<ErrorMessages> localizer,
+                                          IMapper mapper)
         {
             this.embeddingData_repository = embeddingData_repository;
             this.embeddingValue_repository = embeddingValue_repository;
             this.displayedPoints_repository = displayedPoints_repository;
             this.tiles_repository = tiles_repository;
+            this.localizer = localizer;
+            this.mapper = mapper;
         }
         public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<ClusterizationEntity> entities, int tilesCount, int z)
         {
@@ -105,6 +117,22 @@ namespace Domain.Services.Clusterization
             }
 
             return tiles;
+        }
+
+
+        public async Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int profileId, int x, int y, int z)
+        {
+            var tile = (await tiles_repository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
+
+            if (tile == null) throw new HttpException(localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
+
+            return await GetOneTilePoints(tile.Id);
+        }
+        public async Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int tileId)
+        {
+            var points = (await displayedPoints_repository.GetAsync(e => e.TileId == tileId)).ToList();
+
+            return mapper.Map<ICollection<DisplayedPointDTO>>(points);
         }
     }
 }

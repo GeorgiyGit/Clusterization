@@ -141,6 +141,9 @@
   <data name="TaskNotFound" xml:space="preserve">
     <value>Task not found</value>
   </data>
+  <data name="TileNotFound" xml:space="preserve">
+    <value>Tile not found</value>
+  </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Workspace not found</value>
   </data>

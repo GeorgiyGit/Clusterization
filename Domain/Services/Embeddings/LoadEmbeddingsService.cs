@@ -96,6 +96,9 @@ namespace Domain.Services.Embeddings
 
                 foreach (var comment in comments)
                 {
+                    percent += 100f / comments.Count();
+                    await taskService.ChangeTaskPercent(taskId, percent);
+
                     if (comment.EmbeddingData != null)
                     {
                         var entity = new ClusterizationEntity()
@@ -161,9 +164,6 @@ namespace Domain.Services.Embeddings
                             };
                             workspace.Entities.Add(entity);
                             await entities_repository.AddAsync(entity);
-
-                            percent += 100 / comments.Count();
-                            await taskService.ChangeTaskPercent(taskId, percent);
                         }
                         else
                         {
