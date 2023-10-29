@@ -8,6 +8,7 @@ import { AddChannelCommentsToWorkspacePageComponent } from "src/app/features/clu
 import { AddWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component";
 import { WorkspaceFullPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component";
 import { WorkspaceListPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component";
+import { PointsMapPageComponent } from "src/app/features/points-map/pages/points-map-page/points-map-page.component";
 import { TaskListPageComponent } from "src/app/features/tasks/pages/task-list-page/task-list-page.component";
 import { YoutubeLoadMultipleChannelsComponent } from "src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component";
 import { YoutubeLoadOneChannelComponent } from "src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component";
@@ -114,8 +115,8 @@ const routes: Route[] = [
     component:ClusterizationFullProfilePageComponent,
     children:[
       {
-        path:'profiles-list/:workspaceId',
-        component:ClusterizationProfileListPageComponent
+        path:'profile-points-map/:profileId',
+        component:PointsMapPageComponent
       }
     ]
   },
