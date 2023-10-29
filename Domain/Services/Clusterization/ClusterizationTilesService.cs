@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
+using Domain.DTOs.ClusterizationDTOs.TileDTOs;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
 using Domain.Exceptions;
@@ -84,7 +85,8 @@ namespace Domain.Services.Clusterization
                     {
                         Z = z,
                         Y = y,
-                        X = x
+                        X = x,
+                        Length = lengthPerTile
                     };
 
                     foreach (var model in helpModelsInTheTile)
@@ -113,7 +115,7 @@ namespace Domain.Services.Clusterization
         }
 
 
-        public async Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int profileId, int x, int y, int z)
+        public async Task<ClusterizationTileDTO> GetOneTilePoints(int profileId, int x, int y, int z)
         {
             var tile = (await tiles_repository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
 
@@ -121,11 +123,19 @@ namespace Domain.Services.Clusterization
 
             return await GetOneTilePoints(tile.Id);
         }
-        public async Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int tileId)
+        public async Task<ClusterizationTileDTO> GetOneTilePoints(int tileId)
         {
+            var tile = (await tiles_repository.GetAsync(c => c.Id == tileId)).FirstOrDefault();
+
+            if (tile == null) throw new HttpException(localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
+
             var points = (await displayedPoints_repository.GetAsync(e => e.TileId == tileId,includeProperties:$"{nameof(DisplayedPoint.Cluster)}")).ToList();
 
-            return mapper.Map<ICollection<DisplayedPointDTO>>(points);
+            var mappedTile = mapper.Map<ClusterizationTileDTO>(tile);
+
+            mappedTile.Points = mapper.Map<ICollection<DisplayedPointDTO>>(points);
+
+            return mappedTile;
         }
     }
 }

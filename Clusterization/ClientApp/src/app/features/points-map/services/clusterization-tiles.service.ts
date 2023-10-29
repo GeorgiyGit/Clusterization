@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { IDisplayedPoint } from '../models/displayed-points';
+import { IClusterizationTile } from '../models/clusterization-tile';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,12 @@ export class ClusterizationTilesService {
     this.controllerUrl = environment.apiUrl + "ClusterizationTiles/";
   }
 
-  getDisplayedPointsByTileId(tileId: string): Observable<IDisplayedPoint[]> {
-    return this.http.get<IDisplayedPoint[]>(this.controllerUrl + "get_displayed_points_by_tileId/" + tileId);
+  getDisplayedPointsByTileId(tileId: string): Observable<IClusterizationTile> {
+    return this.http.get<IClusterizationTile>(this.controllerUrl + "get_tile_by_id/" + tileId);
   }
 
-  getTileDisplayedPointsByProfileId(profileId: number, x: number, y: number, z: number): Observable<IDisplayedPoint[]> {
-    return this.http.post<IDisplayedPoint[]>(this.controllerUrl + "get_tile_displayed_points_by_profileid/", {
+  getTileDisplayedPointsByProfileId(profileId: number, x: number, y: number, z: number): Observable<IClusterizationTile> {
+    return this.http.post<IClusterizationTile>(this.controllerUrl + "get_tile_by_profile/", {
       profileId: profileId,
       x: x,
       y: y,

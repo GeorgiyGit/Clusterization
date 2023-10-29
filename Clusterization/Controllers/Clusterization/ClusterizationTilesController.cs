@@ -15,16 +15,16 @@ namespace Clusterization.Controllers.Clusterization
             this.service = service;
         }
 
-        [HttpPost("get_tile_displayed_points_by_profileid")]
-        public async Task<IActionResult> GetTileDisplayedPointsByProfileId([FromBody] GetDisplayedPointsByProfileIdRequest request)
+        [HttpPost("get_tile_by_profile")]
+        public async Task<IActionResult> GetOneTileByProfile([FromBody] GetDisplayedPointsByProfileIdRequest request)
         {
-            return Ok(await service.GetOneTilePoints(request.ProfileId, request.X, request.Y, request.Z));
+            return Ok(await service.GetOneTile(request.ProfileId, request.X, request.Y, request.Z));
         }
 
-        [HttpGet("get_displayed_points_by_tileId/{id}")]
-        public async Task<IActionResult> GetDisplayedPointsByTileId([FromRoute] int id)
+        [HttpGet("get_tile_by_id/{id}")]
+        public async Task<IActionResult> GetOneTileById([FromRoute] int id)
         {
-            return Ok(await service.GetOneTilePoints(id));
+            return Ok(await service.GetOneTile(id));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
+using Domain.DTOs.ClusterizationDTOs.TileDTOs;
 using Domain.Entities.Clusterization;
 using Domain.HelpModels;
 using System;
@@ -13,7 +14,7 @@ namespace Domain.Interfaces.Clusterization
     {
         public Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z);
 
-        public Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int profileId, int x, int y, int z);
-        public Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int tileId);
+        public Task<ClusterizationTileDTO> GetOneTilePoints(int profileId, int x, int y, int z);
+        public Task<ClusterizationTileDTO> GetOneTilePoints(int tileId);
     }
 }
