@@ -12,5 +12,6 @@ namespace Domain.HelpModels
     {
         public ClusterizationEntity Entity { get; set; }
         public IList<EmbeddingValue> EmbeddingValues { get; set; }
+        public Cluster Cluster { get; set; }
     }
 }

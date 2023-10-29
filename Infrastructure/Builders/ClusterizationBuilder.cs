@@ -37,6 +37,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Profile)
                         .WithMany(e => e.Clusters)
                         .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.HasMany(e => e.DisplayedPoints)
+                        .WithOne(e => e.Cluster)
+                        .HasForeignKey(e => e.ClusterId);
         }
         public static void DimensionTypeBuild(EntityTypeBuilder<ClusterizationDimensionType> modelBuilder)
         {
@@ -118,6 +122,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Tile)
                         .WithMany(e => e.Points)
                         .HasForeignKey(e => e.TileId);
+
+            modelBuilder.HasOne(e => e.Cluster)
+                        .WithMany(e => e.DisplayedPoints)
+                        .HasForeignKey(e => e.ClusterId);
         }
         public static void TileBuild(EntityTypeBuilder<ClusterizationTile> modelBuilder)
         {

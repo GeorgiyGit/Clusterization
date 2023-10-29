@@ -5,6 +5,7 @@ using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Exceptions;
+using Domain.HelpModels;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
@@ -118,7 +119,18 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 profile.Clusters.Add(cluster);
 
-                var tiles = await tilesService.GenerateOneLevelTiles(clusterizationEntities, TILES_COUNT, 0);
+                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(clusterizationEntities.Count());
+
+                foreach(var entity in clusterizationEntities)
+                {
+                    helpModels.Add(new TileGeneratingHelpModel()
+                    {
+                        Entity = entity,
+                        Cluster = cluster
+                    });
+                }
+
+                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0);
 
                 profile.MaxTileLevel = 0;
                 profile.MinTileLevel = 0;

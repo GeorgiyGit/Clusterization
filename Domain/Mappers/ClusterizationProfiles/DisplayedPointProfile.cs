@@ -13,7 +13,9 @@ namespace Domain.Mappers.ClusterizationProfiles
     {
         public DisplayedPointProfile()
         {
-            CreateMap<DisplayedPoint, DisplayedPointDTO>();
+            CreateMap<DisplayedPoint, DisplayedPointDTO>()
+                    .ForMember(dest => dest.Color,
+                               ost => ost.MapFrom(e => e.Cluster.Color));
         }
     }
 }

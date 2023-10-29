@@ -114,7 +114,6 @@ namespace Domain.Services.Embeddings
                     }
 
                     var inputText = HttpUtility.UrlEncodeUnicode(comment.TextOriginal);
-                    //var inputText = comment.TextOriginal.Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t").Replace("\"","\\\"").Replace("\\", "\\\\");
 
                     string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
 

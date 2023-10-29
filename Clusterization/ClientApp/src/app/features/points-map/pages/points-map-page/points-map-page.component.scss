@@ -1,0 +1,7 @@
+@import '/src/app/core/styles/base.scss';
+.icon{
+    color: $first-color-2;
+    
+    user-select: none;
+    cursor: pointer;
+}

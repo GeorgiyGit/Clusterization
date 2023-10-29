@@ -39,31 +39,24 @@ namespace Domain.Services.Clusterization
             this.localizer = localizer;
             this.mapper = mapper;
         }
-        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<ClusterizationEntity> entities, int tilesCount, int z)
-        {
-            List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(entities.Count());
-            foreach(var entity in entities)
+        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z)
+        {          
+            foreach(var helpModel in entityHelpModels)
             {
-                var embeddingData = (await embeddingData_repository.GetAsync(c => c.Id == entity.EmbeddingDataId, includeProperties: $"{nameof(EmbeddingData.Embeddings)}")).First();
+                var embeddingData = (await embeddingData_repository.GetAsync(c => c.Id == helpModel.Entity.EmbeddingDataId, includeProperties: $"{nameof(EmbeddingData.Embeddings)}")).First();
 
                 var dimensionValue = embeddingData.Embeddings.First(e => e.DimensionTypeId == 2);
 
                 var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id,orderBy:e=>e.OrderBy(e=>e.Id))).ToList();
 
-                var helpModel = new TileGeneratingHelpModel()
-                {
-                    Entity = entity,
-                    EmbeddingValues = embeddingValues
-                };
-
-                helpModels.Add(helpModel);
+                helpModel.EmbeddingValues = embeddingValues;
             }
 
-            var minXValue = helpModels.Min(e => e.EmbeddingValues[0].Value);
-            var maxXValue = helpModels.Max(e => e.EmbeddingValues[0].Value);
+            var minXValue = entityHelpModels.Min(e => e.EmbeddingValues[0].Value);
+            var maxXValue = entityHelpModels.Max(e => e.EmbeddingValues[0].Value);
 
-            var minYValue = helpModels.Min(e => e.EmbeddingValues[1].Value);
-            var maxYValue = helpModels.Max(e => e.EmbeddingValues[1].Value);
+            var minYValue = entityHelpModels.Min(e => e.EmbeddingValues[1].Value);
+            var maxYValue = entityHelpModels.Max(e => e.EmbeddingValues[1].Value);
 
             double maxLength = 0d;
 
@@ -78,15 +71,14 @@ namespace Domain.Services.Clusterization
 
             double lengthPerTile = maxLength / tilesCount;
 
-
             var tiles = new List<ClusterizationTile>(tilesCount * tilesCount);
 
             for (int y = 0; y < tilesCount; y++)
             {
                 for (int x = 0; x < tilesCount; x++)
                 {
-                    var helpModelsInTheTile = helpModels.Where(e => (e.EmbeddingValues[0].Value >= lengthPerTile * x && e.EmbeddingValues[0].Value < lengthPerTile * (x + 1)) &&
-                                                                  (e.EmbeddingValues[1].Value >= lengthPerTile * y && e.EmbeddingValues[1].Value < lengthPerTile * (y + 1))).ToList();
+                    var helpModelsInTheTile = entityHelpModels.Where(e => (e.EmbeddingValues[0].Value >= lengthPerTile * x && e.EmbeddingValues[0].Value < lengthPerTile * (x + 1)) &&
+                                                                          (e.EmbeddingValues[1].Value >= lengthPerTile * y && e.EmbeddingValues[1].Value < lengthPerTile * (y + 1))).ToList();
 
                     var newTile = new ClusterizationTile()
                     {
@@ -103,7 +95,8 @@ namespace Domain.Services.Clusterization
                             X = model.EmbeddingValues[0].Value,
                             Y = model.EmbeddingValues[1].Value,
                             Tile = newTile,
-                            ValueId = model.Entity.CommentId //temp
+                            ValueId = model.Entity.CommentId, //temp,
+                            Cluster=model.Cluster
                         };
 
                         await displayedPoints_repository.AddAsync(point);
@@ -130,7 +123,7 @@ namespace Domain.Services.Clusterization
         }
         public async Task<ICollection<DisplayedPointDTO>> GetOneTilePoints(int tileId)
         {
-            var points = (await displayedPoints_repository.GetAsync(e => e.TileId == tileId)).ToList();
+            var points = (await displayedPoints_repository.GetAsync(e => e.TileId == tileId,includeProperties:$"{nameof(DisplayedPoint.Cluster)}")).ToList();
 
             return mapper.Map<ICollection<DisplayedPointDTO>>(points);
         }

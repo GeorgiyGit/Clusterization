@@ -21,5 +21,7 @@ namespace Domain.Entities.Clusterization
 
         public Cluster? ParentCluster { get; set; }
         public int? ParentClusterId { get; set; }
+
+        public ICollection<DisplayedPoint> DisplayedPoints { get; set; }=new HashSet<DisplayedPoint>();
     }
 }
