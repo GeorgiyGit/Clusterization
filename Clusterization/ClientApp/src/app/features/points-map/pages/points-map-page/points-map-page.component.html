@@ -3,5 +3,5 @@
         <span class="material-symbols-outlined icon" translate="no" (click)="addLayerValue()">add</span>
         <span class="material-symbols-outlined icon" translate="no" (click)="reduceLayerValue()">remove</span>
     </div>
-    <app-points-map-plane [displayedPoints]="points" [layerValue]="layerValue"></app-points-map-plane>
+    <app-points-map-plane [displayedPoints]="points" [layerValue]="layerValue" (addTileEvent)="addTile($event)" [tileLength]="tileLength" [tiles]="tiles"></app-points-map-plane>
 </section>

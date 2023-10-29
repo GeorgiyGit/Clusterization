@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, ElementRef, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { IDisplayedPoint } from '../../models/displayed-points';
+import { IMyPosition } from '../../models/my-position';
+import { IClusterizationTile } from '../../models/clusterization-tile';
 
 @Component({
   selector: 'app-points-map-plane',
@@ -8,7 +10,12 @@ import { IDisplayedPoint } from '../../models/displayed-points';
 })
 export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit {
   @Input() displayedPoints: IDisplayedPoint[] = [];
+  @Input() tiles: IClusterizationTile[][] = [];
   @Input() layerValue: number;
+  @Output() addTileEvent = new EventEmitter<IMyPosition>();
+
+  @Input() tileLength: number;
+  maxTileLength = 16;
 
   @ViewChild('pointCanvas') canvas: ElementRef;
   private ctx: CanvasRenderingContext2D;
@@ -16,9 +23,11 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   constructor(private el: ElementRef) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['displayedPoints'] && !changes['displayedPoints'].firstChange) {
+      this.tilesCalculation();
       this.drawPoints();
     }
     if (changes['layerValue'] && !changes['layerValue'].firstChange) {
+      this.tilesCalculation();
       this.drawPoints();
     }
   }
@@ -45,7 +54,48 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
     // You can draw points on the canvas here
+
+    this.tilesCalculation();
     this.drawPoints();
+  }
+
+  tilesCalculation() {
+    if (this.tileLength == undefined) {
+      this.addTileEvent.emit({
+        x: 0,
+        y: 0
+      });
+    }
+    let xTilesCount = Math.ceil((this.ctx.canvas.width - this.mouseChangesX) / (this.tileLength * this.layerValue));
+    let yTilesCount = Math.ceil((this.ctx.canvas.height - this.mouseChangesY) / (this.tileLength * this.layerValue));
+
+    if (xTilesCount > 15) xTilesCount = 15;
+    if (yTilesCount > 15) yTilesCount = 15;
+
+    let y = Math.floor(this.mouseChangesX / (this.tileLength * this.layerValue));
+    if (y < 0) y = 0;
+
+    let x = Math.floor(this.mouseChangesY / (this.tileLength * this.layerValue));
+    if (x < 0) x = 0;
+
+    console.log('tiles', this.tiles);
+
+    console.log(x);
+    console.log(y);
+
+    for (; y <= yTilesCount; y++) {
+      for (; x <= xTilesCount; x++) {
+        if (this.tiles[y] == undefined) {
+          this.tiles[y] = [];
+        }
+        if (this.tiles[y][x] == undefined) {
+          this.addTileEvent.emit({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
   }
 
   //#region  mouse
@@ -67,6 +117,9 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
       this.mousePositionX = event.pageX;
       this.mousePositionY = event.pageY;
+
+      this.tilesCalculation();
+
       this.drawPoints();
     }
   }
@@ -85,7 +138,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.displayedPoints.forEach(point => {
       this.ctx.fillStyle = point.color; // Point color
       this.ctx.beginPath();
-      this.ctx.arc(point.x * this.layerValue + this.mouseChangesX, point.y * this.layerValue + this.mouseChangesY, 5, 0, 2 * Math.PI); // Draw a small circle for the point
+      this.ctx.arc(point.x * this.layerValue + this.mouseChangesX, point.y * this.layerValue + this.mouseChangesY, 2, 0, 2 * Math.PI); // Draw a small circle for the point
       this.ctx.fill();
     });
   }

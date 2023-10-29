@@ -14,7 +14,7 @@ namespace Domain.Interfaces.Clusterization
     {
         public Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z);
 
-        public Task<ClusterizationTileDTO> GetOneTilePoints(int profileId, int x, int y, int z);
-        public Task<ClusterizationTileDTO> GetOneTilePoints(int tileId);
+        public Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z);
+        public Task<ClusterizationTileDTO> GetOneTile(int tileId);
     }
 }

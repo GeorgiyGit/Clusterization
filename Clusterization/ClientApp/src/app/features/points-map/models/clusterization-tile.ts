@@ -1,3 +1,5 @@
+import { IDisplayedPoint } from "./displayed-points";
+
 export interface IClusterizationTile{
     id:number,
     
@@ -5,5 +7,7 @@ export interface IClusterizationTile{
     y:number,
     z:number,
 
-    length:number
+    length:number,
+
+    points:IDisplayedPoint[]
 }

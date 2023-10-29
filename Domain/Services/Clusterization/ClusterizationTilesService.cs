@@ -115,15 +115,15 @@ namespace Domain.Services.Clusterization
         }
 
 
-        public async Task<ClusterizationTileDTO> GetOneTilePoints(int profileId, int x, int y, int z)
+        public async Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z)
         {
             var tile = (await tiles_repository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
 
             if (tile == null) throw new HttpException(localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
 
-            return await GetOneTilePoints(tile.Id);
+            return await GetOneTile(tile.Id);
         }
-        public async Task<ClusterizationTileDTO> GetOneTilePoints(int tileId)
+        public async Task<ClusterizationTileDTO> GetOneTile(int tileId)
         {
             var tile = (await tiles_repository.GetAsync(c => c.Id == tileId)).FirstOrDefault();
 
