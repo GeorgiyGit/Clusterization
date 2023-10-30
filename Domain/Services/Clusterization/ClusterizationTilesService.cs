@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
 using Domain.DTOs.ClusterizationDTOs.TileDTOs;
+using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
 using Domain.Exceptions;
@@ -24,6 +25,8 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<EmbeddingValue> embeddingValue_repository;
         private readonly IRepository<DisplayedPoint> displayedPoints_repository;
         private readonly IRepository<ClusterizationTile> tiles_repository;
+        private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
+
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         public ClusterizationTilesService(IRepository<EmbeddingData> embeddingData_repository,
@@ -31,7 +34,8 @@ namespace Domain.Services.Clusterization
                                           IRepository<DisplayedPoint> displayedPoints_repository,
                                           IRepository<ClusterizationTile> tiles_repository,
                                           IStringLocalizer<ErrorMessages> localizer,
-                                          IMapper mapper)
+                                          IMapper mapper,
+                                          IRepository<ClusterizationTilesLevel> tilesLevel_repository)
         {
             this.embeddingData_repository = embeddingData_repository;
             this.embeddingValue_repository = embeddingValue_repository;
@@ -39,6 +43,7 @@ namespace Domain.Services.Clusterization
             this.tiles_repository = tiles_repository;
             this.localizer = localizer;
             this.mapper = mapper;
+            this.tilesLevel_repository = tilesLevel_repository;
         }
         public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z)
         {          
@@ -78,9 +83,8 @@ namespace Domain.Services.Clusterization
             {
                 for (int x = 0; x < tilesCount; x++)
                 {
-                    var helpModelsInTheTile = entityHelpModels.Where(e => (e.EmbeddingValues[0].Value >= lengthPerTile * x && e.EmbeddingValues[0].Value < lengthPerTile * (x + 1)) &&
-                                                                          (e.EmbeddingValues[1].Value >= lengthPerTile * y && e.EmbeddingValues[1].Value < lengthPerTile * (y + 1))).ToList();
-
+                    var helpModelsInTheTile = entityHelpModels.Where(e => (e.EmbeddingValues[0].Value >= (lengthPerTile * x+minXValue) && e.EmbeddingValues[0].Value <= (lengthPerTile * (x + 1) + minXValue)) &&
+                                                                          (e.EmbeddingValues[1].Value >= (lengthPerTile * y+minYValue) && e.EmbeddingValues[1].Value <= (lengthPerTile * (y + 1))+minYValue)).ToList();
                     var newTile = new ClusterizationTile()
                     {
                         Z = z,
@@ -98,7 +102,7 @@ namespace Domain.Services.Clusterization
                             Y = model.EmbeddingValues[1].Value,
                             Tile = newTile,
                             ValueId = model.Entity.CommentId, //temp,
-                            Cluster=model.Cluster
+                            Cluster = model.Cluster
                         };
 
                         await displayedPoints_repository.AddAsync(point);
@@ -136,6 +140,16 @@ namespace Domain.Services.Clusterization
             mappedTile.Points = mapper.Map<ICollection<DisplayedPointDTO>>(points);
 
             return mappedTile;
+        }
+
+
+        public async Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int x)
+        {
+            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.X == x)).FirstOrDefault();
+
+            if (tilesLevel == null) throw new HttpException(localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
+
+            return mapper.Map<ClusterizationTilesLevelDTO>(tilesLevel);
         }
     }
 }

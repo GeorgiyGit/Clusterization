@@ -1,7 +1,9 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
 using Domain.DTOs.ClusterizationDTOs.TileDTOs;
+using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
 using Domain.Entities.Clusterization;
 using Domain.HelpModels;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +18,7 @@ namespace Domain.Interfaces.Clusterization
 
         public Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z);
         public Task<ClusterizationTileDTO> GetOneTile(int tileId);
+
+        public Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int x);
     }
 }

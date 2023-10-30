@@ -42,11 +42,6 @@ export class PointsMapPageComponent implements OnInit {
 
     if (this.tiles[position.y][position.x] != undefined) return;
 
-    console.log(position.y);
-    console.log(position.y);
-    console.log(this.profileId);
-    console.log(this.level);
-
     this.tilesService.getTileDisplayedPointsByProfileId(this.profileId, position.x, position.y, this.level).subscribe(res => {
       if (this.tiles[position.y] == undefined) this.tiles[position.y] = [];
       this.tiles[position.y][position.x] = res;

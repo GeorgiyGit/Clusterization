@@ -31,6 +31,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IRepository<ClusterizationProfile> profile_repository;
         private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IRepository<Cluster> clusters_repository;
+        private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
 
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -49,7 +50,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IClusterizationTilesService tilesService,
                                       IRepository<Cluster> clusters_repository,
                                       IBackgroundJobClient backgroundJobClient,
-                                      IMyTasksService taskService)
+                                      IMyTasksService taskService,
+                                      IRepository<ClusterizationTilesLevel> tilesLevel_repository)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -60,6 +62,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.clusters_repository = clusters_repository;
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
+            this.tilesLevel_repository = tilesLevel_repository;
         }
 
         public async Task AddAlgorithm(AddOneClusterAlgorithmDTO model)
@@ -131,6 +134,16 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
 
                 var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0);
+
+                var tilesLevel = new ClusterizationTilesLevel()
+                {
+                    Tiles = tiles,
+                    Profile = profile,
+                    TileCount = TILES_COUNT,
+                    TileLength = tiles.First().Length,
+                    X = 0
+                };
+                await tilesLevel_repository.AddAsync(tilesLevel);
 
                 profile.MaxTileLevel = 0;
                 profile.MinTileLevel = 0;

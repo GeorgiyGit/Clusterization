@@ -142,6 +142,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Рівень з тайлами не знайдено.
+        /// </summary>
+        public static string TilesLevelNotFound {
+            get {
+                return ResourceManager.GetString("TilesLevelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Робоча область не знайдена.
         /// </summary>
         public static string WorkspaceNotFound {

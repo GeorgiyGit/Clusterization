@@ -23,6 +23,7 @@ namespace Infrastructure.Builders
             WorkspaceBuild(modelBuilder.Entity<ClusterizationWorkspace>());
             DisplayedPointBuild(modelBuilder.Entity<DisplayedPoint>());
             TileBuild(modelBuilder.Entity<ClusterizationTile>());
+            TilesLevelBuild(modelBuilder.Entity<ClusterizationTilesLevel>());
         }
         public static void ClusterBuild(EntityTypeBuilder<Cluster> modelBuilder)
         {
@@ -93,6 +94,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasMany(e => e.Tiles)
                         .WithOne(e => e.Profile)
                         .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.HasMany(e => e.TilesLevels)
+                        .WithOne(e => e.Profile)
+                        .HasForeignKey(e => e.ProfileId);
         }
         public static void ClusterTypeBuild(EntityTypeBuilder<ClusterizationType> modelBuilder)
         {
@@ -140,6 +145,20 @@ namespace Infrastructure.Builders
 
             modelBuilder.HasOne(e => e.Profile)
                         .WithMany(e => e.Tiles)
+                        .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.HasOne(e => e.TilesLevel)
+                        .WithMany(e => e.Tiles)
+                        .HasForeignKey(e => e.TilesLevelId);
+        }
+        public static void TilesLevelBuild(EntityTypeBuilder<ClusterizationTilesLevel> modelBuilder)
+        {
+            modelBuilder.HasMany(e => e.Tiles)
+                        .WithOne(e => e.TilesLevel)
+                        .HasForeignKey(e => e.TilesLevelId);
+
+            modelBuilder.HasOne(e=>e.Profile)
+                        .WithMany(e => e.TilesLevels)
                         .HasForeignKey(e => e.ProfileId);
         }
     }

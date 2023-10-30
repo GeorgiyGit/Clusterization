@@ -44,7 +44,7 @@ namespace Infrastructure
         public virtual DbSet<ClusterizationWorkspace> ClusterizationWorkspaces { get; set; }
         public virtual DbSet<DisplayedPoint> DisplayedPoints { get; set; }
         public virtual DbSet<ClusterizationTile> ClusterizationTiles { get; set; }
-
+        public virtual DbSet<ClusterizationTilesLevel> ClusterizationTilesLevels { get; set; }
         #region Algorithms
         public virtual DbSet<ClusterizationAbstactAlgorithm> ClusterizationAbstractAlgorithms { get; set; }
         public virtual DbSet<KMeansAlgorithm> KMeansAlgorithms { get; set; }

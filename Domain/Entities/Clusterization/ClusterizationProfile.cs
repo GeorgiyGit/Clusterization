@@ -21,6 +21,8 @@ namespace Domain.Entities.Clusterization
         public ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
         public ICollection<ClusterizationTile> Tiles { get; set; } = new HashSet<ClusterizationTile>();
 
+        public ICollection<ClusterizationTilesLevel> TilesLevels { get; set; } = new HashSet<ClusterizationTilesLevel>();
+
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
 

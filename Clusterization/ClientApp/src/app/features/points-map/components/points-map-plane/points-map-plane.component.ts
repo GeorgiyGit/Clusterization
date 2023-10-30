@@ -55,6 +55,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
     // You can draw points on the canvas here
 
+    let arr:number[][]=[];
+    arr[1]=[];
+    console.log(arr[1][1]);
+
     this.tilesCalculation();
     this.drawPoints();
   }
@@ -72,23 +76,29 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     if (xTilesCount > 15) xTilesCount = 15;
     if (yTilesCount > 15) yTilesCount = 15;
 
-    let y = Math.floor(this.mouseChangesX / (this.tileLength * this.layerValue));
-    if (y < 0) y = 0;
-
-    let x = Math.floor(this.mouseChangesY / (this.tileLength * this.layerValue));
+    let x = Math.floor((-this.mouseChangesX) / (this.tileLength * this.layerValue));
     if (x < 0) x = 0;
 
-    console.log('tiles', this.tiles);
+    let y = Math.floor((-this.mouseChangesY) / (this.tileLength * this.layerValue));
+    if (y < 0) y = 0;
 
-    console.log(x);
-    console.log(y);
+    console.log('tiles', this.tiles);
+    console.log('points',this.displayedPoints);
+    console.log('xTilesCount',xTilesCount);
+    console.log('yTilesCount',yTilesCount);
+
+    //console.log('x',x,this.mouseChangesX);
+    //console.log('y',y,this.mouseChangesY);
+
 
     for (; y <= yTilesCount; y++) {
       for (; x <= xTilesCount; x++) {
         if (this.tiles[y] == undefined) {
+          //console.log('uY',y);
           this.tiles[y] = [];
         }
-        if (this.tiles[y][x] == undefined) {
+        if (this.tiles[y][x] == null) {
+          //console.log("Y:X",y,x);
           this.addTileEvent.emit({
             x: x,
             y: y

@@ -144,6 +144,9 @@
   <data name="TileNotFound" xml:space="preserve">
     <value>Тайл не знайдено</value>
   </data>
+  <data name="TilesLevelNotFound" xml:space="preserve">
+    <value>Рівень з тайлами не знайдено</value>
+  </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Робоча область не знайдена</value>
   </data>

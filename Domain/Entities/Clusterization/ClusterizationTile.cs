@@ -25,5 +25,8 @@ namespace Domain.Entities.Clusterization
         public int ProfileId { get; set; }
 
         public ICollection<DisplayedPoint> Points { get; set; } = new HashSet<DisplayedPoint>();
+    
+        public ClusterizationTilesLevel TilesLevel { get; set; }
+        public int TilesLevelId { get; set; }
     }
 }

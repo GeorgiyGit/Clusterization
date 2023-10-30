@@ -1,5 +1,6 @@
-﻿using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
-using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
+﻿using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
+using Domain.DTOs.ClusterizationDTOs.TileDTOs;
+using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
 using Domain.Interfaces.Clusterization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace Clusterization.Controllers.Clusterization
         }
 
         [HttpPost("get_tile_by_profile")]
-        public async Task<IActionResult> GetOneTileByProfile([FromBody] GetDisplayedPointsByProfileIdRequest request)
+        public async Task<IActionResult> GetOneTileByProfile([FromBody] GetTileByProfileIdRequest request)
         {
             return Ok(await service.GetOneTile(request.ProfileId, request.X, request.Y, request.Z));
         }
@@ -25,6 +26,12 @@ namespace Clusterization.Controllers.Clusterization
         public async Task<IActionResult> GetOneTileById([FromRoute] int id)
         {
             return Ok(await service.GetOneTile(id));
+        }
+
+        [HttpPost("get_tiles_level_by_profile")]
+        public async Task<IActionResult> GetTilesLevelByProfile([FromBody] GetTilesLevelByProfileIdRequest request)
+        {
+            return Ok(await service.GetTilesLevel(request.ProfileId, request.X));
         }
     }
 }
