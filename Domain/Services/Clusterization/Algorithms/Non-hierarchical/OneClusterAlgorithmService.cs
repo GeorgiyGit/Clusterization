@@ -99,7 +99,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
-                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)}")).FirstOrDefault();
 
                 if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
@@ -109,8 +109,21 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 for (int i = 0; i < profile.Clusters.Count(); i++)
                 {
-                    clusters_repository.Remove(profile.Clusters.ElementAt(i));
+                    var id = profile.Clusters.ElementAt(i).Id;
+                    var clusterForDelete = (await clusters_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(Cluster.Entities)},{nameof(Cluster.DisplayedPoints)},{nameof(Cluster.Profile)}")).FirstOrDefault();
+                    
+                    clusters_repository.Remove(clusterForDelete);
                 }
+                for (int i = 0; i < profile.TilesLevels.Count(); i++)
+                {
+                    var id = profile.TilesLevels.ElementAt(i).Id;
+                    var tilesLevelForDelete = (await tilesLevel_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationTilesLevel.Profile)},{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
+
+                    tilesLevel_repository.Remove(tilesLevelForDelete);
+                }
+
+                profile.Clusters.Clear();
+                profile.TilesLevels.Clear();
 
                 var cluster = new Cluster()
                 {
@@ -132,17 +145,16 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                         Cluster = cluster
                     });
                 }
-
-                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0);
-
                 var tilesLevel = new ClusterizationTilesLevel()
                 {
-                    Tiles = tiles,
                     Profile = profile,
                     TileCount = TILES_COUNT,
-                    TileLength = tiles.First().Length,
-                    X = 0
+                    Z = 0
                 };
+
+                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0, tilesLevel);
+                tilesLevel.Tiles = tiles;
+
                 await tilesLevel_repository.AddAsync(tilesLevel);
 
                 profile.MaxTileLevel = 0;

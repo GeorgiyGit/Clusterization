@@ -28,10 +28,16 @@ namespace Clusterization.Controllers.Clusterization
             return Ok(await service.GetOneTile(id));
         }
 
+        [HttpPost("get_tile_collection")]
+        public async Task<IActionResult> GetTileCollection([FromBody] GetTileCollectionRequest request)
+        {
+            return Ok(await service.GetTileCollection(request.ProfileId, request.Z, request.Points));
+        }
+
         [HttpPost("get_tiles_level_by_profile")]
         public async Task<IActionResult> GetTilesLevelByProfile([FromBody] GetTilesLevelByProfileIdRequest request)
         {
-            return Ok(await service.GetTilesLevel(request.ProfileId, request.X));
+            return Ok(await service.GetTilesLevel(request.ProfileId, request.Z));
         }
     }
 }

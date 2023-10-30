@@ -9,6 +9,6 @@ namespace Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs
     public class GetTilesLevelByProfileIdRequest
     {
         public int ProfileId { get; set; }
-        public int X { get; set; }
+        public int Z { get; set; }
     }
 }

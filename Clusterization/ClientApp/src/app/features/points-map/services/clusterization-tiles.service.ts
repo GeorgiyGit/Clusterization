@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { IDisplayedPoint } from '../models/displayed-points';
 import { IClusterizationTile } from '../models/clusterization-tile';
+import { IClusterizationTilesLevel } from '../models/clusterization-tiles-level';
+import { IMyPosition } from '../models/my-position';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +17,30 @@ export class ClusterizationTilesService {
     this.controllerUrl = environment.apiUrl + "ClusterizationTiles/";
   }
 
-  getDisplayedPointsByTileId(tileId: string): Observable<IClusterizationTile> {
+  getOneTileById(tileId: string): Observable<IClusterizationTile> {
     return this.http.get<IClusterizationTile>(this.controllerUrl + "get_tile_by_id/" + tileId);
   }
 
-  getTileDisplayedPointsByProfileId(profileId: number, x: number, y: number, z: number): Observable<IClusterizationTile> {
+  getOneTileByProfile(profileId: number, x: number, y: number, z: number): Observable<IClusterizationTile> {
     return this.http.post<IClusterizationTile>(this.controllerUrl + "get_tile_by_profile/", {
       profileId: profileId,
       x: x,
       y: y,
       z: z
+    });
+  }
+  getTileCollection(profileId: number, z: number, points:IMyPosition[]): Observable<IClusterizationTile[]> {
+    return this.http.post<IClusterizationTile[]>(this.controllerUrl + "get_tile_collection/", {
+      profileId: profileId,
+      z: z,
+      points:points
+    });
+  }
+
+  getTilesLevelByProfile(profileId: number, x: number): Observable<IClusterizationTilesLevel> {
+    return this.http.post<IClusterizationTilesLevel>(this.controllerUrl + "get_tiles_level_by_profile/", {
+      profileId: profileId,
+      x: x,
     });
   }
 }

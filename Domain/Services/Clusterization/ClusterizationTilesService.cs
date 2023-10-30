@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,7 +46,7 @@ namespace Domain.Services.Clusterization
             this.mapper = mapper;
             this.tilesLevel_repository = tilesLevel_repository;
         }
-        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z)
+        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel)
         {          
             foreach(var helpModel in entityHelpModels)
             {
@@ -64,6 +65,12 @@ namespace Domain.Services.Clusterization
             var minYValue = entityHelpModels.Min(e => e.EmbeddingValues[1].Value);
             var maxYValue = entityHelpModels.Max(e => e.EmbeddingValues[1].Value);
 
+            tilesLevel.MinXValue = minXValue;
+            tilesLevel.MinYValue = minYValue;
+
+            tilesLevel.MaxXValue = maxXValue;
+            tilesLevel.MaxYValue = maxYValue;
+
             double maxLength = 0d;
 
             if (maxXValue - minXValue > maxYValue - minYValue)
@@ -76,6 +83,8 @@ namespace Domain.Services.Clusterization
             }
 
             double lengthPerTile = maxLength / tilesCount;
+
+            tilesLevel.TileLength = lengthPerTile;
 
             var tiles = new List<ClusterizationTile>(tilesCount * tilesCount);
 
@@ -119,6 +128,7 @@ namespace Domain.Services.Clusterization
         }
 
 
+        #region get_tiles
         public async Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z)
         {
             var tile = (await tiles_repository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
@@ -142,10 +152,31 @@ namespace Domain.Services.Clusterization
             return mappedTile;
         }
 
-
-        public async Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int x)
+        public async Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points)
         {
-            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.X == x)).FirstOrDefault();
+            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.Z == z, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
+
+            if (tilesLevel == null) throw new HttpException(localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
+
+            var tiles = new List<ClusterizationTileDTO>(points.Count());
+            foreach(var point in points)
+            {
+                var tileId = tilesLevel.Tiles.Where(e => e.X == point.X && e.Y == point.Y).FirstOrDefault()?.Id;
+
+                if (tileId != null)
+                {
+                    var tile = await GetOneTile((int)tileId);
+                    tiles.Add(tile);
+                }
+            }
+
+            return tiles;
+        }
+        #endregion
+
+        public async Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int z)
+        {
+            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.Z == z)).FirstOrDefault();
 
             if (tilesLevel == null) throw new HttpException(localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
 

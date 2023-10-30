@@ -7,7 +7,7 @@ export interface IClusterizationTile{
     y:number,
     z:number,
 
-    length:number,
+    tileLength:number,
 
     points:IDisplayedPoint[]
 }
