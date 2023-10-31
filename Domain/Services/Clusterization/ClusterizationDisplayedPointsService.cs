@@ -10,18 +10,23 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {
-    public class ClusterizationDisplayedPointsService:IClusterizationDisplayedPointsService
+    public class ClusterizationDisplayedPointsService : IClusterizationDisplayedPointsService
     {
-        private readonly IRepository<ClusterizationEntity> entities_repository;
+        private readonly IRepository<DisplayedPoint> points_repository;
 
-        public ClusterizationDisplayedPointsService(IRepository<ClusterizationEntity> entities_repository)
+        public ClusterizationDisplayedPointsService(IRepository<DisplayedPoint> points_repository)
         {
-            this.entities_repository = entities_repository;
+            this.points_repository = points_repository;
         }
 
-        public Task<ICollection<DisplayedPointDTO>> GetCommonWorkspaceDisplayedPoints(int workspaceId)
+        public async Task<DisplayedPointValueDTO> GetDisplayedPointTextValue(int pointId)
         {
-            throw new NotImplementedException();
+            var point = (await points_repository.FindAsync(pointId));
+
+            return new DisplayedPointValueDTO()
+            {
+                Value = point.Value
+            };
         }
     }
 }

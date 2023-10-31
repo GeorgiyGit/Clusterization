@@ -104,6 +104,7 @@ namespace Domain.Services.Embeddings
                         var entity = new ClusterizationEntity()
                         {
                             Comment = comment,
+                            TextValue=comment.TextDisplay,
                             EmbeddingData = comment.EmbeddingData,
                             WorkspaceId = workspace.Id
                         };
@@ -159,7 +160,8 @@ namespace Domain.Services.Embeddings
                             {
                                 Comment = comment,
                                 EmbeddingData = comment.EmbeddingData,
-                                WorkspaceId = workspace.Id
+                                WorkspaceId = workspace.Id,
+                                TextValue=comment.TextDisplay
                             };
                             workspace.Entities.Add(entity);
                             await entities_repository.AddAsync(entity);

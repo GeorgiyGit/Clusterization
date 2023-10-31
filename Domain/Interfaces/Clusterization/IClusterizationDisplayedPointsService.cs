@@ -9,6 +9,6 @@ namespace Domain.Interfaces.Clusterization
 {
     public interface IClusterizationDisplayedPointsService
     {
-        public Task<ICollection<DisplayedPointDTO>> GetCommonWorkspaceDisplayedPoints(int workspaceId);
+        public Task<DisplayedPointValueDTO> GetDisplayedPointTextValue(int pointId);
     }
 }

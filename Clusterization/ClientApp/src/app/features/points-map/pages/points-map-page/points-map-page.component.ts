@@ -37,10 +37,14 @@ export class PointsMapPageComponent implements OnInit {
   }
 
   addLayerValue() {
-    this.layerValue += 100;
+    if(this.layerValue<20000){
+      this.layerValue += 100;
+    }
   }
   reduceLayerValue() {
-    this.layerValue -= 100;
+    if(this.layerValue>0){
+      this.layerValue -= 100;
+    }
   }
 
   addTile(position: IMyPosition) {
@@ -53,10 +57,10 @@ export class PointsMapPageComponent implements OnInit {
     this.loadingMatrix[position.y][position.x] == true;
 
     this.tilesService.getOneTileByProfile(this.profileId, position.x, position.y, this.level).subscribe(res => {
+
+
       if (this.tiles[position.y] == undefined) this.tiles[position.y] = [];
       this.tiles[position.y][position.x] = res;
-
-      this.loadingMatrix[position.y][position.x] = false;
 
       this.points = this.points.concat(res.points);
     }, error => {
@@ -65,20 +69,16 @@ export class PointsMapPageComponent implements OnInit {
   }
 
   addManyTiles(points: IMyPosition[]) {
-    console.log(this.tiles);
-    console.log(this.loadingMatrix);
-    
     points.forEach(point => {
       if (this.tiles[point.y] == undefined) this.tiles[point.y] = [];
       if (this.tiles[point.y][point.x] != undefined) return;
 
-      if (this.loadingMatrix[point.y] == undefined) this.loadingMatrix[point.y] = [];
-      if (this.loadingMatrix[point.y][point.x] == true) return;
+      //if (this.loadingMatrix[point.y] == undefined) this.loadingMatrix[point.y] = [];
     });
-    console.log(123);
 
     points.forEach(point => {
-      this.loadingMatrix[point.y][point.x] == true;
+      if (this.loadingMatrix[point.y][point.x] == true) return;
+      else this.loadingMatrix[point.y][point.x] == true;
     });
 
     this.tilesService.getTileCollection(this.profileId, this.level, points).subscribe(res => {
@@ -86,8 +86,6 @@ export class PointsMapPageComponent implements OnInit {
       res.forEach(tile => {
         this.tiles[tile.y][tile.x] = tile;
         newPoints = newPoints.concat(tile.points);
-
-        this.loadingMatrix[tile.y][tile.x] = false;
       })
 
       this.points = this.points.concat(newPoints);
@@ -98,9 +96,28 @@ export class PointsMapPageComponent implements OnInit {
 
   loadTilesLevel(z: number) {
     this.tilesService.getTilesLevelByProfile(this.profileId, z).subscribe(res => {
+      for (let i = 0; i < res.tileCount; i++) {
+        this.loadingMatrix[i] = [];
+        this.tiles[i] = [];
+      }
       this.tilesLevel = res;
     }, error => {
       this.toastr.error(error.error.Message);
     })
+  }
+
+  handleMouseWheel(event:WheelEvent){
+    event.preventDefault();
+    
+    if(-event.deltaY>0){
+      if(this.layerValue<20000){
+        this.layerValue+=-event.deltaY*this.layerValue/2000;
+      }
+    }
+    else{
+      if(this.layerValue>0){
+        this.layerValue+=-event.deltaY*this.layerValue/2000;
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@ namespace Domain.Entities.Clusterization
 
         public int OptimizationLevel { get; set; }
 
-        public string ValueId { get; set; }
+        public string Value { get; set; }
 
         public ClusterizationTile Tile { get; set; }
         public int TileId { get; set; }

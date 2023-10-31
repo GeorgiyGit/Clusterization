@@ -22,5 +22,7 @@ namespace Domain.Entities.Clusterization
 
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
+
+        public string TextValue { get; set; }
     }
 }

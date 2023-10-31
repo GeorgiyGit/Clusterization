@@ -110,7 +110,7 @@ namespace Domain.Services.Clusterization
                             X = model.EmbeddingValues[0].Value,
                             Y = model.EmbeddingValues[1].Value,
                             Tile = newTile,
-                            ValueId = model.Entity.CommentId, //temp,
+                            Value = model.Entity.TextValue, //temp,
                             Cluster = model.Cluster
                         };
 

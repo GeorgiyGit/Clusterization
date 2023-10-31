@@ -82,6 +82,7 @@ builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeServic
 builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
 builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
 builder.Services.AddScoped<IClusterizationTilesService, ClusterizationTilesService>();
+builder.Services.AddScoped<IClusterizationDisplayedPointsService, ClusterizationDisplayedPointsService>();
 
 builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();
 builder.Services.AddScoped<ILoadEmbeddingsService, LoadEmbeddingsService>();
