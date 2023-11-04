@@ -65,6 +65,7 @@ import { AddOneClusterAlgorithmComponent } from './features/clusterization/algor
 import { ClusterizationFullProfilePageComponent } from './features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component';
 import { PointsMapPlaneComponent } from './features/points-map/components/points-map-plane/points-map-plane.component';
 import { PointsMapPageComponent } from './features/points-map/pages/points-map-page/points-map-page.component';
+import { DimensionalityReductionTechniquesSelectComponent } from './features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,6 +123,7 @@ import { PointsMapPageComponent } from './features/points-map/pages/points-map-p
     ClusterizationFullProfilePageComponent,
     PointsMapPlaneComponent,
     PointsMapPageComponent,
+    DimensionalityReductionTechniquesSelectComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
