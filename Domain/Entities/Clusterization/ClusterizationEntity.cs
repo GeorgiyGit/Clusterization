@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Embeddings;
+﻿using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.Embeddings;
 using Domain.Entities.Youtube;
 using System;
 using System.Collections.Generic;
@@ -24,5 +25,7 @@ namespace Domain.Entities.Clusterization
         public int WorkspaceId { get; set; }
 
         public string TextValue { get; set; }
+
+        public ICollection<DimensionalityReductionValue> DimensionalityReductionValues { get; set; } = new HashSet<DimensionalityReductionValue>();
     }
 }

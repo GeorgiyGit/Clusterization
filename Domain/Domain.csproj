@@ -13,12 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
+    <PackageReference Include="Accord.Math" Version="3.8.0" />
+    <PackageReference Include="Accord.Statistics" Version="3.8.0" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.62.0.3169" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.5" />
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.11" />
   </ItemGroup>
@@ -53,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CommentFilterTypes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Types\DimensionalityReductionTechniques.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DimensionalityReductionTechniques.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Types\LoadFilterOptions.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -99,6 +108,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommentFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\DimensionalityReductionTechniques.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DimensionalityReductionTechniques.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\LoadFilterOptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LoadFilterOptions.Designer.cs</LastGenOutput>
@@ -115,6 +128,7 @@
 
   <ItemGroup>
     <Folder Include="DTOs\ClusterizationDTOs\AlghorithmDTOs\RequestDTOs\" />
+    <Folder Include="DTOs\DimensionalityReductionDTOs\ValueDTOs\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 

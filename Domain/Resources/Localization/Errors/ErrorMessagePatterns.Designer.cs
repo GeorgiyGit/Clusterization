@@ -79,6 +79,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DRTechniqueNotFound.
+        /// </summary>
+        public static string DRTechniqueNotFound {
+            get {
+                return ResourceManager.GetString("DRTechniqueNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DRValueNotFound.
+        /// </summary>
+        public static string DRValueNotFound {
+            get {
+                return ResourceManager.GetString("DRValueNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EmbeddingsLoadingError.
         /// </summary>
         public static string EmbeddingsLoadingError {

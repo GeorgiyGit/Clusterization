@@ -21,9 +21,9 @@ namespace Infrastructure.Builders
         }
         public static void EmbeddingDataBuild(EntityTypeBuilder<EmbeddingData> modelBuilder)
         {
-            modelBuilder.HasMany(e => e.Embeddings)
+            modelBuilder.HasOne(e => e.DimensionalityReductionValue)
                         .WithOne(e => e.EmbeddingData)
-                        .HasForeignKey(e => e.EmbeddingDataId);
+                        .HasForeignKey<EmbeddingData>(e => e.DimensionalityReductionValueId);
 
             modelBuilder.HasOne(e => e.Comment)
                         .WithOne(e => e.EmbeddingData)
@@ -32,6 +32,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasMany(e => e.Entities)
                         .WithOne(e => e.EmbeddingData)
                         .HasForeignKey(e => e.EmbeddingDataId);
+
+            modelBuilder.HasOne(e => e.OriginalEmbedding)
+                        .WithOne(e => e.EmbeddingData)
+                        .HasForeignKey<EmbeddingData>(e => e.OriginalEmbeddingId);
         }
         public static void DimensionValueBuild(EntityTypeBuilder<EmbeddingDimensionValue> modelBuilder)
         {
@@ -40,12 +44,18 @@ namespace Infrastructure.Builders
                         .HasForeignKey(e => e.DimensionTypeId);
 
             modelBuilder.HasOne(e => e.EmbeddingData)
-                        .WithMany(e => e.Embeddings)
-                        .HasForeignKey(e => e.EmbeddingDataId);
+                        .WithOne(e => e.OriginalEmbedding)
+                        .HasForeignKey<EmbeddingDimensionValue>(e => e.EmbeddingDataId)
+                        .IsRequired(false);
 
             modelBuilder.HasMany(e => e.Values)
                         .WithOne(e => e.EmbeddingDimensionValue)
                         .HasForeignKey(e => e.EmbeddingDimensionValueId);
+
+            modelBuilder.HasOne(e => e.DimensionalityReductionValue)
+                        .WithMany(e => e.Embeddings)
+                        .HasForeignKey(e => e.DimensionalityReductionValueId)
+                        .IsRequired(false);
         }
         public static void EmdeddingValueBuild(EntityTypeBuilder<EmbeddingValue> modelBuilder)
         {

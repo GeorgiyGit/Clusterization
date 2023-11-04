@@ -72,6 +72,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.Workspace)
                         .WithMany(e => e.Entities)
                         .HasForeignKey(e => e.WorkspaceId);
+
+            modelBuilder.HasMany(e => e.DimensionalityReductionValues)
+                        .WithOne(e => e.ClusterizationEntity)
+                        .HasForeignKey(e => e.ClusterizationEntityId);
         }
         public static void ProfileBuild(EntityTypeBuilder<ClusterizationProfile> modelBuilder)
         {
@@ -98,6 +102,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasMany(e => e.TilesLevels)
                         .WithOne(e => e.Profile)
                         .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.HasOne(e => e.DimensionalityReductionTechnique)
+                        .WithMany(e => e.Profiles)
+                        .HasForeignKey(e => e.DimensionalityReductionTechniqueId);
         }
         public static void ClusterTypeBuild(EntityTypeBuilder<ClusterizationType> modelBuilder)
         {

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.DimensionalityReduction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace Domain.Entities.Embeddings
         public ClusterizationDimensionType DimensionType { get; set; }
         public int DimensionTypeId { get; set; }
 
-        public EmbeddingData EmbeddingData { get; set; }
-        public int EmbeddingDataId { get; set; }
+        public EmbeddingData? EmbeddingData { get; set; }
+        public int? EmbeddingDataId { get; set; }
+
+        public DimensionalityReductionValue? DimensionalityReductionValue { get; set; }
+        public int? DimensionalityReductionValueId { get; set; }
 
         public ICollection<EmbeddingValue> Values { get; set; } = new HashSet<EmbeddingValue>();
     }

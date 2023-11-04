@@ -79,6 +79,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Техніка зменшення розмірності не знайдена.
+        /// </summary>
+        public static string DRTechniqueNotFound {
+            get {
+                return ResourceManager.GetString("DRTechniqueNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значення зменшення розмірності не знайдено.
+        /// </summary>
+        public static string DRValueNotFound {
+            get {
+                return ResourceManager.GetString("DRValueNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сталася помилка при завантажені ембедінгів.
         /// </summary>
         public static string EmbeddingsLoadingError {

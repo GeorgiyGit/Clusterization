@@ -117,76 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlgorithmAlreadyExists" xml:space="preserve">
-    <value>AlgorithmAlreadyExists</value>
+  <data name="Isomap" xml:space="preserve">
+    <value>Isomap</value>
   </data>
-  <data name="ClusterizationAlgorithmTypeIdNotExist" xml:space="preserve">
-    <value>ClusterizationAlgorithmTypeIdNotExist</value>
+  <data name="JSL" xml:space="preserve">
+    <value>JSL</value>
   </data>
-  <data name="DRTechniqueNotFound" xml:space="preserve">
-    <value>DRTechniqueNotFound</value>
+  <data name="LDA" xml:space="preserve">
+    <value>LDA</value>
   </data>
-  <data name="DRValueNotFound" xml:space="preserve">
-    <value>DRValueNotFound</value>
+  <data name="LLE" xml:space="preserve">
+    <value>LLE</value>
   </data>
-  <data name="EmbeddingsLoadingError" xml:space="preserve">
-    <value>EmbeddingsLoadingError</value>
+  <data name="MDS" xml:space="preserve">
+    <value>MDS</value>
   </data>
-  <data name="JobIsAlreadyInProcess" xml:space="preserve">
-    <value>JobIsAlreadyInProcess</value>
+  <data name="PCA" xml:space="preserve">
+    <value>PCA</value>
   </data>
-  <data name="JobIsAlreadyInQueue" xml:space="preserve">
-    <value>JobIsAlreadyInQueue</value>
-  </data>
-  <data name="ProfileAlreadyExist" xml:space="preserve">
-    <value>ProfileAlreadyExist</value>
-  </data>
-  <data name="ProfileNotFound" xml:space="preserve">
-    <value>ProfileNotFound</value>
-  </data>
-  <data name="TaskNotFound" xml:space="preserve">
-    <value>TaskNotFound</value>
-  </data>
-  <data name="TileNotFound" xml:space="preserve">
-    <value>TileNotFound</value>
-  </data>
-  <data name="TilesLevelNotFound" xml:space="preserve">
-    <value>TilesLevelNotFound</value>
-  </data>
-  <data name="WorkspaceNotFound" xml:space="preserve">
-    <value>WorkspaceNotFound</value>
-  </data>
-  <data name="YoutubeChannelAddingError" xml:space="preserve">
-    <value>YoutubeChannelAddingError</value>
-  </data>
-  <data name="YoutubeChannelAlreadyLoaded" xml:space="preserve">
-    <value>YoutubeChannelAlreadyLoaded</value>
-  </data>
-  <data name="YoutubeChannelDoesNotExist" xml:space="preserve">
-    <value>YoutubeChannelDoesNotExist</value>
-  </data>
-  <data name="YoutubeChannelLoadingError" xml:space="preserve">
-    <value>YoutubeChannelLoadingError</value>
-  </data>
-  <data name="YoutubeChannelNotFound" xml:space="preserve">
-    <value>YoutubeChannelNotFound</value>
-  </data>
-  <data name="YoutubeCommentNotFound" xml:space="preserve">
-    <value>YoutubeCommentNotFound</value>
-  </data>
-  <data name="YoutubeVideoAddingError" xml:space="preserve">
-    <value>YoutubeVideoAddingError</value>
-  </data>
-  <data name="YoutubeVideoAlreadyLoaded" xml:space="preserve">
-    <value>YoutubeVideoAlreadyLoaded</value>
-  </data>
-  <data name="YoutubeVideoDoesNotExist" xml:space="preserve">
-    <value>YoutubeVideoDoesNotExist</value>
-  </data>
-  <data name="YoutubeVideolLoadingError" xml:space="preserve">
-    <value>YoutubeVideolLoadingError</value>
-  </data>
-  <data name="YoutubeVideoNotFound" xml:space="preserve">
-    <value>YoutubeVideoNotFound</value>
+  <data name="t-SNE" xml:space="preserve">
+    <value>t-SNE</value>
   </data>
 </root>

@@ -15,7 +15,7 @@ namespace Domain.Interfaces.Clusterization
 {
     public interface IClusterizationTilesService
     {
-        public Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel);
+        public Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel, string drTechniqueId);
 
         public Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z);
         public Task<ClusterizationTileDTO> GetOneTile(int tileId);

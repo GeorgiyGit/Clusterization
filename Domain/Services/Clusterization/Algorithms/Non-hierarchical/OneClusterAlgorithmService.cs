@@ -9,6 +9,7 @@ using Domain.HelpModels;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
+using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
@@ -36,6 +37,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
+        private readonly IDimensionalityReductionValuesService drValues_service;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
@@ -51,7 +53,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IRepository<Cluster> clusters_repository,
                                       IBackgroundJobClient backgroundJobClient,
                                       IMyTasksService taskService,
-                                      IRepository<ClusterizationTilesLevel> tilesLevel_repository)
+                                      IRepository<ClusterizationTilesLevel> tilesLevel_repository,
+                                      IDimensionalityReductionValuesService drValues_service)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -63,6 +66,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
             this.tilesLevel_repository = tilesLevel_repository;
+            this.drValues_service = drValues_service;
         }
 
         public async Task AddAlgorithm(AddOneClusterAlgorithmDTO model)
@@ -99,7 +103,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
-                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)}")).FirstOrDefault();
+                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)}")).FirstOrDefault();
 
                 if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
@@ -135,6 +139,12 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 profile.Clusters.Add(cluster);
 
+                if (profile.DimensionalityReductionTechniqueId != DimensionalityReductionTechniques.JSL)
+                {
+                    await drValues_service.AddEmbeddingValues(profileId, profile.DimensionalityReductionTechniqueId);
+                }
+                await taskService.ChangeTaskPercent(taskId, 50f);
+
                 List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(clusterizationEntities.Count());
 
                 foreach(var entity in clusterizationEntities)
@@ -152,7 +162,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                     Z = 0
                 };
 
-                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0, tilesLevel);
+                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0, tilesLevel, profile.DimensionalityReductionTechniqueId);
                 tilesLevel.Tiles = tiles;
 
                 await tilesLevel_repository.AddAsync(tilesLevel);

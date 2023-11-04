@@ -123,6 +123,12 @@
   <data name="ClusterizationAlgorithmTypeIdNotExist" xml:space="preserve">
     <value>Вказаний тип не існує</value>
   </data>
+  <data name="DRTechniqueNotFound" xml:space="preserve">
+    <value>Техніка зменшення розмірності не знайдена</value>
+  </data>
+  <data name="DRValueNotFound" xml:space="preserve">
+    <value>Значення зменшення розмірності не знайдено</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>

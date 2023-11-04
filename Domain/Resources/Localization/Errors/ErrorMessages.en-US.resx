@@ -123,6 +123,12 @@
   <data name="ClusterizationAlgorithmTypeIdNotExist" xml:space="preserve">
     <value>Type id does not exist</value>
   </data>
+  <data name="DRTechniqueNotFound" xml:space="preserve">
+    <value>Dimensionality reduction technique not found</value>
+  </data>
+  <data name="DRValueNotFound" xml:space="preserve">
+    <value>Dimensionality reduction value not found</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>An error occurred while loading embeddings</value>
   </data>

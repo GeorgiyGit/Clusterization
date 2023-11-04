@@ -48,6 +48,7 @@ namespace Domain.Entities.Youtube
 
         public ICollection<ClusterizationWorkspace> Workspaces { get; set; } = new HashSet<ClusterizationWorkspace>();
         public ICollection<ClusterizationEntity> ClusterizationEntities { get; set; } = new HashSet<ClusterizationEntity>();
+        
         public EmbeddingData? EmbeddingData { get; set; }
         public int? EmbeddingDataId { get; set; }
     }

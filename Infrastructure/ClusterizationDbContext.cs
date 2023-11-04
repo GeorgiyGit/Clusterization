@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
+using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
@@ -45,12 +46,17 @@ namespace Infrastructure
         public virtual DbSet<DisplayedPoint> DisplayedPoints { get; set; }
         public virtual DbSet<ClusterizationTile> ClusterizationTiles { get; set; }
         public virtual DbSet<ClusterizationTilesLevel> ClusterizationTilesLevels { get; set; }
+        
         #region Algorithms
         public virtual DbSet<ClusterizationAbstactAlgorithm> ClusterizationAbstractAlgorithms { get; set; }
         public virtual DbSet<KMeansAlgorithm> KMeansAlgorithms { get; set; }
         public virtual DbSet<OneClusterAlgorithm> OneClusterAlgorithms { get; set; }
         #endregion
+        #endregion
 
+        #region DimensionalityReduction
+        public virtual DbSet<DimensionalityReductionTechnique> DimensionalityReductionTechniques { get; set; }
+        public virtual DbSet<DimensionalityReductionValue> DimensionalityReductionValues { get; set; }
         #endregion
 
         public ClusterizationDbContext(DbContextOptions options) : base(options)
@@ -64,6 +70,7 @@ namespace Infrastructure
             EmbeddingsBuilder.BuildAll(modelBuilder);
             ClusterizationBuilder.BuildAll(modelBuilder);
             ClusterizationAlgorithmsBuilder.BuildAll(modelBuilder);
+            DimensionalityReductionBuilder.BuildAll(modelBuilder);
 
             CommentBuilder.CommentBuild(modelBuilder.Entity<Comment>());
             VideoBuilder.VideoBuild(modelBuilder.Entity<Video>());
@@ -78,6 +85,7 @@ namespace Infrastructure
             ClusterizationSeeder.ClusterizationTypeSeeder(modelBuilder.Entity<ClusterizationType>());
             ClusterizationSeeder.DimensionTypeSeeder(modelBuilder.Entity<ClusterizationDimensionType>());
             ClusterizationAlgorithmTypesSeeder.TypesSeeder(modelBuilder.Entity<ClusterizationAlgorithmType>());
+            DimensionalityReductionSeeder.TechniquesSeeder(modelBuilder.Entity<DimensionalityReductionTechnique>());
         }
     }
 }

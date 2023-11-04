@@ -1,7 +1,9 @@
-﻿using Domain.Entities.Embeddings;
+﻿using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.Embeddings;
 using Domain.Entities.Youtube;
 using Domain.Interfaces;
 using Domain.Interfaces.Embeddings;
+using Domain.Resources.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +15,19 @@ namespace Domain.Services.Embeddings
     public class EmbeddingsService : IEmbeddingsService
     {
         private readonly IRepository<EmbeddingValue> value_repository;
-        private readonly IRepository<EmbeddingDimensionValue> Dimension_repository;
+        private readonly IRepository<EmbeddingDimensionValue> dimension_repository;
         private readonly IRepository<EmbeddingData> data_repository;
+        private readonly IRepository<DimensionalityReductionValue> drValues_repository;
 
         public EmbeddingsService(IRepository<EmbeddingValue> value_repository,
-                                 IRepository<EmbeddingDimensionValue> Dimension_repository,
-                                 IRepository<EmbeddingData> data_repository)
+                                 IRepository<EmbeddingDimensionValue> dimension_repository,
+                                 IRepository<EmbeddingData> data_repository,
+                                 IRepository<DimensionalityReductionValue> drValues_repository)
         {
             this.value_repository = value_repository;
-            this.Dimension_repository = Dimension_repository;
+            this.dimension_repository = dimension_repository;
             this.data_repository = data_repository;
+            this.drValues_repository = drValues_repository;
         }
 
         public async Task AddEmbeddingToComment(double[] embedding, int DimensionCount, Comment comment)
@@ -43,27 +48,34 @@ namespace Domain.Services.Embeddings
             }
             else
             {
-                embeddingData = (await data_repository.GetAsync(e => e.Id == comment.EmbeddingData.Id, includeProperties: $"{nameof(EmbeddingData.Embeddings)}")).FirstOrDefault();
+                embeddingData = (await data_repository.GetAsync(e => e.Id == comment.EmbeddingData.Id)).FirstOrDefault();
             }
 
-            var DimensionValue = new EmbeddingDimensionValue()
+            var DRv = new DimensionalityReductionValue()
             {
-                DimensionTypeId = DimensionCount,
-                EmbeddingData = embeddingData
+                EmbeddingData = embeddingData,
+                TechniqueId = DimensionalityReductionTechniques.JSL
             };
 
-            embeddingData.Embeddings.Add(DimensionValue);
+            await drValues_repository.AddAsync(DRv);
 
-            await Dimension_repository.AddAsync(DimensionValue);
+            var dimensionValue = new EmbeddingDimensionValue()
+            {
+                DimensionTypeId = DimensionCount,
+                DimensionalityReductionValue = DRv,
+            };
 
-            foreach(var embeddingValue in embedding)
+            DRv.Embeddings.Add(dimensionValue);
+
+            await dimension_repository.AddAsync(dimensionValue);
+            foreach (var embeddingValue in embedding)
             {
                 var value = new EmbeddingValue()
                 {
-                    EmbeddingDimensionValue = DimensionValue,
+                    EmbeddingDimensionValue = dimensionValue,
                     Value = embeddingValue
                 };
-                DimensionValue.Values.Add(value);
+                dimensionValue.Values.Add(value);
 
                 await value_repository.AddAsync(value);
             }

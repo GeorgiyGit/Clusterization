@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.Clusterization.Profiles;
+using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
@@ -12,6 +13,7 @@ using Domain.Services.Clusterization;
 using Domain.Services.Clusterization.Algorithms;
 using Domain.Services.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Services.Clusterization.Profiles;
+using Domain.Services.DimensionalityReduction;
 using Domain.Services.Embeddings;
 using Domain.Services.TaskServices;
 using Domain.Services.Youtube;
@@ -86,6 +88,9 @@ builder.Services.AddScoped<IClusterizationDisplayedPointsService, Clusterization
 
 builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();
 builder.Services.AddScoped<ILoadEmbeddingsService, LoadEmbeddingsService>();
+
+builder.Services.AddScoped<IDimensionalityReductionTechniquesService, DimensionalityReductionTechniquesService>();
+builder.Services.AddScoped<IDimensionalityReductionValuesService, DimensionalityReductionValuesService>();
 
 builder.Services.AddScoped<IGeneralClusterizationAlgorithmService, GeneralClusterizationAlgorithmService>();
 builder.Services.AddScoped<IClusterizationAlgorithmTypesService, ClusterizationAlgorithmTypesService>();

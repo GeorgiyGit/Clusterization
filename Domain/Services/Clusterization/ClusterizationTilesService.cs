@@ -3,13 +3,16 @@ using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
 using Domain.DTOs.ClusterizationDTOs.TileDTOs;
 using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
 using Domain.Entities.Clusterization;
+using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Exceptions;
 using Domain.HelpModels;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,39 +25,49 @@ namespace Domain.Services.Clusterization
 {
     public class ClusterizationTilesService : IClusterizationTilesService
     {
-        private readonly IRepository<EmbeddingData> embeddingData_repository;
         private readonly IRepository<EmbeddingValue> embeddingValue_repository;
         private readonly IRepository<DisplayedPoint> displayedPoints_repository;
         private readonly IRepository<ClusterizationTile> tiles_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
+        private readonly IRepository<DimensionalityReductionValue> drValues_repository;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
-        public ClusterizationTilesService(IRepository<EmbeddingData> embeddingData_repository,
-                                          IRepository<EmbeddingValue> embeddingValue_repository,
+        public ClusterizationTilesService(IRepository<EmbeddingValue> embeddingValue_repository,
                                           IRepository<DisplayedPoint> displayedPoints_repository,
                                           IRepository<ClusterizationTile> tiles_repository,
                                           IStringLocalizer<ErrorMessages> localizer,
                                           IMapper mapper,
-                                          IRepository<ClusterizationTilesLevel> tilesLevel_repository)
+                                          IRepository<ClusterizationTilesLevel> tilesLevel_repository,
+                                          IRepository<DimensionalityReductionValue> drValues_repository)
         {
-            this.embeddingData_repository = embeddingData_repository;
             this.embeddingValue_repository = embeddingValue_repository;
             this.displayedPoints_repository = displayedPoints_repository;
             this.tiles_repository = tiles_repository;
             this.localizer = localizer;
             this.mapper = mapper;
             this.tilesLevel_repository = tilesLevel_repository;
+            this.drValues_repository = drValues_repository;
         }
-        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel)
-        {          
-            foreach(var helpModel in entityHelpModels)
+        public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel,string drTechniqueId)
+        {
+            foreach (var helpModel in entityHelpModels)
             {
-                var embeddingData = (await embeddingData_repository.GetAsync(c => c.Id == helpModel.Entity.EmbeddingDataId, includeProperties: $"{nameof(EmbeddingData.Embeddings)}")).First();
+                DimensionalityReductionValue drValue;
+                if (drTechniqueId == DimensionalityReductionTechniques.JSL)
+                {
+                    drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingDataId == helpModel.Entity.EmbeddingDataId, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+                }
+                else
+                {
+                    drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == drTechniqueId && e.ClusterizationEntityId == helpModel.Entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+                }
 
-                var dimensionValue = embeddingData.Embeddings.First(e => e.DimensionTypeId == 2);
+                if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
 
-                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id,orderBy:e=>e.OrderBy(e=>e.Id))).ToList();
+                var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 2);
+
+                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
 
                 helpModel.EmbeddingValues = embeddingValues;
             }
