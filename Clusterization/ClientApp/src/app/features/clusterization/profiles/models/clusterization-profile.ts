@@ -1,3 +1,4 @@
+import { IDimensionalityReductionTechnique } from "src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/models/dimensionalityReductionTechnique";
 import { ISimpleAlgorithmType } from "../../algorithms/algorithmType/models/simpleAlgorithmType";
 
 export interface IClusterizationProfile{
@@ -13,5 +14,6 @@ export interface IClusterizationProfile{
     isCalculated:boolean,
 
     minTileLevel:number,
-    maxTileLevel:number
+    maxTileLevel:number,
+    dimensionalityReductionTechnique:IDimensionalityReductionTechnique
 }

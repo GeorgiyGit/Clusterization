@@ -39,7 +39,7 @@ namespace Domain.Services.Clusterization.Profiles
 
         public async Task Add(AddClusterizationProfileDTO model)
         {
-            var oldProfile = (await repository.GetAsync(c=>c.WorkspaceId== model.WorkspaceId && c.AlgorithmId==model.AlgorithmId && c.DimensionCount == model.DimensionCount)).FirstOrDefault();
+            var oldProfile = (await repository.GetAsync(c=>c.WorkspaceId== model.WorkspaceId && c.AlgorithmId==model.AlgorithmId && c.DimensionCount == model.DimensionCount && c.DimensionalityReductionTechniqueId==model.DRTechniqueId)).FirstOrDefault();
 
             if (oldProfile != null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileAlreadyExist], System.Net.HttpStatusCode.BadGateway);
 
@@ -47,7 +47,8 @@ namespace Domain.Services.Clusterization.Profiles
             {
                 WorkspaceId = model.WorkspaceId,
                 AlgorithmId = model.AlgorithmId,
-                DimensionCount = model.DimensionCount
+                DimensionCount = model.DimensionCount,
+                DimensionalityReductionTechniqueId = model.DRTechniqueId
             };
 
             await repository.AddAsync(newProfile);
@@ -61,7 +62,7 @@ namespace Domain.Services.Clusterization.Profiles
             if (request.AlgorithmTypeId != null) filterCondition = filterCondition.And(e => e.Algorithm.TypeId == request.AlgorithmTypeId);
             if (request.DimensionCount != null) filterCondition = filterCondition.And(e => e.DimensionCount == request.DimensionCount);
 
-            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)}")).ToList();
+            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).ToList();
 
             var mappedProfiles = mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
             for (int i = 0; i < profiles.Count(); i++)
@@ -75,7 +76,7 @@ namespace Domain.Services.Clusterization.Profiles
 
         public async Task<ClusterizationProfileDTO> GetFullById(int id)
         {
-            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
 
             if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 

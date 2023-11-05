@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
+using Domain.DTOs.DimensionalityReductionDTOs.TechniqueDTOs;
 
 namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 {
@@ -27,5 +28,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 
         public int MinTileLevel { get; set; }
         public int MaxTileLevel { get; set; }
+
+        public DimensionalityReductionTechniqueDTO DimensionalityReductionTechnique { get; set; }
     }
 }

@@ -24,34 +24,37 @@ import { IAddClusterizationProfile } from '../../models/add-clusterization-profi
 export class ClusterizationProfileAddPageComponent implements OnInit {
   animationState: string = 'in';
 
-  algorithmTypeId:string;
-  algorithmId:number;
+  algorithmTypeId: string;
+  algorithmId: number;
 
-  dimensionTypeId:number;
+  dimensionTypeId: number;
 
-  workspaceId:number;
+  DRTechniqueId: string;
 
-  isActive:boolean;
+  workspaceId: number;
+
+  isActive: boolean;
 
   constructor(private profilesService: ClusterizationProfilesService,
     private toaster: MyToastrService,
     private router: Router,
-    private route:ActivatedRoute) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.animationState = 'in';
 
-    this.workspaceId= this.route.snapshot.params['workspaceId'];
+    this.workspaceId = this.route.snapshot.params['workspaceId'];
   }
 
   isLoading: boolean;
   submit() {
-    if(this.isActive==false)return;
+    if (this.isActive == false) return;
 
-    var model:IAddClusterizationProfile={
-      algorithmId:this.algorithmId,
-      workspaceId:this.workspaceId,
-      dimensionCount:this.dimensionTypeId
+    var model: IAddClusterizationProfile = {
+      algorithmId: this.algorithmId,
+      workspaceId: this.workspaceId,
+      dimensionCount: this.dimensionTypeId,
+      DRTechniqueId:this.DRTechniqueId
     };
 
     if (this.algorithmId == undefined) {
@@ -77,22 +80,33 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
 
   changeAlgorithmType(id: string) {
     this.algorithmTypeId = id;
-    this.isActive=false;
+    this.isActive = false;
   }
 
   changeAlgorithm(id: string) {
     this.algorithmId = parseInt(id);
 
-    if(this.dimensionTypeId!=undefined){
-      this.isActive=true;
-    }
+    this.isActiveChange();
   }
 
   changeDimensionType(id: number) {
     this.dimensionTypeId = id;
 
-    if(this.algorithmId!=undefined){
-      this.isActive=true;
+    this.isActiveChange();
+  }
+  changeDRTechniqueId(id: string) {
+    this.DRTechniqueId = id;
+    this.isActiveChange();
+  }
+
+  isActiveChange() {
+    if (this.dimensionTypeId != undefined &&
+      this.algorithmId != undefined &&
+      this.DRTechniqueId != undefined) {
+      this.isActive = true;
+    }
+    else {
+      this.isActive = false;
     }
   }
 

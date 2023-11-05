@@ -13,6 +13,7 @@
             <app-clusterization-dimension-types-input [isNullAvailable]="true"
                 (sendEvent)="changeDimensionType($event)"></app-clusterization-dimension-types-input>
 
+                <app-dimensionality-reduction-techniques-select (sendEvent)="changeDRTechniqueId($event)"></app-dimensionality-reduction-techniques-select>
             <div class="centered">
                 <app-loader *ngIf="isLoading"></app-loader>
                 <button class="standard-btn" type="submit" [disabled]="!isActive" *ngIf="!isLoading" (click)="submit()">Додати</button>

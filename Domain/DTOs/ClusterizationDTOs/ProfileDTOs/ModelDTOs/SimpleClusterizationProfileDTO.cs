@@ -1,5 +1,6 @@
 ﻿using AutoMapper.Configuration.Conventions;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
+using Domain.DTOs.DimensionalityReductionDTOs.TechniqueDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public int Id { get; set; }
         public int DimensionCount { get; set; }
 
+        public DimensionalityReductionTechniqueDTO DimensionalityReductionTechnique { get; set; }
         public SimpleAlgorithmTypeDTO AlgorithmType { get; set; }
     }
 }

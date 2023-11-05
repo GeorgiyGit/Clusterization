@@ -1,5 +1,6 @@
 export interface IAddClusterizationProfile{
     algorithmId:number,
     dimensionCount:number,
-    workspaceId:number
+    workspaceId:number,
+    DRTechniqueId:string
 }

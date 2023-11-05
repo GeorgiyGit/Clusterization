@@ -11,10 +11,13 @@ export class KMeansService {
   controllerUrl: string;
 
   constructor(private http: HttpClient) {
-    this.controllerUrl = environment.apiUrl + "kMeansAlgorithm/";
+    this.controllerUrl = environment.apiUrl + "KMeansAlgorithm/";
   }
 
-  add(model:IAddKMeansAlgorithm): Observable<any> {
-    return this.http.post(this.controllerUrl,model);
+  add(model: IAddKMeansAlgorithm): Observable<any> {
+    return this.http.post(this.controllerUrl, model);
+  }
+  clusterData(profileId: number): Observable<any> {
+    return this.http.post(this.controllerUrl + 'cluster_data/' + profileId, null);
   }
 }

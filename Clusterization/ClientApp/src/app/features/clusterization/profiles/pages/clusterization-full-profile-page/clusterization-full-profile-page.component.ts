@@ -7,6 +7,7 @@ import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.se
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { OneClusterAlgorithmService } from '../../../algorithms/non-hierarchical/oneCluster/services/one-cluster-algorithm.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { KMeansService } from '../../../algorithms/non-hierarchical/k-means/services/kmeans.service';
 
 @Component({
   selector: 'app-clusterization-full-profile-page',
@@ -22,7 +23,10 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
       action:()=>{
         switch(this.profile.algorithmType.id){
           case 'KMeans':
-            return;
+            this.kMeansService.clusterData(this.profile.id).subscribe(res=>{
+            },error=>{
+              this.toastr.error(error.error.Message);
+            });
           break;
           case 'OneCluster':
             this.oneClusterService.clusterData(this.profile.id).subscribe(res=>{
@@ -42,7 +46,8 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
     private router:Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,
-    private myLocalStorage:MyLocalStorageService) { }
+    private myLocalStorage:MyLocalStorageService,
+    private kMeansService:KMeansService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 

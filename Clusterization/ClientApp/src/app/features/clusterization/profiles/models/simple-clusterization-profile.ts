@@ -1,7 +1,9 @@
+import { IDimensionalityReductionTechnique } from "src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/models/dimensionalityReductionTechnique";
 import { ISimpleAlgorithmType } from "../../algorithms/algorithmType/models/simpleAlgorithmType";
 
 export interface ISimpleClusterizationProfile{
     id:number,
     dimensionCount:number,
-    algorithmType:ISimpleAlgorithmType
+    algorithmType:ISimpleAlgorithmType,
+    dimensionalityReductionTechnique:IDimensionalityReductionTechnique
 }

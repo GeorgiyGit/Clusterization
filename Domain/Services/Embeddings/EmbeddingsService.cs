@@ -30,7 +30,7 @@ namespace Domain.Services.Embeddings
             this.drValues_repository = drValues_repository;
         }
 
-        public async Task AddEmbeddingToComment(double[] embedding, int DimensionCount, Comment comment)
+        public async Task AddEmbeddingToComment(double[] embedding, int dimensionCount, Comment comment)
         {
             EmbeddingData embeddingData;
             if (comment.EmbeddingData == null)
@@ -48,20 +48,29 @@ namespace Domain.Services.Embeddings
             }
             else
             {
-                embeddingData = (await data_repository.GetAsync(e => e.Id == comment.EmbeddingData.Id)).FirstOrDefault();
+                embeddingData = (await data_repository.GetAsync(e => e.Id == comment.EmbeddingData.Id,includeProperties:$"{nameof(EmbeddingData.DimensionalityReductionValue)}")).FirstOrDefault();
             }
 
-            var DRv = new DimensionalityReductionValue()
+            DimensionalityReductionValue DRv;
+            if (embeddingData.DimensionalityReductionValue == null)
             {
-                EmbeddingData = embeddingData,
-                TechniqueId = DimensionalityReductionTechniques.JSL
-            };
+                DRv = new DimensionalityReductionValue()
+                {
+                    EmbeddingDataId = embeddingData.Id,
+                    TechniqueId = DimensionalityReductionTechniques.JSL
+                };
 
-            await drValues_repository.AddAsync(DRv);
+                await drValues_repository.AddAsync(DRv);
+            }
+            else
+            {
+                DRv = embeddingData.DimensionalityReductionValue;
+            }
+
 
             var dimensionValue = new EmbeddingDimensionValue()
             {
-                DimensionTypeId = DimensionCount,
+                DimensionTypeId = dimensionCount,
                 DimensionalityReductionValue = DRv,
             };
 

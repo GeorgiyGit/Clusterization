@@ -57,11 +57,17 @@ namespace Domain.Services.DimensionalityReduction
 
             foreach (var entity in entities)
             {
-                var value = await drValues_repository.GetAsync(e => e.ClusterizationEntityId == entity.Id && e.TechniqueId == DRTechniqueId);
+                var value = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == entity.Id && e.TechniqueId == DRTechniqueId)).FirstOrDefault();
 
                 if (value == null)
                 {
-                    var embeddingValues = (await embeddingValues_repository.GetAsync(e => e.EmbeddingDimensionValue.EmbeddingDataId == entity.EmbeddingDataId));
+                    var drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingDataId == entity.EmbeddingDataId, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+
+                    if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
+
+                    var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 2);
+
+                    var embeddingValues = (await embeddingValues_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
 
                     helpModels.Add(new AddEmbeddingsWithDRHelpModel()
                     {
@@ -70,6 +76,8 @@ namespace Domain.Services.DimensionalityReduction
                     });
                 }
             }
+
+            if (helpModels.Count == 0) return;
 
             int numberOfDimensions = 2; // Desired number of dimensions
 
@@ -103,7 +111,27 @@ namespace Domain.Services.DimensionalityReduction
                 int numNeighbors = 10;
 
                 // Perform LLE
-                double[][] lleResult = LLE(values, numNeighbors, numberOfDimensions);
+                Matrix<double> matrix = Matrix<double>.Build.Dense(values.Length, values[0].Length);
+
+                for (int i = 0; i < values.Length; i++)
+                {
+                    for (int j = 0; j < values[0].Length; j++)
+                    {
+                        matrix[i, j] = values[i][j];
+                    }
+                }
+
+                Matrix<double> resMatrix = LLE(matrix, numNeighbors, numberOfDimensions);
+
+                reducedDimensionality = new double[values.Length][];
+                for (int i = 0; i < values.Length; i++)
+                {
+                    reducedDimensionality[i] = new double[values[0].Length];
+                    for (int j = 0; j < values[0].Length; j++)
+                    {
+                        reducedDimensionality[i][j] = resMatrix[i, j];
+                    }
+                }
             }
             else
             {
@@ -130,7 +158,7 @@ namespace Domain.Services.DimensionalityReduction
 
                 await dimension_repository.AddAsync(dimensionValue);
 
-                for (int j = 0; j < 2; i++)
+                for (int j = 0; j < 2; j++)
                 {
                     var value = new EmbeddingValue()
                     {
@@ -146,98 +174,92 @@ namespace Domain.Services.DimensionalityReduction
             await dimension_repository.SaveChangesAsync();
         }
         #region LLE
-        // Perform LLE
-        static double[][] LLE(double[][] data, int numNeighbors, int numberOfDimensions)
+        public static Matrix<double> LLE(Matrix<double> data, int numNeighbors, int targetDim)
         {
-            int n = data.Length;
-            int m = data[0].Length;
+            int numDataPoints = data.RowCount;
+            var weights = ComputeLocalWeights(data, numNeighbors);
+            var targetMatrix = ComputeTargetMatrix(weights, targetDim);
 
-            // Create a distance matrix
-            var distanceMatrix = new double[n, n];
-            for (int i = 0; i < n; i++)
+            return targetMatrix;
+        }
+
+        private static Matrix<double> ComputeLocalWeights(Matrix<double> data, int numNeighbors)
+        {
+            int numDataPoints = data.RowCount;
+            var weights = Matrix<double>.Build.Dense(numDataPoints, numDataPoints);
+
+            for (int i = 0; i < numDataPoints; i++)
             {
-                for (int j = 0; j < n; j++)
+                var xi = data.Row(i);
+                var distances = new double[numDataPoints];
+
+                for (int j = 0; j < numDataPoints; j++)
                 {
-                    distanceMatrix[i, j] = CalculateEuclideanDistance(data[i], data[j]);
+                    var xj = data.Row(j);
+                    distances[j] = (xi - xj).L2Norm();
                 }
-            }
 
-            // Create a weight matrix for local linear reconstruction
-            var weightMatrix = new double[n, n];
-            for (int i = 0; i < n; i++)
-            {
-                var neighbors = GetNearestNeighbors(i, distanceMatrix, numNeighbors);
+                int[] sortedIndices = distances
+                    .Select((x, index) => new { Value = x, Index = index })
+                    .OrderBy(x => x.Value)
+                    .Select(x => x.Index)
+                    .Take(numNeighbors)
+                    .ToArray();
 
-                // Create a Matrix<double> from data for local linear reconstruction
-                var x = Matrix<double>.Build.Dense(n, m, (row, col) => data[row][col]);
-
-                var xi = x.Row(i);
-
-                var H = Matrix<double>.Build.Dense(neighbors.Length, m, (row, col) => data[neighbors[row]][col]);
-                H = H.Subtract(xi.ToRowMatrix());
-
-                var G = H.Multiply(H.Transpose());
-
-                var w = G.Inverse().Multiply(1.0);
-                w = w.Divide(w.RowSums()[0]);
+                var Zi = Matrix<double>.Build.Dense(numNeighbors, data.ColumnCount);
 
                 for (int j = 0; j < numNeighbors; j++)
                 {
-                    weightMatrix[i, neighbors[j]] = w[j, 0];
+                    Zi.SetRow(j, data.Row(sortedIndices[j]) - xi);
                 }
-            }
 
-            // Create the matrix that minimizes the cost function
-            var I = Matrix<double>.Build.DenseIdentity(n);
-            var M = I.Subtract(Matrix<double>.Build.DenseOfArray(weightMatrix));
-            M = M.TransposeThisAndMultiply(M);
+                var covMatrix = Zi.Multiply(Zi.Transpose());
+                var trace = covMatrix.Trace();
+                var regularization = 0.001; // Small constant to prevent singular matrix
+                covMatrix = covMatrix.Add(Matrix<double>.Build.DenseIdentity(numNeighbors, numNeighbors).Multiply(regularization));
 
-            // Perform eigenvalue decomposition
-            var evd = M.Evd();
-            var eigenvectors = evd.EigenVectors.ToColumnArrays();
-
-            // Take the desired number of dimensions
-            var lleResult = new double[n][];
-            for (int i = 0; i < n; i++)
-            {
-                lleResult[i] = new double[numberOfDimensions];
-                for (int j = 0; j < numberOfDimensions; j++)
+                // Check for singular covariance matrix
+                double determinant = covMatrix.Determinant();
+                if (Math.Abs(determinant) < 1e-10)
                 {
-                    lleResult[i][j] = eigenvectors[j][i];
+                    // Handle the case where the covariance matrix is singular
+                    // You can skip computing weights or use an alternative approach.
+                }
+                else
+                {
+                    for (int j = 0; j < numNeighbors; j++)
+                    {
+                        for (int k = 0; k < numNeighbors; k++)
+                        {
+                            weights[i, sortedIndices[j]] = -Zi.Row(j).DotProduct(Zi.Row(k)) / (covMatrix[j, k]);
+                        }
+                    }
                 }
             }
 
-            return lleResult;
-        }
-
-        // Function to calculate Euclidean distance between two points
-        static double CalculateEuclideanDistance(double[] point1, double[] point2)
-        {
-            double sumOfSquaredDifferences = 0;
-            for (int i = 0; i < point1.Length; i++)
+            // Normalize the weights
+            for (int i = 0; i < numDataPoints; i++)
             {
-                double diff = point1[i] - point2[i];
-                sumOfSquaredDifferences += diff * diff;
-            }
-            return Math.Sqrt(sumOfSquaredDifferences);
-        }
-
-        // Function to get the indices of the nearest neighbors
-        static int[] GetNearestNeighbors(int dataIndex, double[,] distanceMatrix, int numNeighbors)
-        {
-            int n = distanceMatrix.GetLength(0);
-            var distances = new double[n];
-            for (int i = 0; i < n; i++)
-            {
-                distances[i] = distanceMatrix[dataIndex, i];
+                var rowSum = weights.Row(i).Sum();
+                weights.SetRow(i, weights.Row(i).Divide(rowSum));
             }
 
-            var sortedIndices = distances.Select((value, index) => new { Value = value, Index = index })
-                .OrderBy(x => x.Value)
-                .Select(x => x.Index)
-                .ToArray();
+            return weights;
+        }
 
-            return sortedIndices.Skip(1).Take(numNeighbors).ToArray();
+        private static Matrix<double> ComputeTargetMatrix(Matrix<double> weights, int targetDim)
+        {
+            int numDataPoints = weights.RowCount;
+            var identity = Matrix<double>.Build.DenseIdentity(numDataPoints);
+            var m = identity.Subtract(weights);
+
+            var eigenDecomposition = m.Evd();
+            var eigenVectors = eigenDecomposition.EigenVectors;
+
+            // Select the top targetDim eigen vectors
+            var targetMatrix = eigenVectors.SubMatrix(0, numDataPoints, 0, targetDim);
+
+            return targetMatrix;
         }
         #endregion
     }

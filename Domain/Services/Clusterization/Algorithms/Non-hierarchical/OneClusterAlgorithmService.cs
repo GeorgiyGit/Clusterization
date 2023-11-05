@@ -141,7 +141,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 if (profile.DimensionalityReductionTechniqueId != DimensionalityReductionTechniques.JSL)
                 {
-                    await drValues_service.AddEmbeddingValues(profileId, profile.DimensionalityReductionTechniqueId);
+                    await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId);
                 }
                 await taskService.ChangeTaskPercent(taskId, 50f);
 
