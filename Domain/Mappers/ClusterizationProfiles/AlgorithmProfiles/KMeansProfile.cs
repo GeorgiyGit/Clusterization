@@ -15,8 +15,10 @@ namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
     {
         public KMeansProfile()
         {
-            CreateMap<KMeansAlgorithm,KMeansAlgorithmDTO>()
-                .IncludeBase<ClusterizationAbstactAlgorithm, AbstractAlgorithmDTO>();
+            CreateMap<KMeansAlgorithm, KMeansAlgorithmDTO>()
+                .IncludeBase<ClusterizationAbstactAlgorithm, AbstractAlgorithmDTO>()
+                .ForMember(dest => dest.FullTitle,
+                           ost => ost.MapFrom(e => e.Type.Name + " " + e.NumClusters));
         }
     }
 }

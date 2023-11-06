@@ -10,7 +10,9 @@ namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
         public OneClusterProfile()
         {
             CreateMap<OneClusterAlgorithm, OneClusterAlgorithmDTO>()
-                .IncludeBase<ClusterizationAbstactAlgorithm, AbstractAlgorithmDTO>();
+                .IncludeBase<ClusterizationAbstactAlgorithm, AbstractAlgorithmDTO>()
+                .ForMember(dest => dest.FullTitle,
+                           ost => ost.MapFrom(e => e.Type.Name + " " + e.ClusterColor));
         }
     }
 }

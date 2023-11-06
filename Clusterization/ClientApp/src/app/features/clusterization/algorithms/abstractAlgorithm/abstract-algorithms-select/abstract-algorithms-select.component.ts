@@ -56,7 +56,7 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
       res.forEach(type => {
         let option: IOptionForSelectInput = {
           value: type.id + "",
-          description: type.typeName
+          description: type.fullTitle
         };
         this.options.push(option);
       });

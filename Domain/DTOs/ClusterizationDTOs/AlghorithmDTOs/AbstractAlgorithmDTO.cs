@@ -11,5 +11,6 @@ namespace Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs
         public int Id { get; set; }
         public string TypeId { get; set; }
         public string TypeName { get; set; }
+        public string FullTitle { get; set; }
     }
 }
