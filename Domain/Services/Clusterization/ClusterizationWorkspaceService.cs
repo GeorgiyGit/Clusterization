@@ -5,6 +5,7 @@ using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
+using Domain.Extensions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Tasks;
@@ -134,39 +135,19 @@ namespace Domain.Services.Clusterization
 
                 if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
-                Expression<Func<Comment, bool>> filterCondition = e => true;
+                Expression<Func<Comment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
 
                 if (request.DateFrom != null || request.DateTo != null)
                 {
-                    if (request.IsVideoDateCount)
+                    if(request.IsVideoDateCount)
                     {
-                        if (request.DateFrom != null && request.DateTo != null)
-                        {
-                            filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom && e.Video.PublishedAtDateTimeOffset < request.DateTo;
-                        }
-                        else if (request.DateFrom != null)
-                        {
-                            filterCondition = e => e.Video.PublishedAtDateTimeOffset > request.DateFrom;
-                        }
-                        else
-                        {
-                            filterCondition = e => e.Video.PublishedAtDateTimeOffset < request.DateTo;
-                        }
+                        if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.Video.PublishedAtDateTimeOffset > request.DateFrom);
+                        if (request.DateTo != null) filterCondition = filterCondition.And(e => e.Video.PublishedAtDateTimeOffset < request.DateTo);
                     }
                     else
                     {
-                        if (request.DateFrom != null && request.DateTo != null)
-                        {
-                            filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom && e.PublishedAtDateTimeOffset < request.DateTo;
-                        }
-                        else if (request.DateFrom != null)
-                        {
-                            filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom;
-                        }
-                        else
-                        {
-                            filterCondition = e => e.PublishedAtDateTimeOffset < request.DateTo;
-                        }
+                        if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > request.DateFrom);
+                        if (request.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < request.DateTo);
                     }
                 }
 
@@ -213,25 +194,13 @@ namespace Domain.Services.Clusterization
 
                 Expression<Func<Comment, bool>> filterCondition = e => true;
 
-                if (request.DateFrom != null || request.DateTo != null)
-                {
-                    if (request.DateFrom != null && request.DateTo != null)
-                    {
-                        filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom && e.PublishedAtDateTimeOffset < request.DateTo;
-                    }
-                    else if (request.DateFrom != null)
-                    {
-                        filterCondition = e => e.PublishedAtDateTimeOffset > request.DateFrom;
-                    }
-                    else
-                    {
-                        filterCondition = e => e.PublishedAtDateTimeOffset < request.DateTo;
-                    }
-                }
+                if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > request.DateFrom);
+                if (request.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < request.DateTo);
 
                 foreach (var id in request.VideoIds)
                 {
-                    var comments = (await comments_repository.GetAsync(c => c.Video.Id == id, includeProperties: $"{nameof(Comment.Video)},{nameof(Comment.Workspaces)}")).Take(request.MaxCountInVideo);
+                    var newConditions = filterCondition.And(e => e.VideoId == id);
+                    var comments = (await comments_repository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Comment.Video)},{nameof(Comment.Workspaces)}")).Take(request.MaxCountInVideo);
 
                     foreach (var comment in comments)
                     {
