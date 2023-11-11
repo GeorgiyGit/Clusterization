@@ -85,6 +85,14 @@ namespace Domain.Services.Clusterization
 
             return mapper.Map<ClusterizationWorkspaceDTO>(workspace);
         }
+        public async Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id)
+        {
+            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+
+            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+
+            return mapper.Map<SimpleClusterizationWorkspaceDTO>(workspace);
+        }
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request)
         {
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;

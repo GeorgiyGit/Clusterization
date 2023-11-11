@@ -1,7 +1,8 @@
 <div class="card" (click)="openFull()">
     <div class="top-cont">
         <div class="title-cont">
-            <p class="title">{{workspace.title}}</p>
+            <p class="title" *ngIf="myLocalStorage.getSelectedWorkspace()!=workspace.id">{{workspace.title}}</p>
+            <p class="title red" matTooltip="Встановлений активним" *ngIf="myLocalStorage.getSelectedWorkspace()==workspace.id">{{workspace.title}}</p>
         </div>
         <div class="my-tooltip">
             <span matTooltip="Дата створення" class="time-text">{{workspace.creationTime | normalizedDateTime}}</span>

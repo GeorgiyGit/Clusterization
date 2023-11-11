@@ -52,7 +52,7 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
 
     this.isLoading = true;
-    this.profilesService.getById(id).subscribe(res => {
+    this.profilesService.getFullById(id).subscribe(res => {
       this.profile = res;
       
       this.isLoading = false;

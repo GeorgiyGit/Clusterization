@@ -87,5 +87,19 @@ namespace Domain.Services.Clusterization.Profiles
 
             return mappedProfile;
         }
+
+        public async Task<SimpleClusterizationProfileDTO> GetSimpleById(int id)
+        {
+            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
+
+            if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+
+            var mappedProfile = mapper.Map<SimpleClusterizationProfileDTO>(profile);
+
+            var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profile.AlgorithmId);
+            mappedProfile.AlgorithmType = type;
+
+            return mappedProfile;
+        }
     }
 }

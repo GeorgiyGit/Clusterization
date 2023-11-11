@@ -17,12 +17,6 @@ export class WorkspaceFullPageComponent implements OnInit {
 
   actions: ISelectAction[] = [
     {
-      name: 'Встановити активним',
-      action: () => {
-        this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
-      }
-    },
-    {
       name: 'Додати профіль',
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'profiles/add/' + this.workspace.id } }]);
@@ -50,10 +44,19 @@ export class WorkspaceFullPageComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
 
     this.isLoading = true;
-    this.workspaceService.getById(id).subscribe(res => {
+    this.workspaceService.getFullById(id).subscribe(res => {
       this.workspace = res;
 
       this.isLoading = false;
+
+      if(this.workspace.id!=this.myLocalStorage.getSelectedWorkspace()){
+        this.actions.push({
+          name:'Встановити активним',
+          action: () => {
+            this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
+          }
+        });
+      }
 
       this.router.navigateByUrl('workspaces/full/'+this.workspace.id+'/profiles-list/' + this.workspace.id);
     }, error => {

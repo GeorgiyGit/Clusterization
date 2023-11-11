@@ -46,11 +46,18 @@ namespace Clusterization.Controllers.Clusterization
         }
 
 
-        [HttpGet("get_by_id/{id}")]
+        [HttpGet("get_full_by_id/{id}")]
         public async Task<IActionResult> GetFullById([FromRoute] int id)
         {
             return Ok(await service.GetFullById(id));
         }
+
+        [HttpGet("get_simple_by_id/{id}")]
+        public async Task<IActionResult> GetSimpleById([FromRoute] int id)
+        {
+            return Ok(await service.GetSimpleById(id));
+        }
+
         [HttpPost("get_collection")]
         public async Task<IActionResult> GetCollection([FromBody] GetWorkspacesRequest request)
         {

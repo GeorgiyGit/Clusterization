@@ -13,6 +13,7 @@ namespace Domain.Interfaces.Clusterization.Profiles
         public Task Add(AddClusterizationProfileDTO model);
         
         public Task<ClusterizationProfileDTO> GetFullById(int id);
+        public Task<SimpleClusterizationProfileDTO> GetSimpleById(int id);
         public Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequestDTO request);
     }
 }

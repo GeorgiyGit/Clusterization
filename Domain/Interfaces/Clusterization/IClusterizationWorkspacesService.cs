@@ -12,6 +12,7 @@ namespace Domain.Interfaces.Clusterization
     {
         public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request);
         public Task<ClusterizationWorkspaceDTO> GetFullById(int id);
+        public Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id);
 
         public Task Add(AddClusterizationWorkspaceDTO model);
         public Task Update(UpdateClusterizationWorkspaceDTO model);

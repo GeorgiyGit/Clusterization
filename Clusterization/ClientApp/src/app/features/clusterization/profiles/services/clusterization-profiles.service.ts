@@ -22,8 +22,11 @@ export class ClusterizationProfilesService {
     return this.http.post(this.controllerUrl + "add",model);
   }
 
-  getById(id:number): Observable<IClusterizationProfile> {
-    return this.http.get<IClusterizationProfile>(this.controllerUrl + "get_by_id/"+id);
+  getFullById(id:number): Observable<IClusterizationProfile> {
+    return this.http.get<IClusterizationProfile>(this.controllerUrl + "get_full_by_id/"+id);
+  }
+  getSimpleById(id:number): Observable<ISimpleClusterizationProfile> {
+    return this.http.get<ISimpleClusterizationProfile>(this.controllerUrl + "get_simple_by_id/"+id);
   }
 
   getCollection(request:IGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {

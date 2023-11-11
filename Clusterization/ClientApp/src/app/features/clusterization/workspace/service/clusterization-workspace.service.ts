@@ -34,8 +34,12 @@ export class ClusterizationWorkspaceService {
     return this.http.post(this.controllerUrl + "add_comments_by_videos", request);
   }
 
-  getById(id: number): Observable<IClusterizationWorkspace> {
-    return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_by_id/" + id);
+  getFullById(id: number): Observable<IClusterizationWorkspace> {
+    return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_full_by_id/" + id);
+  }
+  
+  getSimpleById(id: number): Observable<ISimpleClusterizationWorkspace> {
+    return this.http.get<ISimpleClusterizationWorkspace>(this.controllerUrl + "get_simple_by_id/" + id);
   }
   getWorkspaces(request: IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
     return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection", request);
