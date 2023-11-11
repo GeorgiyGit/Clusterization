@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, ElementRef, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, ElementRef, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, Renderer2 } from '@angular/core';
 import { IDisplayedPoint } from '../../models/displayed-points';
 import { IMyPosition } from '../../models/my-position';
 import { IClusterizationTile } from '../../models/clusterization-tile';
@@ -32,7 +32,8 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   constructor(private el: ElementRef,
     private displayedPointsService: ClusterizationDisplayedPointsService,
-    private toastr: MyToastrService) { }
+    private toastr: MyToastrService,
+    private renderer: Renderer2) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['displayedPoints'] && !changes['displayedPoints'].firstChange) {
       this.drawPoints();
@@ -72,10 +73,13 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     // You can draw points on the canvas here
     const ratio = window.devicePixelRatio;
 
-    this.ctx.canvas.width = window.innerWidth * ratio;
-    this.ctx.canvas.height = window.innerHeight * ratio;
-    this.ctx.canvas.style.width = window.innerWidth + 'px';
-    this.ctx.canvas.style.height = window.innerHeight + 'px';
+    const canvasSize = Math.min(window.innerWidth, window.innerHeight);
+    
+    this.ctx.canvas.width = canvasSize * ratio;
+    this.ctx.canvas.height = canvasSize * ratio;
+    
+    this.ctx.canvas.style.width = canvasSize + 'px';
+    this.ctx.canvas.style.height = canvasSize + 'px';
 
     this.convertLayerValue();
     this.tilesCalculation();
@@ -84,10 +88,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   convertLayerValue() {
     if (this.tilesLevel != null) {
-      console.log('layerValue', this.layerValue);
-      console.log('tilesLevel', this.tilesLevel)
+      //console.log('layerValue', this.layerValue);
+      //console.log('tilesLevel', this.tilesLevel)
       this.convertedLayerValue = this.layerValue / this.tilesLevel.tileLength;
-      console.log('convertedLayerValue', this.convertedLayerValue);
+      //console.log('convertedLayerValue', this.convertedLayerValue);
     }
   }
 
@@ -153,23 +157,11 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   private mouseMoveHandler(event: MouseEvent) {
     if (this.isMouseDown) {
-      //console.log(this.mouseChangesX, this.mouseChangesY);
-      //console.log('l', this.tilesLevel.tileLength * this.tilesLevel.tileCount * this.convertedLayerValue);
-      //console.log(this.tiles);
-      //if ((this.mouseChangesX < 100 || event.pageX - this.mousePositionX < 0) &&
-      //(this.mouseChangesX > -this.tilesLevel.tileLength * this.tilesLevel.tileCount * this.convertedLayerValue+300 || event.pageX - this.mousePositionX > 0)) {
-
-      //}
-      //if ((this.mouseChangesY < 100 || event.pageY - this.mousePositionY < 0) &&
-      //(this.mouseChangesY > -this.tilesLevel.tileLength * this.tilesLevel.tileCount * this.convertedLayerValue+300 || event.pageY - this.mousePositionY > 0)) {
-
-      //}
       this.mouseChangesX += event.pageX - this.mousePositionX;
       this.mouseChangesY += event.pageY - this.mousePositionY;
 
       this.mousePositionX = event.pageX;
       this.mousePositionY = event.pageY;
-
 
       this.tilesCalculation();
 
@@ -203,12 +195,12 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
       let xCoordinate = Math.round(point.x * this.convertedLayerValue + this.mouseChangesX + this.convertedLayerValue * Math.abs(this.tilesLevel.minXValue));
       let yCoordinate = Math.round(point.y * this.convertedLayerValue + this.mouseChangesY + this.convertedLayerValue * Math.abs(this.tilesLevel.minYValue));
-
       this.ctx.arc(xCoordinate, yCoordinate, this.radius, 0, 2 * Math.PI, true); // Draw a small circle for the point
       this.ctx.fill();
     });
     this.ctx.fillStyle = "black"; // Point color
     this.ctx.beginPath();
+
 
     let rectX = this.mouseChangesX - 10;
     let rectY = this.mouseChangesY - 10;
@@ -224,6 +216,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     let pos = this.getMousePos(event);
     //console.log('x',pos.x);
     //console.log('y',pos.y);
+
     this.displayedPoints.forEach(point => {
       let xCoordinate = Math.round(point.x * this.convertedLayerValue + this.mouseChangesX + this.convertedLayerValue * Math.abs(this.tilesLevel.minXValue));
       let yCoordinate = Math.round(point.y * this.convertedLayerValue + this.mouseChangesY + this.convertedLayerValue * Math.abs(this.tilesLevel.minYValue));
@@ -241,13 +234,17 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   }
 
   getMousePos(event: MouseEvent): IMyPosition {
-    var rect = this.ctx.canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = this.ctx.canvas.width / rect.width,    // relationship bitmap vs. element for x
-      scaleY = this.ctx.canvas.height / rect.height;  // relationship bitmap vs. element for y
+    const canvasRect = this.canvas.nativeElement.getBoundingClientRect();
+    const scaleX = this.ctx.canvas.width / this.canvas.nativeElement.clientWidth;
+    const scaleY = this.ctx.canvas.height / this.canvas.nativeElement.clientHeight;
+
+    // Adjust mouse coordinates based on object-fit: cover
+    const mouseX = (event.clientX - canvasRect.left) * scaleX;
+    const mouseY = (event.clientY - canvasRect.top) * scaleY;
 
     return {
-      x: (event.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
-      y: (event.clientY - rect.top) * scaleY     // been adjusted to be relative to element
+      x: mouseX,   // scale mouse coordinates after they have
+      y: mouseY     // been adjusted to be relative to element
     }
   }
 }
