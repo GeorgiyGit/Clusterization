@@ -2,8 +2,10 @@
 using Domain.DTOs.YoutubeDTOs.CommentDTOs;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.VideoDTOs;
+using Domain.Entities.Clusterization;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
+using Domain.Extensions;
 using Domain.Interfaces;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
@@ -29,6 +31,8 @@ namespace Domain.Services.Youtube
     public class YoutubeCommentsService : IYoutubeCommentsService
     {
         private readonly IRepository<Entities.Youtube.Comment> repository;
+        private readonly IRepository<Entities.Youtube.Video> videos_repository;
+
         private readonly YouTubeService youtubeService;
         private readonly IPrivateYoutubeChannelsService privateChannelService;
         private readonly IPrivateYoutubeVideosService privateVideoService;
@@ -47,7 +51,8 @@ namespace Domain.Services.Youtube
                                       IMapper mapper,
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMyTasksService taskService,
-                                      IBackgroundJobClient backgroundJobClient)
+                                      IBackgroundJobClient backgroundJobClient,
+                                      IRepository<Entities.Youtube.Video> videos_repository)
         {
             this.repository = repository;
             this.privateChannelService = privateChannelService;
@@ -58,6 +63,7 @@ namespace Domain.Services.Youtube
             this.localizer = localizer;
             this.taskService = taskService;
             this.backgroundJobClient = backgroundJobClient;
+            this.videos_repository = videos_repository;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -175,6 +181,136 @@ namespace Domain.Services.Youtube
                     await repository.SaveChangesAsync();
 
                     if (nextPageToken == "" || nextPageToken == null) break;
+                }
+
+                await taskService.ChangeTaskPercent(taskId, 100f);
+                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+            }
+            catch
+            {
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+            }
+        }
+
+
+        public async Task LoadFromChannel(LoadCommentsByChannelOptions options)
+        {
+            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options));
+        }
+        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options)
+        {
+            string channelId= options.ParentId;
+            if ((await privateChannelService.GetById(channelId)) == null) return;
+
+            var taskId = await taskService.CreateTask("Завантаження коментарів");
+            float percent = 0f;
+
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+
+            try
+            {
+                Expression<Func<Entities.Youtube.Video, bool>> filterCondition = e => true;
+
+                if (options.IsVideoDateCount == true)
+                {
+                    if (options.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > options.DateFrom);
+                    if (options.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < options.DateTo);
+                }
+
+                var videos = await videos_repository.GetAsync(filter: filterCondition);
+
+                int loadedCount = 0;
+                foreach (var video in videos)
+                {
+                    var nextPageToken = "";
+                    while (true)
+                    {
+                        var searchRequest = youtubeService.CommentThreads.List("snippet");
+
+                        // Set the channelId to load videos from the specific channel
+                        searchRequest.VideoId = video.Id;
+
+                        // Set the order to retrieve videos by date (you can change this as needed)
+                        searchRequest.Order = CommentThreadsResource.ListRequest.OrderEnum.Time;
+
+                        if (nextPageToken != null && nextPageToken != "") searchRequest.PageToken = nextPageToken;
+
+                        searchRequest.MaxResults = 200;
+
+                        var response = searchRequest.Execute();
+
+                        nextPageToken = response.NextPageToken;
+
+                        var comments = response.Items;
+
+                        foreach (var comment in comments)
+                        {
+                            if (loadedCount >= options.MaxLoad) break;
+
+                            if (options.IsVideoDateCount == false)
+                            {
+                                if (options.DateFrom != null)
+                                {
+                                    if (comment.Snippet.TopLevelComment.Snippet.PublishedAt < options.DateFrom)
+                                    {
+                                        loadedCount = options.MaxLoad;
+                                        break;
+                                    }
+                                }
+                                if (options.DateTo != null)
+                                {
+                                    if (comment.Snippet.TopLevelComment.Snippet.PublishedAt > options.DateTo)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (await repository.FindAsync(comment.Id) != null)
+                            {
+                                continue;
+                            }
+
+                            var newComment = new Entities.Youtube.Comment()
+                            {
+                                Id = comment.Id,
+                                ETag = comment.ETag,
+                                CanReply = (bool)comment.Snippet.CanReply,
+                                ChannelId = comment.Snippet.ChannelId,
+                                TotalReplyCount = (short)comment.Snippet.TotalReplyCount,
+                                VideoId = comment.Snippet.VideoId,
+
+                                AuthorChannelId = comment.Snippet.TopLevelComment.Snippet.AuthorChannelId.Value,
+                                AuthorDisplayName = comment.Snippet.TopLevelComment.Snippet.AuthorDisplayName,
+                                AuthorChannelUrl = comment.Snippet.TopLevelComment.Snippet.AuthorChannelUrl,
+                                AuthorProfileImageUrl = comment.Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl,
+                                LikeCount = (int)comment.Snippet.TopLevelComment.Snippet.LikeCount,
+                                PublishedAt = (DateTime)comment.Snippet.TopLevelComment.Snippet.PublishedAt,
+                                PublishedAtDateTimeOffset = (DateTimeOffset)comment.Snippet.TopLevelComment.Snippet.PublishedAtDateTimeOffset,
+                                PublishedAtRaw = comment.Snippet.TopLevelComment.Snippet.PublishedAtRaw,
+                                TextDisplay = comment.Snippet.TopLevelComment.Snippet.TextDisplay,
+                                TextOriginal = comment.Snippet.TopLevelComment.Snippet.TextOriginal,
+                                UpdatedAt = (DateTime)comment.Snippet.TopLevelComment.Snippet.UpdatedAt,
+                                UpdatedAtDateTimeOffset = (DateTimeOffset)comment.Snippet.TopLevelComment.Snippet.UpdatedAtDateTimeOffset,
+                                UpdatedAtRaw = comment.Snippet.TopLevelComment.Snippet.UpdatedAtRaw
+                            };
+
+                            await repository.AddAsync(newComment);
+                            loadedCount++;
+
+                            float plusPercent = 100f / options.MaxLoad;
+                            percent += plusPercent;
+
+                            await taskService.ChangeTaskPercent(taskId, percent);
+                        }
+
+                        await repository.SaveChangesAsync();
+
+                        if (nextPageToken == "" || nextPageToken == null || loadedCount >= options.MaxLoad) break;
+                    }
+
+
+                    if (loadedCount >= options.MaxLoad) break;
                 }
 
                 await taskService.ChangeTaskPercent(taskId, 100f);

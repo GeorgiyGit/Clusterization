@@ -66,6 +66,7 @@ import { ClusterizationFullProfilePageComponent } from './features/clusterizatio
 import { PointsMapPlaneComponent } from './features/points-map/components/points-map-plane/points-map-plane.component';
 import { PointsMapPageComponent } from './features/points-map/pages/points-map-page/points-map-page.component';
 import { DimensionalityReductionTechniquesSelectComponent } from './features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component';
+import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,6 +125,7 @@ import { DimensionalityReductionTechniquesSelectComponent } from './features/dim
     PointsMapPlaneComponent,
     PointsMapPageComponent,
     DimensionalityReductionTechniquesSelectComponent,
+    YoutubeLoadCommentsByChannelPageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

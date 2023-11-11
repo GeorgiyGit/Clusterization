@@ -18,4 +18,7 @@ export class YoutubeCommentsService {
   loadFromVideo(options:ICommentLoadOptions): Observable<any> {
     return this.http.post(this.controllerUrl + "load_from_video",options);
   }
+  loadFromChannel(options:ICommentLoadOptions): Observable<any> {
+    return this.http.post(this.controllerUrl + "load_from_channel",options);
+  }
 }

@@ -21,6 +21,12 @@ namespace Clusterization.Controllers.Youtube
             await service.LoadFromVideo(options);
             return Ok();
         }
+        [HttpPost("load_from_channel")]
+        public async Task<IActionResult> LoadFromChannel([FromBody] LoadCommentsByChannelOptions options)
+        {
+            await service.LoadFromChannel(options);
+            return Ok();
+        }
 
         [HttpGet("get_loaded_by_id/{id}")]
         public async Task<IActionResult> GetLoadedById([FromRoute] string id)

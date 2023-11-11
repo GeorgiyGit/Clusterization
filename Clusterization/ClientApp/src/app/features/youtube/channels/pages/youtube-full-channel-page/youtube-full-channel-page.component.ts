@@ -24,6 +24,12 @@ export class YoutubeFullChannelPageComponent implements OnInit {
       }
     },
     {
+      name: 'Завантажити багато коментарів',
+      action: () => {
+        this.router.navigate([{ outlets: { overflow: 'load-comments-by-channel/' + this.channel.id } }]);
+      }
+    },
+    {
       name: 'Додати коментарі до робочого простору',
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();

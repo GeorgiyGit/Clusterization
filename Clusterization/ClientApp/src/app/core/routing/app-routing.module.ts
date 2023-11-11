@@ -17,6 +17,7 @@ import { YoutubeFullChannelPageComponent } from "src/app/features/youtube/channe
 import { YoutubeLoadNewChannelPageComponent } from "src/app/features/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component";
 import { YoutubeCommentListPageComponent } from "src/app/features/youtube/comments/pages/youtube-comment-list-page/youtube-comment-list-page.component";
 import { YoutubeLoadAllCommentsPageComponent } from "src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component";
+import { YoutubeLoadCommentsByChannelPageComponent } from "src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component";
 import { YoutubeLoadMultipleVideosComponent } from "src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component";
 import { YoutubeFullVideoPageComponent } from "src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component";
 import { YoutubeLoadAllVideosPageComponent } from "src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component";
@@ -80,6 +81,11 @@ const routes: Route[] = [
   {
     path:'load-videos-by-channel/:channelId',
     component:YoutubeLoadAllVideosPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'load-comments-by-channel/:channelId',
+    component:YoutubeLoadCommentsByChannelPageComponent,
     outlet:'overflow'
   },
   {
