@@ -38,9 +38,21 @@ export class YoutubeFullChannelPageComponent implements OnInit {
           this.toastr.error('Робочий простір не вибрано');
           return;
         }
-        this.router.navigateByUrl('workspaces/add-comments-by-channel/'+this.channel.id);
+        this.router.navigateByUrl('workspaces/add-comments-by-channel/' + this.channel.id);
       }
     },
+    {
+      name: 'Додати коментарі у відео до робочого простору',
+      action: () => {
+        let workspaceId = this.storageService.getSelectedWorkspace();
+
+        if (workspaceId == null) {
+          this.toastr.error('Робочий простір не вибрано');
+          return;
+        }
+        this.router.navigateByUrl('workspaces/add-comments-by-videos/' + this.channel.id);
+      }
+    }
   ]
 
 

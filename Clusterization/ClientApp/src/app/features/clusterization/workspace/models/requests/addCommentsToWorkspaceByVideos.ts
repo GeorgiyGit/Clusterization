@@ -3,6 +3,5 @@ export interface IAddCommentsToWorkspaceByVideosRequest{
     maxCountInVideo:number,
     videoIds:string[],
     dateFrom:Date | undefined,
-    DateTo:Date | undefined,
-    isVideoDateCount:boolean
+    DateTo:Date | undefined
 }

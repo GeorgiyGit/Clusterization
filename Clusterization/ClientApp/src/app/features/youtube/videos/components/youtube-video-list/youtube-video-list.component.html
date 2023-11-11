@@ -1,5 +1,9 @@
 <section>
     <div *ngFor="let video of videos; let i = index">
-        <app-youtube-video-card [video]="video" (selectVideoEvent)="selectVideo($event)" (unselectVideoEvent)="unselectVideo($event)"></app-youtube-video-card>
+        <app-youtube-video-card
+            [video]="video"
+            (selectVideoEvent)="selectVideo($event)"
+            (unselectVideoEvent)="unselectVideo($event)"
+            [isSelectOnlyLoaded]="isSelectOnlyLoaded"></app-youtube-video-card>
     </div>
 </section>

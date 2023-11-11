@@ -51,7 +51,6 @@ import { WorkspaceSearchFilterComponent } from './features/clusterization/worksp
 import { WorkspaceFullPageComponent } from './features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component';
 import { MoreActionSelectComponent } from './core/components/more-action-select/more-action-select.component';
 import { AddChannelCommentsToWorkspacePageComponent } from './features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component';
-import { AddVideoCommentsToWorkspaceComponent } from './features/clusterization/workspace/pages/add-video-comments-to-workspace/add-video-comments-to-workspace.component';
 import { ClusterizationAlgorithmTypesSelectComponent } from './features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component';
 import { AbstractAlgorithmAddPageComponent } from './features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component';
 import { AddKMeansAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component';
@@ -67,6 +66,7 @@ import { PointsMapPlaneComponent } from './features/points-map/components/points
 import { PointsMapPageComponent } from './features/points-map/pages/points-map-page/points-map-page.component';
 import { DimensionalityReductionTechniquesSelectComponent } from './features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component';
 import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component';
+import { AddVideosCommentsToWorkspaceComponent } from './features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,7 +110,6 @@ import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/co
     WorkspaceFullPageComponent,
     MoreActionSelectComponent,
     AddChannelCommentsToWorkspacePageComponent,
-    AddVideoCommentsToWorkspaceComponent,
     ClusterizationAlgorithmTypesSelectComponent,
     AbstractAlgorithmAddPageComponent,
     AddKMeansAlgorithmComponent,
@@ -126,6 +125,7 @@ import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/co
     PointsMapPageComponent,
     DimensionalityReductionTechniquesSelectComponent,
     YoutubeLoadCommentsByChannelPageComponent,
+    AddVideosCommentsToWorkspaceComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ISimpleVideo } from '../../models/simple-video';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 import { IVideoFilter } from '../../models/video-filter';
@@ -12,6 +12,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./youtube-video-list-page.component.scss']
 })
 export class YoutubeVideoListPageComponent implements OnInit{
+  @Input() isSelectAvailable:boolean=false;
+  @Input() isSelectOnlyLoaded:boolean=false;
+  @Output() selectVideoEvent=new EventEmitter<ISimpleVideo>();
+  @Output() unselectVideoEvent=new EventEmitter<ISimpleVideo>();
+
   request:IGetVideosRequest={
     filterStr:'',
     filterType:'ByTimeDesc',
@@ -21,7 +26,7 @@ export class YoutubeVideoListPageComponent implements OnInit{
       pageSize:10
     }
   }
-  channelId:string;
+  @Input() channelId:string;
   videos:ISimpleVideo[]=[];
 
   isEmbedded:boolean;
@@ -30,7 +35,9 @@ export class YoutubeVideoListPageComponent implements OnInit{
     private toastr:MyToastrService,
     private route:ActivatedRoute){}
   ngOnInit(): void {
-    this.channelId=this.route.snapshot.params['id'] as string;
+    if(this.channelId==null){
+      this.channelId=this.route.snapshot.params['id'] as string;
+    }
 
     if(this.channelId!=null){
       this.request.channelId=this.channelId;
@@ -55,6 +62,12 @@ export class YoutubeVideoListPageComponent implements OnInit{
     console.log(this.request);
     this.isLoading=true;
     this.videoService.getMany(this.request).subscribe(res=>{
+      if(this.isSelectAvailable){
+        res.forEach(elem=>{
+          elem.isSelectAvailable=true
+        });
+      }
+
       this.videos=res;
       this.isLoading=false;
 
@@ -70,6 +83,12 @@ export class YoutubeVideoListPageComponent implements OnInit{
   loadMore(){
     this.isLoading2=true;
     this.videoService.getMany(this.request).subscribe(res=>{
+      if(this.isSelectAvailable){
+        res.forEach(elem=>{
+          elem.isSelectAvailable=true
+        });
+      }
+
       this.videos=this.videos.concat(res);
       this.isLoading2=false;
 
@@ -87,5 +106,12 @@ export class YoutubeVideoListPageComponent implements OnInit{
       this.request.pageParameters.pageNumber++;
       this.loadMore();
     }
+  }
+
+  selectVideo(video:ISimpleVideo){
+    this.selectVideoEvent.emit(video);
+  }
+  unselectVideo(video:ISimpleVideo){
+    this.unselectVideoEvent.emit(video);
   }
 }

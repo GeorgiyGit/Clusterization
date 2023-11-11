@@ -8,6 +8,7 @@ import { ISimpleVideo } from '../../models/simple-video';
 })
 export class YoutubeVideoListComponent {
   @Input() videos:ISimpleVideo[]=[];
+  @Input() isSelectOnlyLoaded:boolean;
   @Output() selectVideoEvent=new EventEmitter<ISimpleVideo>();
   @Output() unselectVideoEvent=new EventEmitter<ISimpleVideo>();
 

@@ -9,7 +9,12 @@
     <div class="centered" *ngIf="!isLoading && (videos==null || videos.length==0)">
         <p class="nothing-text">Відео не знайдено</p>
     </div>
-    <app-youtube-video-list [class.disable]="isLoading" [videos]="videos"></app-youtube-video-list>
+    <app-youtube-video-list 
+        [class.disable]="isLoading"
+        [videos]="videos"
+        (selectVideoEvent)="selectVideo($event)"
+        (unselectVideoEvent)="unselectVideo($event)"
+        [isSelectOnlyLoaded]="isSelectOnlyLoaded"></app-youtube-video-list>
     <div class="centered" *ngIf="isLoading2">
         <app-loader></app-loader>
     </div>
