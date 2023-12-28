@@ -61,6 +61,8 @@ export class YoutubeLoadMultipleChannelsComponent {
       this.channels = res.channels;
       this.nextPageToken = res.nextPageToken;
       this.isLoading = false;
+
+      console.log(res);
     },
       error => {
         this.isLoading = false;

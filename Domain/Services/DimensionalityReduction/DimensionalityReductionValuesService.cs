@@ -65,7 +65,7 @@ namespace Domain.Services.DimensionalityReduction
 
                     if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
 
-                    var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 2);
+                    var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 1536);
 
                     var embeddingValues = (await embeddingValues_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
 
