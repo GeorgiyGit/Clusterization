@@ -17,7 +17,6 @@ namespace Infrastructure.Builders
         {
             EmbeddingDataBuild(modelBuilder.Entity<EmbeddingData>());
             DimensionValueBuild(modelBuilder.Entity<EmbeddingDimensionValue>());
-            EmdeddingValueBuild(modelBuilder.Entity<EmbeddingValue>());
         }
         public static void EmbeddingDataBuild(EntityTypeBuilder<EmbeddingData> modelBuilder)
         {
@@ -48,20 +47,10 @@ namespace Infrastructure.Builders
                         .HasForeignKey<EmbeddingDimensionValue>(e => e.EmbeddingDataId)
                         .IsRequired(false);
 
-            modelBuilder.HasMany(e => e.Values)
-                        .WithOne(e => e.EmbeddingDimensionValue)
-                        .HasForeignKey(e => e.EmbeddingDimensionValueId);
-
             modelBuilder.HasOne(e => e.DimensionalityReductionValue)
                         .WithMany(e => e.Embeddings)
                         .HasForeignKey(e => e.DimensionalityReductionValueId)
                         .IsRequired(false);
-        }
-        public static void EmdeddingValueBuild(EntityTypeBuilder<EmbeddingValue> modelBuilder)
-        {
-            modelBuilder.HasOne(e => e.EmbeddingDimensionValue)
-                        .WithMany(e => e.Values)
-                        .HasForeignKey(e => e.EmbeddingDimensionValueId);
         }
     }
 }

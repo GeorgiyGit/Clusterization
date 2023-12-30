@@ -24,13 +24,13 @@ using Domain.Exceptions;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
 using System.Net;
+using Microsoft.Extensions.Primitives;
 
 namespace Domain.Services.DimensionalityReduction
 {
     public class DimensionalityReductionValuesService : IDimensionalityReductionValuesService
     {
         private readonly IRepository<EmbeddingData> embeddingData_repository;
-        private readonly IRepository<EmbeddingValue> embeddingValues_repository;
         private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IRepository<DimensionalityReductionValue> drValues_repository;
         private readonly IRepository<EmbeddingDimensionValue> dimension_repository;
@@ -38,14 +38,12 @@ namespace Domain.Services.DimensionalityReduction
         public DimensionalityReductionValuesService(IRepository<EmbeddingData> embeddingData_repository,
                                                     IRepository<ClusterizationEntity> entities_repository,
                                                     IRepository<DimensionalityReductionValue> drValues_repository,
-                                                    IRepository<EmbeddingValue> embeddingValues_repository,
                                                     IStringLocalizer<ErrorMessages> localizer,
                                                     IRepository<EmbeddingDimensionValue> dimension_repository)
         {
             this.embeddingData_repository = embeddingData_repository;
             this.entities_repository = entities_repository;
             this.drValues_repository = drValues_repository;
-            this.embeddingValues_repository = embeddingValues_repository;
             this.dimension_repository = dimension_repository;
             this.localizer = localizer;
         }
@@ -67,12 +65,11 @@ namespace Domain.Services.DimensionalityReduction
 
                     var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 1536);
 
-                    var embeddingValues = (await embeddingValues_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
-
+                    double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray();
                     helpModels.Add(new AddEmbeddingsWithDRHelpModel()
                     {
                         Entity = entity,
-                        DataPoints = embeddingValues.Select(e => e.Value).ToArray()
+                        DataPoints = embeddingValues
                     });
                 }
             }
@@ -158,17 +155,14 @@ namespace Domain.Services.DimensionalityReduction
 
                 await dimension_repository.AddAsync(dimensionValue);
 
+                string valuesString = "";
                 for (int j = 0; j < 2; j++)
                 {
-                    var value = new EmbeddingValue()
-                    {
-                        EmbeddingDimensionValue = dimensionValue,
-                        Value = reducedDimensionality[i][j]
-                    };
-                    dimensionValue.Values.Add(value);
-
-                    await embeddingValues_repository.AddAsync(value);
+                    valuesString += reducedDimensionality[i][j] + " ";
                 }
+                valuesString = valuesString.TrimEnd(' ');
+
+                dimensionValue.ValuesString = valuesString;
             }
 
             await dimension_repository.SaveChangesAsync();

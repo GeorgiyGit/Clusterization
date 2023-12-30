@@ -20,7 +20,6 @@ namespace Domain.Entities.Embeddings
 
         public DimensionalityReductionValue? DimensionalityReductionValue { get; set; }
         public int? DimensionalityReductionValueId { get; set; }
-
-        public ICollection<EmbeddingValue> Values { get; set; } = new HashSet<EmbeddingValue>();
+        public string ValuesString { get; set; }
     }
 }

@@ -33,7 +33,6 @@ namespace Infrastructure
         #region Embedding
         public virtual DbSet<EmbeddingData> EmbeddingDatas { get; set; }
         public virtual DbSet<EmbeddingDimensionValue> EmbeddingDimensionValues { get; set; }
-        public virtual DbSet<EmbeddingValue> EmbeddingValues { get; set; }
         #endregion
 
         #region Clusterization

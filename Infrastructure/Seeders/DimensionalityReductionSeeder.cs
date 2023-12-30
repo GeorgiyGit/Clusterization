@@ -34,11 +34,11 @@ namespace Infrastructure.Seeders
                 //Id = DimensionalityReductionTechniques.Isomap,
                 //Name = "Isomap"
             //};
-            var LLE = new DimensionalityReductionTechnique()
-            {
-                Id = DimensionalityReductionTechniques.LLE,
-                Name = "Locally Linear Embedding"
-            };
+            //var LLE = new DimensionalityReductionTechnique()
+            //{
+                //Id = DimensionalityReductionTechniques.LLE,
+                //Name = "Locally Linear Embedding"
+            //};
             var JSL = new DimensionalityReductionTechnique()
             {
                 Id = DimensionalityReductionTechniques.JSL,
@@ -54,7 +54,7 @@ namespace Infrastructure.Seeders
                                  tSNE,
                                  //MDS,
                                  //isomap,
-                                 LLE,
+                                 //LLE,
                                  JSL);
         }
     }

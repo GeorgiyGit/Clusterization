@@ -25,7 +25,6 @@ namespace Domain.Services.Clusterization
 {
     public class ClusterizationTilesService : IClusterizationTilesService
     {
-        private readonly IRepository<EmbeddingValue> embeddingValue_repository;
         private readonly IRepository<DisplayedPoint> displayedPoints_repository;
         private readonly IRepository<ClusterizationTile> tiles_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
@@ -33,15 +32,13 @@ namespace Domain.Services.Clusterization
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
-        public ClusterizationTilesService(IRepository<EmbeddingValue> embeddingValue_repository,
-                                          IRepository<DisplayedPoint> displayedPoints_repository,
+        public ClusterizationTilesService(IRepository<DisplayedPoint> displayedPoints_repository,
                                           IRepository<ClusterizationTile> tiles_repository,
                                           IStringLocalizer<ErrorMessages> localizer,
                                           IMapper mapper,
                                           IRepository<ClusterizationTilesLevel> tilesLevel_repository,
                                           IRepository<DimensionalityReductionValue> drValues_repository)
         {
-            this.embeddingValue_repository = embeddingValue_repository;
             this.displayedPoints_repository = displayedPoints_repository;
             this.tiles_repository = tiles_repository;
             this.localizer = localizer;
@@ -67,16 +64,15 @@ namespace Domain.Services.Clusterization
 
                 var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 2);
 
-                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
-
+                double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray(); 
                 helpModel.EmbeddingValues = embeddingValues;
             }
 
-            var minXValue = entityHelpModels.Min(e => e.EmbeddingValues[0].Value);
-            var maxXValue = entityHelpModels.Max(e => e.EmbeddingValues[0].Value);
+            var minXValue = entityHelpModels.Min(e => e.EmbeddingValues[0]);
+            var maxXValue = entityHelpModels.Max(e => e.EmbeddingValues[0]);
 
-            var minYValue = entityHelpModels.Min(e => e.EmbeddingValues[1].Value);
-            var maxYValue = entityHelpModels.Max(e => e.EmbeddingValues[1].Value);
+            var minYValue = entityHelpModels.Min(e => e.EmbeddingValues[1]);
+            var maxYValue = entityHelpModels.Max(e => e.EmbeddingValues[1]);
 
             tilesLevel.MinXValue = minXValue;
             tilesLevel.MinYValue = minYValue;
@@ -105,8 +101,8 @@ namespace Domain.Services.Clusterization
             {
                 for (int x = 0; x < tilesCount; x++)
                 {
-                    var helpModelsInTheTile = entityHelpModels.Where(e => (e.EmbeddingValues[0].Value >= (lengthPerTile * x+minXValue) && e.EmbeddingValues[0].Value <= (lengthPerTile * (x + 1) + minXValue)) &&
-                                                                          (e.EmbeddingValues[1].Value >= (lengthPerTile * y+minYValue) && e.EmbeddingValues[1].Value <= (lengthPerTile * (y + 1))+minYValue)).ToList();
+                    var helpModelsInTheTile = entityHelpModels.Where(e => (e.EmbeddingValues[0] >= (lengthPerTile * x+minXValue) && e.EmbeddingValues[0] <= (lengthPerTile * (x + 1) + minXValue)) &&
+                                                                          (e.EmbeddingValues[1] >= (lengthPerTile * y+minYValue) && e.EmbeddingValues[1] <= (lengthPerTile * (y + 1))+minYValue)).ToList();
                     var newTile = new ClusterizationTile()
                     {
                         Z = z,
@@ -120,8 +116,8 @@ namespace Domain.Services.Clusterization
                         var point = new DisplayedPoint()
                         {
                             OptimizationLevel = z,
-                            X = model.EmbeddingValues[0].Value,
-                            Y = model.EmbeddingValues[1].Value,
+                            X = model.EmbeddingValues[0],
+                            Y = model.EmbeddingValues[1],
                             Tile = newTile,
                             Value = model.Entity.TextValue, //temp,
                             Cluster = model.Cluster

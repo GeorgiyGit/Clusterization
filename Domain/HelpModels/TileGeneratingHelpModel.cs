@@ -11,7 +11,7 @@ namespace Domain.HelpModels
     public class TileGeneratingHelpModel
     {
         public ClusterizationEntity Entity { get; set; }
-        public IList<EmbeddingValue> EmbeddingValues { get; set; }
+        public double[] EmbeddingValues { get; set; }
         public Cluster Cluster { get; set; }
     }
 }

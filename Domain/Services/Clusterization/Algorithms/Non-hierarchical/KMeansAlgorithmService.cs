@@ -37,7 +37,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IRepository<Cluster> clusters_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
         private readonly IRepository<DimensionalityReductionValue> drValues_repository;
-        private readonly IRepository<EmbeddingValue> embeddingValue_repository;
 
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -60,8 +59,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IMyTasksService taskService,
                                       IRepository<ClusterizationTilesLevel> tilesLevel_repository,
                                       IDimensionalityReductionValuesService drValues_service,
-                                      IRepository<DimensionalityReductionValue> drValues_repository,
-                                      IRepository<EmbeddingValue> embeddingValue_repository)
+                                      IRepository<DimensionalityReductionValue> drValues_repository)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -75,7 +73,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.tilesLevel_repository = tilesLevel_repository;
             this.drValues_service = drValues_service;
             this.drValues_repository = drValues_repository;
-            this.embeddingValue_repository = embeddingValue_repository;
         }
 
         public async Task AddAlgorithm(AddKMeansAlgorithmDTO model)
@@ -206,12 +203,12 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == dimensionsCount);
 
-                var embeddingValues = (await embeddingValue_repository.GetAsync(e => e.EmbeddingDimensionValueId == dimensionValue.Id, orderBy: e => e.OrderBy(e => e.Id))).ToList();
+                double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray(); 
 
                 helpModels.Add(new AddEmbeddingsWithDRHelpModel()
                 {
                     Entity = entity,
-                    DataPoints = embeddingValues.Select(e => e.Value).ToArray()
+                    DataPoints = embeddingValues
                 });
             }
 
