@@ -8,6 +8,9 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { OneClusterAlgorithmService } from '../../../algorithms/non-hierarchical/oneCluster/services/one-cluster-algorithm.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { KMeansService } from '../../../algorithms/non-hierarchical/k-means/services/kmeans.service';
+import { DbscanService } from '../../../algorithms/non-hierarchical/dbscan/services/dbscan.service';
+import { SpectralClusteringService } from '../../../algorithms/non-hierarchical/spectral-clustering/services/spectral-clustering.service';
+import { GaussianMixtureService } from '../../../algorithms/non-hierarchical/gaussian-mixture/services/gaussian-mixture.service';
 
 @Component({
   selector: 'app-clusterization-full-profile-page',
@@ -34,6 +37,24 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
               this.toastr.error(error.error.Message);
             });
           break;
+          case 'DBScan':
+            this.dbScanService.clusterData(this.profile.id).subscribe(res=>{
+            },error=>{
+              this.toastr.error(error.error.Message);
+            });
+          break;
+          case 'SpectralClustering':
+            this.spectralClusteringService.clusterData(this.profile.id).subscribe(res=>{
+            },error=>{
+              this.toastr.error(error.error.Message);
+            });
+          break;
+          case 'GaussianMixture':
+            this.gaussianMixtureService.clusterData(this.profile.id).subscribe(res=>{
+            },error=>{
+              this.toastr.error(error.error.Message);
+            });
+          break;
         }
       }
     }
@@ -43,6 +64,9 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
   constructor(private profilesService: ClusterizationProfilesService,
     private route: ActivatedRoute,
     private oneClusterService:OneClusterAlgorithmService,
+    private dbScanService:DbscanService,
+    private spectralClusteringService:SpectralClusteringService,
+    private gaussianMixtureService:GaussianMixtureService,
     private router:Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,

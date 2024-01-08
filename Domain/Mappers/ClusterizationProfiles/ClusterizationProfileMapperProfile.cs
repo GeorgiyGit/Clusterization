@@ -22,6 +22,8 @@ namespace Domain.Mappers.ClusterizationProfiles
 
             CreateMap<ClusterizationProfile, SimpleClusterizationProfileDTO>()
                 .ForMember(dest => dest.AlgorithmType,
+                           ost => ost.Ignore())
+                .ForMember(dest => dest.FullTitle,
                            ost => ost.Ignore());
         }
     }

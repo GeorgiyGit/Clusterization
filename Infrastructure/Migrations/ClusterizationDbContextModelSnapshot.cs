@@ -108,6 +108,24 @@ namespace Infrastructure.Migrations
                             Id = "OneCluster",
                             Description = "Об'єднання елементів в один кластер",
                             Name = "Один кластер"
+                        },
+                        new
+                        {
+                            Id = "DBScan",
+                            Description = "Density-Based Spatial Clustering Of Applications With Noise",
+                            Name = "DBSCAN"
+                        },
+                        new
+                        {
+                            Id = "SpectralClustering",
+                            Description = "Cпектральна кластеризація базується на принципах теорії графів і лінійної алгебри",
+                            Name = "Spectral Clustering"
+                        },
+                        new
+                        {
+                            Id = "GaussianMixture",
+                            Description = "Метод кластеризації, який моделює дані як суміш розділів Гауса",
+                            Name = "Gaussian Mixture"
                         });
                 });
 
@@ -345,13 +363,8 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "Videos",
-                            Name = "Відео"
-                        },
-                        new
-                        {
-                            Id = "Channels",
-                            Name = "Канали"
+                            Id = "External",
+                            Name = "З файлу"
                         });
                 });
 
@@ -386,6 +399,30 @@ namespace Infrastructure.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("ClusterizationWorkspaces");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DRTechniqueId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkspaceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DRTechniqueId");
+
+                    b.HasIndex("WorkspaceId");
+
+                    b.ToTable("ClusterizationWorkspaceDRTechniques");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.DisplayedPoint", b =>
@@ -466,6 +503,9 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("ClusterizationEntityId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ClusterizationWorkspaceDRTechniqueId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("EmbeddingDataId")
                         .HasColumnType("int");
 
@@ -476,6 +516,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClusterizationEntityId");
+
+                    b.HasIndex("ClusterizationWorkspaceDRTechniqueId");
 
                     b.HasIndex("EmbeddingDataId")
                         .IsUnique()
@@ -831,6 +873,29 @@ namespace Infrastructure.Migrations
                     b.ToTable("Videos");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.DBScanAlgorithm", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
+
+                    b.Property<double>("Epsilon")
+                        .HasColumnType("float");
+
+                    b.Property<int>("MinimumPointsPerCluster")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("DBScanAlgorithm");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.GaussianMixtureAlgorithm", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
+
+                    b.Property<int>("NumberOfComponents")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("GaussianMixtureAlgorithm");
+                });
+
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.KMeansAlgorithm", b =>
                 {
                     b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
@@ -853,6 +918,25 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("OneClusterAlgorithm");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.SpectralClusteringAlgorithm", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
+
+                    b.Property<double>("Gamma")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NumClusters")
+                        .HasColumnType("int");
+
+                    b.ToTable("ClusterizationAbstractAlgorithms", t =>
+                        {
+                            t.Property("NumClusters")
+                                .HasColumnName("SpectralClusteringAlgorithm_NumClusters");
+                        });
+
+                    b.HasDiscriminator().HasValue("SpectralClusteringAlgorithm");
                 });
 
             modelBuilder.Entity("ClusterClusterizationEntity", b =>
@@ -1020,6 +1104,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Type");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+                {
+                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", "DRTechnique")
+                        .WithMany("ClusterizationWorkspaceDRTechniques")
+                        .HasForeignKey("DRTechniqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", "Workspace")
+                        .WithMany("ClusterizationWorkspaceDRTechniques")
+                        .HasForeignKey("WorkspaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DRTechnique");
+
+                    b.Navigation("Workspace");
+                });
+
             modelBuilder.Entity("Domain.Entities.Clusterization.DisplayedPoint", b =>
                 {
                     b.HasOne("Domain.Entities.Clusterization.Cluster", "Cluster")
@@ -1045,6 +1148,10 @@ namespace Infrastructure.Migrations
                         .WithMany("DimensionalityReductionValues")
                         .HasForeignKey("ClusterizationEntityId");
 
+                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", "ClusterizationWorkspaceDRTechnique")
+                        .WithMany("DRValues")
+                        .HasForeignKey("ClusterizationWorkspaceDRTechniqueId");
+
                     b.HasOne("Domain.Entities.Embeddings.EmbeddingData", "EmbeddingData")
                         .WithOne("DimensionalityReductionValue")
                         .HasForeignKey("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", "EmbeddingDataId");
@@ -1056,6 +1163,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("ClusterizationEntity");
+
+                    b.Navigation("ClusterizationWorkspaceDRTechnique");
 
                     b.Navigation("EmbeddingData");
 
@@ -1192,13 +1301,22 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspace", b =>
                 {
+                    b.Navigation("ClusterizationWorkspaceDRTechniques");
+
                     b.Navigation("Entities");
 
                     b.Navigation("Profiles");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+                {
+                    b.Navigation("DRValues");
+                });
+
             modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", b =>
                 {
+                    b.Navigation("ClusterizationWorkspaceDRTechniques");
+
                     b.Navigation("Profiles");
 
                     b.Navigation("Values");

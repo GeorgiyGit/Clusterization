@@ -35,19 +35,22 @@ namespace Domain.Services.DimensionalityReduction
         private readonly IRepository<DimensionalityReductionValue> drValues_repository;
         private readonly IRepository<EmbeddingDimensionValue> dimension_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IRepository<ClusterizationWorkspaceDRTechnique> workspaceDRTechniques_repository;
         public DimensionalityReductionValuesService(IRepository<EmbeddingData> embeddingData_repository,
                                                     IRepository<ClusterizationEntity> entities_repository,
                                                     IRepository<DimensionalityReductionValue> drValues_repository,
                                                     IStringLocalizer<ErrorMessages> localizer,
-                                                    IRepository<EmbeddingDimensionValue> dimension_repository)
+                                                    IRepository<EmbeddingDimensionValue> dimension_repository,
+                                                    IRepository<ClusterizationWorkspaceDRTechnique> workspaceDRTechniques_repository)
         {
             this.embeddingData_repository = embeddingData_repository;
             this.entities_repository = entities_repository;
             this.drValues_repository = drValues_repository;
             this.dimension_repository = dimension_repository;
             this.localizer = localizer;
+            this.workspaceDRTechniques_repository = workspaceDRTechniques_repository;
         }
-        public async Task AddEmbeddingValues(int workspaceId, string DRTechniqueId)
+        public async Task AddEmbeddingValues(int workspaceId, string DRTechniqueId, int numberOfDimensions)
         {
             var entities = (await entities_repository.GetAsync(e => e.WorkspaceId == workspaceId, includeProperties: $"{nameof(ClusterizationEntity.EmbeddingData)},{nameof(ClusterizationEntity.DimensionalityReductionValues)}"));
 
@@ -55,29 +58,180 @@ namespace Domain.Services.DimensionalityReduction
 
             foreach (var entity in entities)
             {
-                var value = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == entity.Id && e.TechniqueId == DRTechniqueId)).FirstOrDefault();
+                var drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingDataId == entity.EmbeddingDataId, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
 
-                if (value == null)
+                if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
+
+                var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 1536);
+
+                double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray();
+                helpModels.Add(new AddEmbeddingsWithDRHelpModel()
                 {
-                    var drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingDataId == entity.EmbeddingDataId, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
-
-                    if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
-
-                    var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == 1536);
-
-                    double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray();
-                    helpModels.Add(new AddEmbeddingsWithDRHelpModel()
-                    {
-                        Entity = entity,
-                        DataPoints = embeddingValues
-                    });
-                }
+                    Entity = entity,
+                    DataPoints = embeddingValues
+                });
             }
 
             if (helpModels.Count == 0) return;
 
-            int numberOfDimensions = 2; // Desired number of dimensions
+            bool flag = true;
+            var workspaceDRTechnique = (await workspaceDRTechniques_repository.GetAsync(e => e.DRTechnique.Id == DRTechniqueId && e.WorkspaceId == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspaceDRTechnique.DRValues)}")).FirstOrDefault();
 
+            if(workspaceDRTechnique == null)
+            {
+                ClusterizationWorkspaceDRTechnique clusterizationWorkspaceDRTechnique = new ClusterizationWorkspaceDRTechnique()
+                {
+                    WorkspaceId = workspaceId,
+                    DRTechniqueId = DRTechniqueId
+                };
+                await workspaceDRTechniques_repository.AddAsync(clusterizationWorkspaceDRTechnique);
+                await workspaceDRTechniques_repository.SaveChangesAsync();
+                
+                workspaceDRTechnique = (await workspaceDRTechniques_repository.GetAsync(e => e.DRTechnique.Id == DRTechniqueId && e.WorkspaceId == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspaceDRTechnique.DRValues)}")).FirstOrDefault();
+                flag = false;
+            }
+
+            bool flag2 = false;
+            bool isHaveTwo = false;
+            bool isHaveCurrent = false;
+
+            bool isHaveTwoNotFull = false;
+            bool isHaveCurrentNotFull = false;
+            if (flag)
+            {
+                if (workspaceDRTechnique.DRValues.Count() != helpModels.Count)
+                {
+                    flag2 = true;
+                    isHaveTwo = false;
+                    isHaveCurrent = false;
+                }
+                else
+                {
+                    foreach(var value in workspaceDRTechnique.DRValues)
+                    {
+                        var dimensinalEmbeddings = (await dimension_repository.GetAsync(e => e.DimensionalityReductionValueId == value.Id, includeProperties: $"{nameof(EmbeddingDimensionValue.DimensionType)}")).ToList();
+
+                        if (numberOfDimensions == 2)
+                        {
+                            if (dimensinalEmbeddings.Any(e => e.DimensionTypeId == 2))
+                            {
+                                isHaveTwo = true;
+                                isHaveCurrent = true;
+                            }
+                            else if (isHaveTwo)
+                            {
+                                isHaveTwoNotFull = true;
+                                isHaveCurrentNotFull = true;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if(dimensinalEmbeddings.Any(e => e.DimensionTypeId == 2))
+                            {
+                                isHaveTwo = true;
+                            }
+                            else if (isHaveTwo)
+                            {
+                                isHaveCurrent = false;
+                            }
+                            if (dimensinalEmbeddings.Any(e => e.DimensionTypeId == numberOfDimensions))
+                            {
+                                isHaveCurrent = true;
+                            }
+                            else if (isHaveCurrent)
+                            {
+                                isHaveCurrentNotFull = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (workspaceDRTechnique.DRValues.Count() > 0)
+            {
+                if (flag2 || (isHaveTwoNotFull && isHaveCurrentNotFull))
+                {
+                    foreach (var value in workspaceDRTechnique.DRValues)
+                    {
+                        var dimensinalEmbeddings = (await dimension_repository.GetAsync(e => e.DimensionalityReductionValueId == value.Id, includeProperties: $"{nameof(EmbeddingDimensionValue.DimensionType)}")).ToList();
+
+                        EmbeddingDimensionValue? deType2 = dimensinalEmbeddings.Find(e => e.DimensionTypeId == 2);
+
+                        string includeStr = $"{nameof(EmbeddingDimensionValue.DimensionType)},{nameof(EmbeddingDimensionValue.DimensionalityReductionValue)},{nameof(EmbeddingDimensionValue.EmbeddingData)}";
+
+                        if (deType2 != null)
+                        {
+                            var deType2Full = (await dimension_repository.GetAsync(e => e.Id == deType2.Id, includeProperties: includeStr)).FirstOrDefault();
+
+                            dimension_repository.Remove(deType2Full);
+                        }
+
+                        if (numberOfDimensions != 2)
+                        {
+                            EmbeddingDimensionValue? deTypeCurrent = dimensinalEmbeddings.Find(e => e.DimensionTypeId == numberOfDimensions);
+
+                            if (deTypeCurrent != null)
+                            {
+                                var deTypeCurrentFull = (await dimension_repository.GetAsync(e => e.Id == deTypeCurrent.Id, includeProperties: includeStr)).FirstOrDefault();
+
+                                dimension_repository.Remove(deTypeCurrentFull);
+                            }
+                        }
+                    }
+                }
+                else if (isHaveTwoNotFull)
+                {
+                    foreach (var value in workspaceDRTechnique.DRValues)
+                    {
+                        var dimensinalEmbeddings = (await dimension_repository.GetAsync(e => e.DimensionalityReductionValueId == value.Id, includeProperties: $"{nameof(EmbeddingDimensionValue.DimensionType)}")).ToList();
+
+                        EmbeddingDimensionValue? deType2 = dimensinalEmbeddings.Find(e => e.DimensionTypeId == 2);
+
+                        string includeStr = $"{nameof(EmbeddingDimensionValue.DimensionType)},{nameof(EmbeddingDimensionValue.DimensionalityReductionValue)},{nameof(EmbeddingDimensionValue.EmbeddingData)}";
+
+                        if (deType2 != null)
+                        {
+                            var deType2Full = (await dimension_repository.GetAsync(e => e.Id == deType2.Id, includeProperties: includeStr)).FirstOrDefault();
+
+                            dimension_repository.Remove(deType2Full);
+                        }
+                    }
+                }
+                else if (isHaveCurrentNotFull && numberOfDimensions != 2)
+                {
+                    foreach (var value in workspaceDRTechnique.DRValues)
+                    {
+                        var dimensinalEmbeddings = (await dimension_repository.GetAsync(e => e.DimensionalityReductionValueId == value.Id, includeProperties: $"{nameof(EmbeddingDimensionValue.DimensionType)}")).ToList();
+
+                        EmbeddingDimensionValue? deType2 = dimensinalEmbeddings.Find(e => e.DimensionTypeId == 2);
+
+                        string includeStr = $"{nameof(EmbeddingDimensionValue.DimensionType)},{nameof(EmbeddingDimensionValue.DimensionalityReductionValue)},{nameof(EmbeddingDimensionValue.EmbeddingData)}";
+
+                        EmbeddingDimensionValue? deTypeCurrent = dimensinalEmbeddings.Find(e => e.DimensionTypeId == numberOfDimensions);
+
+                        if (deTypeCurrent != null)
+                        {
+                            var deTypeCurrentFull = (await dimension_repository.GetAsync(e => e.Id == deTypeCurrent.Id, includeProperties: includeStr)).FirstOrDefault();
+
+                            dimension_repository.Remove(deTypeCurrentFull);
+                        }
+                    }
+                }
+            }
+
+
+            if ((!isHaveCurrent || isHaveCurrentNotFull) && numberOfDimensions != 1536 && numberOfDimensions != 2)
+            {
+                await ProjectData(helpModels, DRTechniqueId, numberOfDimensions, workspaceDRTechnique);
+            }
+            if (!isHaveTwo || isHaveTwoNotFull)
+            {
+                await ProjectData(helpModels, DRTechniqueId, 2, workspaceDRTechnique);
+            }
+        }
+        public async Task ProjectData(List<AddEmbeddingsWithDRHelpModel> helpModels,string DRTechniqueId, int numberOfDimensions, ClusterizationWorkspaceDRTechnique clusterizationWorkspaceDRTechnique)
+        {
             var values = helpModels.Select(e => e.DataPoints).ToArray();
             double[][] reducedDimensionality = new double[1][];
             if (DRTechniqueId == DimensionalityReductionTechniques.PCA)
@@ -137,13 +291,21 @@ namespace Domain.Services.DimensionalityReduction
 
             for (int i = 0; i < helpModels.Count; i++)
             {
-                var DRv = new DimensionalityReductionValue()
-                {
-                    ClusterizationEntity = helpModels[i].Entity,
-                    TechniqueId = DRTechniqueId
-                };
+                DimensionalityReductionValue DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
 
-                await drValues_repository.AddAsync(DRv);
+                if (DRv == null)
+                {
+                    DRv = new DimensionalityReductionValue()
+                    {
+                        ClusterizationEntity = helpModels[i].Entity,
+                        TechniqueId = DRTechniqueId,
+                        ClusterizationWorkspaceDRTechniqueId = clusterizationWorkspaceDRTechnique.Id
+                    };
+                    await drValues_repository.AddAsync(DRv);
+                    await drValues_repository.SaveChangesAsync();
+
+                    DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+                }
 
                 var dimensionValue = new EmbeddingDimensionValue()
                 {
@@ -156,7 +318,7 @@ namespace Domain.Services.DimensionalityReduction
                 await dimension_repository.AddAsync(dimensionValue);
 
                 string valuesString = "";
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < numberOfDimensions; j++)
                 {
                     valuesString += reducedDimensionality[i][j] + " ";
                 }

@@ -17,6 +17,7 @@
     <PackageReference Include="Accord.Math" Version="3.8.0" />
     <PackageReference Include="Accord.Statistics" Version="3.8.0" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Dbscan" Version="3.0.0" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />

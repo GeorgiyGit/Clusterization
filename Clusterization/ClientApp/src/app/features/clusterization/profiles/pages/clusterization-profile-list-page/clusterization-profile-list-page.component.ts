@@ -53,7 +53,7 @@ export class ClusterizationProfileListPageComponent implements OnInit{
 
   isLoading:boolean;
   loadFirst(){
-    this.request.pageParameters.pageNumber=0;
+    this.request.pageParameters.pageNumber=1;
 
     this.isLoading=true;
     this.profilesService.getCollection(this.request).subscribe(res=>{
@@ -69,16 +69,18 @@ export class ClusterizationProfileListPageComponent implements OnInit{
       this.toastr.error(error.error.Message);
     });
   }
+  isLoading2:boolean;
   loadMore(){
-    this.isLoading=true;
+    this.isLoading2=true;
+    this.request.pageParameters.pageNumber++;
     this.profilesService.getCollection(this.request).subscribe(res=>{
       this.profiles=this.profiles.concat(res);
-      this.isLoading=false;
+      this.isLoading2=false;
 
       if(res.length<this.request.pageParameters.pageSize)this.isLoadMoreAvailable=false;
       else this.isLoadMoreAvailable=true;
     },error=>{
-      this.isLoading=false;
+      this.isLoading2=false;
       this.toastr.error(error.error.Message);
     });
   }
@@ -86,7 +88,6 @@ export class ClusterizationProfileListPageComponent implements OnInit{
   isLoadMoreAvailable:boolean;
   addMore(){
     if(this.isLoadMoreAvailable){
-      this.request.pageParameters.pageNumber++;
       this.loadMore();
     }
   }

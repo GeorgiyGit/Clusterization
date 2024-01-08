@@ -28,7 +28,26 @@ namespace Infrastructure.Seeders
                 Description = "Об'єднання елементів в один кластер"
             };
 
-            modelBuilder.HasData(kMeans, oneCluster);
+            var dbSCAN = new ClusterizationAlgorithmType()
+            {
+                Id = ClusterizationAlgorithmTypes.DBScan,
+                Name = "DBSCAN",
+                Description = "Density-Based Spatial Clustering Of Applications With Noise"
+            };
+            var spectralClustering = new ClusterizationAlgorithmType()
+            {
+                Id = ClusterizationAlgorithmTypes.SpectralClustering,
+                Name = "Spectral Clustering",
+                Description = "Cпектральна кластеризація базується на принципах теорії графів і лінійної алгебри"
+            };
+            var gmm = new ClusterizationAlgorithmType()
+            {
+                Id = ClusterizationAlgorithmTypes.GaussianMixture,
+                Name = "Gaussian Mixture",
+                Description = "Метод кластеризації, який моделює дані як суміш розділів Гауса"
+            };
+
+            modelBuilder.HasData(kMeans, oneCluster, dbSCAN, spectralClustering, gmm);
         }
     }
 }

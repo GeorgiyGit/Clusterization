@@ -2,6 +2,7 @@
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
 using Domain.Entities.Clusterization;
+using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Interfaces;
@@ -9,11 +10,13 @@ using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.Clusterization.Profiles;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -62,13 +65,46 @@ namespace Domain.Services.Clusterization.Profiles
             if (request.AlgorithmTypeId != null) filterCondition = filterCondition.And(e => e.Algorithm.TypeId == request.AlgorithmTypeId);
             if (request.DimensionCount != null) filterCondition = filterCondition.And(e => e.DimensionCount == request.DimensionCount);
 
-            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).ToList();
+            var pageParameters = request.PageParameters;
+            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}"))
+                                            .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                            .Take(pageParameters.PageSize).ToList();
 
             var mappedProfiles = mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
             for (int i = 0; i < profiles.Count(); i++)
             {
                 var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
                 mappedProfiles[i].AlgorithmType = type;
+
+                string fullAlgName = "";
+                if (type.Id == ClusterizationAlgorithmTypes.OneCluster)
+                {
+                    var algorithm = profiles[i].Algorithm as OneClusterAlgorithm;
+                    fullAlgName = algorithm.ClusterColor + "";
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.KMeans)
+                {
+                    var algorithm = profiles[i].Algorithm as KMeansAlgorithm;
+                    fullAlgName = algorithm.NumClusters + "";
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.DBScan)
+                {
+                    var algorithm = profiles[i].Algorithm as DBScanAlgorithm;
+                    fullAlgName = algorithm.Epsilon + " " + algorithm.MinimumPointsPerCluster;
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.SpectralClustering)
+                {
+                    var algorithm = profiles[i].Algorithm as SpectralClusteringAlgorithm;
+                    fullAlgName = algorithm.NumClusters + " " + algorithm.Gamma;
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.GaussianMixture)
+                {
+                    var algorithm = profiles[i].Algorithm as GaussianMixtureAlgorithm;
+                    fullAlgName = algorithm.NumberOfComponents + "";
+                }
+
+                mappedProfiles[i].FullTitle = type.Name + " (" + fullAlgName + ") " + mappedProfiles[i].DimensionalityReductionTechnique.Id + " " + mappedProfiles[i].DimensionCount;
+
             }
 
             return mappedProfiles;

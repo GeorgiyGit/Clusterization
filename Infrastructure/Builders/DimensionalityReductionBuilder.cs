@@ -28,6 +28,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasMany(e => e.Profiles)
                         .WithOne(e => e.DimensionalityReductionTechnique)
                         .HasForeignKey(e => e.DimensionalityReductionTechniqueId);
+
+            modelBuilder.HasMany(e => e.ClusterizationWorkspaceDRTechniques)
+                        .WithOne(e => e.DRTechnique)
+                        .HasForeignKey(e => e.DRTechniqueId);
         }
 
         public static void ValueBuild(EntityTypeBuilder<DimensionalityReductionValue> modelBuilder)
@@ -47,6 +51,11 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.ClusterizationEntity)
                         .WithMany(e => e.DimensionalityReductionValues)
                         .HasForeignKey(e => e.ClusterizationEntityId);
+
+            modelBuilder.HasOne(e => e.ClusterizationWorkspaceDRTechnique)
+                        .WithMany(e => e.DRValues)
+                        .HasForeignKey(e => e.ClusterizationWorkspaceDRTechniqueId)
+                        .IsRequired(false);
         }
     }
 }

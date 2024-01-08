@@ -23,5 +23,7 @@ namespace Domain.Interfaces.Clusterization
         public Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points);
 
         public Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int z);
+
+        public Task FullRemoveTilesLevel(int tilesLevelId);
     }
 }

@@ -121,9 +121,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 for (int i = 0; i < profile.TilesLevels.Count(); i++)
                 {
                     var id = profile.TilesLevels.ElementAt(i).Id;
-                    var tilesLevelForDelete = (await tilesLevel_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationTilesLevel.Profile)},{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
-
-                    tilesLevel_repository.Remove(tilesLevelForDelete);
+                    await tilesService.FullRemoveTilesLevel(id);
                 }
 
                 profile.Clusters.Clear();
@@ -141,7 +139,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 if (profile.DimensionalityReductionTechniqueId != DimensionalityReductionTechniques.JSL)
                 {
-                    await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId);
+                    await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId, 2);
                 }
                 await taskService.ChangeTaskPercent(taskId, 50f);
 

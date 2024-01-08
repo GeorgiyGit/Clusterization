@@ -61,6 +61,24 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DBScan.
+        /// </summary>
+        public static string DBScan {
+            get {
+                return ResourceManager.GetString("DBScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GaussianMixture.
+        /// </summary>
+        public static string GaussianMixture {
+            get {
+                return ResourceManager.GetString("GaussianMixture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KMeans.
         /// </summary>
         public static string KMeans {
@@ -75,6 +93,15 @@ namespace Domain.Resources.Types {
         public static string OneCluster {
             get {
                 return ResourceManager.GetString("OneCluster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpectralClustering.
+        /// </summary>
+        public static string SpectralClustering {
+            get {
+                return ResourceManager.GetString("SpectralClustering", resourceCulture);
             }
         }
     }

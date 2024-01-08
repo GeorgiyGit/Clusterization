@@ -18,7 +18,7 @@ export class PointsMapPageComponent implements OnInit {
   loadingMatrix: boolean[][] = [];
 
   points: IDisplayedPoint[] = [];
-  layerValue:number=90;
+  layerValue:number=200;
 
   tilesLevel: IClusterizationTilesLevel;
 
@@ -37,14 +37,10 @@ export class PointsMapPageComponent implements OnInit {
   }
 
   addLayerValue() {
-    if(this.layerValue<100){
       this.layerValue++;
-    }
   }
   reduceLayerValue() {
-    if(this.layerValue>0){
       this.layerValue --;
-    }
   }
 
   addTile(position: IMyPosition) {
@@ -110,15 +106,10 @@ export class PointsMapPageComponent implements OnInit {
     event.preventDefault();
     
     if(-event.deltaY>0){
-      console.log(event.deltaY);
-      if(this.layerValue<100){
         this.layerValue+=-event.deltaY/100;
-      }
     }
     else{
-      if(this.layerValue>0){
         this.layerValue+=-event.deltaY/100;
-      }
     }
   }
 }

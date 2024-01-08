@@ -15,5 +15,7 @@ namespace Domain.Entities.DimensionalityReduction
 
         public ICollection<DimensionalityReductionValue> Values { get; set; } = new HashSet<DimensionalityReductionValue>();
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
+
+        public ICollection<ClusterizationWorkspaceDRTechnique> ClusterizationWorkspaceDRTechniques { get; set; } = new HashSet<ClusterizationWorkspaceDRTechnique>();
     }
 }

@@ -1,0 +1,27 @@
+<section>
+    <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
+        <div>
+            <div class="input-cont">
+                <span class="material-symbols-outlined icon" translate="no" matTooltip="Кількість кластерів">123</span>
+                <input type="number" minlength="1" placeholder="Кількість кластерів *" formControlName="numClusters" id="numClusters">
+            </div>
+            <div class="errors" *ngIf="numClusters.invalid && (numClusters.touched)">
+                <p *ngIf="numClusters.errors?.['required']" class="error">Кількість кластерів не може бути пустою</p>
+                <p *ngIf="numClusters.errors?.['minlength']" class="error">Мінімальна кількість - 1</p>
+            </div>
+        </div>
+        <div>
+            <div class="input-cont">
+                <span class="material-symbols-outlined icon" translate="no" matTooltip="Gamma">123</span>
+                <input type="number" minlength="0" placeholder="Gamma *" formControlName="gamma" id="gamma">
+            </div>
+            <div class="errors" *ngIf="gamma.invalid && (gamma.touched)">
+                <p *ngIf="gamma.errors?.['required']" class="error">Gamma не може бути пустим</p>
+            </div>
+        </div>
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+        </div>
+    </form>
+</section>

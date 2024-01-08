@@ -2,7 +2,7 @@
     <h1>Робочий простір</h1>
     <div class="all-cont">
         <div class="info-cont">
-            <div class="text-info-cont">
+            <div class="text-info-cont" *ngIf="workspace!=null">
                 <h2 class="title-text">{{workspace.title}}</h2>
                 <p>{{workspace.description}}</p>
                 <div class="block" (click)="copyToClipboard('Дату',workspace.creationTime+'',$event)">
@@ -30,7 +30,7 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" [routerLink]="'profiles-list/'+workspace.id">Профілі</li>
+                    <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'profiles-list/'+workspace.id">Профілі</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

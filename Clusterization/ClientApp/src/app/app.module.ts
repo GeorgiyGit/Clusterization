@@ -67,6 +67,9 @@ import { PointsMapPageComponent } from './features/points-map/pages/points-map-p
 import { DimensionalityReductionTechniquesSelectComponent } from './features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component';
 import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component';
 import { AddVideosCommentsToWorkspaceComponent } from './features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component';
+import { AddDbscanAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component';
+import { AddSpectralClusteringAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component';
+import { AddGaussianMixtureAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +129,9 @@ import { AddVideosCommentsToWorkspaceComponent } from './features/clusterization
     DimensionalityReductionTechniquesSelectComponent,
     YoutubeLoadCommentsByChannelPageComponent,
     AddVideosCommentsToWorkspaceComponent,
+    AddDbscanAlgorithmComponent,
+    AddSpectralClusteringAlgorithmComponent,
+    AddGaussianMixtureAlgorithmComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

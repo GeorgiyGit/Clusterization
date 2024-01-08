@@ -20,6 +20,9 @@ namespace Domain.Entities.DimensionalityReduction
         public ClusterizationEntity? ClusterizationEntity { get; set; }
         public int? ClusterizationEntityId { get; set; }
 
+        public ClusterizationWorkspaceDRTechnique? ClusterizationWorkspaceDRTechnique { get; set; }
+        public int? ClusterizationWorkspaceDRTechniqueId { get; set; }
+
         public DimensionalityReductionTechnique Technique { get; set; }
         public string TechniqueId { get; set; }
     }

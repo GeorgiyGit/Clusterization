@@ -24,6 +24,7 @@ namespace Infrastructure.Builders
             DisplayedPointBuild(modelBuilder.Entity<DisplayedPoint>());
             TileBuild(modelBuilder.Entity<ClusterizationTile>());
             TilesLevelBuild(modelBuilder.Entity<ClusterizationTilesLevel>());
+            ClusterizationWorkspaceDRTechniquesBuild(modelBuilder.Entity<ClusterizationWorkspaceDRTechnique>());
         }
         public static void ClusterBuild(EntityTypeBuilder<Cluster> modelBuilder)
         {
@@ -129,6 +130,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasMany(e => e.Entities)
                         .WithOne(e => e.Workspace)
                         .HasForeignKey(e => e.WorkspaceId);
+
+            modelBuilder.HasMany(e => e.ClusterizationWorkspaceDRTechniques)
+                        .WithOne(e => e.Workspace)
+                        .HasForeignKey(e => e.WorkspaceId);
         }
         public static void DisplayedPointBuild(EntityTypeBuilder<DisplayedPoint> modelBuilder)
         {
@@ -169,5 +174,22 @@ namespace Infrastructure.Builders
                         .WithMany(e => e.TilesLevels)
                         .HasForeignKey(e => e.ProfileId);
         }
+
+        public static void ClusterizationWorkspaceDRTechniquesBuild(EntityTypeBuilder<ClusterizationWorkspaceDRTechnique> modelBuilder)
+        {
+            modelBuilder.HasOne(e => e.DRTechnique)
+                        .WithMany(e => e.ClusterizationWorkspaceDRTechniques)
+                        .HasForeignKey(e => e.DRTechniqueId);
+
+            modelBuilder.HasOne(e => e.Workspace)
+                        .WithMany(e => e.ClusterizationWorkspaceDRTechniques)
+                        .HasForeignKey(e => e.WorkspaceId);
+
+            modelBuilder.HasMany(e => e.DRValues)
+                        .WithOne(e => e.ClusterizationWorkspaceDRTechnique)
+                        .HasForeignKey(e => e.ClusterizationWorkspaceDRTechniqueId)
+                        .IsRequired(false);
+        }
     }
+    
 }

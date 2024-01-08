@@ -61,15 +61,6 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Channels.
-        /// </summary>
-        public static string Channels {
-            get {
-                return ResourceManager.GetString("Channels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Comments.
         /// </summary>
         public static string Comments {
@@ -79,11 +70,11 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Videos.
+        ///   Looks up a localized string similar to External.
         /// </summary>
-        public static string Videos {
+        public static string External {
             get {
-                return ResourceManager.GetString("Videos", resourceCulture);
+                return ResourceManager.GetString("External", resourceCulture);
             }
         }
     }

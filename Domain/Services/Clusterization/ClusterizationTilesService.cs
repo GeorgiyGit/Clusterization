@@ -191,5 +191,30 @@ namespace Domain.Services.Clusterization
 
             return mapper.Map<ClusterizationTilesLevelDTO>(tilesLevel);
         }
+
+        public async Task FullRemoveTilesLevel(int tilesLevelId)
+        {
+            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.Id==tilesLevelId,includeProperties:$"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
+
+            if (tilesLevel == null) throw new HttpException(localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
+
+            foreach(var tile in tilesLevel.Tiles)
+            {
+                var fullTile = (await tiles_repository.GetAsync(e => e.Id == tile.Id, includeProperties: $"{nameof(ClusterizationTile.Parent)},{nameof(ClusterizationTile.ChildTiles)},{nameof(ClusterizationTile.Points)},{nameof(ClusterizationTile.TilesLevel)},{nameof(ClusterizationTile.Profile)}")).FirstOrDefault();
+
+                if (fullTile != null)
+                {
+                    var points = await displayedPoints_repository.GetAsync(e => e.TileId == fullTile.Id, includeProperties: $"{nameof(DisplayedPoint.Tile)},{nameof(DisplayedPoint.Cluster)}");
+
+                    foreach(var point in points)
+                    {
+                        displayedPoints_repository.Remove(point);
+                    }
+                    tiles_repository.Remove(fullTile);
+                }
+            }
+            tilesLevel_repository.Remove(tilesLevel);
+            await tilesLevel_repository.SaveChangesAsync();
+        }
     }
 }

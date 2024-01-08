@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DBScan" xml:space="preserve">
+    <value>DBScan</value>
+  </data>
+  <data name="GaussianMixture" xml:space="preserve">
+    <value>GaussianMixture</value>
+  </data>
   <data name="KMeans" xml:space="preserve">
     <value>KMeans</value>
   </data>
   <data name="OneCluster" xml:space="preserve">
     <value>OneCluster</value>
+  </data>
+  <data name="SpectralClustering" xml:space="preserve">
+    <value>SpectralClustering</value>
   </data>
 </root>

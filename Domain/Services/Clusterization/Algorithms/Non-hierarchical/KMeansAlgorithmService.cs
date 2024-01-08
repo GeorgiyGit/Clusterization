@@ -17,7 +17,9 @@ using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Google.Apis.Util;
+using Google.Apis.YouTube.v3.Data;
 using Hangfire;
+using MathNet.Numerics.Statistics.Mcmc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -37,6 +39,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IRepository<Cluster> clusters_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
         private readonly IRepository<DimensionalityReductionValue> drValues_repository;
+        private readonly IRepository<ClusterizationWorkspaceDRTechnique> workspaceDRTechniques_repository;
 
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -45,6 +48,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
+
+        private readonly IClusterizationAlgorithmsHelpService helpService;
 
         private const int TILES_COUNT = 16;
 
@@ -59,7 +64,9 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IMyTasksService taskService,
                                       IRepository<ClusterizationTilesLevel> tilesLevel_repository,
                                       IDimensionalityReductionValuesService drValues_service,
-                                      IRepository<DimensionalityReductionValue> drValues_repository)
+                                      IRepository<DimensionalityReductionValue> drValues_repository,
+                                      IRepository<ClusterizationWorkspaceDRTechnique> workspaceDRTechniques_repository,
+                                      IClusterizationAlgorithmsHelpService helpService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -73,6 +80,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.tilesLevel_repository = tilesLevel_repository;
             this.drValues_service = drValues_service;
             this.drValues_repository = drValues_repository;
+            this.workspaceDRTechniques_repository = workspaceDRTechniques_repository;
+            this.helpService = helpService;
         }
 
         public async Task AddAlgorithm(AddKMeansAlgorithmDTO model)
@@ -109,10 +118,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 var clusterAlgorithm = (await repository.GetAsync(e => e.Id == profile.AlgorithmId)).FirstOrDefault();
 
-                var clusterColor = (profile.Algorithm as OneClusterAlgorithm)?.ClusterColor;
-
-                var clusterizationEntities = (await entities_repository.GetAsync(e => e.WorkspaceId == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationEntity.EmbeddingData)}")).ToList();
-
                 for (int i = 0; i < profile.Clusters.Count(); i++)
                 {
                     var id = profile.Clusters.ElementAt(i).Id;
@@ -123,9 +128,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 for (int i = 0; i < profile.TilesLevels.Count(); i++)
                 {
                     var id = profile.TilesLevels.ElementAt(i).Id;
-                    var tilesLevelForDelete = (await tilesLevel_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationTilesLevel.Profile)},{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
-
-                    tilesLevel_repository.Remove(tilesLevelForDelete);
+                    await tilesService.FullRemoveTilesLevel(id);
                 }
 
                 profile.Clusters.Clear();
@@ -133,11 +136,19 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 if (profile.DimensionalityReductionTechniqueId != DimensionalityReductionTechniques.JSL)
                 {
-                    await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId);
+                    if (profile.DimensionCount == 1536)
+                    {
+                        await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId, 2);
+                    }
+                    else
+                    {
+                        await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId, profile.DimensionCount);
+                    }
                 }
                 await taskService.ChangeTaskPercent(taskId, 30f);
 
-                var clusters = await KMeans(clusterizationEntities, profile.DimensionalityReductionTechniqueId, profile.DimensionCount, clusterAlgorithm.NumClusters, clusterAlgorithm.Seed);
+                var entitiesHelpModels = await helpService.CreateHelpModels(profile);
+                var clusters = await KMeans(entitiesHelpModels, profile.DimensionalityReductionTechniqueId, profile.DimensionCount, clusterAlgorithm.NumClusters, clusterAlgorithm.Seed);
 
                 foreach(var cluster in clusters)
                 {
@@ -146,14 +157,14 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
                 await taskService.ChangeTaskPercent(taskId, 60f);
 
-                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(clusterizationEntities.Count());
+                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(entitiesHelpModels.Count());
 
-                foreach (var entity in clusterizationEntities)
+                foreach (var entityHelpModel in entitiesHelpModels)
                 {
                     helpModels.Add(new TileGeneratingHelpModel()
                     {
-                        Entity = entity,
-                        Cluster = clusters.Where(e => e.Entities.Contains(entity)).FirstOrDefault()
+                        Entity = entityHelpModel.Entity,
+                        Cluster = clusters.Where(e => e.Entities.Contains(entityHelpModel.Entity)).FirstOrDefault()
                     });
                 }
                 var tilesLevel = new ClusterizationTilesLevel()
@@ -183,35 +194,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             }
         }
         #region algorithm
-        public async Task<List<Cluster>> KMeans(ICollection<ClusterizationEntity> entities,string drTechniqueId, int dimensionsCount, int clusterCounts, int seed)
+        public async Task<List<Cluster>> KMeans(List<AddEmbeddingsWithDRHelpModel> helpModels, string drTechniqueId, int dimensionsCount, int clusterCounts, int seed)
         {
-            List<AddEmbeddingsWithDRHelpModel> helpModels = new List<AddEmbeddingsWithDRHelpModel>();
-
-            foreach (var entity in entities)
-            {
-                DimensionalityReductionValue drValue;
-                if (drTechniqueId == DimensionalityReductionTechniques.JSL || dimensionsCount != 2)
-                {
-                    drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingDataId == entity.EmbeddingDataId, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
-                }
-                else
-                {
-                    drValue = (await drValues_repository.GetAsync(e => e.TechniqueId == drTechniqueId && e.ClusterizationEntityId == entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
-                }
-
-                if (drValue == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
-
-                var dimensionValue = drValue.Embeddings.First(e => e.DimensionTypeId == dimensionsCount);
-
-                double[] embeddingValues = dimensionValue.ValuesString.Split(' ').Select(double.Parse).ToArray(); 
-
-                helpModels.Add(new AddEmbeddingsWithDRHelpModel()
-                {
-                    Entity = entity,
-                    DataPoints = embeddingValues
-                });
-            }
-
             // Create a K-means clustering model
             KMeans kmeans = new KMeans(clusterCounts);
             var values = helpModels.Select(e => e.DataPoints).ToArray();

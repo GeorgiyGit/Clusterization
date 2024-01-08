@@ -9,7 +9,10 @@
         <p class="nothing-text">Профілів не знайдено</p>
     </div>
     <app-clusterization-profile-list [profiles]="profiles" [class.disable]="isLoading"></app-clusterization-profile-list>
-    <div class="centered" *ngIf="isLoadMoreAvailable">
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered mt-10" *ngIf="isLoadMoreAvailable && !isLoading2">
         <button class="more-btn" (click)="addMore()">Завантажити більше</button>
     </div>
 </section>

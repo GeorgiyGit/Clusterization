@@ -1,0 +1,27 @@
+<section>
+    <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
+        <div>
+            <div class="input-cont">
+                <span class="material-symbols-outlined icon" translate="no" matTooltip="Epsilon (%)">percent</span>
+                <input type="number" max="100" min="0" placeholder="Epsilon (%)*" formControlName="epsilon" id="epsilon">
+            </div>
+            <div class="errors" *ngIf="epsilon.invalid && (epsilon.touched)">
+                <p *ngIf="epsilon.errors?.['required']" class="error">Epsilon не може бути пустою</p>
+            </div>
+        </div>
+        <div>
+            <div class="input-cont">
+                <span class="material-symbols-outlined icon" translate="no" matTooltip="Мінімальна кількість точок у кластері">123</span>
+                <input type="number" minlength="1" step="1" placeholder="Мінімальна кількість точок у кластері *" formControlName="minimumPointsPerCluster" id="minimumPointsPerCluster">
+            </div>
+            <div class="errors" *ngIf="minimumPointsPerCluster.invalid && (minimumPointsPerCluster.touched)">
+                <p *ngIf="minimumPointsPerCluster.errors?.['required']" class="error">Мінімальна кількість точок у кластері не може бути пустою</p>
+                <p *ngIf="minimumPointsPerCluster.errors?.['minlength']" class="error">Мінімальна кількість - 1</p>
+            </div>
+        </div>
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+        </div>
+    </form>
+</section>

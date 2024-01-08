@@ -1,6 +1,9 @@
 using Clusterization.Middlewares;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.GaussianMixtureDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.SpectralClusteringDTOs;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
@@ -97,6 +100,12 @@ builder.Services.AddScoped<IClusterizationAlgorithmTypesService, ClusterizationA
 
 builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO,KMeansAlgorithmDTO>, KMeansAlgorithmService>();
 builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO>, OneClusterAlgorithmService>();
+builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO>, DbScanAlgorithmService>();
+builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO>, SpectralClusteringAlgorithmService>();
+builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO>, GaussianMixtureAlgorithmService>();
+
+builder.Services.AddScoped<IClusterizationAlgorithmsHelpService, ClusterizationAlgorithmsHelpService>();
+
 
 builder.Services.AddControllersWithViews();
 

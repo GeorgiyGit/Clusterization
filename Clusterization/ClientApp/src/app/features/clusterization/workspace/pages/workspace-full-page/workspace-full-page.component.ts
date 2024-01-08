@@ -15,23 +15,7 @@ import { ISelectAction } from 'src/app/core/models/select-action';
 export class WorkspaceFullPageComponent implements OnInit {
   workspace: IClusterizationWorkspace;
 
-  actions: ISelectAction[] = [
-    {
-      name: 'Додати профіль',
-      action: () => {
-        this.router.navigate([{ outlets: { overflow: 'profiles/add/' + this.workspace.id } }]);
-      }
-    },
-    {
-      name: 'Завантажити ембедінги',
-      action: () => {
-        this.workspaceService.embeddingData(this.workspace.id).subscribe(res => {
-        }, error => {
-          this.toastr.error(error.error.Message);
-        });
-      }
-    }
-  ]
+  actions: ISelectAction[] = [];
 
   isLoading: boolean;
   constructor(private workspaceService: ClusterizationWorkspaceService,
@@ -46,6 +30,24 @@ export class WorkspaceFullPageComponent implements OnInit {
     this.isLoading = true;
     this.workspaceService.getFullById(id).subscribe(res => {
       this.workspace = res;
+
+      this.actions=[
+        {
+          name: 'Додати профіль',
+          action: () => {
+            this.router.navigate([{ outlets: { overflow: 'profiles/add/' + this.workspace.id } }]);
+          }
+        },
+        {
+          name: 'Завантажити ембедінги',
+          action: () => {
+            this.workspaceService.embeddingData(this.workspace.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+          }
+        }
+      ];
 
       this.isLoading = false;
 

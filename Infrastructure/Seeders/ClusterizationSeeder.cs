@@ -46,21 +46,15 @@ namespace Infrastructure.Seeders
                 Id = ClusterizationTypes.Comments,
                 Name = "Коментарі"
             };
-            var type2 = new ClusterizationType()
+            var external = new ClusterizationType()
             {
-                Id = ClusterizationTypes.Videos,
-                Name = "Відео"
-            };
-            var type3 = new ClusterizationType()
-            {
-                Id = ClusterizationTypes.Channels,
-                Name = "Канали"
+                Id = ClusterizationTypes.External,
+                Name = "З файлу"
             };
 
             modelBuilder.HasData(
                 type1,
-                type2,
-                type3
+                external
                 );
 
         }

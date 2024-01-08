@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Youtube;
+﻿using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.Youtube;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,7 @@ namespace Domain.Entities.Clusterization
 
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
         public ICollection<ClusterizationEntity> Entities { get; set; } = new HashSet<ClusterizationEntity>();
+
+        public ICollection<ClusterizationWorkspaceDRTechnique> ClusterizationWorkspaceDRTechniques { get; set; } = new HashSet<ClusterizationWorkspaceDRTechnique>();
     }
 }

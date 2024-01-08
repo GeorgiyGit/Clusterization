@@ -45,11 +45,16 @@ namespace Infrastructure
         public virtual DbSet<DisplayedPoint> DisplayedPoints { get; set; }
         public virtual DbSet<ClusterizationTile> ClusterizationTiles { get; set; }
         public virtual DbSet<ClusterizationTilesLevel> ClusterizationTilesLevels { get; set; }
-        
+
+        public virtual DbSet<ClusterizationWorkspaceDRTechnique> ClusterizationWorkspaceDRTechniques { get; set; }
+
         #region Algorithms
         public virtual DbSet<ClusterizationAbstactAlgorithm> ClusterizationAbstractAlgorithms { get; set; }
         public virtual DbSet<KMeansAlgorithm> KMeansAlgorithms { get; set; }
         public virtual DbSet<OneClusterAlgorithm> OneClusterAlgorithms { get; set; }
+        public virtual DbSet<DBScanAlgorithm> DBScanAlgorithms { get; set; }
+        public virtual DbSet<SpectralClusteringAlgorithm> SpectralClusteringAlgorithms { get; set; }
+        public virtual DbSet<GaussianMixtureAlgorithm> GaussianMixtureAlgorithms { get; set; }
         #endregion
         #endregion
 
