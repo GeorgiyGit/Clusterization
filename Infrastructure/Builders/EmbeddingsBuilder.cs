@@ -35,6 +35,11 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.OriginalEmbedding)
                         .WithOne(e => e.EmbeddingData)
                         .HasForeignKey<EmbeddingData>(e => e.OriginalEmbeddingId);
+
+            modelBuilder.HasOne(e => e.ExternalObject)
+                        .WithOne(e => e.EmbeddingData)
+                        .HasForeignKey<EmbeddingData>(e => e.ExternalObjectId)
+                        .IsRequired(false);
         }
         public static void DimensionValueBuild(EntityTypeBuilder<EmbeddingDimensionValue> modelBuilder)
         {

@@ -3,6 +3,7 @@ using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
 using Infrastructure.Builders;
@@ -56,11 +57,16 @@ namespace Infrastructure
         public virtual DbSet<SpectralClusteringAlgorithm> SpectralClusteringAlgorithms { get; set; }
         public virtual DbSet<GaussianMixtureAlgorithm> GaussianMixtureAlgorithms { get; set; }
         #endregion
+
         #endregion
 
         #region DimensionalityReduction
         public virtual DbSet<DimensionalityReductionTechnique> DimensionalityReductionTechniques { get; set; }
         public virtual DbSet<DimensionalityReductionValue> DimensionalityReductionValues { get; set; }
+        #endregion
+
+        #region ExternalData
+        public virtual DbSet<ExternalObject> ExternalObjects { get; set; }
         #endregion
 
         public ClusterizationDbContext(DbContextOptions options) : base(options)
@@ -79,6 +85,7 @@ namespace Infrastructure
             CommentBuilder.CommentBuild(modelBuilder.Entity<Comment>());
             VideoBuilder.VideoBuild(modelBuilder.Entity<Video>());
             ChannelBuilder.ChannelBuild(modelBuilder.Entity<Channel>());
+            ExternalDataBuilder.ExternalObjectsBuilder(modelBuilder.Entity<ExternalObject>());
 
             Seed(modelBuilder);
         }

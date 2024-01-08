@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ namespace Domain.Entities.Embeddings
 
         public Comment? Comment { get; set; }
         public string? CommentId { get; set; }
+
+        public ExternalObject? ExternalObject { get; set; }
+        public string? ExternalObjectId { get; set; }
 
         public ICollection<ClusterizationEntity> Entities { get; set; } = new HashSet<ClusterizationEntity>();
     }

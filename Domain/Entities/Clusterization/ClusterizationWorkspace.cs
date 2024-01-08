@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Domain.Entities.Clusterization
         public string TypeId { get; set; }
 
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+        public ICollection<ExternalObject> ExternalObjects { get; set; } = new HashSet<ExternalObject>();
 
         public bool IsAllDataEmbedded { get; set; }
 
