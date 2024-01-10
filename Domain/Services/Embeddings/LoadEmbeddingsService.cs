@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
@@ -29,6 +30,7 @@ namespace Domain.Services.Embeddings
     public class LoadEmbeddingsService : ILoadEmbeddingsService
     {
         private readonly IRepository<Comment> comment_repository;
+        private readonly IRepository<ExternalObject> externalObjects_repository;
         private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IRepository<ClusterizationWorkspace> workspace_repository;
         private readonly IClusterizationDimensionTypesService DimensionTypeService;
@@ -39,7 +41,11 @@ namespace Domain.Services.Embeddings
 
         private readonly string apiKey;
 
+        readonly string model = "text-embedding-ada-002";
+        readonly string apiUrl = "https://api.openai.com/v1/embeddings";
+
         public LoadEmbeddingsService(IRepository<Comment> comment_repository,
+                                     IRepository<ExternalObject> externalObjects_repository,
                                      IClusterizationDimensionTypesService DimensionTypeService,
                                      IRepository<ClusterizationWorkspace> workspace_repository,
                                      IStringLocalizer<ErrorMessages> localizer,
@@ -50,6 +56,7 @@ namespace Domain.Services.Embeddings
                                      IRepository<ClusterizationEntity> entities_repository)
         {
             this.comment_repository = comment_repository;
+            this.externalObjects_repository = externalObjects_repository;
             this.DimensionTypeService = DimensionTypeService;
             this.workspace_repository = workspace_repository;
             this.localizer = localizer;
@@ -74,112 +81,216 @@ namespace Domain.Services.Embeddings
 
             if (workspace.IsAllDataEmbedded) return;
 
-
-            string model = "text-embedding-ada-002";
-            string apiUrl = "https://api.openai.com/v1/embeddings";
-
-            var Dimensions = (await DimensionTypeService.GetAll()).ToList();
-
-            var comments = await comment_repository.GetAsync(c => c.Workspaces.Contains(workspace), includeProperties: $"{nameof(Comment.Workspaces)},{nameof(Comment.EmbeddingData)}");
-
             var taskId = await taskService.CreateTask("Завантаження ембедингів");
-            float percent = 0f;
-
+            
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
-                foreach(var entity in workspace.Entities)
+                if (workspace.TypeId == ClusterizationTypes.Comments)
                 {
-                    entities_repository.Remove(entity);
+                    await LoadEmbeddingsToComments(taskId, workspace);
                 }
-                workspace.Entities.Clear();
-
-                foreach (var comment in comments)
+                else if (workspace.TypeId == ClusterizationTypes.External)
                 {
-                    percent += 100f / comments.Count();
-                    await taskService.ChangeTaskPercent(taskId, percent);
-
-                    if (comment.EmbeddingData != null)
-                    {
-                        var entity = new ClusterizationEntity()
-                        {
-                            Comment = comment,
-                            TextValue=comment.TextDisplay,
-                            EmbeddingData = comment.EmbeddingData,
-                            WorkspaceId = workspace.Id
-                        };
-                        workspace.Entities.Add(entity);
-                        await entities_repository.AddAsync(entity);
-
-                        continue;
-                    }
-
-                    var inputText = HttpUtility.UrlEncodeUnicode(comment.TextOriginal);
-
-                    string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
-
-                    using (var httpClient = new HttpClient())
-                    {
-                        // Set the "Authorization" header
-                        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-
-                        // Create the HTTP request
-                        var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-
-                        // Set the "Content-Type" header on the content
-                        content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-                        var response = await httpClient.PostAsync(apiUrl, content);
-
-                        // Check if the response is successful
-                        if (response.IsSuccessStatusCode)
-                        {
-                            string responseContent = await response.Content.ReadAsStringAsync();
-
-                            var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<EmbeddingDataLoadModel>(responseContent);
-
-                            // Extract the embeddings as a List<float>
-                            List<double> embeddings = responseObject.Data[0].Embedding;
-
-
-                            for (int i = 0; i < Dimensions.Count; i++)
-                            {
-                                if (Dimensions[i].DimensionCount == 1536)
-                                {
-                                    await embeddingsService.AddEmbeddingToComment(embeddings.ToArray(), 1536, comment);
-                                }
-                                else
-                                {
-                                    var res = await JohnsonLindenstraussProjection(embeddings.ToArray(), 1536, Dimensions[i].DimensionCount);
-
-                                    await embeddingsService.AddEmbeddingToComment(res, Dimensions[i].DimensionCount, comment);
-                                }
-                            }
-
-                            var entity = new ClusterizationEntity()
-                            {
-                                Comment = comment,
-                                EmbeddingData = comment.EmbeddingData,
-                                WorkspaceId = workspace.Id,
-                                TextValue=comment.TextDisplay
-                            };
-                            workspace.Entities.Add(entity);
-                            await entities_repository.AddAsync(entity);
-                        }
-                        else
-                        {
-                            throw new HttpException(localizer[ErrorMessagePatterns.EmbeddingsLoadingError], response.StatusCode);
-                        }
-                    }
+                    await LoadEmbeddingsToExternalData(taskId, workspace);
                 }
-
-                workspace.IsAllDataEmbedded = true;
+                
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
             catch{
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
             }
+        }
+        public async Task LoadEmbeddingsToComments(int taskId, ClusterizationWorkspace workspace)
+        {
+            var Dimensions = (await DimensionTypeService.GetAll()).ToList();
+
+            var comments = await comment_repository.GetAsync(c => c.Workspaces.Contains(workspace), includeProperties: $"{nameof(Comment.Workspaces)},{nameof(Comment.EmbeddingData)}");
+            foreach (var entity in workspace.Entities)
+            {
+                entities_repository.Remove(entity);
+            }
+            workspace.Entities.Clear();
+
+            float percent = 0f;
+
+            foreach (var comment in comments)
+            {
+                percent += 100f / comments.Count();
+                await taskService.ChangeTaskPercent(taskId, percent);
+
+                if (comment.EmbeddingData != null)
+                {
+                    var entity = new ClusterizationEntity()
+                    {
+                        Comment = comment,
+                        TextValue = comment.TextDisplay,
+                        EmbeddingData = comment.EmbeddingData,
+                        WorkspaceId = workspace.Id
+                    };
+                    workspace.Entities.Add(entity);
+                    await entities_repository.AddAsync(entity);
+
+                    continue;
+                }
+
+                var inputText = HttpUtility.UrlEncodeUnicode(comment.TextOriginal);
+
+                string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
+
+                using (var httpClient = new HttpClient())
+                {
+                    // Set the "Authorization" header
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+                    // Create the HTTP request
+                    var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+                    // Set the "Content-Type" header on the content
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                    var response = await httpClient.PostAsync(apiUrl, content);
+
+                    // Check if the response is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+
+                        var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<EmbeddingDataLoadModel>(responseContent);
+
+                        // Extract the embeddings as a List<float>
+                        List<double> embeddings = responseObject.Data[0].Embedding;
+
+
+                        for (int i = 0; i < Dimensions.Count; i++)
+                        {
+                            if (Dimensions[i].DimensionCount == 1536)
+                            {
+                                await embeddingsService.AddEmbeddingToComment(embeddings.ToArray(), 1536, comment);
+                            }
+                            else
+                            {
+                                var res = await JohnsonLindenstraussProjection(embeddings.ToArray(), 1536, Dimensions[i].DimensionCount);
+
+                                await embeddingsService.AddEmbeddingToComment(res, Dimensions[i].DimensionCount, comment);
+                            }
+                        }
+
+                        var entity = new ClusterizationEntity()
+                        {
+                            Comment = comment,
+                            EmbeddingData = comment.EmbeddingData,
+                            WorkspaceId = workspace.Id,
+                            TextValue = comment.TextDisplay
+                        };
+                        workspace.Entities.Add(entity);
+                        await entities_repository.AddAsync(entity);
+                    }
+                    else
+                    {
+                        throw new HttpException(localizer[ErrorMessagePatterns.EmbeddingsLoadingError], response.StatusCode);
+                    }
+                }
+            }
+
+            workspace.IsAllDataEmbedded = true;
+            await workspace_repository.SaveChangesAsync();
+        }
+        public async Task LoadEmbeddingsToExternalData(int taskId, ClusterizationWorkspace workspace)
+        {
+            var Dimensions = (await DimensionTypeService.GetAll()).ToList();
+
+            var externalObjects = await externalObjects_repository.GetAsync(c => c.Workspaces.Contains(workspace), includeProperties: $"{nameof(ExternalObject.Workspaces)},{nameof(ExternalObject.EmbeddingData)}");
+            foreach (var entity in workspace.Entities)
+            {
+                entities_repository.Remove(entity);
+            }
+            workspace.Entities.Clear();
+
+            float percent = 0f;
+
+            foreach (var externalObj in externalObjects)
+            {
+                percent += 100f / externalObjects.Count();
+                await taskService.ChangeTaskPercent(taskId, percent);
+
+                if (externalObj.EmbeddingData != null)
+                {
+                    var entity = new ClusterizationEntity()
+                    {
+                        ExternalObject = externalObj,
+                        TextValue = externalObj.Text,
+                        EmbeddingData = externalObj.EmbeddingData,
+                        WorkspaceId = workspace.Id
+                    };
+                    workspace.Entities.Add(entity);
+                    await entities_repository.AddAsync(entity);
+
+                    continue;
+                }
+
+                var inputText = HttpUtility.UrlEncodeUnicode(externalObj.Text);
+
+                string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
+
+                using (var httpClient = new HttpClient())
+                {
+                    // Set the "Authorization" header
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+                    // Create the HTTP request
+                    var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+                    // Set the "Content-Type" header on the content
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                    var response = await httpClient.PostAsync(apiUrl, content);
+
+                    // Check if the response is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+
+                        var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<EmbeddingDataLoadModel>(responseContent);
+
+                        // Extract the embeddings as a List<float>
+                        List<double> embeddings = responseObject.Data[0].Embedding;
+
+
+                        for (int i = 0; i < Dimensions.Count; i++)
+                        {
+                            if (Dimensions[i].DimensionCount == 1536)
+                            {
+                                await embeddingsService.AddEmbeddingToExternalObject(embeddings.ToArray(), 1536, externalObj);
+                            }
+                            else
+                            {
+                                var res = await JohnsonLindenstraussProjection(embeddings.ToArray(), 1536, Dimensions[i].DimensionCount);
+
+                                await embeddingsService.AddEmbeddingToExternalObject(res, Dimensions[i].DimensionCount, externalObj);
+                            }
+                        }
+
+                        var entity = new ClusterizationEntity()
+                        {
+                            ExternalObject = externalObj,
+                            EmbeddingData = externalObj.EmbeddingData,
+                            WorkspaceId = workspace.Id,
+                            TextValue = externalObj.Text
+                        };
+                        workspace.Entities.Add(entity);
+                        await entities_repository.AddAsync(entity);
+                    }
+                    else
+                    {
+                        throw new HttpException(localizer[ErrorMessagePatterns.EmbeddingsLoadingError], response.StatusCode);
+                    }
+                }
+            }
+
+            workspace.IsAllDataEmbedded = true;
+            await workspace_repository.SaveChangesAsync();
         }
 
         private async Task<double[]> JohnsonLindenstraussProjection(double[] data, int originalDimension, int targetDimension)

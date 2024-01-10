@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using Domain.Interfaces;
 using Domain.Interfaces.Embeddings;
@@ -46,6 +47,65 @@ namespace Domain.Services.Embeddings
             else
             {
                 embeddingData = (await data_repository.GetAsync(e => e.Id == comment.EmbeddingData.Id,includeProperties:$"{nameof(EmbeddingData.DimensionalityReductionValue)}")).FirstOrDefault();
+            }
+
+            DimensionalityReductionValue DRv;
+            if (embeddingData.DimensionalityReductionValue == null)
+            {
+                DRv = new DimensionalityReductionValue()
+                {
+                    EmbeddingDataId = embeddingData.Id,
+                    TechniqueId = DimensionalityReductionTechniques.JSL
+                };
+
+                await drValues_repository.AddAsync(DRv);
+            }
+            else
+            {
+                DRv = embeddingData.DimensionalityReductionValue;
+            }
+
+
+            var dimensionValue = new EmbeddingDimensionValue()
+            {
+                DimensionTypeId = dimensionCount,
+                DimensionalityReductionValue = DRv,
+            };
+
+            DRv.Embeddings.Add(dimensionValue);
+
+            await dimension_repository.AddAsync(dimensionValue);
+
+            string valuesString = "";
+            foreach (var embeddingValue in embedding)
+            {
+                valuesString += embeddingValue + " ";
+            }
+            valuesString = valuesString.TrimEnd(' ');
+            dimensionValue.ValuesString = valuesString;
+
+            await dimension_repository.SaveChangesAsync();
+        }
+
+        public async Task AddEmbeddingToExternalObject(double[] embedding, int dimensionCount, ExternalObject externalObject)
+        {
+            EmbeddingData embeddingData;
+            if (externalObject.EmbeddingData == null)
+            {
+                var newEmbeddingData = new EmbeddingData()
+                {
+                    ExternalObject = externalObject
+                };
+                externalObject.EmbeddingData = newEmbeddingData;
+
+                await data_repository.AddAsync(newEmbeddingData);
+                await data_repository.SaveChangesAsync();
+
+                embeddingData = newEmbeddingData;
+            }
+            else
+            {
+                embeddingData = (await data_repository.GetAsync(e => e.Id == externalObject.EmbeddingData.Id, includeProperties: $"{nameof(EmbeddingData.DimensionalityReductionValue)}")).FirstOrDefault();
             }
 
             DimensionalityReductionValue DRv;

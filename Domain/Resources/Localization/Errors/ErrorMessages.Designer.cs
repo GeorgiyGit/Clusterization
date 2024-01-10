@@ -106,6 +106,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to При збереженні файлу виникла помилка.
+        /// </summary>
+        public static string FileError {
+            get {
+                return ResourceManager.GetString("FileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Схожа задача вже обробляється.
         /// </summary>
         public static string JobIsAlreadyInProcess {

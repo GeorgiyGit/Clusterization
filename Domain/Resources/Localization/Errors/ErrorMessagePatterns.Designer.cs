@@ -106,6 +106,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FileError.
+        /// </summary>
+        public static string FileError {
+            get {
+                return ResourceManager.GetString("FileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to JobIsAlreadyInProcess.
         /// </summary>
         public static string JobIsAlreadyInProcess {

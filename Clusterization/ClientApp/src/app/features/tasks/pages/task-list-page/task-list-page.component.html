@@ -1,10 +1,10 @@
 <section>
     <h1>Список задач</h1>
 
+    <button class="standard-btn" (click)="load()" *ngIf="!isLoading">Оновити</button>
     <div class="centered" *ngIf="isLoading">
         <app-loader></app-loader>
         <p *ngIf="!isLoading && (tasks==null ||tasks.length<0)" class="nothing-text">Задач не знайдено</p>
     </div>
-    <app-task-list [tasks]="tasks" *ngIf="!isLoading"></app-task-list>
-    <button class="standard-btn" (click)="load()" *ngIf="!isLoading">Оновити</button>
+    <app-task-list [tasks]="tasks" ></app-task-list>
 </section>

@@ -31,7 +31,7 @@ export class WorkspaceFullPageComponent implements OnInit {
     this.workspaceService.getFullById(id).subscribe(res => {
       this.workspace = res;
 
-      this.actions=[
+      this.actions = [
         {
           name: 'Додати профіль',
           action: () => {
@@ -51,16 +51,24 @@ export class WorkspaceFullPageComponent implements OnInit {
 
       this.isLoading = false;
 
-      if(this.workspace.id!=this.myLocalStorage.getSelectedWorkspace()){
+      if (this.workspace.id != this.myLocalStorage.getSelectedWorkspace()) {
         this.actions.push({
-          name:'Встановити активним',
+          name: 'Встановити активним',
           action: () => {
             this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
           }
         });
       }
+      if (this.workspace.typeId == 'External') {
+        this.actions.push({
+          name: 'Завантажити зовнішні дані',
+          action: () => {
+            this.router.navigate([{ outlets: { overflow: 'workspace/add-external-data/' + this.workspace.id } }]);
+          }
+        });
+      }
 
-      this.router.navigateByUrl('workspaces/full/'+this.workspace.id+'/profiles-list/' + this.workspace.id);
+      this.router.navigateByUrl('workspaces/full/' + this.workspace.id + '/profiles-list/' + this.workspace.id);
     }, error => {
       this.isLoading = false;
       this.toastr.error(error.error.Message);

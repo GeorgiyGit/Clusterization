@@ -1,8 +1,11 @@
-﻿using AutoMapper;
+﻿using Accord;
+using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
+using Domain.DTOs.ExternalData;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
+using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Extensions;
@@ -20,10 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Services.Clusterization
 {
@@ -31,6 +36,7 @@ namespace Domain.Services.Clusterization
     {
         private readonly IRepository<ClusterizationWorkspace> repository;
         private readonly IRepository<Comment> comments_repository;
+        private readonly IRepository<ExternalObject> externalObjects_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -39,6 +45,7 @@ namespace Domain.Services.Clusterization
                                                IStringLocalizer<ErrorMessages> localizer,
                                                IMapper mapper,
                                                IRepository<Comment> comments_repository,
+                                               IRepository<ExternalObject> externalObjects_repository,
                                                IBackgroundJobClient backgroundJobClient,
                                                IMyTasksService taskService)
         {
@@ -48,6 +55,7 @@ namespace Domain.Services.Clusterization
             this.comments_repository = comments_repository;
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
+            this.externalObjects_repository = externalObjects_repository;
         }
 
         #region add-update
@@ -79,7 +87,7 @@ namespace Domain.Services.Clusterization
         #region get
         public async Task<ClusterizationWorkspaceDTO> GetFullById(int id)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.ExternalObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -139,9 +147,9 @@ namespace Domain.Services.Clusterization
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
-                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
-                if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
                 Expression<Func<Comment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
 
@@ -196,9 +204,9 @@ namespace Domain.Services.Clusterization
 
             try
             {
-                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
-                if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+                if (workspace == null || workspace.TypeId!=ClusterizationTypes.Comments) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
                 Expression<Func<Comment, bool>> filterCondition = e => true;
 
@@ -231,6 +239,99 @@ namespace Domain.Services.Clusterization
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
             }
+        }
+
+        public async Task LoadExternalData(AddExternalDataDTO data)
+        {
+            var workspace = (await repository.GetAsync(c => c.Id == data.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.ExternalObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+
+            if (workspace == null || workspace.TypeId != ClusterizationTypes.External) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+
+            var taskId = await taskService.CreateTask("Додавання зовнішніх об'єктів");
+            float percent = 0f;
+
+            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            try
+            {
+                var file = data.File; // Assuming a single file is being uploaded
+
+                if (file != null && file.Length > 0)
+                {
+                    var fileContent = "";
+                    using (var reader = new StreamReader(file.OpenReadStream()))
+                    {
+                        fileContent = reader.ReadToEnd(); // Read the text content of the file
+                    }
+                    var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ExternalDataFileModelDTO>(fileContent);
+
+                    if (responseObject == null) throw new HttpException(localizer[ErrorMessagePatterns.FileError], HttpStatusCode.BadRequest);
+
+                    var oldExternalObjects = await externalObjects_repository.GetAsync(e => e.Session == responseObject.Session && e.Workspaces.Contains(workspace));
+
+                    if (oldExternalObjects.Count() > 0)
+                    {
+                        foreach (var newExtObj in responseObject.ExternalObjects)
+                        {
+                            var extObj = oldExternalObjects.FirstOrDefault(e => e.Id == newExtObj.Id);
+
+                            if (extObj != null)
+                            {
+                                extObj.Text = newExtObj.Text;
+                            }
+                            else
+                            {
+                                var extObjectForAdding = new ExternalObject()
+                                {
+                                    Text = newExtObj.Text,
+                                    Session = responseObject.Session,
+                                    Id = newExtObj.Id,
+                                    FullId = workspace.Id+ responseObject.Session + newExtObj.Id
+                                };
+                                await externalObjects_repository.AddAsync(extObjectForAdding);
+
+                                workspace.ExternalObjects.Add(extObjectForAdding);
+                                extObjectForAdding.Workspaces.Add(workspace);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var newExtObj in responseObject.ExternalObjects)
+                        {
+                            var extObjectForAdding = new ExternalObject()
+                            {
+                                Text = newExtObj.Text,
+                                Session = responseObject.Session,
+                                Id = newExtObj.Id,
+                                FullId = workspace.Id + responseObject.Session + newExtObj.Id
+                            };
+                            await externalObjects_repository.AddAsync(extObjectForAdding);
+
+                            workspace.ExternalObjects.Add(extObjectForAdding);
+                            extObjectForAdding.Workspaces.Add(workspace);
+                        }
+                    }
+
+                    workspace.IsAllDataEmbedded = false;
+
+                    await repository.SaveChangesAsync();
+
+                    await taskService.ChangeTaskPercent(taskId, 100f);
+                    await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+                }
+                else
+                {
+                    await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+            }
+        }
+        public async Task LoadExternalDataBackgroundJob(AddExternalDataDTO data)
+        {
+            
         }
         #endregion
     }

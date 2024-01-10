@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
+using Domain.DTOs.ExternalData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace Domain.Interfaces.Clusterization
         
         public Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request);
         public Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request);
+
+        public Task LoadExternalData(AddExternalDataDTO data);
     }
 }

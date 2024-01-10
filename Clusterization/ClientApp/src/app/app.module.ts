@@ -70,6 +70,7 @@ import { AddVideosCommentsToWorkspaceComponent } from './features/clusterization
 import { AddDbscanAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component';
 import { AddSpectralClusteringAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component';
 import { AddGaussianMixtureAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component';
+import { AddExternalDataToWorkspaceComponent } from './features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,6 +133,7 @@ import { AddGaussianMixtureAlgorithmComponent } from './features/clusterization/
     AddDbscanAlgorithmComponent,
     AddSpectralClusteringAlgorithmComponent,
     AddGaussianMixtureAlgorithmComponent,
+    AddExternalDataToWorkspaceComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

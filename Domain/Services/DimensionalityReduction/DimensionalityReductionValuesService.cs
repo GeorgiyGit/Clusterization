@@ -251,8 +251,17 @@ namespace Domain.Services.DimensionalityReduction
                 var tsne = new TSNE()
                 {
                     NumberOfOutputs = numberOfDimensions, // The number of dimensions for the output
-                    Perplexity = 30.0,
+                    Perplexity = 30d
                 };
+
+                if (values.Length < 30)
+                {
+                    tsne.Perplexity = values.Length;
+                }
+                if (values.Length < 5)
+                {
+                    tsne.Perplexity = 1d;
+                }
 
                 reducedDimensionality = tsne.Transform(values);
             }
@@ -329,6 +338,94 @@ namespace Domain.Services.DimensionalityReduction
 
             await dimension_repository.SaveChangesAsync();
         }
+
+        #region Perplexity
+        static double EuclideanDistance(double[] pointA, double[] pointB)
+        {
+            double sum = 0;
+            for (int i = 0; i < pointA.Length; i++)
+            {
+                double diff = pointA[i] - pointB[i];
+                sum += diff * diff;
+            }
+            return Math.Sqrt(sum);
+        }
+
+        static double[] ComputeConditionalProbability(double[] point, double[][] data, double sigma)
+        {
+            int dataSize = data.Length;
+            double[] conditionalProbabilities = new double[dataSize];
+
+            for (int i = 0; i < dataSize; i++)
+            {
+                if (!point.SequenceEqual(data[i]))
+                {
+                    double distance = EuclideanDistance(point, data[i]);
+                    double similarity = Math.Exp(-distance / (2 * sigma * sigma));
+                    conditionalProbabilities[i] = similarity;
+                }
+            }
+
+            double sum = conditionalProbabilities.Sum();
+            for (int i = 0; i < dataSize; i++)
+            {
+                conditionalProbabilities[i] /= sum;
+            }
+
+            return conditionalProbabilities;
+        }
+
+        static double ShannonEntropy(double[] probabilities)
+        {
+            double entropy = 0;
+            foreach (double p in probabilities)
+            {
+                entropy -= p * Math.Log(p, 2);
+            }
+            return entropy;
+        }
+
+        static double CalculatePerplexity(double[][] data, double targetPerplexity)
+        {
+            int dataSize = data.Length;
+            double[] perplexities = new double[dataSize];
+
+            for (int i = 0; i < dataSize; i++)
+            {
+                double[] point = data[i];
+                double initialSigma = 1.0;
+                double minSigma = 1e-20;
+                double maxSigma = double.MaxValue;
+                double sigma = initialSigma;
+
+                // Binary search to find sigma that yields target perplexity for each data point
+                int maxIterations = 50;
+                for (int iter = 0; iter < maxIterations; iter++)
+                {
+                    double[] conditionalProbabilities = ComputeConditionalProbability(point, data, sigma);
+                    double entropy = ShannonEntropy(conditionalProbabilities);
+                    double currentPerplexity = Math.Pow(2, entropy);
+
+                    double perplexityDiff = currentPerplexity - targetPerplexity;
+
+                    if (Math.Abs(perplexityDiff) < 1e-5) // Tolerance for the target perplexity
+                        break;
+
+                    if (perplexityDiff > 0)
+                        maxSigma = sigma;
+                    else
+                        minSigma = sigma;
+
+                    sigma = (maxSigma + minSigma) / 2.0;
+                }
+
+                perplexities[i] = Math.Pow(2, ShannonEntropy(ComputeConditionalProbability(point, data, sigma)));
+            }
+
+            return perplexities.Average();
+        }
+        #endregion
+
         #region LLE
         public static Matrix<double> LLE(Matrix<double> data, int numNeighbors, int targetDim)
         {

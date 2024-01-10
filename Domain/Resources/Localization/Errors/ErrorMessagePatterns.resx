@@ -132,6 +132,9 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>EmbeddingsLoadingError</value>
   </data>
+  <data name="FileError" xml:space="preserve">
+    <value>FileError</value>
+  </data>
   <data name="JobIsAlreadyInProcess" xml:space="preserve">
     <value>JobIsAlreadyInProcess</value>
   </data>

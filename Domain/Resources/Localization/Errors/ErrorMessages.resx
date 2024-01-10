@@ -132,6 +132,9 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>
+  <data name="FileError" xml:space="preserve">
+    <value>При збереженні файлу виникла помилка</value>
+  </data>
   <data name="JobIsAlreadyInProcess" xml:space="preserve">
     <value>Схожа задача вже обробляється</value>
   </data>

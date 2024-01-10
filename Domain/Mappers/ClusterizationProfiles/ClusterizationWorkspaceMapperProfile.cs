@@ -19,7 +19,7 @@ namespace Domain.Mappers.ClusterizationProfiles
                                                .ForMember(dest => dest.ProfilesCount,
                                                           ost => ost.MapFrom(e => e.Profiles.Count))
                                                .ForMember(dest => dest.CommentsCount,
-                                                          ost => ost.MapFrom(e => e.Comments.Count));
+                                                          ost => ost.MapFrom(e => (e.Comments.Count + e.ExternalObjects.Count)));
 
             CreateMap<ClusterizationWorkspace, SimpleClusterizationWorkspaceDTO>()
                                                .ForMember(dest => dest.TypeName,

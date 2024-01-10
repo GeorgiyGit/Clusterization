@@ -13,6 +13,8 @@ namespace Infrastructure.Builders
     {
         public static void ExternalObjectsBuilder(EntityTypeBuilder<ExternalObject> modelBuilder)
         {
+            modelBuilder.HasKey(e => e.FullId);
+
             modelBuilder.HasOne(e => e.EmbeddingData)
                         .WithOne(e => e.ExternalObject)
                         .HasForeignKey<ExternalObject>(e => e.EmbeddingDataId)

@@ -5,6 +5,7 @@ import { ClusterizationFullProfilePageComponent } from "src/app/features/cluster
 import { ClusterizationProfileAddPageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component";
 import { ClusterizationProfileListPageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component";
 import { AddChannelCommentsToWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component";
+import { AddExternalDataToWorkspaceComponent } from "src/app/features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component";
 import { AddVideosCommentsToWorkspaceComponent } from "src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component";
 import { AddWorkspacePageComponent } from "src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component";
 import { WorkspaceFullPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component";
@@ -143,6 +144,11 @@ const routes: Route[] = [
   {
     path:'profiles/add/:workspaceId',
     component:ClusterizationProfileAddPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'workspace/add-external-data/:workspaceId',
+    component:AddExternalDataToWorkspaceComponent,
     outlet:'overflow'
   }
 ]

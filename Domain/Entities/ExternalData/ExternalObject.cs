@@ -11,8 +11,9 @@ namespace Domain.Entities.ExternalData
 {
     public class ExternalObject
     {
+        public string FullId { get; set; }
         public string Id { get; set; }
-        public string Sesion { get; set; }
+        public string Session { get; set; }
         public string Text { get; set; }
 
         public ICollection<ClusterizationWorkspace> Workspaces { get; set; } = new HashSet<ClusterizationWorkspace>();

@@ -132,6 +132,9 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>An error occurred while loading embeddings</value>
   </data>
+  <data name="FileError" xml:space="preserve">
+    <value>An error occurred while saving the file</value>
+  </data>
   <data name="JobIsAlreadyInProcess" xml:space="preserve">
     <value>Similar job is already in process</value>
   </data>

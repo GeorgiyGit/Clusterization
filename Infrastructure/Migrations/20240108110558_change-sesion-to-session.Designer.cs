@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    partial class ClusterizationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108110558_change-sesion-to-session")]
+    partial class changesesiontosession
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,13 +57,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ClusterizationWorkspaceExternalObject", b =>
                 {
-                    b.Property<string>("ExternalObjectsFullId")
+                    b.Property<string>("ExternalObjectsId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("WorkspacesId")
                         .HasColumnType("int");
 
-                    b.HasKey("ExternalObjectsFullId", "WorkspacesId");
+                    b.HasKey("ExternalObjectsId", "WorkspacesId");
 
                     b.HasIndex("WorkspacesId");
 
@@ -612,14 +615,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.ExternalData.ExternalObject", b =>
                 {
-                    b.Property<string>("FullId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("EmbeddingDataId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Session")
                         .IsRequired()
@@ -629,7 +629,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FullId");
+                    b.HasKey("Id");
 
                     b.HasIndex("EmbeddingDataId")
                         .IsUnique()
@@ -1023,7 +1023,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.ExternalData.ExternalObject", null)
                         .WithMany()
-                        .HasForeignKey("ExternalObjectsFullId")
+                        .HasForeignKey("ExternalObjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

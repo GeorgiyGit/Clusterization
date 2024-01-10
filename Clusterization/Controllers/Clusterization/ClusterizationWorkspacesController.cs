@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
+using Domain.DTOs.ExternalData;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Embeddings;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,14 @@ namespace Clusterization.Controllers.Clusterization
         public async Task<IActionResult> AddCommentsByVideos([FromBody] AddCommentsToWorkspaceByVideosRequest request)
         {
             await service.LoadCommentsByVideos(request);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("load_external_data")]
+        public async Task<IActionResult> LoadExternalData([FromForm] AddExternalDataDTO data)
+        {
+            await service.LoadExternalData(data);
             return Ok();
         }
 

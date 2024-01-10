@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.DTOs.ExternalData;
 using Domain.DTOs.YoutubeDTOs.ChannelDTOs;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.Responses;
@@ -7,6 +8,7 @@ using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Youtube;
+using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Google.Apis.Services;
