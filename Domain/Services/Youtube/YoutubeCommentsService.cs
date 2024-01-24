@@ -19,6 +19,7 @@ using Hangfire;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -98,6 +99,10 @@ namespace Domain.Services.Youtube
             try
             {
                 var nextPageToken = "";
+                int newCommentCount = 0;
+
+                var video = await privateVideoService.GetById(videoId);
+                var channel = await privateChannelService.GetById(video.ChannelId);
                 for (int i = 0; i < options.MaxLoad;)
                 {
                     var searchRequest = youtubeService.CommentThreads.List("snippet");
@@ -133,7 +138,7 @@ namespace Domain.Services.Youtube
                         {
                             if (comment.Snippet.TopLevelComment.Snippet.PublishedAt > options.DateTo)
                             {
-                                break;
+                                continue;
                             }
                         }
 
@@ -175,7 +180,19 @@ namespace Domain.Services.Youtube
                         float plusPercent = 100f / options.MaxLoad;
                         percent += plusPercent;
 
+
+                        if (video != null)
+                        {
+                            video.LoadedCommentCount += 1;
+
+                            if (channel != null)
+                            {
+                                channel.LoadedCommentCount += 1;
+                            }
+                        }
+
                         await taskService.ChangeTaskPercent(taskId, percent);
+                        
                     }
 
                     await repository.SaveChangesAsync();
@@ -216,15 +233,19 @@ namespace Domain.Services.Youtube
                     if (options.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > options.DateFrom);
                     if (options.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < options.DateTo);
                 }
+                Random random = new Random();
 
-                var videos = await videos_repository.GetAsync(filter: filterCondition);
-
+                var videos = await videos_repository.GetAsync(filter: filterCondition, pageParameters: null);
+                List<Entities.Youtube.Video> shuffledVideos = videos.OrderBy(x => random.Next()).ToList();
+                
                 int loadedCount = 0;
-                foreach (var video in videos)
+                foreach (var video in shuffledVideos)
                 {
                     var nextPageToken = "";
+                    int loadedCountInOneVideo = 0;
                     while (true)
                     {
+                        int newCommentCount = 0;
                         var searchRequest = youtubeService.CommentThreads.List("snippet");
 
                         // Set the channelId to load videos from the specific channel
@@ -246,6 +267,7 @@ namespace Domain.Services.Youtube
                         foreach (var comment in comments)
                         {
                             if (loadedCount >= options.MaxLoad) break;
+                            if(loadedCountInOneVideo>=options.MaxLoadForOneVideo) break;
 
                             if (options.IsVideoDateCount == false)
                             {
@@ -261,7 +283,7 @@ namespace Domain.Services.Youtube
                                 {
                                     if (comment.Snippet.TopLevelComment.Snippet.PublishedAt > options.DateTo)
                                     {
-                                        break;
+                                        continue;
                                     }
                                 }
                             }
@@ -279,8 +301,7 @@ namespace Domain.Services.Youtube
                                 ChannelId = comment.Snippet.ChannelId,
                                 TotalReplyCount = (short)comment.Snippet.TotalReplyCount,
                                 VideoId = comment.Snippet.VideoId,
-
-                                AuthorChannelId = comment.Snippet.TopLevelComment.Snippet.AuthorChannelId.Value,
+                                
                                 AuthorDisplayName = comment.Snippet.TopLevelComment.Snippet.AuthorDisplayName,
                                 AuthorChannelUrl = comment.Snippet.TopLevelComment.Snippet.AuthorChannelUrl,
                                 AuthorProfileImageUrl = comment.Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl,
@@ -294,19 +315,37 @@ namespace Domain.Services.Youtube
                                 UpdatedAtDateTimeOffset = (DateTimeOffset)comment.Snippet.TopLevelComment.Snippet.UpdatedAtDateTimeOffset,
                                 UpdatedAtRaw = comment.Snippet.TopLevelComment.Snippet.UpdatedAtRaw
                             };
+                            if (comment.Snippet.TopLevelComment.Snippet.AuthorChannelId != null)
+                            {
+                                newComment.AuthorChannelId = comment.Snippet.TopLevelComment.Snippet.AuthorChannelId.Value;
+                            }
+                            else
+                            {
+                                newComment.AuthorChannelId = "";
+                            }
 
                             await repository.AddAsync(newComment);
                             loadedCount++;
+                            loadedCountInOneVideo++;
 
                             float plusPercent = 100f / options.MaxLoad;
                             percent += plusPercent;
 
                             await taskService.ChangeTaskPercent(taskId, percent);
+                            newCommentCount++;
+                        }
+
+                        video.LoadedCommentCount += newCommentCount;
+
+                        var channel = await privateChannelService.GetById(video.ChannelId);
+                        if (channel != null)
+                        {
+                            channel.LoadedCommentCount += newCommentCount;
                         }
 
                         await repository.SaveChangesAsync();
 
-                        if (nextPageToken == "" || nextPageToken == null || loadedCount >= options.MaxLoad) break;
+                        if (nextPageToken == "" || nextPageToken == null || loadedCount >= options.MaxLoad || loadedCountInOneVideo>=options.MaxLoadForOneVideo) break;
                     }
 
 
@@ -326,7 +365,7 @@ namespace Domain.Services.Youtube
         #region get
         public async Task<CommentDTO> GetLoadedById(string commentId)
         {
-            var comment = (await repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.Youtube.Comment.Video)},{nameof(Entities.Youtube.Comment.Channel)}")).FirstOrDefault();
+            var comment = (await repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.Youtube.Comment.Video)},{nameof(Entities.Youtube.Comment.Channel)}", pageParameters: null)).FirstOrDefault();
 
             if (comment == null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeCommentNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -378,9 +417,8 @@ namespace Domain.Services.Youtube
 
             var comments = (await repository.GetAsync(filter: filterCondition,
                                                    includeProperties: $"{nameof(Entities.Youtube.Comment.Video)},{nameof(Entities.Youtube.Comment.Channel)}",
-                                                   orderBy: orderByExpression))
-                                          .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-                                          .Take(pageParameters.PageSize).ToList();
+                                                   orderBy: orderByExpression,
+                                                   pageParameters: pageParameters));
 
             return mapper.Map<ICollection<CommentDTO>>(comments);
         }

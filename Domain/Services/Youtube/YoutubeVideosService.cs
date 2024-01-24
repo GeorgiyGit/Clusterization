@@ -94,27 +94,38 @@ namespace Domain.Services.Youtube
             {
                 var nextPageToken = "";
 
+                var channel = await privateChannelService.GetById(channelId);
+
                 for (int i = 0; i < options.MaxLoad;)
                 {
                     var searchRequest = youtubeService.PlaylistItems.List("snippet");
 
-                    var newChannelId = "UU" + channelId.Remove(0, 2);
+                    //var newChannelId = "UU" + channelId.Remove(0, 2);
                     // Set the channelId to load videos from the specific channel
-                    searchRequest.PlaylistId = newChannelId;
-
+                    //searchRequest.PlaylistId = newChannelId;
                     // Set the order to retrieve videos by date (you can change this as needed)
                     //searchRequest. = SearchResource.ListRequest.OrderEnum.Date;
 
-                    if (nextPageToken != null && nextPageToken != "") searchRequest.PageToken = nextPageToken;
-
-                    searchRequest.MaxResults = 100;
+                    //searchRequest.MaxResults = 100;
 
                     // Execute the request
-                    var searchResponse = searchRequest.Execute();
+                    //var searchResponse = searchRequest.Execute();
+                    //nextPageToken = searchResponse.NextPageToken;
 
-                    nextPageToken = searchResponse.NextPageToken;
+                    var searchListRequest = youtubeService.Search.List("snippet");
+                    searchListRequest.ChannelId = channelId;
+                    searchListRequest.Type = "video";
+                    searchListRequest.MaxResults = 100;
 
-                    var videoIds = searchResponse.Items.Select(item => item.Snippet.ResourceId.VideoId).ToList();
+                    if (options.DateFrom != null) searchListRequest.PublishedAfter = options.DateFrom;
+                    if (options.DateTo != null) searchListRequest.PublishedBefore = options.DateTo;
+
+                    if (nextPageToken != null && nextPageToken != "") searchListRequest.PageToken = nextPageToken;
+
+                    var searchListResponse = searchListRequest.Execute();
+                    nextPageToken = searchListResponse.NextPageToken;
+
+                    var videoIds = searchListResponse.Items.Select(item => item.Id.VideoId).ToList();
 
                     // Create the videos request to retrieve video statistics and tags
                     var videosRequest = youtubeService.Videos.List("snippet,statistics");
@@ -125,6 +136,8 @@ namespace Domain.Services.Youtube
 
                     // Execute the request and return the list of videos
                     var videosResponse = videosRequest.Execute();
+
+
 
                     var videos = videosResponse.Items;
 
@@ -143,7 +156,7 @@ namespace Domain.Services.Youtube
                         {
                             if (video.Snippet.PublishedAt > options.DateTo)
                             {
-                                break;
+                                continue;
                             }
                         }
 
@@ -195,9 +208,10 @@ namespace Domain.Services.Youtube
                         {
                             newVideo.CommentCount = (int)video.Statistics.CommentCount;
                         }
-
                         await repository.AddAsync(newVideo);
                         i++;
+                        
+                        if (channel != null) channel.LoadedVideoCount++;
 
                         float plusPercent = 100f / options.MaxLoad;
                         percent += plusPercent;
@@ -273,6 +287,12 @@ namespace Domain.Services.Youtube
                 {
                     newVideo.CommentCount = (int)video.Statistics.CommentCount;
                 }
+                var channel = await privateChannelService.GetById(video.Snippet.ChannelId);
+
+                if (channel != null)
+                {
+                    channel.LoadedVideoCount += 1;
+                }
 
                 await repository.AddAsync(newVideo);
                 await repository.SaveChangesAsync();
@@ -333,6 +353,12 @@ namespace Domain.Services.Youtube
                         newVideo.CommentCount = (int)video.Statistics.CommentCount;
                     }
 
+                    var channel = await privateChannelService.GetById(video.Snippet.ChannelId);
+                    if (channel != null)
+                    {
+                        channel.LoadedVideoCount += 1;
+                    }
+
                     await repository.AddAsync(newVideo);
                 }
 
@@ -344,7 +370,7 @@ namespace Domain.Services.Youtube
         #region get
         public async Task<SimpleVideoDTO> GetLoadedById(string id)
         {
-            var video = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.Youtube.Video.Comments)},{nameof(Entities.Youtube.Video.Channel)}")).FirstOrDefault();
+            var video = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.Youtube.Video.Channel)}", pageParameters: null)).FirstOrDefault();
 
             if (video == null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeVideoNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -414,10 +440,8 @@ namespace Domain.Services.Youtube
             var pageParameters = request.PageParameters;
 
             var videos = (await repository.GetAsync(filter: filterCondition,
-                                                   includeProperties: $"{nameof(Entities.Youtube.Video.Comments)},{nameof(Entities.Youtube.Video.Channel)}",
-                                                   orderBy:orderByExpression))
-                                          .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-                                          .Take(pageParameters.PageSize).ToList();
+                                                   orderBy: orderByExpression,
+                                                   pageParameters: pageParameters));
 
             var mappedVideos = mapper.Map<ICollection<SimpleVideoDTO>>(videos);
             foreach (var video in mappedVideos)
@@ -506,7 +530,7 @@ namespace Domain.Services.Youtube
 
             foreach (var video in videos)
             {
-                var origVideo = (await repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(Entities.Youtube.Video.Channel)},{nameof(Entities.Youtube.Video.Comments)}")).FirstOrDefault();
+                var origVideo = (await repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(Entities.Youtube.Video.Channel)}", pageParameters: null)).FirstOrDefault();
 
                 if (origVideo != null)
                 {

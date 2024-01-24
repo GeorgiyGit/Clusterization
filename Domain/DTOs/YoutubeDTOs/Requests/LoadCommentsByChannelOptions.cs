@@ -9,5 +9,6 @@ namespace Domain.DTOs.YoutubeDTOs.Requests
     public class LoadCommentsByChannelOptions : LoadOptions
     {
         public bool IsVideoDateCount { get; set; } //load by video date, or by comments date
+        public int MaxLoadForOneVideo { get; set; }
     }
 }

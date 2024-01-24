@@ -114,7 +114,7 @@ namespace Domain.Services.Youtube
         }
         public async Task LoadManyByIds(ICollection<string> ids)
         {
-            while(ids.Count()>0)
+            while (ids.Count() > 0)
             {
                 // Create the videos request to retrieve video statistics and tags
                 var chanelsRequest = youtubeService.Channels.List("snippet,statistics");
@@ -172,7 +172,7 @@ namespace Domain.Services.Youtube
         #region get
         public async Task<SimpleChannelDTO> GetLoadedById(string id)
         {
-            var channel = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.Youtube.Channel.Comments)},{nameof(Entities.Youtube.Channel.Videos)}")).FirstOrDefault();
+            var channel = (await repository.GetAsync(c => c.Id == id, pageParameters:null)).FirstOrDefault();
 
             if (channel == null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -232,10 +232,8 @@ namespace Domain.Services.Youtube
             var pageParameters = request.PageParameters;
 
             var channels = (await repository.GetAsync(filter: filterCondition,
-                                                   includeProperties: $"{nameof(Entities.Youtube.Channel.Comments)},{nameof(Entities.Youtube.Channel.Videos)}",
-                                                   orderBy: orderByExpression))
-                                            .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-                                            .Take(pageParameters.PageSize).ToList();
+                                                      orderBy: orderByExpression,
+                                                      pageParameters: pageParameters));
 
 
             var mappedChannels = mapper.Map<ICollection<SimpleChannelDTO>>(channels);
@@ -309,7 +307,7 @@ namespace Domain.Services.Youtube
 
             foreach (var channel in channels)
             {
-                var origChannel = (await repository.GetAsync(c => c.Id == channel.Id, includeProperties: $"{nameof(Entities.Youtube.Channel.Videos)},{nameof(Entities.Youtube.Channel.Comments)}")).FirstOrDefault();
+                var origChannel = (await repository.GetAsync(c => c.Id == channel.Id, pageParameters: null)).FirstOrDefault();
 
                 if (origChannel != null)
                 {

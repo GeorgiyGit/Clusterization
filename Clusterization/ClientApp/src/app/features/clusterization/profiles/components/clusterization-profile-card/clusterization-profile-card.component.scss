@@ -1,27 +1,55 @@
 @import '/src/app/core/styles/base.scss';
 
-.card{
-    background-color: $second-color-1;
-    //padding: 20px;
-    border-radius: 10px;
 
-    border: 0;
-    color: $first-color-3;
-
+.cont{
     display: flex;
     gap: 10px;
+    align-items: center;
 
-    cursor: pointer;
+    .elect-cont{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .icon{
+            cursor: pointer;
+            user-select: none;
+            color: $first-color-2;
+        }
 
-    padding: 20px;
-
-    flex-direction: row;
-    p{
-        margin: 0;
-        padding: 0;
+        .elected{
+            color: $warn-1;
+            fill: $warn-1;
+        }
     }
 
-    &:hover {
-        background-color: $second-color-3;
+    .main-cont{
+        flex: 1;
+        
+        background-color: $second-color-1;
+        //padding: 20px;
+        border-radius: 10px;
+    
+        border: 0;
+        color: $first-color-3;
+    
+        display: flex;
+        gap: 10px;
+    
+        cursor: pointer;
+    
+        padding: 20px;
+    
+        flex-direction: row;
+
+        p{
+            margin: 0;
+            padding: 0;
+        }
+    
+        &:hover {
+            background-color: $second-color-3;
+        }
     }
+
 }

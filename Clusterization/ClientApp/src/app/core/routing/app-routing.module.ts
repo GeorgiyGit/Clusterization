@@ -26,6 +26,11 @@ import { YoutubeLoadAllVideosPageComponent } from "src/app/features/youtube/vide
 import { YoutubeVideoListPageComponent } from "src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component";
 const routes: Route[] = [
   {
+    path:'',
+    redirectTo:'channel-list',
+    pathMatch:'full'
+  },
+  {
       path:'channel-list',
       component:YoutubeChannelListPageComponent
   },

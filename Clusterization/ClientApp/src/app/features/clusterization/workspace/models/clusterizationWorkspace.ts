@@ -5,7 +5,7 @@ export interface IClusterizationWorkspace{
     creationTime:Date,
     typeId:string,
     typeName:string,
-    commentsCount:number,
+    entitiesCount:number,
     profilesCount:number,
     isAllDataEmbedded:boolean
 }

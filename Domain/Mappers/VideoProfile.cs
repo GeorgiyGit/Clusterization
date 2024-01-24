@@ -15,8 +15,6 @@ namespace Domain.Mappers
         public VideoProfile()
         {
             CreateMap<Video, SimpleVideoDTO>()
-                    .ForMember(dest => dest.LoadedCommentCount,
-                               ost => ost.MapFrom(e => e.Comments.Count()))
                     .ForMember(dest => dest.IsLoaded,
                                ost => ost.Ignore());
         }

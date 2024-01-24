@@ -251,17 +251,9 @@ namespace Domain.Services.DimensionalityReduction
                 var tsne = new TSNE()
                 {
                     NumberOfOutputs = numberOfDimensions, // The number of dimensions for the output
-                    Perplexity = 30d
                 };
 
-                if (values.Length < 30)
-                {
-                    tsne.Perplexity = values.Length;
-                }
-                if (values.Length < 5)
-                {
-                    tsne.Perplexity = 1d;
-                }
+                tsne.Perplexity = Math.Floor((values.Length - 2) / 3.0);
 
                 reducedDimensionality = tsne.Transform(values);
             }
@@ -300,7 +292,7 @@ namespace Domain.Services.DimensionalityReduction
 
             for (int i = 0; i < helpModels.Count; i++)
             {
-                DimensionalityReductionValue DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+                DimensionalityReductionValue DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id && e.ClusterizationWorkspaceDRTechnique== clusterizationWorkspaceDRTechnique, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
 
                 if (DRv == null)
                 {
@@ -313,7 +305,7 @@ namespace Domain.Services.DimensionalityReduction
                     await drValues_repository.AddAsync(DRv);
                     await drValues_repository.SaveChangesAsync();
 
-                    DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
+                    DRv = (await drValues_repository.GetAsync(e => e.ClusterizationEntityId == helpModels[i].Entity.Id && e.ClusterizationWorkspaceDRTechnique == clusterizationWorkspaceDRTechnique, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)}")).FirstOrDefault();
                 }
 
                 var dimensionValue = new EmbeddingDimensionValue()

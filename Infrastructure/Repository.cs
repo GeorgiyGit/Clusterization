@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.DTOs;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,8 @@ namespace Infrastructure
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            PageParametersDTO? pageParameters = null)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -47,15 +49,17 @@ namespace Infrastructure
             {
                 query = query.Include(includeProperty);
             }
-
             if (orderBy != null)
             {
-                return await orderBy(query).ToListAsync();
+                query = orderBy(query);
             }
-            else
+            if (pageParameters != null)
             {
-                return await query.ToListAsync();
+                query = query.Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                             .Take(pageParameters.PageSize);
             }
+
+            return query.ToList();
         }
 
         public virtual async Task<TEntity> FindAsync(object id)

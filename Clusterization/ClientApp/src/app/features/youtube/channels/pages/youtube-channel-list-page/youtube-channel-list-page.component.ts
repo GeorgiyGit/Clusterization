@@ -38,7 +38,8 @@ export class YoutubeChannelListPageComponent implements OnInit{
 
   isLoading:boolean;
   loadFirst(){
-    this.request.pageParameters.pageNumber=0;
+    if(this.isLoading)return;
+    this.request.pageParameters.pageNumber=1;
 
     this.isLoading=true;
     this.channelService.getMany(this.request).subscribe(res=>{
@@ -53,6 +54,7 @@ export class YoutubeChannelListPageComponent implements OnInit{
     });
   }
   loadMore(){
+    if(this.isLoading)return;
     this.isLoading=true;
     this.channelService.getMany(this.request).subscribe(res=>{
       this.channels=this.channels.concat(res);

@@ -1,13 +1,36 @@
 <header>
-    <nav>
-        <ul>
-            <li routerLink="/channel-list">Канали</li>
-            <li routerLink="/video-list">Відео</li>
-            <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
-            <li routerLink="/tasks-list">Задачі</li>
-            <li [routerLink]="[{outlets: {overflow: 'workspaces_add'}}]">Додати робочий простір</li>
-            <li routerLink="/workspaces">Робочі простори</li>
-            <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
-        </ul>
+    <nav class="standard" *ngIf="!isPhoneMenuOpen">
+        <div>
+            <ul>
+                <li routerLink="/channel-list">Канали</li>
+                <li routerLink="/video-list">Відео</li>
+                <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
+                <li routerLink="/tasks-list">Задачі</li>
+                <li [routerLink]="[{outlets: {overflow: 'workspaces_add'}}]">Додати робочий простір</li>
+                <li routerLink="/workspaces">Робочі простори</li>
+                <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="phone-menu" *ngIf="isPhoneMenuOpen">
+        <div class="main-cont" *ngIf="isDisplayPhoneMenu" [@popUpAnimation]="animationState">
+            <div class="close-cont" (click)="closeDisplayPhoneMenu()">
+                <span class="material-symbols-outlined icon" translate="no">close</span>
+            </div>
+            <div class="options-cont" (click)="closeDisplayPhoneMenu()">
+                <ul>
+                    <li routerLink="/channel-list">Канали</li>
+                    <li routerLink="/video-list">Відео</li>
+                    <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
+                    <li routerLink="/tasks-list">Задачі</li>
+                    <li [routerLink]="[{outlets: {overflow: 'workspaces_add'}}]">Додати робочий простір</li>
+                    <li routerLink="/workspaces">Робочі простори</li>
+                    <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
+                </ul>
+            </div>
+        </div>
+        <div (click)="openDisplayPhoneMenu()" class="menu-btn">
+            <span class="material-symbols-outlined icon" translate="no">menu_open</span>
+        </div>
     </nav>
 </header>

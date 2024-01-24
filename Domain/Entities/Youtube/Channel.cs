@@ -25,6 +25,8 @@ namespace Domain.Entities.Youtube
 
         public long SubscriberCount { get; set; }
         public int VideoCount { get; set; }
+        public int LoadedVideoCount { get; set; }
+        public int LoadedCommentCount { get; set; }
         public long ViewCount { get; set; }
 
         public DateTime LoadedDate { get; set; }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import {LayoutModule} from '@angular/cdk/layout';
 import { AppComponent } from './app.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { YoutubeChannelCardComponent } from './features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component';
@@ -138,15 +138,15 @@ import { AddExternalDataToWorkspaceComponent } from './features/clusterization/w
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    HttpClientModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
     RouterModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    LayoutModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

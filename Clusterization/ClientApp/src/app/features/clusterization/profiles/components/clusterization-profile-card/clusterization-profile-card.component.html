@@ -1,3 +1,10 @@
-<div class="card" (click)="openFull()">
-    <p>{{profile.fullTitle}}</p>
+
+<div class="cont">
+    <div class="elect-cont">
+        <span class="material-symbols-outlined icon" translate="no"  (click)="elect($event)" *ngIf="!profile.isElected">star</span>
+        <span class="material-symbols-outlined icon elected" translate="no"  (click)="unelect($event)" *ngIf="profile.isElected">star</span>
+    </div>
+    <div class="main-cont" (click)="openFull()">
+        <p>{{profile.fullTitle}}</p>
+    </div>
 </div>

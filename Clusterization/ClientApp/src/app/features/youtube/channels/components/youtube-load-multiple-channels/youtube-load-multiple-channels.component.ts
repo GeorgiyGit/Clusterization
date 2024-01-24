@@ -22,12 +22,12 @@ export class YoutubeLoadMultipleChannelsComponent {
 
   options:IOptionForSelectInput[]=[
     {
-      value:'Date',
-      description:'Спочатку новіші'
-    },
-    {
       value:'Rating',
       description:'Спочатку популярніші'
+    },
+    {
+      value:'Date',
+      description:'Спочатку новіші'
     }
   ]
 
@@ -58,11 +58,9 @@ export class YoutubeLoadMultipleChannelsComponent {
         elem.isSelectAvailable=true;
       });
 
-      this.channels = res.channels;
+      this.channels = res.channels.reverse();
       this.nextPageToken = res.nextPageToken;
       this.isLoading = false;
-
-      console.log(res);
     },
       error => {
         this.isLoading = false;
@@ -84,7 +82,7 @@ export class YoutubeLoadMultipleChannelsComponent {
         elem.isSelectAvailable=true;
       });
 
-      this.channels = this.channels.concat(res.channels);
+      this.channels = this.channels.concat(res.channels.reverse());
       this.nextPageToken = res.nextPageToken;
       this.isLoading2 = false;
     },

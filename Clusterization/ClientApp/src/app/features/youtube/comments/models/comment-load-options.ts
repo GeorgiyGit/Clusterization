@@ -3,5 +3,6 @@ export interface ICommentLoadOptions{
     dateFrom:Date | undefined,
     dateTo:Date | undefined,
     maxLoad:number,
-    isVideoDateCount:boolean | undefined
+    isVideoDateCount:boolean | undefined,
+    maxLoadForOneVideo:number
 }

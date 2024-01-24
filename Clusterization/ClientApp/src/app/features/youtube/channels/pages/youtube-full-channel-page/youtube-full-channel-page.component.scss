@@ -80,3 +80,15 @@ p{
     padding: 0;
     color: $first-color-4;
 }
+
+@media screen and (max-width: 1300px) {
+    .all-cont{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 500px) {
+    section{
+        padding: 20px;
+        padding-top: 100px;
+    }
+}

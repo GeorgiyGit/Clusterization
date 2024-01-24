@@ -3,11 +3,13 @@ using Domain.Entities.Embeddings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Entities.DimensionalityReduction
 {
+    [DataContract(IsReference = true)]
     public class DimensionalityReductionValue
     {
         public int Id { get; set; }

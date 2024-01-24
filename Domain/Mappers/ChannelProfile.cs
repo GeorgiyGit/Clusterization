@@ -14,10 +14,6 @@ namespace Domain.Mappers
         public ChannelProfile()
         {
             CreateMap<Channel, SimpleChannelDTO>()
-                    .ForMember(dest => dest.LoadedVideoCount,
-                               ost => ost.MapFrom(e => e.Videos.Count()))
-                    .ForMember(dest => dest.LoadedCommentCount,
-                               ost => ost.MapFrom(e => e.Comments.Count()))
                     .ForMember(dest => dest.IsLoaded,
                                ost => ost.Ignore());
         }

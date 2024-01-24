@@ -75,7 +75,7 @@ namespace Domain.Services.Embeddings
         }
         public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId)
         {
-            var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)}")).FirstOrDefault();
+            var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Entities)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -134,8 +134,9 @@ namespace Domain.Services.Embeddings
 
                     continue;
                 }
-
-                var inputText = HttpUtility.UrlEncodeUnicode(comment.TextOriginal);
+                var text = comment.TextOriginal;
+                if (text.Length > 2000) text = text.Substring(0, 2000);
+                var inputText = HttpUtility.UrlEncode(text);
 
                 string requestBody = $"{{\"input\": \"{inputText}\", \"model\": \"{model}\"}}";
 

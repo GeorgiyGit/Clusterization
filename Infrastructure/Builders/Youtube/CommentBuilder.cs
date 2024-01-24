@@ -18,6 +18,8 @@ namespace Infrastructure.Builders.Youtube
                         .HasForeignKey(e => e.VideoId)
                         .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
 
+            modelBuilder.HasIndex(e => new { e.PublishedAtDateTimeOffset });
+
             modelBuilder.HasOne(e => e.Channel)
                         .WithMany(e => e.Comments)
                         .HasForeignKey(e => e.ChannelId);

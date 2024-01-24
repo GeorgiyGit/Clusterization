@@ -15,6 +15,9 @@
             <div class="input-cont">
                 <input id="maxLoad" type="number" min="0" step="1" placeholder="Максимальна кількість*" formControlName="maxLoad">
             </div>
+            <div class="input-cont">
+                <input id="maxLoadForOneVideo" type="number" min="0" step="1" placeholder="Максимальна кількість в одному відео*" formControlName="maxLoadForOneVideo">
+            </div>
             <div class="one-radio-conts">
                 <div class="one-radio-cont">
                     <input type="radio" id="youtubeDate1" name="youtubeDate" [checked]="true" (change)="selectVideoDate($event)">

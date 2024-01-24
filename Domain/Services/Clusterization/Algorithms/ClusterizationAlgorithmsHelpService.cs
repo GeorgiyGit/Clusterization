@@ -67,7 +67,7 @@ namespace Domain.Services.Clusterization.Algorithms
 
                 if (workspaceDRTechnique == null) throw new HttpException(localizer[ErrorMessagePatterns.DRValueNotFound], HttpStatusCode.NotFound);
 
-                var drValues = (await drValues_repository.GetAsync(e => e.TechniqueId == drTechniqueId && e.ClusterizationWorkspaceDRTechniqueId == workspaceDRTechnique.Id, includeProperties: $"{nameof(DimensionalityReductionValue.Embeddings)},{nameof(DimensionalityReductionValue.ClusterizationEntity)}"));
+                var drValues = (await drValues_repository.GetAsync(e => e.TechniqueId == drTechniqueId && e.ClusterizationWorkspaceDRTechniqueId == workspaceDRTechnique.Id));
 
                 foreach (var drValue in drValues)
                 {

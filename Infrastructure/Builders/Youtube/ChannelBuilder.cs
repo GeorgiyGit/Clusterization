@@ -16,6 +16,8 @@ namespace Infrastructure.Builders.Youtube
                         .WithOne(e => e.Channel)
                         .HasForeignKey(e => e.ChannelId);
 
+            modelBuilder.HasIndex(e => new { e.PublishedAtDateTimeOffset, e.VideoCount, e.SubscriberCount });
+
             modelBuilder.HasMany(e => e.Videos)
                         .WithOne(e => e.Channel)
                         .HasForeignKey(e => e.ChannelId);

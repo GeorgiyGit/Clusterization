@@ -59,6 +59,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
     // Add a mouse up event listener
     this.el.nativeElement.addEventListener('mouseup', this.mouseUpHandler.bind(this));
+
+    this.el.nativeElement.addEventListener('touchstart', this.touchStartHandler.bind(this));
+    this.el.nativeElement.addEventListener('touchmove', this.touchMoveHandler.bind(this));
+    this.el.nativeElement.addEventListener('touchend', this.touchEndHandler.bind(this));
   }
 
   ngOnDestroy() {
@@ -66,6 +70,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.el.nativeElement.removeEventListener('mousedown', this.mouseDownHandler);
     this.el.nativeElement.removeEventListener('mousemove', this.mouseMoveHandler);
     this.el.nativeElement.removeEventListener('mouseup', this.mouseUpHandler);
+
+    this.el.nativeElement.removeEventListener('touchstart', this.touchStartHandler.bind(this));
+    this.el.nativeElement.removeEventListener('touchmove', this.touchMoveHandler.bind(this));
+    this.el.nativeElement.removeEventListener('touchend', this.touchEndHandler.bind(this));
   }
 
   ngAfterViewInit(): void {
@@ -74,10 +82,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     const ratio = window.devicePixelRatio;
 
     const canvasSize = Math.min(window.innerWidth, window.innerHeight);
-    
+
     this.ctx.canvas.width = canvasSize * ratio;
     this.ctx.canvas.height = canvasSize * ratio;
-    
+
     this.ctx.canvas.style.width = canvasSize + 'px';
     this.ctx.canvas.style.height = canvasSize + 'px';
 
@@ -173,6 +181,34 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.isMouseDown = false;
   }
 
+  
+  private touchStartHandler(event: TouchEvent) {
+    this.isMouseDown = true;
+    this.mouseChangesX = event.touches[0].pageX;
+    this.mousePositionY = event.touches[0].pageY;
+  }
+  
+  private touchMoveHandler(event: TouchEvent) {
+    if (this.isMouseDown) {
+      const touchPositionX = event.touches[0].pageX;
+      const touchPositionY = event.touches[0].pageY;
+  
+      this.mouseChangesX += touchPositionX - this.mouseChangesX;
+      this.mouseChangesY += touchPositionY - this.mousePositionY;
+  
+      this.mouseChangesX = touchPositionX;
+      this.mousePositionY = touchPositionY;
+  
+      this.tilesCalculation();
+  
+      this.drawPoints();
+    }
+  }
+  
+  private touchEndHandler(event: TouchEvent) {
+    this.isMouseDown = false;
+  }
+
   disablePageScrolling() {
     document.body.style.overflow = 'hidden';
   }
@@ -246,5 +282,37 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
       x: mouseX,   // scale mouse coordinates after they have
       y: mouseY     // been adjusted to be relative to element
     }
+  }
+
+  saveCanvas() {
+    const canvas: HTMLCanvasElement = this.canvas.nativeElement;
+
+    // Specify the area to capture (0, 0, 100, 100 in this example)
+    let rectX = this.mouseChangesX - 10;
+    let rectY = this.mouseChangesY - 10;
+
+    let rectLength = this.convertedLayerValue * this.tilesLevel.tileLength * this.tilesLevel.tileCount + 20;
+
+    // Create a new canvas with the specified area
+    const croppedCanvas = document.createElement('canvas');
+    croppedCanvas.width = rectLength;
+    croppedCanvas.height = rectLength;
+    const context = croppedCanvas.getContext('2d');
+
+    if (context == null) return;
+    context.drawImage(canvas, rectX, rectY, rectLength, rectLength, 0, 0, rectLength, rectLength);
+
+    // Get the data URL of the cropped canvas
+    const dataUrl: string = croppedCanvas.toDataURL('image/png');
+
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'cropped_canvas_image' + this.tilesLevel.id + '.png';
+
+    // Simulate a click on the link to trigger the download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

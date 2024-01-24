@@ -29,6 +29,8 @@ namespace Domain.Entities.Clusterization
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
         public ICollection<ClusterizationEntity> Entities { get; set; } = new HashSet<ClusterizationEntity>();
 
+        public int EntitiesCount { get; set; }
+
         public ICollection<ClusterizationWorkspaceDRTechnique> ClusterizationWorkspaceDRTechniques { get; set; } = new HashSet<ClusterizationWorkspaceDRTechnique>();
     }
 }

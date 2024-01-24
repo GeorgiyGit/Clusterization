@@ -15,5 +15,7 @@ export interface IClusterizationProfile{
 
     minTileLevel:number,
     maxTileLevel:number,
-    dimensionalityReductionTechnique:IDimensionalityReductionTechnique
+    dimensionalityReductionTechnique:IDimensionalityReductionTechnique,
+
+    isElected:boolean
 }

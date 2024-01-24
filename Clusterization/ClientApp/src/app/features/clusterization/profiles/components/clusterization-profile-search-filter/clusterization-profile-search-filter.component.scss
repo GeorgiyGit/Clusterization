@@ -9,3 +9,9 @@
         flex: 1;
     }
 }
+
+@media screen and (max-width: 800px) {
+    .cont{
+        flex-direction: column;
+    }
+}

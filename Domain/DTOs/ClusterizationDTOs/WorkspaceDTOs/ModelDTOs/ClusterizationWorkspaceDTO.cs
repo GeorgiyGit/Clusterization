@@ -14,7 +14,7 @@ namespace Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs
         public DateTime CreationTime { get; set; }
         public string TypeId { get; set; }
         public string TypeName { get; set; }
-        public int CommentsCount { get; set; }
+        public int EntitiesCount { get; set; }
         public int ProfilesCount { get; set; }
         public bool IsAllDataEmbedded { get; set; }
     }

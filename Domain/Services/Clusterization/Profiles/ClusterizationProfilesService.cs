@@ -137,5 +137,32 @@ namespace Domain.Services.Clusterization.Profiles
 
             return mappedProfile;
         }
+
+        public async Task Elect(int id)
+        {
+            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
+
+            if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+
+            if (!profile.IsElected)
+            {
+                profile.IsElected = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+        public async Task UnElect(int id)
+        {
+            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
+
+            if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+
+            if (profile.IsElected)
+            {
+                profile.IsElected = false;
+
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }

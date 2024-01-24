@@ -55,3 +55,10 @@ section{
 .mt-10{
     margin-top: 10px;
 }
+
+@media screen and (max-width: 800px) {
+    section{
+        padding: 0;
+        padding-top: 10px;
+    }
+}

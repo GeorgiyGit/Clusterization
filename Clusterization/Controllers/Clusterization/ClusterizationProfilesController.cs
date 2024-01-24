@@ -40,5 +40,20 @@ namespace Clusterization.Controllers.Clusterization
         {
             return Ok(await service.GetCollection(request));
         }
+
+
+        [HttpPost("elect/{id}")]
+        public async Task<IActionResult> Elect([FromRoute] int id)
+        {
+            await service.Elect(id);
+            return Ok();
+        }
+
+        [HttpPost("unelect/{id}")]
+        public async Task<IActionResult> Unelect([FromRoute] int id)
+        {
+            await service.UnElect(id);
+            return Ok();
+        }
     }
 }

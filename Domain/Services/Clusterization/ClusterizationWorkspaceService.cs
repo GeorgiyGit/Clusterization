@@ -87,7 +87,7 @@ namespace Domain.Services.Clusterization
         #region get
         public async Task<ClusterizationWorkspaceDTO> GetFullById(int id)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.ExternalObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -167,20 +167,36 @@ namespace Domain.Services.Clusterization
                     }
                 }
 
-                var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Comment.Workspaces)}")).Take(request.MaxCount);
-
-                foreach (var comment in comments)
-                {
-                    if (!workspace.Comments.Contains(comment))
+                int pageNumber = 1;
+                int pageSize = 1000;
+                while (true){
+                    var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Comment.Workspaces)}", pageParameters: new DTOs.PageParametersDTO()
                     {
-                        workspace.Comments.Add(comment);
-                        comment.Workspaces.Add(workspace);
-                    }
-                }
+                        PageNumber = pageNumber,
+                        PageSize = pageSize
+                    }));
 
+                    int count = 0;
+                    foreach (var comment in comments)
+                    {
+                        if (!workspace.Comments.Contains(comment))
+                        {
+                            workspace.Comments.Add(comment);
+                            comment.Workspaces.Add(workspace);
+                            count++;
+                            request.MaxCount--;
+                            workspace.EntitiesCount++;
+                        }
+                        if (request.MaxCount <= 0) break;
+                    }
+                    await repository.SaveChangesAsync();
+
+                    if (request.MaxCount <= 0) break;
+                    if (comments.Count() < pageSize) break;
+                    pageNumber++;
+                }
                 workspace.IsAllDataEmbedded = false;
 
-                await repository.SaveChangesAsync();
 
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
@@ -224,6 +240,7 @@ namespace Domain.Services.Clusterization
                         {
                             workspace.Comments.Add(comment);
                             comment.Workspaces.Add(workspace);
+                            workspace.EntitiesCount++;
                         }
                     }
                 }
@@ -291,6 +308,8 @@ namespace Domain.Services.Clusterization
 
                                 workspace.ExternalObjects.Add(extObjectForAdding);
                                 extObjectForAdding.Workspaces.Add(workspace);
+
+                                workspace.EntitiesCount++;
                             }
                         }
                     }
@@ -309,6 +328,8 @@ namespace Domain.Services.Clusterization
 
                             workspace.ExternalObjects.Add(extObjectForAdding);
                             extObjectForAdding.Workspaces.Add(workspace);
+
+                            workspace.EntitiesCount++;
                         }
                     }
 

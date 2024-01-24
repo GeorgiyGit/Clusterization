@@ -40,6 +40,8 @@ namespace Infrastructure.Builders
                         .WithOne(e => e.DimensionalityReductionValue)
                         .HasForeignKey(e => e.DimensionalityReductionValueId);
 
+            modelBuilder.HasIndex(e => new { e.TechniqueId, e.ClusterizationWorkspaceDRTechniqueId });
+
             modelBuilder.HasOne(e => e.EmbeddingData)
                         .WithOne(e => e.DimensionalityReductionValue)
                         .HasForeignKey<DimensionalityReductionValue>(e => e.EmbeddingDataId);

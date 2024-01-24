@@ -32,4 +32,11 @@ export class ClusterizationProfilesService {
   getCollection(request:IGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
     return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_collection",request);
   }
+
+  elect(id:number): Observable<any> {
+    return this.http.post(this.controllerUrl + "elect/"+id,null);
+  }
+  unElect(id:number): Observable<any> {
+    return this.http.post(this.controllerUrl + "unelect/"+id,null);
+  }
 }

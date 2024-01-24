@@ -39,3 +39,14 @@ section {
     display: flex;
     justify-content: center;
 }
+
+@media screen and (max-width: 800px) {
+    section{
+        padding:0;
+        .main-cont{
+            min-height: 100vh;
+            padding-top: 120px;
+            width: 100%;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IDisplayedPoint } from '../../models/displayed-points';
@@ -6,6 +6,7 @@ import { ClusterizationTilesService } from '../../services/clusterization-tiles.
 import { IClusterizationTile } from '../../models/clusterization-tile';
 import { IMyPosition } from '../../models/my-position';
 import { IClusterizationTilesLevel } from '../../models/clusterization-tiles-level';
+import { PointsMapPlaneComponent } from '../../components/points-map-plane/points-map-plane.component';
 
 @Component({
   selector: 'app-points-map-page',
@@ -41,6 +42,9 @@ export class PointsMapPageComponent implements OnInit {
   }
   reduceLayerValue() {
       this.layerValue --;
+  }
+  centralize(){
+    this.layerValue=50;
   }
 
   addTile(position: IMyPosition) {
@@ -111,5 +115,10 @@ export class PointsMapPageComponent implements OnInit {
     else{
         this.layerValue+=-event.deltaY/100;
     }
+  }
+
+  @ViewChild(PointsMapPlaneComponent) filterChild: PointsMapPlaneComponent;
+  downloadImage(){
+    this.filterChild.saveCanvas();
   }
 }

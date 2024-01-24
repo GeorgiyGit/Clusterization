@@ -60,7 +60,7 @@ builder.Services.AddHangfire(configuration => configuration
            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
            QueuePollInterval = TimeSpan.Zero,
            UseRecommendedIsolationLevel = true,
-           DisableGlobalLocks = true
+           DisableGlobalLocks = true,
        }));
 
 builder.Services.AddHangfireServer();
@@ -129,7 +129,8 @@ if (!app.Environment.IsDevelopment())
 app.UseCors(options =>
 {
     options.WithOrigins("https://localhost:44439",
-                        "http://user29750.realhost-free.net/");
+                        "http://user29750.realhost-free.net/",
+                        "https://sladkovskygeorge.website/");
     options.AllowCredentials();
     options.AllowAnyHeader();
     options.AllowAnyMethod();

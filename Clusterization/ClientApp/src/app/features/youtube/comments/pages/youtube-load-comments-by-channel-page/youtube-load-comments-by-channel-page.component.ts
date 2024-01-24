@@ -30,7 +30,8 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
   optionsForm: FormGroup = this.fb.group({
     dateFrom: [null],
     dateTo: [null],
-    maxLoad:[]
+    maxLoad:[],
+    maxLoadForOneVideo:[]
   });
 
   get formValue() {
@@ -40,6 +41,7 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }
   get dateTo() { return this.optionsForm.get('dateTo')!; }
   get maxLoad() { return this.optionsForm.get('maxLoad')!; }
+  get maxLoadForOneVideo() { return this.optionsForm.get('maxLoadForOneVideo')!; }
 
   constructor(private router:Router,
     private fb: FormBuilder,
@@ -73,6 +75,10 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
 
     if(options.maxLoad<=0){
       this.toaster.error('Максимальна кількість дорівнює нулю');
+      return;
+    }
+    if(options.maxLoadForOneVideo<=0){
+      this.toaster.error('Максимальна кількість для одного відео дорівнює нулю');
       return;
     }
 

@@ -1,7 +1,13 @@
 <section>
-    <div>
-        <span class="material-symbols-outlined icon" translate="no" (click)="addLayerValue()">add</span>
-        <span class="material-symbols-outlined icon" translate="no" (click)="reduceLayerValue()">remove</span>
+    <div class="top-cont">
+        <div class="resize-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="addLayerValue()">add</span>
+            <span class="material-symbols-outlined icon" translate="no" (click)="reduceLayerValue()">remove</span>
+            <span class="material-symbols-outlined icon" translate="no" (click)="centralize()">center_focus_strong</span>
+        </div>
+        <div>
+            <span class="material-symbols-outlined icon" translate="no" (click)="downloadImage()">download</span>
+        </div>
     </div>
     <app-points-map-plane [displayedPoints]="points"
         [layerValue]="layerValue"

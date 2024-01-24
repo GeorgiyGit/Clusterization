@@ -34,5 +34,7 @@ namespace Domain.Entities.Clusterization
 
         public int MinTileLevel { get; set; }
         public int MaxTileLevel { get; set; }
+
+        public bool IsElected { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    partial class ClusterizationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110194521_add-loaded-count")]
+    partial class addloadedcount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -405,9 +408,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EntitiesCount")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsAllDataEmbedded")
                         .HasColumnType("bit");
 
@@ -548,7 +548,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[EmbeddingDataId] IS NOT NULL");
 
-                    b.HasIndex("TechniqueId", "ClusterizationWorkspaceDRTechniqueId");
+                    b.HasIndex("TechniqueId");
 
                     b.ToTable("DimensionalityReductionValues");
                 });
@@ -775,8 +775,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount");
-
                     b.ToTable("Channels");
                 });
 
@@ -860,8 +858,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ChannelId");
 
-                    b.HasIndex("PublishedAtDateTimeOffset");
-
                     b.HasIndex("VideoId");
 
                     b.ToTable("Comments");
@@ -938,8 +934,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
-
-                    b.HasIndex("PublishedAtDateTimeOffset", "CommentCount", "ViewCount");
 
                     b.ToTable("Videos");
                 });

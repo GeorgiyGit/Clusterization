@@ -13,9 +13,9 @@
                     <span matTooltip="Тип" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
                     <p>{{workspace.typeName}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Кількість',workspace.commentsCount+'',$event)">
+                <div class="block" (click)="copyToClipboard('Кількість',workspace.entitiesCount+'',$event)">
                     <span matTooltip="Кількість елементів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
-                    <p>{{workspace.commentsCount}}</p>
+                    <p>{{workspace.entitiesCount}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard('Кількість',workspace.profilesCount+'',$event)">
                     <span matTooltip="Кількість профілів" class="material-symbols-outlined icon" translate="no">workspaces</span>

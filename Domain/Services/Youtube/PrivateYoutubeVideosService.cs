@@ -18,7 +18,7 @@ namespace Domain.Services.Youtube
         }
         public async Task<Video?> GetById(string id)
         {
-            return (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Video.Channel)}")).FirstOrDefault();
+            return (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Video.Channel)}", pageParameters: null)).FirstOrDefault();
         }
     }
 }

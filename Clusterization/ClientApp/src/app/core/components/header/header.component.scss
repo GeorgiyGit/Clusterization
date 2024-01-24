@@ -1,4 +1,133 @@
 @import '/src/app/core/styles/colors.scss';
+
+header {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+
+    //box-shadow: 0 0 5px 0.1px $red-1;
+    box-shadow: 0 0 5px 0.1px $first-color-2;
+    .standard {
+        //background-color: $yellow-1;
+        background-color: $second-color-1;
+
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 20px;
+
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+
+
+            li {
+                margin: 0;
+                padding: 10px;
+                //color: $blue-1;
+                color: $first-color-3;
+
+                //font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                app-open-notifications-btn {
+                    height: 100%;
+                }
+            }
+        }
+
+    }
+
+    .phone-menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 5px 15px;
+        gap: 15px;
+
+        background-color: $second-color-1;
+
+        .menu-btn {
+            //color: $blue-1;
+            color: $first-color-3;
+
+            .icon {
+                font-size: 30px;
+            }
+        }
+
+        .main-cont {
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: $second-color-1;
+            height: 100vh;
+            width: 100%;
+
+            transition: all 0.5s;
+
+            .close-cont {
+                padding: 10px;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: flex-end;
+                
+                .icon{
+                    color: $first-color-3;
+                    font-size: 30px;
+                }
+            }
+
+            .options-cont {
+                ul {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+
+                    li {
+                        cursor: pointer;
+                        border-bottom: 1px solid $first-color-3;
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                        padding: 10px;
+
+                        color: $first-color-3;
+
+                        p {
+                            color: $first-color-3;
+                            text-decoration: none;
+                            font-weight: bold;
+                        }
+                        cursor: pointer;
+                    }
+
+                    &:first-child{
+                        border-top: 1px solid $first-color-3;
+                    }
+                }
+            }
+        }
+
+        .display-main-cont {
+            display: inline;
+        }
+    }
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+.icon{
+    user-select: none;
+    cursor: pointer;
+}
+/*
 nav{
     position: fixed;
     
@@ -35,4 +164,4 @@ nav{
             }
         }
     }
-}
+}*/

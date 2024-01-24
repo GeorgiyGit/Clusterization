@@ -33,6 +33,7 @@ namespace Domain.Entities.Youtube
         public string VideoImageUrl { get; set; }
 
         public int CommentCount { get; set; }
+        public int LoadedCommentCount { get; set; }
         public int LikeCount { get; set; }
         public long ViewCount { get; set; }
 

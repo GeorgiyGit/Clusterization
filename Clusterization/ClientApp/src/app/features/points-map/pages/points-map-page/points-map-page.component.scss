@@ -5,3 +5,13 @@
     user-select: none;
     cursor: pointer;
 }
+.top-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .resize-cont{
+        display: flex;
+        gap: 10px;
+    }
+}
