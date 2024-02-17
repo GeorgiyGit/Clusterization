@@ -12,7 +12,6 @@ export class YoutubeVideoListComponent {
   @Output() selectVideoEvent=new EventEmitter<ISimpleVideo>();
   @Output() unselectVideoEvent=new EventEmitter<ISimpleVideo>();
 
-  //@ViewChildren(YoutubeChannelCardComponent) childComponents: QueryList<YoutubeChannelCardComponent>;
   toggleSelection(value:boolean){
     this.videos.forEach(elem=>{
       elem.isSelectAvailable=value;

@@ -3,30 +3,30 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
-        <h1>Додати коментарі до робочого простору</h1>
+        <h1 i18n>Додати коментарі до робочого простору</h1>
 
         <form [formGroup]="optionsForm" (ngSubmit)="load()" class="options-cont">
             <div class="input-cont">
-                <input id="dateFrom" type="date" matTooltip="Дата від" matTooltipPosition="above" formControlName="dateFrom">
+                <input id="dateFrom" type="date" i18n-matTooltip matTooltip="Дата від" matTooltipPosition="above" formControlName="dateFrom">
             </div>
             <div class="input-cont">
-                <input id="dateTo" type="date" matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
+                <input id="dateTo" type="date" i18n-matTooltip matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
             </div>
             <div class="input-cont">
-                <input id="maxCount" type="number" min="0" step="1" placeholder="Максимальна кількість*" formControlName="maxCount">
+                <input id="maxCount" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість*" formControlName="maxCount">
             </div>
             <div class="one-radio-conts">
                 <div class="one-radio-cont">
                     <input type="radio" id="youtubeDate1" name="youtubeDate" [checked]="true" (change)="selectVideoDate($event)">
-                    <label for="youtubeDate1">Додавати за датою відео</label>
+                    <label for="youtubeDate1" i18n>Додавати за датою відео</label>
                 </div>
                 <div class="one-radio-cont">
                     <input type="radio" id="youtubeDate2" name="youtubeDate" (change)="selectYoutubeDate($event)">
-                    <label for="youtubeDate2">Додавати за датою коментарів</label>
+                    <label for="youtubeDate2" i18n>Додавати за датою коментарів</label>
                 </div>
             </div>
             <div class="centered">
-                <button class="standard-btn" type="submit" *ngIf="!isLoading">Завантажити</button>
+                <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Завантажити</button>
             </div>
         </form>
         </div>

@@ -8,39 +8,39 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="close($event)">close</span>
         </div>
-        <h1 class="text-orange">Увійти</h1>
+        <h1 class="text-orange" i18n>Увійти</h1>
         <div class="inputs">
             <div class="w-100">
                 <div class="input-cont">
-                    <input id="email" type="email" formControlName="email" placeholder="Електронна пошта">
+                    <input id="email" type="email" formControlName="email" i18n-placeholder placeholder="Електронна пошта">
                 </div>
                 <div *ngIf="email.invalid && (email.touched)" class="error-cont">
-                    <p *ngIf="email.errors?.['required']" class="error">Електронна пошта повинна бути заповнена</p>
-                    <p *ngIf="email.errors?.['maxlength']" class="error">Максимальна кількість знаків - 1000</p>
+                    <p *ngIf="email.errors?.['required']" class="error" i18n>Електронна пошта повинна бути заповнена</p>
+                    <p *ngIf="email.errors?.['maxlength']" class="error" i18n>Максимальна кількість знаків - 1000</p>
                 </div>
             </div>
             <div class="w-100">
                 <div class="input-cont password-cont">
                     <div class="password-input">
-                        <input *ngIf="!isPassVisible" id="password" type="password" userCapture formControlName="password" placeholder="Пароль">
-                        <input *ngIf="isPassVisible" id="password" type="text" userCapture formControlName="password" placeholder="Пароль">
+                        <input *ngIf="!isPassVisible" id="password" type="password" userCapture formControlName="password" i18n-placeholder placeholder="Пароль">
+                        <input *ngIf="isPassVisible" id="password" type="text" userCapture formControlName="password" i18n-placeholder placeholder="Пароль">
                     </div>
                     <i *ngIf="isPassVisible" class="material-icons icon" translate="no" (click)="eyeClick($event)">visibility_off</i>
                     <i *ngIf="!isPassVisible" class="material-icons icon" translate="no" (click)="eyeClick($event)">visibility</i>
                 </div>
                 <div *ngIf="password.invalid && (password.touched)" class="error-cont">
-                    <p *ngIf="password.errors?.['required']" class="error">Пароль повинен бути заповненим</p>
-                    <p *ngIf="password.errors?.['minlength']" class="error">Мінімальна кількість символів - 8</p>
+                    <p *ngIf="password.errors?.['required']" class="error" i18n>Пароль повинен бути заповненим</p>
+                    <p *ngIf="password.errors?.['minlength']" class="error" i18n>Мінімальна кількість символів - 8</p>
                 </div>
             </div>
         </div>
         <p class="global-error" *ngIf="errorMsg!=null && errorMsg!=''">{{errorMsg}}</p>
         <div class="centered">
             <app-loader *ngIf="isLoading"></app-loader>
-            <button type="submit" class="standard-btn" *ngIf="!isLoading">Увійти</button>
+            <button type="submit" class="standard-btn" *ngIf="!isLoading" i18n>Увійти</button>
         </div>
         <div class="btn-cont">
-            <p class="mb-0 mt-10"><span>Немає облікового запису? </span> <a class="link text-red-4" (click)="openSignUp($event)">Зареєструйтеся</a></p>
+            <p class="mb-0 mt-10"><span i18n>Немає облікового запису? </span> <a class="link text-red-4" (click)="openSignUp($event)" i18n>Зареєструйтеся</a></p>
         </div>
     </form>
 </section>

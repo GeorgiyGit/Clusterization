@@ -24,11 +24,11 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
   options:IOptionForSelectInput[]=[
     {
       value:'Date',
-      description:'Спочатку новіші'
+      description:$localize`Спочатку новіші`
     },
     {
       value:'Rating',
-      description:'Спочатку популярніші'
+      description:$localize`Спочатку популярніші`
     }
   ]
   
@@ -99,7 +99,7 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
 
   load() {
     if (this.selectedVideos == null || this.selectedVideos.length == 0) {
-      this.toastrService.error('Відео не вибрано');
+      this.toastrService.error($localize`Відео не вибрано`);
       return;
     }
 
@@ -115,7 +115,7 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
       this.value = '';
       this.nextPageToken = undefined;
 
-      this.toastrService.success('Відео завантажено');
+      this.toastrService.success($localize`Відео завантажено`);
       this.isLoading = false;
       this.router.navigate([{ outlets: { overflow: null } }]);
     }, error => {

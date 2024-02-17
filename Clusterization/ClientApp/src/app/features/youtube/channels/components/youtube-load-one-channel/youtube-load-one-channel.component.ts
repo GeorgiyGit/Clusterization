@@ -21,15 +21,15 @@ export class YoutubeLoadOneChannelComponent {
   isLoading: boolean = false;
   load() {
     if (this.value == null || this.value == '') {
-      this.toastrService.error('Поле для Id пусте!!!');
+      this.toastrService.error($localize`Поле для Id пусте!!!`);
       return;
     }
 
     this.isLoading = true;
     this.channelService.loadById(this.value).subscribe(res => {
       this.isLoading = false;
-      this.toastrService.success('Канал завантажено');
-      this.router.navigate([{outlets: {overflow: null}}]);
+      this.toastrService.success($localize`Канал завантажено`);
+      this.router.navigate([{ outlets: { overflow: null } }]);
     },
       error => {
         this.isLoading = false;

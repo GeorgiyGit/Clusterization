@@ -24,12 +24,13 @@ export class MoreActionSelectComponent{
 
     this.isOpen=!this.isOpen;
   }
+  notAuthorizedErrorStr=$localize`Ви не авторизовані!`;
   selectOption(event:MouseEvent,action:ISelectAction){
     event.stopPropagation();
 
     if(action.isForAuthorized && !this.accountService.isAuthenticated()){
       if(!this.accountService.isAuthenticated()){
-        this.toastr.error('You are not authorized!');
+        this.toastr.error(this.notAuthorizedErrorStr);
       }
     }
 

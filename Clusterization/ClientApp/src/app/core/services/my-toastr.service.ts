@@ -10,7 +10,7 @@ export class MyToastrService {
 
   error(msg:string | undefined){
     let str = msg;
-    if(msg==undefined)str='Помилка';
+    if(msg==undefined)str=$localize`Помилка`;
     this.toastr.error(str);
   }
 

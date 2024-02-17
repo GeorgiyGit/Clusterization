@@ -2,20 +2,20 @@
     <nav class="standard" *ngIf="!isPhoneMenuOpen">
         <div>
             <ul>
-                <li routerLink="/channel-list">Канали</li>
-                <li routerLink="/video-list">Відео</li>
-                <li (click)="openLoadChannel($event)">Завантажити канали</li>
-                <li routerLink="/tasks-list">Задачі</li>
-                <li routerLink="/workspaces">Робочі простори</li>
-                <li (click)="openAddAlgorithm($event)">Додати алгоритм</li>
+                <li routerLink="/channel-list" i18n>Канали</li>
+                <li routerLink="/video-list" i18n>Відео</li>
+                <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
+                <li routerLink="/tasks-list" i18n>Задачі</li>
+                <li routerLink="/workspaces" i18n>Робочі простори</li>
+                <li (click)="openAddAlgorithm($event)" i18n>Додати алгоритм</li>
             </ul>
         </div>
         <div>
             <ul>
-                <li (click)="openSignUp($event)">Реєстрація</li>
+                <li (click)="openSignUp($event)" i18n>Реєстрація</li>
                 <li>
-                    <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth">Увійти</a>
-                    <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth">Вийти</a>
+                    <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
+                    <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>
                 </li>
             </ul>
         </div>
@@ -27,16 +27,16 @@
             </div>
             <div class="options-cont" (click)="closeDisplayPhoneMenu()">
                 <ul>
-                    <li routerLink="/channel-list">Канали</li>
-                    <li routerLink="/video-list">Відео</li>
-                    <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
-                    <li routerLink="/tasks-list">Задачі</li>
-                    <li routerLink="/workspaces">Робочі простори</li>
-                    <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
-                    <li (click)="openSignUp($event)">Реєстрація</li>
+                    <li routerLink="/channel-list i18n">Канали</li>
+                    <li routerLink="/video-list" i18n>Відео</li>
+                    <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]" i18n>Завантажити канали</li>
+                    <li routerLink="/tasks-list" i18n>Задачі</li>
+                    <li routerLink="/workspaces" i18n>Робочі простори</li>
+                    <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]" i18n>Додати алгоритм</li>
+                    <li (click)="openSignUp($event)" i18n>Реєстрація</li>
                     <li>
-                        <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth">Увійти</a>
-                        <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth">Вийти</a>
+                        <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
+                        <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>
                     </li>
                 </ul>
             </div>

@@ -13,6 +13,8 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
 
   @Input() isNullAvailable:boolean;
 
+  tooltip:string=$localize`Тип алгоритму`;
+
   options: IOptionForSelectInput[] = [];
   constructor(private algorithmTypesService: ClusterizationAlgorithmTypesService) { }
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
       if(this.isNullAvailable==true){
         let nullOption:IOptionForSelectInput={
           value:undefined,
-          description:'Нічого'
+          description:$localize`Нічого`
         }
 
         this.options.push(nullOption);

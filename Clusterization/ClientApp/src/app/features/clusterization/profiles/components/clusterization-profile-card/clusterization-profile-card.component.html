@@ -6,12 +6,12 @@
     </div>
     <div class="main-cont" (click)="openFull()">
         <p>{{profile.fullTitle}}</p>
-        <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is your" *ngIf="isYour">face</span>
+        <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей профіль ваш" *ngIf="isYour">face</span>
 
-        <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible for all customers" *ngIf="profile!=null && profile.visibleType=='AllCustomers'">visibility</span>
-        <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible only for you" *ngIf="profile!=null && profile.visibleType=='OnlyOwner'">visibility_off</span>
+        <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей профіль видимий для всіх користувачів" *ngIf="profile!=null && profile.visibleType=='AllCustomers'">visibility</span>
+        <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей профіль видимий тільки для вас" *ngIf="profile!=null && profile.visibleType=='OnlyOwner'">visibility_off</span>
 
-        <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable by everyone" *ngIf="profile!=null && profile.changingType=='AllCustomers'">update</span>
-        <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable only by you" *ngIf="profile!=null && profile.changingType=='OnlyOwner'">update_disabled</span>
+        <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей профіль можуть змінювати всі користувачі" *ngIf="profile!=null && profile.changingType=='AllCustomers'">update</span>
+        <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей профіль можете змінювати тільки ви" *ngIf="profile!=null && profile.changingType=='OnlyOwner'">update_disabled</span>
     </div>
 </div>

@@ -19,27 +19,27 @@ export class YoutubeChannelsSearchFilterComponent {
   options:IOptionForSelectInput[]=[
     {
       value:'ByTimeDesc',
-      description:'Спочатку новіші'
+      description:$localize`Спочатку новіші`
     },
     {
       value:'ByTimeInc',
-      description:'Спочатку старіші'
+      description:$localize`Спочатку старіші`
     },
     {
       value:'BySubscribersDesc',
-      description:'Спочатку більше підписників'
+      description:$localize`Спочатку більше підписників`
     },
     {
       value:'BySubscribersInc',
-      description:'Спочатку менше підписників'
+      description:$localize`Спочатку менше підписників`
     },
     {
       value:'ByVideoCountDesc',
-      description:'Спочатку більше відео'
+      description:$localize`Спочатку більше відео`
     },
     {
       value:'ByVideoCountInc',
-      description:'Спочатку менше відео'
+      description:$localize`Спочатку менше відео`
     },
   ]
 

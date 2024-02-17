@@ -74,20 +74,20 @@ export class AddChannelCommentsToWorkspacePageComponent implements OnInit{
     }
 
     if(options.maxCount<=0){
-      this.toaster.error('Максимальна кількість дорівнює нулю');
+      this.toaster.error($localize`Максимальна кількість дорівнює нулю`);
       return;
     }
 
     let workspaceId =this.storageService.getSelectedWorkspace();
 
     if(workspaceId==null){
-      this.toaster.error('Робочий простір не вибрано');
+      this.toaster.error($localize`Робочий простір не вибрано`);
       return;
     }
     options.workspaceId=workspaceId;
 
     this.workspaceService.addCommentsByChannel(options).subscribe(res=>{
-      this.toaster.success('Коментарі додано');
+      this.toaster.success($localize`Коментарі додано`);
       this.isLoading=false;
       this.closeOverflow();
     },error=>{

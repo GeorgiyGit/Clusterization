@@ -14,11 +14,11 @@ export class VisibleTypesSelectOptionComponent {
   options: IOptionForSelectInput[] = [
     {
       value:'AllCustomers',
-      description:'Visible For All'
+      description:$localize`Можуть змінювати всі`//Changeable by everyone
     },
     {
       value:'OnlyOwner',
-      description:'Visible Only For Owner'
+      description:$localize`Може змінювати тільки власник`//Changeable Only By Owner
     }
   ];
 

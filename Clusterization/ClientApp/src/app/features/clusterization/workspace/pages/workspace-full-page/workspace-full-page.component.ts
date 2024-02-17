@@ -18,6 +18,11 @@ export class WorkspaceFullPageComponent implements OnInit {
 
   actions: ISelectAction[] = [];
 
+  workspaceTypeNameStr: string = $localize`Тип`
+  dateStr: string = $localize`Дату`;
+  entitiesCountStr: string = $localize`Кількість елементів`;
+  profilesCountStr: string = $localize`Кількість профілів`;
+
   isLoading: boolean;
   constructor(private workspaceService: ClusterizationWorkspaceService,
     private route: ActivatedRoute,
@@ -25,7 +30,7 @@ export class WorkspaceFullPageComponent implements OnInit {
     private toastr: MyToastrService,
     private clipboard: Clipboard,
     private myLocalStorage: MyLocalStorageService,
-    private accountService:AccountService) { }
+    private accountService: AccountService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 
@@ -35,24 +40,24 @@ export class WorkspaceFullPageComponent implements OnInit {
 
       this.actions = [
         {
-          name: 'Додати профіль',
+          name: $localize`Додати профіль`,
           action: () => {
             let userId = this.accountService.getUserId();
-            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
-              this.toastr.error("The workspace is only changeable by owner");
+            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
+              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
               return;
             }
 
             this.router.navigate([{ outlets: { overflow: 'profiles/add/' + this.workspace.id } }]);
           },
-          isForAuthorized:true
+          isForAuthorized: true
         },
         {
-          name: 'Завантажити ембедінги',
+          name: $localize`Завантажити ембедінги`,
           action: () => {
             let userId = this.accountService.getUserId();
-            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
-              this.toastr.error("The workspace is only changeable by owner");
+            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
+              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
               return;
             }
 
@@ -61,7 +66,7 @@ export class WorkspaceFullPageComponent implements OnInit {
               this.toastr.error(error.error.Message);
             });
           },
-          isForAuthorized:true
+          isForAuthorized: true
         }
       ];
 
@@ -69,30 +74,30 @@ export class WorkspaceFullPageComponent implements OnInit {
 
       if (this.workspace.id != this.myLocalStorage.getSelectedWorkspace()) {
         this.actions.push({
-          name: 'Встановити активним',
+          name: $localize`Встановити активним`,
           action: () => {
             let userId = this.accountService.getUserId();
-            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
-              this.toastr.error("The workspace is only changeable by owner");
+            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
+              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
               return;
             }
             this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
           },
-          isForAuthorized:true
+          isForAuthorized: true
         });
       }
       if (this.workspace.typeId == 'External') {
         this.actions.push({
-          name: 'Завантажити зовнішні дані',
+          name: $localize`Завантажити зовнішні дані`,
           action: () => {
             let userId = this.accountService.getUserId();
-            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
-              this.toastr.error("The workspace is only changeable by owner");
+            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
+              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
               return;
             }
             this.router.navigate([{ outlets: { overflow: 'workspace/add-external-data/' + this.workspace.id } }]);
           },
-          isForAuthorized:true
+          isForAuthorized: true
         });
       }
 
@@ -108,6 +113,6 @@ export class WorkspaceFullPageComponent implements OnInit {
 
     this.clipboard.copy(text);
 
-    this.toastr.success(msg + ' ' + 'скопійовано!!!');
+    this.toastr.success(msg + ' ' + $localize`скопійовано!!!`);
   }
 }

@@ -22,19 +22,18 @@ export class YoutubeLoadOneVideoComponent {
   isLoading: boolean = false;
   load() {
     if (this.value == null || this.value == '') {
-      this.toastrService.error('Поле для Id пусте!!!');
+      this.toastrService.error($localize`Поле для Id пусте!!!`);
       return;
     }
 
     this.isLoading = true;
     this.videoService.loadById(this.value).subscribe(res => {
       this.isLoading = false;
-      this.toastrService.success('відео завантажено');
+      this.toastrService.success($localize`Відео завантажено`);
       this.router.navigate([{ outlets: { overflow: null } }]);
-    },
-      error => {
-        this.isLoading = false;
-        this.toastrService.error(error.error.Message);
-      });
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.error(error.error.Message);
+    });
   }
 }

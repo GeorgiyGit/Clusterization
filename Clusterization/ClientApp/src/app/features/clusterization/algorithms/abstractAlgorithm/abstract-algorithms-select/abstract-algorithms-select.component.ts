@@ -15,6 +15,8 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
 
   @Input() typeId: string;
 
+  tooltip:string=$localize`Алгоритм`;
+
   options: IOptionForSelectInput[] = [];
   constructor(private generalAlgorithmsService: GeneralClusterizationAlgorithmsService) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,7 +24,7 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
       if (this.typeId == undefined) {
         let nullOption: IOptionForSelectInput = {
           value: undefined,
-          description: 'Нічого'
+          description: $localize`Нічого`
         }
         this.options = [nullOption];
         return;
@@ -45,7 +47,7 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
       if (this.isNullAvailable == true) {
         let nullOption: IOptionForSelectInput = {
           value: undefined,
-          description: 'Нічого'
+          description: $localize`Нічого`
         }
 
         this.options.push(nullOption);

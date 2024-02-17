@@ -2,17 +2,17 @@
     <div class="top-cont">
         <div class="title-cont">
             <p class="title" *ngIf="myLocalStorage.getSelectedWorkspace()!=workspace.id">{{workspace.title}}</p>
-            <p class="title red" matTooltip="Встановлений активним" *ngIf="myLocalStorage.getSelectedWorkspace()==workspace.id">{{workspace.title}}</p>
-            <span class="material-symbols-outlined icon" translate="no" matTooltip="The workspace is your" *ngIf="isYour">face</span>
+            <p class="title red" i18n-matTooltip matTooltip="Встановлений активним" *ngIf="myLocalStorage.getSelectedWorkspace()==workspace.id">{{workspace.title}}</p>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір ваш" *ngIf="isYour">face</span>
 
-            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible for all customers" *ngIf="workspace!=null && workspace.visibleType=='AllCustomers'">visibility</span>
-            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible only for you" *ngIf="workspace!=null && workspace.visibleType=='OnlyOwner'">visibility_off</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір видимий для всіх користувачів" *ngIf="workspace!=null && workspace.visibleType=='AllCustomers'">visibility</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір видимий тільки для вас" *ngIf="workspace!=null && workspace.visibleType=='OnlyOwner'">visibility_off</span>
     
-            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable by everyone" *ngIf="workspace!=null && workspace.changingType=='AllCustomers'">update</span>
-            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable only by you" *ngIf="workspace!=null && workspace.changingType=='OnlyOwner'">update_disabled</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір можуть змінювати всі користувачі" *ngIf="workspace!=null && workspace.changingType=='AllCustomers'">update</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір можете змінювати тільки ви" *ngIf="workspace!=null && workspace.changingType=='OnlyOwner'">update_disabled</span>
         </div>
         <div class="my-tooltip">
-            <span matTooltip="Дата створення" class="time-text">{{workspace.creationTime | normalizedDateTime}}</span>
+            <span i18n-matTooltip matTooltip="Дата створення" class="time-text">{{workspace.creationTime | normalizedDateTime}}</span>
         </div>
     </div>
     <div class="middle-cont">

@@ -12,6 +12,8 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit{
 
   @Input() isNullAvailable:boolean;
   
+  tooltip:string=$localize`Кількість вимірів`;
+
   options:IOptionForSelectInput[]=[];
   constructor(private typesService:ClusterizationDimensionTypesService){}
   ngOnInit(): void {
@@ -21,7 +23,7 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit{
         if(this.isNullAvailable==true){
           let nullOption:IOptionForSelectInput={
             value:undefined,
-            description:'Нічого'
+            description:$localize`Нічого`
           }
   
           this.options.push(nullOption);

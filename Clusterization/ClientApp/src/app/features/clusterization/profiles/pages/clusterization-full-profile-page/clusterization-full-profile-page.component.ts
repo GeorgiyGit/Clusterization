@@ -21,13 +21,17 @@ import { AccountService } from 'src/app/features/account/services/account.servic
 export class ClusterizationFullProfilePageComponent implements OnInit {
   profile: IClusterizationProfile;
 
+  algorithmTypeStr:string=$localize`Тип алгоритм`;
+  dimensionCountStr:string=$localize`Кількість вимірів`;
+  clustersCountStr:string=$localize`Кількість кластерів`;
+
   actions: ISelectAction[] = [
     {
-      name: 'Кластеризувати',
+      name: $localize`Кластеризувати`,
       action: () => {
         let userId = this.accountService.getUserId();
         if (this.profile.changingType === 'OnlyOwner' && (userId == null || userId != this.profile.ownerId)) {
-          this.toastr.error("The workspace is only changeable by owner");
+          this.toastr.error($localize`Цей профіль може змінювати тільки власник!!!`);
           return;
         }
 
@@ -99,11 +103,11 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
 
     this.clipboard.copy(text);
 
-    this.toastr.success(msg + ' ' + 'скопійовано!!!');
+    this.toastr.success(msg + ' ' + $localize`скопійовано!!!`);
   }
   openMap(event: MouseEvent) {
     if (!this.profile.isCalculated) {
-      this.toastr.error("The profile was not clustered");
+      this.toastr.error($localize`Цей профіль не був кластеризований!`);
       return;
     }
 

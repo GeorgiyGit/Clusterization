@@ -19,27 +19,27 @@ export class YoutubeVideosSearchFilterComponent {
   options:IOptionForSelectInput[]=[
     {
       value:'ByTimeDesc',
-      description:'Спочатку новіші'
+      description:$localize`Спочатку новіші`
     },
     {
       value:'ByTimeInc',
-      description:'Спочатку старіші'
+      description:$localize`Спочатку старіші`
     },
     {
       value:'ByCommentsDesc',
-      description:'Спочатку більше коментарів'
+      description:$localize`Спочатку більше коментарів`
     },
     {
       value:'ByCommentsInc',
-      description:'Спочатку менше коментарів'
+      description:$localize`Спочатку менше коментарів`
     },
     {
       value:'ByViewDesc',
-      description:'Спочатку більше переглядів'
+      description:$localize`Спочатку більше переглядів`
     },
     {
       value:'ByViewInc',
-      description:'Спочатку менше переглядів'
+      description:$localize`Спочатку менше переглядів`
     },
   ]
 

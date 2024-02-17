@@ -54,7 +54,7 @@ export class AddWorkspacePageComponent implements OnInit {
     let model = this.formValue;
 
     if (this.typeId == undefined) {
-      this.toaster.error('Тип не вибраний');
+      this.toaster.error($localize`Тип не вибраний`);
       return;
     }
 
@@ -64,7 +64,7 @@ export class AddWorkspacePageComponent implements OnInit {
 
     this.isLoading = true;
     this.workspaceService.add(model).subscribe(res => {
-      this.toaster.success('Робочий простір добавлено');
+      this.toaster.success($localize`Робочий простір добавлено`);
       this.isLoading = false;
       this.closeOverflow();
     }, error => {

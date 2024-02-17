@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="uk-UA" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="2851143444086140952" datatype="html">
+        <source>Можуть змінювати всі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6850388598811081666" datatype="html">
+        <source>Може змінювати тільки власник</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8847018699088352655" datatype="html">
+        <source>Канали</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2768538519711126161" datatype="html">
+        <source>Відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5143917168868229616" datatype="html">
+        <source>Завантажити канали</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9006086090092635077" datatype="html">
+        <source>Задачі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="49752753619351073" datatype="html">
+        <source>Робочі простори</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5503041089914007895" datatype="html">
+        <source>Додати алгоритм</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4529511236521569287" datatype="html">
+        <source>Реєстрація</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2227866411377774723" datatype="html">
+        <source>Увійти</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2586555184745045313" datatype="html">
+        <source>Вийти</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1650797384057519185" datatype="html">
+        <source>Ви не авторизовані!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/more-action-select/more-action-select.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5606620813338917784" datatype="html">
+        <source>Шукати...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/search-input/search-input.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2765342578420328429" datatype="html">
+        <source>Помилка</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/services/my-toastr.service.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8382530000597687272" datatype="html">
+        <source>Електронна пошта</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4271138058142215833" datatype="html">
+        <source>Електронна пошта повинна бути заповнена</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="339847313868180612" datatype="html">
+        <source>Максимальна кількість знаків - 1000</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5089199220175449046" datatype="html">
+        <source>Пароль</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8177052888689048369" datatype="html">
+        <source>Пароль повинен бути заповненим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6878516153838989499" datatype="html">
+        <source>Мінімальна кількість символів - 8</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4849274855123893644" datatype="html">
+        <source>Немає облікового запису? </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6644086703571855011" datatype="html">
+        <source>Зареєструйтеся</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5359849630414730856" datatype="html">
+        <source>Ім&apos;я користувача</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2195946060845045375" datatype="html">
+        <source>Ім&apos;я користувача не має бути пустим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1471716764979337891" datatype="html">
+        <source>Мінімальна кількість символів - 3</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2611877714726137265" datatype="html">
+        <source>Максимальна кількість символів - 100 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3383247238424239541" datatype="html">
+        <source>Почати...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2119604904853910528" datatype="html">
+        <source>Вже є обліковий запис? </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3595041913748392336" datatype="html">
+        <source>Увійди</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5858613933734506397" datatype="html">
+        <source>Алгоритм</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/abstractAlgorithm/abstract-algorithms-select/abstract-algorithms-select.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6184457213543871493" datatype="html">
+        <source>Нічого</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/abstractAlgorithm/abstract-algorithms-select/abstract-algorithms-select.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/abstractAlgorithm/abstract-algorithms-select/abstract-algorithms-select.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8859695966617041443" datatype="html">
+        <source>Додати новий алгоритм</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="56053543484916875" datatype="html">
+        <source>Тип алгоритму</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2834735807773698023" datatype="html">
+        <source>Epsilon (%)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7877248870774168716" datatype="html">
+        <source>Epsilon (%)*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2676004272878685215" datatype="html">
+        <source>Epsilon не може бути пустою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2152954005511135208" datatype="html">
+        <source>Мінімальна кількість точок у кластері</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4275175508286659548" datatype="html">
+        <source>Мінімальна кількість точок у кластері *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3185966962768362058" datatype="html">
+        <source>Мінімальна кількість точок у кластері не може бути пустою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4258413376036644838" datatype="html">
+        <source>Мінімальна кількість - 1</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7748649105576519734" datatype="html">
+        <source>Додати</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/oneCluster/components/add-one-cluster-algorithm/add-one-cluster-algorithm.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2451550020743948646" datatype="html">
+        <source>Алгоритм додано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/oneCluster/components/add-one-cluster-algorithm/add-one-cluster-algorithm.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2935024347008991191" datatype="html">
+        <source>Кількість компонентів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4369994721299412970" datatype="html">
+        <source>Кількість компонентів *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6129890378185987666" datatype="html">
+        <source>Кількість компонентів не може бути пустою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6365320308956208346" datatype="html">
+        <source>Кількість кластерів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8334091996783693998" datatype="html">
+        <source>Кількість кластерів *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1440733149520664909" datatype="html">
+        <source>Кількість кластерів не може бути пустою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1893899189529290120" datatype="html">
+        <source>Зерно</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8762892273982221132" datatype="html">
+        <source>Зерно *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1940055676969729310" datatype="html">
+        <source>Зерно не може бути пустим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="454604118670720219" datatype="html">
+        <source>Колір кластера</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/oneCluster/components/add-one-cluster-algorithm/add-one-cluster-algorithm.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7519102519437630299" datatype="html">
+        <source>Колір кластера обов&apos;язковий</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/oneCluster/components/add-one-cluster-algorithm/add-one-cluster-algorithm.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1840263869596556199" datatype="html">
+        <source>Gamma</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7760905518281134541" datatype="html">
+        <source>Gamma *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8703761458856223257" datatype="html">
+        <source>Gamma не може бути пустим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9149015675699904183" datatype="html">
+        <source>Кількість вимірів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5066435742649081879" datatype="html">
+        <source>Цей профіль ваш</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6998427133206246525" datatype="html">
+        <source>Цей профіль видимий для всіх користувачів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3734569964926825868" datatype="html">
+        <source>Цей профіль видимий тільки для вас</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3982849411785627161" datatype="html">
+        <source>Цей профіль можуть змінювати всі користувачі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2464299550324401119" datatype="html">
+        <source>Цей профіль можете змінювати тільки ви</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7040073573792440832" datatype="html">
+        <source>Цей профіль не ваш!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1693623884188687079" datatype="html">
+        <source>Профіль</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5098637981725723477" datatype="html">
+        <source>Чи проведена кластеризація</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8575946961592865712" datatype="html">
+        <source>Область видимості</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2191923080742382714" datatype="html">
+        <source>Область змінювання</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6452921076580837102" datatype="html">
+        <source>Карта точок</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5295068312007428980" datatype="html">
+        <source>Тип алгоритм</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6708366678646868117" datatype="html">
+        <source>Кластеризувати</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7137840017583198039" datatype="html">
+        <source>Цей профіль може змінювати тільки власник!!!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2179861409427596059" datatype="html">
+        <source>скопійовано!!!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5611950590923363066" datatype="html">
+        <source>Цей профіль не був кластеризований!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5334111273559748513" datatype="html">
+        <source>Додати робочий простір</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2726305553293927490" datatype="html">
+        <source>Тип не вибраний</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2319711617243478743" datatype="html">
+        <source>Розмірність не вибрана</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5273008689231133641" datatype="html">
+        <source>Профіль додано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5889548125753018929" datatype="html">
+        <source>Профілів не знайдено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1408346281574205624" datatype="html">
+        <source>Завантажити більше</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3150811829414675474" datatype="html">
+        <source>Встановлений активним</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8604839025446220843" datatype="html">
+        <source>Цей робочий простір ваш</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="297260617216449946" datatype="html">
+        <source>Цей робочий простір видимий для всіх користувачів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="11131337021234870" datatype="html">
+        <source>Цей робочий простір видимий тільки для вас</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6166357056083172239" datatype="html">
+        <source>Цей робочий простір можуть змінювати всі користувачі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9045732835759680979" datatype="html">
+        <source>Цей робочий простір можете змінювати тільки ви</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4774865915317367643" datatype="html">
+        <source>Дата створення</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6342139398645370339" datatype="html">
+        <source>Додати коментарі до робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6803187100320876527" datatype="html">
+        <source>Дата від</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6619521888196637034" datatype="html">
+        <source>Дата до</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="116550855932905309" datatype="html">
+        <source>Максимальна кількість*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4146069456985089741" datatype="html">
+        <source>Додавати за датою відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7503851547892368088" datatype="html">
+        <source>Додавати за датою коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5619517020452396113" datatype="html">
+        <source>Завантажити</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5643207732832847886" datatype="html">
+        <source>Максимальна кількість дорівнює нулю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6489605098110544984" datatype="html">
+        <source>Робочий простір не вибрано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2178409493755486846" datatype="html">
+        <source>Коментарі додано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7163205276577540745" datatype="html">
+        <source>Додати зовнішні дані до робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6922020701533341942" datatype="html">
+        <source>Відкрити файл</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7508033104981753346" datatype="html">
+        <source>Максимальна кількість (у відео)*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4975743197316612633" datatype="html">
+        <source>Жодного відео не вибрано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1248699060068720979" datatype="html">
+        <source>Назва*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7854012179157562271" datatype="html">
+        <source>Назва не може бути пустою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5844297353892093" datatype="html">
+        <source>Максимальна кількість знаків - 100</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3989135862041427033" datatype="html">
+        <source>Опис*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6438037643229387114" datatype="html">
+        <source>Опис не може бути пустим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2116408503759255300" datatype="html">
+        <source>Максимальна кількість знаків - 3000</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3702334917829180786" datatype="html">
+        <source>Робочий простір добавлено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3265095369181567249" datatype="html">
+        <source>Робочий простір</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8248947011230558368" datatype="html">
+        <source>Тип</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3654522135286429285" datatype="html">
+        <source>Кількість елементів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3760879562138298079" datatype="html">
+        <source>Кількість профілів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4985962777524939896" datatype="html">
+        <source>Чи всі дані мають ембедінги</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6839004694667414510" datatype="html">
+        <source>Профілі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="368625233976172370" datatype="html">
+        <source>Дату</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2859017690851821057" datatype="html">
+        <source>Додати профіль</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1321995859419074555" datatype="html">
+        <source>Цей робочий простір може змінювати тільки власник</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9038172587982186421" datatype="html">
+        <source>Завантажити ембедінги</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4404094444055622858" datatype="html">
+        <source>Встановити активним</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2618267646762818855" datatype="html">
+        <source>Завантажити зовнішні дані</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7329981234801377103" datatype="html">
+        <source>Список робочих просторів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2487761398044246468" datatype="html">
+        <source>Робочих просторів не знайдено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3910800232516702478" datatype="html">
+        <source>Тип проекції</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5176552263311101910" datatype="html">
+        <source>Список задач</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tasks/pages/task-list-page/task-list-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3272330537953572308" datatype="html">
+        <source>Оновити</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tasks/pages/task-list-page/task-list-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6314062104122595994" datatype="html">
+        <source>Задач не знайдено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tasks/pages/task-list-page/task-list-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="170455085716308686" datatype="html">
+        <source>Канал вже завантажено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7231033117955498529" datatype="html">
+        <source>Дата останнього завантаження каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3785656184089886480" datatype="html">
+        <source>Дата створення каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2551685343020959370" datatype="html">
+        <source>Кількість підписників</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4994359564911534432" datatype="html">
+        <source>Кількість переглядів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="369262524702975888" datatype="html">
+        <source>Кількість відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5135808584441018966" datatype="html">
+        <source>Загальна кількість відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1933341389296717959" datatype="html">
+        <source>Кількість завантажених відео в систему</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="851704860249856251" datatype="html">
+        <source>Скопійовано!!!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3717216471665144314" datatype="html">
+        <source>Спочатку новіші</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="582237460811147768" datatype="html">
+        <source>Спочатку старіші</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3734902570846882993" datatype="html">
+        <source>Спочатку більше підписників</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7171188994840788212" datatype="html">
+        <source>Спочатку менше підписників</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7540108381763216892" datatype="html">
+        <source>Спочатку більше відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1396995640210279362" datatype="html">
+        <source>Спочатку менше відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4815294273117254299" datatype="html">
+        <source>Спочатку популярніші</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1327550678461473336" datatype="html">
+        <source>Поле для назви пусте!!!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1995795897907816611" datatype="html">
+        <source>Каналів не вибрано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8415250250878399516" datatype="html">
+        <source>Канали завантажено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component.ts</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2100225664328216772" datatype="html">
+        <source>Введіть id каналу...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4603116901314267080" datatype="html">
+        <source>Поле для Id пусте!!!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1610349963124690" datatype="html">
+        <source>Канал завантажено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5402174429039045294" datatype="html">
+        <source>Список завантажених каналів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="593117797960955275" datatype="html">
+        <source>Каналів не знайдено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6200658009155454124" datatype="html">
+        <source>Ютуб канал</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1260053188910362428" datatype="html">
+        <source>Дата останнього завантаження</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8712554464566408708" datatype="html">
+        <source>Завантажені відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1086435298382941916" datatype="html">
+        <source>Шукати нове відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4701716712529877096" datatype="html">
+        <source>Кількість</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9007424668252961576" datatype="html">
+        <source>Завантажити багато відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4040888594176376607" datatype="html">
+        <source>Завантажити багато коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6584596895212402972" datatype="html">
+        <source>Додати коментарі у відео до робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8512425357524478395" datatype="html">
+        <source>Завантажити новий канал</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4067454543997358167" datatype="html">
+        <source>Завантажити по id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7646088105138816395" datatype="html">
+        <source>Завантажити по назві</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5360457106736594826" datatype="html">
+        <source>Завантажити групу коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7401657486855516412" datatype="html">
+        <source>Кількість коментарів *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5528963383480924192" datatype="html">
+        <source>Кількість завантажень дорівнює нулю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8244813114241001260" datatype="html">
+        <source>Задачу створено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1604070763966828430" datatype="html">
+        <source>Завантажити коментарі з каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="980911738288753544" datatype="html">
+        <source>Максимальна кількість в одному відео*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8475294491537756511" datatype="html">
+        <source>Завантажувати за датою відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6938620039193764403" datatype="html">
+        <source>Завантажувати за датою коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1294927383120197269" datatype="html">
+        <source>Максимальна кількість для одного відео дорівнює нулю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1747688332829741683" datatype="html">
+        <source>Завдання створено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="174294117214735711" datatype="html">
+        <source>Завантажити на сервер</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4283916128742556829" datatype="html">
+        <source>Відео не вибрано</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8208897020172247238" datatype="html">
+        <source>Відео завантажено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8522917225433131353" datatype="html">
+        <source>Відео вже завантажено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1516339894359038464" datatype="html">
+        <source>Дата останнього завантаження відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1438618843452272716" datatype="html">
+        <source>Дата створення відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8776120274339843359" datatype="html">
+        <source>Кількість вподобайок</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6437104761009293604" datatype="html">
+        <source>Кількість коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2812581002354792642" datatype="html">
+        <source>Загальна кількість коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1538729116292303901" datatype="html">
+        <source>Кількість завантажених коментарів в систему</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-video-card/youtube-video-card.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="416157096576958800" datatype="html">
+        <source>Спочатку більше коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4220896344095949329" datatype="html">
+        <source>Спочатку менше коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6909841295604668634" datatype="html">
+        <source>Спочатку більше переглядів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2143546435923099666" datatype="html">
+        <source>Спочатку менше переглядів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7732884805219230997" datatype="html">
+        <source>Статистика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1300991634357325663" datatype="html">
+        <source>Завантажити коментарі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="685787176767980137" datatype="html">
+        <source>Завантажити групу відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5918099840039260293" datatype="html">
+        <source>Кількість відео *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3246903287952837668" datatype="html">
+        <source>Мінімальна кількість коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2038112777079591509" datatype="html">
+        <source>Мінімальна кількість переглядів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3417213481137342614" datatype="html">
+        <source>Завантажити нове відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1769998819194969099" datatype="html">
+        <source>Список завантажених відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6651247710767746518" datatype="html">
+        <source>Відео не знайдено</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

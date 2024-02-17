@@ -25,7 +25,7 @@ export class YoutubeChannelCardComponent {
 
     this.clipboard.copy(text);
 
-    this.toastr.success('Скопійовано!!!');
+    this.toastr.success($localize`Скопійовано!!!`);
   }
 
   openFull(){

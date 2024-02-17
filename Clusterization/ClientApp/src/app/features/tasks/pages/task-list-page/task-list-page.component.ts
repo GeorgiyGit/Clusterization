@@ -29,5 +29,4 @@ export class TaskListPageComponent implements OnInit{
       this.toastr.error(error.error.Message);
     });
   }
-
 }

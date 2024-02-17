@@ -13,20 +13,23 @@ import { ISelectAction } from 'src/app/core/models/select-action';
 export class YoutubeFullVideoPageComponent implements OnInit {
   video: ISimpleVideo;
 
-  actions:ISelectAction[]=[
+  dateStr: string = $localize`Дату`;
+  countStr: string = $localize`Кількість`;
+
+  actions: ISelectAction[] = [
     {
-      name:'Завантажити коментарі',
-      action:()=>{
-        this.router.navigate([{outlets: {overflow: 'load-comments-by-video/'+this.video.id}}]);
+      name: $localize`Завантажити коментарі`,
+      action: () => {
+        this.router.navigate([{ outlets: { overflow: 'load-comments-by-video/' + this.video.id } }]);
       },
-      isForAuthorized:true
+      isForAuthorized: true
     }
   ]
 
   isLoading: boolean;
   constructor(private videoService: YoutubeVideoService,
     private route: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard) { }
   ngOnInit(): void {
@@ -35,8 +38,6 @@ export class YoutubeFullVideoPageComponent implements OnInit {
     this.isLoading = true;
     this.videoService.getById(id).subscribe(res => {
       this.video = res;
-      
-      //this.video.videoImageUrl=this.video.channelImageUrl.replace('s88','s240');
 
       this.isLoading = false;
     }, error => {
@@ -50,7 +51,6 @@ export class YoutubeFullVideoPageComponent implements OnInit {
 
     this.clipboard.copy(text);
 
-    this.toastr.success(msg + ' ' + 'скопійовано!!!');
-
+    this.toastr.success(msg + ' ' + $localize`скопійовано!!!`);
   }
 }

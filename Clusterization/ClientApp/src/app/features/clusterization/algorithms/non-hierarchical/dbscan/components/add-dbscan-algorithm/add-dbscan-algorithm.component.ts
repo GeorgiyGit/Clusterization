@@ -38,7 +38,7 @@ export class AddDbscanAlgorithmComponent implements OnInit {
 
     this.dbScanService.add(model).subscribe(res => {
       this.isLoading=false;
-      this.toastr.success('Алгоритм додано');
+      this.toastr.success($localize`Алгоритм додано`);
       this.router.navigate([{ outlets: { overflow: null } }]);
     }, error => {
       this.isLoading=false;

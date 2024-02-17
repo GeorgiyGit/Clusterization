@@ -1,36 +1,36 @@
 <section>
-    <h1>Робочий простір</h1>
+    <h1 i18n>Робочий простір</h1>
     <div class="all-cont">
         <div class="info-cont">
             <div class="text-info-cont" *ngIf="workspace!=null">
-                    <h2 class="title-text">{{workspace.title}} <span class="material-symbols-outlined icon" translate="no" matTooltip="The workspace is your">face</span></h2>
+                <h2 class="title-text">{{workspace.title}} <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір ваш">face</span></h2>
                 <p>{{workspace.description}}</p>
-                <div class="block" (click)="copyToClipboard('Дату',workspace.creationTime+'',$event)">
-                    <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                <div class="block" (click)="copyToClipboard(dateStr,workspace.creationTime+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
                     <p>{{workspace.creationTime | normalizedDateTime}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Тип',workspace.typeName+'',$event)">
-                    <span matTooltip="Тип" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
+                <div class="block" (click)="copyToClipboard(workspaceTypeNameStr,workspace.typeName+'',$event)">
+                    <span i18n-matTooltip matTooltip="Тип" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
                     <p>{{workspace.typeName}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Кількість',workspace.entitiesCount+'',$event)">
-                    <span matTooltip="Кількість елементів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                <div class="block" (click)="copyToClipboard(entitiesCountStr,workspace.entitiesCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість елементів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
                     <p>{{workspace.entitiesCount}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Кількість',workspace.profilesCount+'',$event)">
-                    <span matTooltip="Кількість профілів" class="material-symbols-outlined icon" translate="no">workspaces</span>
+                <div class="block" (click)="copyToClipboard(profilesCountStr,workspace.profilesCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість профілів" class="material-symbols-outlined icon" translate="no">workspaces</span>
                     <p>{{workspace.profilesCount}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Чи всі данні мають ембедінги" class="material-symbols-outlined icon" translate="no">polyline</span>
+                    <span i18n-matTooltip matTooltip="Чи всі дані мають ембедінги" class="material-symbols-outlined icon" translate="no">polyline</span>
                     <p>{{workspace.isAllDataEmbedded}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
                     <p>{{workspace.visibleType}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
                     <p>{{workspace.changingType}}</p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'profiles-list/'+workspace.id">Профілі</li>
+                    <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'profiles-list/'+workspace.id" i18n>Профілі</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

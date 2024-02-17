@@ -74,16 +74,16 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
     }
 
     if(options.maxLoad<=0){
-      this.toaster.error('Максимальна кількість дорівнює нулю');
+      this.toaster.error($localize`Максимальна кількість дорівнює нулю`);
       return;
     }
     if(options.maxLoadForOneVideo<=0){
-      this.toaster.error('Максимальна кількість для одного відео дорівнює нулю');
+      this.toaster.error($localize`Максимальна кількість для одного відео дорівнює нулю`);
       return;
     }
 
     this.commentsService.loadFromChannel(options).subscribe(res=>{
-      this.toaster.success('Завдання створено');
+      this.toaster.success($localize`Завдання створено`);
       this.isLoading=false;
       this.closeOverflow();
     },error=>{

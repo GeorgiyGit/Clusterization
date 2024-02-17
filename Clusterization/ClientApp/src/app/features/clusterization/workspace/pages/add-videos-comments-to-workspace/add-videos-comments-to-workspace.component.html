@@ -3,17 +3,17 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
-        <h1>Додати коментарі до робочого простору</h1>
+        <h1 i18n>Додати коментарі до робочого простору</h1>
 
         <form [formGroup]="optionsForm" (ngSubmit)="load()" class="options-cont">
             <div class="input-cont">
-                <input id="dateFrom" type="date" matTooltip="Дата від" matTooltipPosition="above" formControlName="dateFrom">
+                <input id="dateFrom" type="date" i18n-matTooltip matTooltip="Дата від" matTooltipPosition="above" formControlName="dateFrom">
             </div>
             <div class="input-cont">
-                <input id="dateTo" type="date" matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
+                <input id="dateTo" type="date" i18n-matTooltip matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
             </div>
             <div class="input-cont">
-                <input id="maxCountInVideo" type="number" min="0" step="1" placeholder="Максимальна кількість(у відео)*" formControlName="maxCountInVideo">
+                <input id="maxCountInVideo" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість (у відео)*" formControlName="maxCountInVideo">
             </div>
             <div>
                 <app-youtube-video-list-page
@@ -24,7 +24,7 @@
                     [isSelectOnlyLoaded]="true"></app-youtube-video-list-page>
             </div>
             <div class="centered">
-                <button class="standard-btn" type="submit" *ngIf="!isLoading">Завантажити</button>
+                <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Завантажити</button>
             </div>
         </form>
         </div>

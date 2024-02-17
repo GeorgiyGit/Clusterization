@@ -14,11 +14,11 @@ export class ChangingTypesSelectOptionComponent {
   options: IOptionForSelectInput[] = [
     {
       value:'AllCustomers',
-      description:'Changeable by everyone'
+      description:$localize`Можуть змінювати всі`//Changeable by everyone
     },
     {
       value:'OnlyOwner',
-      description:'Changeable Only By Owner'
+      description:$localize`Може змінювати тільки власник`//Changeable Only By Owner
     }
   ];
 

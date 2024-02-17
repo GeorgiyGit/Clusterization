@@ -2,17 +2,17 @@
     <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
         <div>
             <div class="input-cont">
-                <span class="material-symbols-outlined icon" translate="no" matTooltip="Кількість компонентів">123</span>
-                <input type="number" minlength="1" placeholder="Кількість компонентів *" formControlName="numberOfComponents" id="numberOfComponents">
+                <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Кількість компонентів">123</span>
+                <input type="number" minlength="1" i18n-placeholder placeholder="Кількість компонентів *" formControlName="numberOfComponents" id="numberOfComponents">
             </div>
             <div class="errors" *ngIf="numberOfComponents.invalid && (numberOfComponents.touched)">
-                <p *ngIf="numberOfComponents.errors?.['required']" class="error">Кількість компонентів не може бути пустою</p>
-                <p *ngIf="numberOfComponents.errors?.['minlength']" class="error">Мінімальна кількість - 1</p>
+                <p *ngIf="numberOfComponents.errors?.['required']" class="error" i18n>Кількість компонентів не може бути пустою</p>
+                <p *ngIf="numberOfComponents.errors?.['minlength']" class="error" i18n>Мінімальна кількість - 1</p>
             </div>
         </div>
         <div class="centered">
             <app-loader *ngIf="isLoading"></app-loader>
-            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
         </div>
     </form>
 </section>

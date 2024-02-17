@@ -1,30 +1,30 @@
 <section>
-    <h1>Профіль</h1>
+    <h1 i18n>Профіль</h1>
     <div class="all-cont">
         <div class="info-cont">
             <div class="text-info-cont">
-                <div class="block" (click)="copyToClipboard('Тип алгоритму',profile.algorithmType.name+'',$event)">
-                    <span matTooltip="Тип алгоритму" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
+                <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.algorithmType.name+'',$event)">
+                    <span i18n-matTooltip matTooltip="Тип алгоритму" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
                     <p>{{profile.algorithmType.name}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Кількість вимірів',profile.dimensionCount+'',$event)">
-                    <span matTooltip="Кількість вимірів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                <div class="block" (click)="copyToClipboard(dimensionCountStr,profile.dimensionCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість вимірів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
                     <p>{{profile.dimensionCount}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard('Кількість',profile.clustersCount+'',$event)">
-                    <span matTooltip="Кількість кластерів" class="material-symbols-outlined icon" translate="no">workspaces</span>
+                <div class="block" (click)="copyToClipboard(clustersCountStr,profile.clustersCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість кластерів" class="material-symbols-outlined icon" translate="no">workspaces</span>
                     <p>{{profile.clustersCount}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
+                    <span i18n-matTooltip matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
                     <p>{{profile.isCalculated}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
                     <p>{{profile.visibleType}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
                     <p>{{profile.changingType}}</p>
                 </div>
             </div>
@@ -32,7 +32,7 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" (click)="openMap($event)">Карта точок</li>
+                    <li routerLinkActive="active" (click)="openMap($event)" i18n>Карта точок</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

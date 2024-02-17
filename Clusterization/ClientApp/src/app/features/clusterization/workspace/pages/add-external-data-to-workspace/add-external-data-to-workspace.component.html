@@ -3,17 +3,15 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
-        <h1>Додати зовнішні дані до робочого простору</h1>
+        <h1 i18n>Додати зовнішні дані до робочого простору</h1>
 
         <div class="form-cont">
             <div class="input-cont">
-                <input type="file" id="Externalfile" name="Externalfile" class="ext-input"  (change)="onFileSelected($event)"/>
-                <label for="Externalfile" class="ext-label">
-                    Відкрити файл
-                </label>
+                <input type="file" id="Externalfile" name="Externalfile" class="ext-input" (change)="onFileSelected($event)"/>
+                <label for="Externalfile" class="ext-label" i18n>Відкрити файл</label>
             </div>
             <div class="centered">
-                <button class="standard-btn" [class.disabled-btn]="selectedFile==null" type="submit" (click)="load()" *ngIf="!isLoading">Завантажити</button>
+                <button class="standard-btn" [class.disabled-btn]="selectedFile==null" type="submit" (click)="load()" *ngIf="!isLoading" i18n>Завантажити</button>
             </div>
         </div>
     </div>

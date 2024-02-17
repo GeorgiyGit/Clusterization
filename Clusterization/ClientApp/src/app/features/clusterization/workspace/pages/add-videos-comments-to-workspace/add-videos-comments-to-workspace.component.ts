@@ -72,19 +72,19 @@ export class AddVideosCommentsToWorkspaceComponent implements OnInit{
     let options = this.formValue;
 
     if(options.maxCountInVideo<=0){
-      this.toaster.error('Максимальна кількість дорівнює нулю');
+      this.toaster.error($localize`Максимальна кількість дорівнює нулю`);
       return;
     }
 
     let workspaceId =this.storageService.getSelectedWorkspace();
 
     if(workspaceId==null){
-      this.toaster.error('Робочий простір не вибрано');
+      this.toaster.error($localize`Робочий простір не вибрано`);
       return;
     }
 
     if(this.videos.length==0){
-      this.toaster.error('Жодного відео не вибрано');
+      this.toaster.error($localize`Жодного відео не вибрано`);
       return;
     }
 
@@ -98,7 +98,7 @@ export class AddVideosCommentsToWorkspaceComponent implements OnInit{
     options.workspaceId=workspaceId;
 
     this.workspaceService.addCommentsByVideos(options).subscribe(res=>{
-      this.toaster.success('Коментарі додано');
+      this.toaster.success($localize`Коментарі додано`);
       this.isLoading=false;
       this.closeOverflow();
     },error=>{

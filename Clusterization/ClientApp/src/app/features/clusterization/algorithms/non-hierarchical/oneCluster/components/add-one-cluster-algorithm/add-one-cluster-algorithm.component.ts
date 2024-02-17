@@ -12,7 +12,7 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 })
 export class AddOneClusterAlgorithmComponent implements OnInit {
   algorithmForm: FormGroup = this.fb.group({
-    clusterColor: [, [Validators.required]]
+    clusterColor: ["#000000", [Validators.required]]
   });
 
   get formValue() {
@@ -37,7 +37,7 @@ export class AddOneClusterAlgorithmComponent implements OnInit {
 
     this.oneClusterAlgorithmService.add(model).subscribe(res => {
       this.isLoading=false;
-      this.toastr.success('Алгоритм додано');
+      this.toastr.success($localize`Алгоритм додано`);
       this.router.navigate([{ outlets: { overflow: null } }]);
     }, error => {
       this.isLoading=false;

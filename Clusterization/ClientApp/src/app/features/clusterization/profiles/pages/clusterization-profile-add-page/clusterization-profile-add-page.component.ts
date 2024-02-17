@@ -54,12 +54,12 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
     if (this.isActive == false) return;
 
     if (this.algorithmId == undefined) {
-      this.toaster.error('Тип не вибраний');
+      this.toaster.error($localize`Тип не вибраний`);
       return;
     }
 
     if (this.dimensionTypeId == undefined) {
-      this.toaster.error('Розмірність не вибрана');
+      this.toaster.error($localize`Розмірність не вибрана`);
       return;
     }
 
@@ -74,7 +74,7 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
 
     this.isLoading = true;
     this.profilesService.add(model).subscribe(res => {
-      this.toaster.success('Профіль добавлено');
+      this.toaster.success($localize`Профіль додано`);
       this.isLoading = false;
       this.closeOverflow();
     }, error => {

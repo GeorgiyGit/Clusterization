@@ -1,5 +1,5 @@
 <section>
-    <h1>Список завантажених каналів</h1>
+    <h1 i18n>Список завантажених каналів</h1>
     <div class="mb-10">
         <app-youtube-channels-search-filter (sendEvent)="changeFilter($event)"></app-youtube-channels-search-filter>
     </div>
@@ -7,10 +7,10 @@
         <app-loader></app-loader>
     </div>
     <div class="centered" *ngIf="!isLoading && (channels==null || channels.length==0)">
-        <p class="nothing-text">Каналів не знайдено</p>
+        <p class="nothing-text" i18n>Каналів не знайдено</p>
     </div>
     <app-youtube-channel-list [class.disable]="isLoading" [channels]="channels"></app-youtube-channel-list>
     <div class="centered" *ngIf="isLoadMoreAvailable">
-        <button class="more-btn" (click)="addMore()">Завантажити більше</button>
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
     </div>
 </section>

@@ -16,30 +16,30 @@
             <div class="top-cont">
                 <div class="title-cont">
                     <p class="title" *ngIf="!channel.isLoaded">{{channel.title}}</p>
-                    <p class="title warn" matTooltip="Канал вже завантажено" *ngIf="channel.isLoaded">{{channel.title}}</p>
+                    <p class="title warn" i18n-matTooltip matTooltip="Канал вже завантажено" *ngIf="channel.isLoaded">{{channel.title}}</p>
                     <span class="material-symbols-outlined icon" translate="no"
                         (click)="copyToClipboard(channel.id,$event)">file_copy</span>
                 </div>
                 <div class="my-tooltip">
-                    <span matTooltip="Дата останнього завантаження каналу" *ngIf="channel.isLoaded" class="time-text">{{channel.loadedDate | normalizedDateTime}}</span>
-                    <span matTooltip="Дата створення каналу" *ngIf="!channel.isLoaded && channel.publishedAtDateTimeOffset!=null" class="time-text">{{channel.publishedAtDateTimeOffset | normalizedDateTime}}</span>
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження каналу" *ngIf="channel.isLoaded" class="time-text">{{channel.loadedDate | normalizedDateTime}}</span>
+                    <span i18n-matTooltip matTooltip="Дата створення каналу" *ngIf="!channel.isLoaded && channel.publishedAtDateTimeOffset!=null" class="time-text">{{channel.publishedAtDateTimeOffset | normalizedDateTime}}</span>
                 </div>
             </div>
             <div class="middle-cont">
                 <div class="block" (click)="copyToClipboard(channel.subscriberCount+'',$event)">
-                    <span matTooltip="Кількість підписників" class="material-symbols-outlined icon" translate="no">groups</span>
+                    <span i18n-matTooltip matTooltip="Кількість підписників" class="material-symbols-outlined icon" translate="no">groups</span>
                     <p>{{channel.subscriberCount}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(channel.viewCount+'',$event)">
-                    <span matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <span i18n-matTooltip matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
                     <p>{{channel.viewCount}}</p>
                 </div>
                 <div class="block">
-                    <span matTooltip="Кількість відео" class="material-symbols-outlined icon" translate="no">movie</span>
+                    <span i18n-matTooltip matTooltip="Кількість відео" class="material-symbols-outlined icon" translate="no">movie</span>
                     
-                    <p matTooltip="Загальна кількість відео" class="normal-color-text">{{channel.videoCount}}</p>
+                    <p i18n-matTooltip matTooltip="Загальна кількість відео" class="normal-color-text">{{channel.videoCount}}</p>
                     <span> / </span>
-                    <p matTooltip="Кількість завантажених відео в систему" class="first-color-text">{{channel.loadedVideoCount}}</p>
+                    <p i18n-matTooltip matTooltip="Кількість завантажених відео в систему" class="first-color-text">{{channel.loadedVideoCount}}</p>
                 </div>
             </div>
         </div>

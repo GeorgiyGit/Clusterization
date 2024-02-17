@@ -17,5 +17,4 @@ export class MyTaskService {
   getAll(): Observable<IMyTask[]> {
     return this.http.get<IMyTask[]>(this.controllerUrl + "get_all");
   }
-
 }

@@ -17,28 +17,31 @@ import { AccountService } from 'src/app/features/account/services/account.servic
 export class YoutubeFullChannelPageComponent implements OnInit {
   channel: ISimpleChannel;
 
+  dateStr:string=$localize`Дату`;
+  countStr:string=$localize`Кількість`;
+
   actions: ISelectAction[] = [
     {
-      name: 'Завантажити багато відео',
+      name: $localize`Завантажити багато відео`,
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'load-videos-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
     {
-      name: 'Завантажити багато коментарів',
+      name: $localize`Завантажити багато коментарів`,
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'load-comments-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
     {
-      name: 'Додати коментарі до робочого простору',
+      name: $localize`Додати коментарі до робочого простору`,
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();
 
         if (workspaceId == null) {
-          this.toastr.error('Робочий простір не вибрано');
+          this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
         this.router.navigateByUrl('workspaces/add-comments-by-channel/' + this.channel.id);
@@ -46,12 +49,12 @@ export class YoutubeFullChannelPageComponent implements OnInit {
       isForAuthorized: true
     },
     {
-      name: 'Додати коментарі у відео до робочого простору',
+      name: $localize`Додати коментарі у відео до робочого простору`,
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();
 
         if (workspaceId == null) {
-          this.toastr.error('Робочий простір не вибрано');
+          this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
         this.router.navigateByUrl('workspaces/add-comments-by-videos/' + this.channel.id);
@@ -90,12 +93,12 @@ export class YoutubeFullChannelPageComponent implements OnInit {
 
     this.clipboard.copy(text);
 
-    this.toastr.success(msg + ' ' + 'скопійовано!!!');
+    this.toastr.success(msg + ' ' + $localize`скопійовано!!!`);
   }
 
   openFindNewVideos(event: MouseEvent) {
     if (!this.accountService.isAuthenticated()) {
-      this.toastr.error('You are not authorized!');
+      this.toastr.error($localize`Ви не авторизовані!`);
     }
   }
 }

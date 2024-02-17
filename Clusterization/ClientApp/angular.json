@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "Clusterization": {
+      "i18n": {
+        "sourceLocale": "uk-UA",
+        "locales":{
+          "en-US":"src/locale/messages.en-US.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -21,6 +27,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "progress": false,
+            "localize": [
+              "en-US"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",

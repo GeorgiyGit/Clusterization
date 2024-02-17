@@ -1,9 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'normalizedDateTime'
 })
 export class NormalizedDateTimePipe implements PipeTransform {
+  @Inject(LOCALE_ID) public activeLocale: string;
+
   transform(date:Date): string {
     date = new Date(Date.UTC(
       Number(date.toString().substring(0, 4)),     // Year
@@ -14,7 +16,7 @@ export class NormalizedDateTimePipe implements PipeTransform {
       Number(date.toString().substring(17, 19))    // Seconds
     ));
 
-    return date.toLocaleDateString('uk-UA',{ dateStyle: 'long' });
+    return date.toLocaleDateString(this.activeLocale,{ dateStyle: 'long' });
   }
 
 }

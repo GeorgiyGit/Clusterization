@@ -55,12 +55,12 @@ export class YoutubeLoadAllCommentsPageComponent implements OnInit{
     }
 
     if(options.maxLoad<=0){
-      this.toaster.error('Кількість завантажень дорівнює нулю');
+      this.toaster.error($localize`Кількість завантажень дорівнює нулю`);
       return;
     }
 
     this.commentService.loadFromVideo(options).subscribe(res=>{
-      this.toaster.success('Задачу створено');
+      this.toaster.success($localize`Задачу створено`);
       this.isLoading=false;
       this.closeOverflow();
     },error=>{

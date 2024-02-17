@@ -6,13 +6,13 @@
         <app-loader></app-loader>
     </div>
     <div class="centered" *ngIf="!isLoading && (profiles==null || profiles.length==0)">
-        <p class="nothing-text">Профілів не знайдено</p>
+        <p class="nothing-text" i18n>Профілів не знайдено</p>
     </div>
     <app-clusterization-profile-list [profiles]="profiles" [class.disable]="isLoading"></app-clusterization-profile-list>
     <div class="centered" *ngIf="isLoading2">
         <app-loader></app-loader>
     </div>
     <div class="centered mt-10" *ngIf="isLoadMoreAvailable && !isLoading2">
-        <button class="more-btn" (click)="addMore()">Завантажити більше</button>
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
     </div>
 </section>

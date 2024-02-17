@@ -21,7 +21,7 @@ export class ClusterizationTypesSelectComponent implements OnInit {
       if(this.isNullAvailable==true){
         let nullOption:IOptionForSelectInput={
           value:undefined,
-          description:'Нічого'
+          description:$localize`Нічого`
         }
 
         this.options.push(nullOption);

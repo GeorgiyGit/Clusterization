@@ -23,11 +23,11 @@ export class YoutubeLoadMultipleChannelsComponent {
   options:IOptionForSelectInput[]=[
     {
       value:'Rating',
-      description:'Спочатку популярніші'
+      description:$localize`Спочатку популярніші`
     },
     {
       value:'Date',
-      description:'Спочатку новіші'
+      description:$localize`Спочатку новіші`
     }
   ]
 
@@ -45,7 +45,7 @@ export class YoutubeLoadMultipleChannelsComponent {
   isLoading: boolean = false;
   loadFirst() {
     if (this.value == null || this.value == '') {
-      this.toastrService.error('Поле для назви пусте!!!');
+      this.toastrService.error($localize`Поле для назви пусте!!!`);
       return;
     }
     this.nextPageToken=undefined;
@@ -71,7 +71,7 @@ export class YoutubeLoadMultipleChannelsComponent {
   isLoading2:boolean;
   loadMore() {
     if (this.value == null || this.value == '') {
-      this.toastrService.error('Поле для назви пусте!!!');
+      this.toastrService.error($localize`Поле для назви пусте!!!`);
       return;
     }
     if (this.nextPageToken == undefined) return;
@@ -101,7 +101,7 @@ export class YoutubeLoadMultipleChannelsComponent {
 
   load() {
     if (this.selectedChannels == null || this.selectedChannels.length == 0) {
-      this.toastrService.error('Каналів не вибрано');
+      this.toastrService.error($localize`Каналів не вибрано`);
       return;
     }
 
@@ -117,7 +117,7 @@ export class YoutubeLoadMultipleChannelsComponent {
       this.value = '';
       this.nextPageToken = undefined;
 
-      this.toastrService.success('Канали завантажено');
+      this.toastrService.success($localize`Канали завантажено`);
       this.isLoading = false;
       this.router.navigate([{ outlets: { overflow: null } }]);
     }, error => {

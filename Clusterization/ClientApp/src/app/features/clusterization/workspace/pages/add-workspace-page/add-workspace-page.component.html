@@ -3,28 +3,27 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
-        <h1>Додати робочий простір</h1>
+        <h1 i18n>Додати робочий простір</h1>
         <form action="">
             <form [formGroup]="workspaceForm" (ngSubmit)="submit()">
                 <div>
                     <div class="input-cont">
-                        <input type="text" placeholder="Назва *" formControlName="title" id="title">
+                        <input type="text" i18n-placeholder placeholder="Назва*" formControlName="title" id="title">
                         <span class="material-symbols-outlined icon" translate="no">title</span>
                     </div>
                     <div class="errors" *ngIf="title.invalid && (title.touched)">
-                        <p *ngIf="title.errors?.['required']" class="error">Назва не може бути пустою</p>
-                        <p *ngIf="title.errors?.['maxlength']" class="error">Максимальна кількість знаків - 100</p>
+                        <p *ngIf="title.errors?.['required']" class="error" i18n>Назва не може бути пустою</p>
+                        <p *ngIf="title.errors?.['maxlength']" class="error" i18n>Максимальна кількість знаків - 100</p>
                     </div>
                 </div>
                 <div>
                     <div class="input-cont">
-                        <textarea placeholder="Опис" formControlName="description" id="description"></textarea>
+                        <textarea i18n-placeholder placeholder="Опис*" formControlName="description" id="description"></textarea>
                         <span class="material-symbols-outlined icon" translate="no">description</span>
                     </div>
                     <div class="errors" *ngIf="description.invalid && (description.touched)">
-                        <p *ngIf="description.errors?.['required']" class="error">Опис не може бути пустим</p>
-                        <p *ngIf="description.errors?.['maxlength']" class="error">Максимальна кількість знаків - 3000
-                        </p>
+                        <p *ngIf="description.errors?.['required']" class="error" i18n>Опис не може бути пустим</p>
+                        <p *ngIf="description.errors?.['maxlength']" class="error" i18n>Максимальна кількість знаків - 3000</p>
                     </div>
                 </div>
                 <div>
@@ -39,7 +38,7 @@
                 </div>
                 <div class="centered">
                     <app-loader *ngIf="isLoading"></app-loader>
-                    <button class="standard-btn" type="submit" *ngIf="!isLoading" >Додати</button>
+                    <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
                 </div>
             </form>
         </form>

@@ -2,26 +2,26 @@
     <form [formGroup]="algorithmForm" (ngSubmit)="submit()">
         <div>
             <div class="input-cont">
-                <span class="material-symbols-outlined icon" translate="no" matTooltip="Кількість кластерів">123</span>
-                <input type="number" minlength="1" placeholder="Кількість кластерів *" formControlName="numClusters" id="numClusters">
+                <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Кількість кластерів">123</span>
+                <input type="number" minlength="1" i18n-placeholder placeholder="Кількість кластерів *" formControlName="numClusters" id="numClusters">
             </div>
             <div class="errors" *ngIf="numClusters.invalid && (numClusters.touched)">
-                <p *ngIf="numClusters.errors?.['required']" class="error">Кількість кластерів не може бути пустою</p>
-                <p *ngIf="numClusters.errors?.['minlength']" class="error">Мінімальна кількість - 1</p>
+                <p *ngIf="numClusters.errors?.['required']" class="error" i18n>Кількість кластерів не може бути пустою</p>
+                <p *ngIf="numClusters.errors?.['minlength']" class="error" i18n>Мінімальна кількість - 1</p>
             </div>
         </div>
         <div>
             <div class="input-cont">
-                <span class="material-symbols-outlined icon" translate="no" matTooltip="Зерно">psychiatry</span>
-                <input type="number" minlength="0" placeholder="Зерно *" formControlName="seed" id="seed">
+                <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Зерно">psychiatry</span>
+                <input type="number" minlength="0" i18n-placeholder placeholder="Зерно *" formControlName="seed" id="seed">
             </div>
             <div class="errors" *ngIf="seed.invalid && (seed.touched)">
-                <p *ngIf="seed.errors?.['required']" class="error">Зерно не може бути пустим</p>
+                <p *ngIf="seed.errors?.['required']" class="error" i18n>Зерно не може бути пустим</p>
             </div>
         </div>
         <div class="centered">
             <app-loader *ngIf="isLoading"></app-loader>
-            <button class="standard-btn" type="submit" *ngIf="!isLoading">Додати</button>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
         </div>
     </form>
 </section>

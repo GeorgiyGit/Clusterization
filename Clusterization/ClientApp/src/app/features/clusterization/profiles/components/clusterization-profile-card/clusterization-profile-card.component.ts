@@ -35,7 +35,7 @@ export class ClusterizationProfileCardComponent implements OnInit{
     if(this.profile.isElected)return;
 
     if(!this.isYour){
-      this.toastr.error("The profile is not your!");
+      this.toastr.error($localize`Цей профіль не ваш!`);
       return;
     }
 
@@ -51,7 +51,7 @@ export class ClusterizationProfileCardComponent implements OnInit{
   unelect(event:any){
     if(!this.profile.isElected)return;
     if(!this.isYour){
-      this.toastr.error("The profile is not your!");
+      this.toastr.error($localize`Цей профіль не ваш!`);
       return;
     }
 

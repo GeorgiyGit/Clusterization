@@ -1,5 +1,5 @@
 <section [class.padding]="!isEmbedded">
-    <h1 *ngIf="!isEmbedded">Список завантажених відео</h1>
+    <h1 *ngIf="!isEmbedded" i18n>Список завантажених відео</h1>
     <div class="mb-10">
         <app-youtube-videos-search-filter (sendEvent)="changeFilter($event)"></app-youtube-videos-search-filter>
     </div>
@@ -7,7 +7,7 @@
         <app-loader></app-loader>
     </div>
     <div class="centered" *ngIf="!isLoading && (videos==null || videos.length==0)">
-        <p class="nothing-text">Відео не знайдено</p>
+        <p class="nothing-text" i18n>Відео не знайдено</p>
     </div>
     <app-youtube-video-list 
         [class.disable]="isLoading"
@@ -19,6 +19,6 @@
         <app-loader></app-loader>
     </div>
     <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
-        <button class="more-btn" (click)="addMore()">Завантажити більше</button>
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
     </div>
 </section>

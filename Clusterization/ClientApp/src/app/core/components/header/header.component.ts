@@ -99,11 +99,12 @@ export class HeaderComponent implements OnInit {
     this.accountService.logout();
   }
 
+  notAuthorizedErrorStr=$localize`Ви не авторизовані!`;
   openLoadChannel(event:MouseEvent){
     event.stopPropagation();
 
     if(!this.accountService.isAuthenticated()){
-      this.toaster.error('You are not authorized!');
+      this.toaster.error(this.notAuthorizedErrorStr);
     }
 
     this.router.navigate([{ outlets: { overflow: 'load-channel' } }]);
@@ -113,7 +114,7 @@ export class HeaderComponent implements OnInit {
     event.stopPropagation();
 
     if(!this.accountService.isAuthenticated()){
-      this.toaster.error('You are not authorized!');
+      this.toaster.error(this.notAuthorizedErrorStr);
     }
 
     this.router.navigate([{ outlets: { overflow: 'algorithms/add' } }]);
