@@ -1,14 +1,17 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
+using Domain.Entities.Customers;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Entities.ExternalData;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
 using Infrastructure.Builders;
+using Infrastructure.Builders.Customers;
 using Infrastructure.Builders.Youtube;
 using Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class ClusterizationDbContext:DbContext
+    public class ClusterizationDbContext : IdentityDbContext<Customer>
     {
         #region Youtube
         public virtual DbSet<Comment> Comments { get; set; }
@@ -86,6 +89,7 @@ namespace Infrastructure
             VideoBuilder.VideoBuild(modelBuilder.Entity<Video>());
             ChannelBuilder.ChannelBuild(modelBuilder.Entity<Channel>());
             ExternalDataBuilder.ExternalObjectsBuilder(modelBuilder.Entity<ExternalObject>());
+            CustomerBuilder.CustomerBuild(modelBuilder.Entity<Customer>());
 
             Seed(modelBuilder);
         }

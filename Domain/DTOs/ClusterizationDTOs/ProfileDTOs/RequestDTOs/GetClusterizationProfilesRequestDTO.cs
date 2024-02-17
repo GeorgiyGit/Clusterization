@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+﻿using Domain.Resources.Types;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

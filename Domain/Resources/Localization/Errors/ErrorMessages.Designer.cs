@@ -133,6 +133,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не всі дані вбудовані.
+        /// </summary>
+        public static string NotAllDataEmbedded {
+            get {
+                return ResourceManager.GetString("NotAllDataEmbedded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Такий самий профіль уже завантажено.
         /// </summary>
         public static string ProfileAlreadyExist {
@@ -174,6 +183,60 @@ namespace Domain.Resources.Localization.Errors {
         public static string TilesLevelNotFound {
             get {
                 return ResourceManager.GetString("TilesLevelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Користувач із таким email вже існує.
+        /// </summary>
+        public static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви не зареєстровані, електронна адреса неправильна.
+        /// </summary>
+        public static string UserBadEmail {
+            get {
+                return ResourceManager.GetString("UserBadEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неправильний пароль.
+        /// </summary>
+        public static string UserBadPassword {
+            get {
+                return ResourceManager.GetString("UserBadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to При створенні користувача виникла помилка.
+        /// </summary>
+        public static string UserCreationFailed {
+            get {
+                return ResourceManager.GetString("UserCreationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ім&apos;я користувача не підходить.
+        /// </summary>
+        public static string UserNameNotValid {
+            get {
+                return ResourceManager.GetString("UserNameNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Користувач не зарєєстрований.
+        /// </summary>
+        public static string UserNotAuthorized {
+            get {
+                return ResourceManager.GetString("UserNotAuthorized", resourceCulture);
             }
         }
         

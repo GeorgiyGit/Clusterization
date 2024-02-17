@@ -35,6 +35,11 @@ namespace Infrastructure.Builders.Youtube
             modelBuilder.HasMany(e => e.ClusterizationEntities)
                         .WithOne(e => e.Comment)
                         .HasForeignKey(e => e.CommentId);
+
+
+            modelBuilder.HasOne(e => e.Loader)
+                        .WithMany(e => e.Comments)
+                        .HasForeignKey(e => e.LoaderId);
         }
     }
 }

@@ -46,16 +46,12 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
     this.workspaceId = this.route.snapshot.params['workspaceId'];
   }
 
+  visibleType:string='AllCustomers';
+  changingType:string='AllCustomers';
+
   isLoading: boolean;
   submit() {
     if (this.isActive == false) return;
-
-    var model: IAddClusterizationProfile = {
-      algorithmId: this.algorithmId,
-      workspaceId: this.workspaceId,
-      dimensionCount: this.dimensionTypeId,
-      DRTechniqueId:this.DRTechniqueId
-    };
 
     if (this.algorithmId == undefined) {
       this.toaster.error('Тип не вибраний');
@@ -66,6 +62,15 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
       this.toaster.error('Розмірність не вибрана');
       return;
     }
+
+    var model: IAddClusterizationProfile = {
+      algorithmId: this.algorithmId,
+      workspaceId: this.workspaceId,
+      dimensionCount: this.dimensionTypeId,
+      DRTechniqueId:this.DRTechniqueId,
+      visibleType:this.visibleType,
+      changingType:this.changingType
+    };
 
     this.isLoading = true;
     this.profilesService.add(model).subscribe(res => {
@@ -108,6 +113,13 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
     else {
       this.isActive = false;
     }
+  }
+
+  changeVisibleType(type:string){
+    this.visibleType=type;
+  }
+  changeChangingType(type:string){
+    this.changingType=type;
   }
 
   closeOverflow() {

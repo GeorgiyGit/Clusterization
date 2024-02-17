@@ -7,6 +7,7 @@ using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Interfaces;
+using Domain.Interfaces.Customers;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Resources.Localization.Errors;
@@ -43,6 +44,7 @@ namespace Domain.Services.Youtube
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IUserService _userService;
         public YoutubeCommentsService(IRepository<Entities.Youtube.Comment> repository,
                                       IConfiguration configuration,
                                       IPrivateYoutubeChannelsService privateChannelService,
@@ -53,7 +55,8 @@ namespace Domain.Services.Youtube
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMyTasksService taskService,
                                       IBackgroundJobClient backgroundJobClient,
-                                      IRepository<Entities.Youtube.Video> videos_repository)
+                                      IRepository<Entities.Youtube.Video> videos_repository,
+                                      IUserService userService)
         {
             this.repository = repository;
             this.privateChannelService = privateChannelService;
@@ -65,6 +68,7 @@ namespace Domain.Services.Youtube
             this.taskService = taskService;
             this.backgroundJobClient = backgroundJobClient;
             this.videos_repository = videos_repository;
+            _userService = userService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -79,9 +83,12 @@ namespace Domain.Services.Youtube
         #region load
         public async Task LoadFromVideo(LoadOptions options)
         {
-            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options,userId));
         }
-        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options)
+        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options, string userId)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;
@@ -174,6 +181,8 @@ namespace Domain.Services.Youtube
                             UpdatedAtRaw = comment.Snippet.TopLevelComment.Snippet.UpdatedAtRaw
                         };
 
+                        newComment.LoaderId = userId;
+
                         await repository.AddAsync(newComment);
                         i++;
 
@@ -212,9 +221,12 @@ namespace Domain.Services.Youtube
 
         public async Task LoadFromChannel(LoadCommentsByChannelOptions options)
         {
-            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId));
         }
-        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options)
+        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options, string userId)
         {
             string channelId= options.ParentId;
             if ((await privateChannelService.GetById(channelId)) == null) return;
@@ -315,6 +327,8 @@ namespace Domain.Services.Youtube
                                 UpdatedAtDateTimeOffset = (DateTimeOffset)comment.Snippet.TopLevelComment.Snippet.UpdatedAtDateTimeOffset,
                                 UpdatedAtRaw = comment.Snippet.TopLevelComment.Snippet.UpdatedAtRaw
                             };
+                            newComment.LoaderId = userId;
+
                             if (comment.Snippet.TopLevelComment.Snippet.AuthorChannelId != null)
                             {
                                 newComment.AuthorChannelId = comment.Snippet.TopLevelComment.Snippet.AuthorChannelId.Value;

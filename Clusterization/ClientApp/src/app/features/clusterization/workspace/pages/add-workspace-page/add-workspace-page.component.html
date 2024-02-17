@@ -31,6 +31,12 @@
                     <app-clusterization-types-select
                         (sendEvent)="changeTypeId($event)"></app-clusterization-types-select>
                 </div>
+                <div>
+                    <app-visible-types-select-option (sendEvent)="changeVisibleType($event)"></app-visible-types-select-option>
+                </div>
+                <div>
+                    <app-changing-types-select-option (sendEvent)="changeChangingType($event)"></app-changing-types-select-option>
+                </div>
                 <div class="centered">
                     <app-loader *ngIf="isLoading"></app-loader>
                     <button class="standard-btn" type="submit" *ngIf="!isLoading" >Додати</button>

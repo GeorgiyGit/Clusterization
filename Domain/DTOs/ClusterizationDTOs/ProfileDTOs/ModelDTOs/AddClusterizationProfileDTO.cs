@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Resources.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,8 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public string DRTechniqueId { get; set; }
         public int DimensionCount { get; set; }
         public int WorkspaceId { get; set; }
+
+        public string VisibleType { get; set; } = VisibleTypes.AllCustomers;
+        public string ChangingType { get; set; } = ChangingTypes.AllCustomers;
     }
 }

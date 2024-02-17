@@ -7,6 +7,7 @@ using Domain.DTOs.YoutubeDTOs.VideoDTOs;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
+using Domain.Interfaces.Customers;
 using Domain.Interfaces.Youtube;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
@@ -31,14 +32,17 @@ namespace Domain.Services.Youtube
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
+        private readonly IUserService _userService;
         public YoutubeChannelsService(IRepository<Entities.Youtube.Channel> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
-                                     IMapper mapper)
+                                     IMapper mapper,
+                                     IUserService userService)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
+            _userService = userService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -92,6 +96,10 @@ namespace Domain.Services.Youtube
                     LoadedDate = DateTime.UtcNow
                 };
 
+                var userId = await _userService.GetCurrentUserId();
+                if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+                newChannel.LoaderId = userId;
+
                 try
                 {
                     newChannel.PublishedAtDateTimeOffset = (DateTimeOffset)channel.Snippet.PublishedAtDateTimeOffset;
@@ -114,6 +122,9 @@ namespace Domain.Services.Youtube
         }
         public async Task LoadManyByIds(ICollection<string> ids)
         {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
             while (ids.Count() > 0)
             {
                 // Create the videos request to retrieve video statistics and tags
@@ -148,6 +159,8 @@ namespace Domain.Services.Youtube
                         ViewCount = (long)channel.Statistics.ViewCount,
                         LoadedDate = DateTime.UtcNow
                     };
+
+                    newChannel.LoaderId = userId;
 
                     try
                     {

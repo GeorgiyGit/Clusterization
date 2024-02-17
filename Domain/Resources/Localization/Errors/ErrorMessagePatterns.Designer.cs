@@ -133,6 +133,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NotAllDataEmbedded.
+        /// </summary>
+        public static string NotAllDataEmbedded {
+            get {
+                return ResourceManager.GetString("NotAllDataEmbedded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ProfileAlreadyExist.
         /// </summary>
         public static string ProfileAlreadyExist {
@@ -174,6 +183,60 @@ namespace Domain.Resources.Localization.Errors {
         public static string TilesLevelNotFound {
             get {
                 return ResourceManager.GetString("TilesLevelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserAlreadyExists.
+        /// </summary>
+        public static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserBadEmail.
+        /// </summary>
+        public static string UserBadEmail {
+            get {
+                return ResourceManager.GetString("UserBadEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserBadPassword.
+        /// </summary>
+        public static string UserBadPassword {
+            get {
+                return ResourceManager.GetString("UserBadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserCreationFailed.
+        /// </summary>
+        public static string UserCreationFailed {
+            get {
+                return ResourceManager.GetString("UserCreationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserNameNotValid.
+        /// </summary>
+        public static string UserNameNotValid {
+            get {
+                return ResourceManager.GetString("UserNameNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserNotAuthorized.
+        /// </summary>
+        public static string UserNotAuthorized {
+            get {
+                return ResourceManager.GetString("UserNotAuthorized", resourceCulture);
             }
         }
         

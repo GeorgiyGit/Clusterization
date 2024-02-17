@@ -11,6 +11,7 @@ import { KMeansService } from '../../../algorithms/non-hierarchical/k-means/serv
 import { DbscanService } from '../../../algorithms/non-hierarchical/dbscan/services/dbscan.service';
 import { SpectralClusteringService } from '../../../algorithms/non-hierarchical/spectral-clustering/services/spectral-clustering.service';
 import { GaussianMixtureService } from '../../../algorithms/non-hierarchical/gaussian-mixture/services/gaussian-mixture.service';
+import { AccountService } from 'src/app/features/account/services/account.service';
 
 @Component({
   selector: 'app-clusterization-full-profile-page',
@@ -20,65 +21,72 @@ import { GaussianMixtureService } from '../../../algorithms/non-hierarchical/gau
 export class ClusterizationFullProfilePageComponent implements OnInit {
   profile: IClusterizationProfile;
 
-  actions:ISelectAction[]=[
+  actions: ISelectAction[] = [
     {
-      name:'Кластеризувати',
-      action:()=>{
-        switch(this.profile.algorithmType.id){
-          case 'KMeans':
-            this.kMeansService.clusterData(this.profile.id).subscribe(res=>{
-            },error=>{
-              this.toastr.error(error.error.Message);
-            });
-          break;
-          case 'OneCluster':
-            this.oneClusterService.clusterData(this.profile.id).subscribe(res=>{
-            },error=>{
-              this.toastr.error(error.error.Message);
-            });
-          break;
-          case 'DBScan':
-            this.dbScanService.clusterData(this.profile.id).subscribe(res=>{
-            },error=>{
-              this.toastr.error(error.error.Message);
-            });
-          break;
-          case 'SpectralClustering':
-            this.spectralClusteringService.clusterData(this.profile.id).subscribe(res=>{
-            },error=>{
-              this.toastr.error(error.error.Message);
-            });
-          break;
-          case 'GaussianMixture':
-            this.gaussianMixtureService.clusterData(this.profile.id).subscribe(res=>{
-            },error=>{
-              this.toastr.error(error.error.Message);
-            });
-          break;
+      name: 'Кластеризувати',
+      action: () => {
+        let userId = this.accountService.getUserId();
+        if (this.profile.changingType === 'OnlyOwner' && (userId == null || userId != this.profile.ownerId)) {
+          this.toastr.error("The workspace is only changeable by owner");
+          return;
         }
-      }
+
+        switch (this.profile.algorithmType.id) {
+          case 'KMeans':
+            this.kMeansService.clusterData(this.profile.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+            break;
+          case 'OneCluster':
+            this.oneClusterService.clusterData(this.profile.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+            break;
+          case 'DBScan':
+            this.dbScanService.clusterData(this.profile.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+            break;
+          case 'SpectralClustering':
+            this.spectralClusteringService.clusterData(this.profile.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+            break;
+          case 'GaussianMixture':
+            this.gaussianMixtureService.clusterData(this.profile.id).subscribe(res => {
+            }, error => {
+              this.toastr.error(error.error.Message);
+            });
+            break;
+        }
+      },
+      isForAuthorized: true
     }
   ]
 
   isLoading: boolean;
   constructor(private profilesService: ClusterizationProfilesService,
     private route: ActivatedRoute,
-    private oneClusterService:OneClusterAlgorithmService,
-    private dbScanService:DbscanService,
-    private spectralClusteringService:SpectralClusteringService,
-    private gaussianMixtureService:GaussianMixtureService,
-    private router:Router,
+    private oneClusterService: OneClusterAlgorithmService,
+    private dbScanService: DbscanService,
+    private spectralClusteringService: SpectralClusteringService,
+    private gaussianMixtureService: GaussianMixtureService,
+    private router: Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,
-    private myLocalStorage:MyLocalStorageService,
-    private kMeansService:KMeansService) { }
+    private accountService: AccountService,
+    private kMeansService: KMeansService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 
     this.isLoading = true;
     this.profilesService.getFullById(id).subscribe(res => {
       this.profile = res;
-      
+
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
@@ -92,5 +100,13 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
     this.clipboard.copy(text);
 
     this.toastr.success(msg + ' ' + 'скопійовано!!!');
+  }
+  openMap(event: MouseEvent) {
+    if (!this.profile.isCalculated) {
+      this.toastr.error("The profile was not clustered");
+      return;
+    }
+
+    this.router.navigateByUrl('profiles/full/' + this.profile.id + '/profile-points-map/' + this.profile.id);
   }
 }

@@ -21,6 +21,10 @@ namespace Infrastructure.Builders.Youtube
             modelBuilder.HasMany(e => e.Videos)
                         .WithOne(e => e.Channel)
                         .HasForeignKey(e => e.ChannelId);
+
+            modelBuilder.HasOne(e => e.Loader)
+                        .WithMany(e => e.Channels)
+                        .HasForeignKey(e => e.LoaderId);
         }
     }
 }

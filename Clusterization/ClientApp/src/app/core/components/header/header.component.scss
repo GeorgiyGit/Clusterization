@@ -36,6 +36,11 @@ header {
                 app-open-notifications-btn {
                     height: 100%;
                 }
+
+                a{
+                    text-decoration: none;
+                    color: $first-color-3;
+                }
             }
         }
 

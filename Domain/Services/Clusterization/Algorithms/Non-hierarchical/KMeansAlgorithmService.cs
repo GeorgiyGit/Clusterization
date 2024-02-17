@@ -103,9 +103,15 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
         public async Task ClusterData(int profileId)
         {
+            await WorkspaceVerification(profileId);
+
             backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId));
         }
-
+        public async Task WorkspaceVerification(int profileId)
+        {
+            var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+            if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+        }
         public async Task ClusterDataBackgroundJob(int profileId)
         {
             var taskId = await taskService.CreateTask("Кластеризація (k-Means)");

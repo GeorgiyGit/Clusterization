@@ -4,6 +4,7 @@ using Domain.DTOs.YoutubeDTOs.ChannelDTOs;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Entities.Youtube;
 using Domain.Exceptions;
+using Domain.Interfaces.Customers;
 using Domain.Mappers;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
@@ -92,10 +93,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -129,10 +133,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -167,10 +174,13 @@ namespace Clusterization.Tests.Controllers.Youtube
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          configuration,
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -204,10 +214,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -238,10 +251,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -267,10 +283,13 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
+
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -315,10 +334,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -364,10 +385,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -412,10 +435,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -461,10 +486,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -509,10 +536,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -558,10 +587,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);
@@ -605,10 +636,12 @@ namespace Clusterization.Tests.Controllers.Youtube
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<ChannelProfile>());
             var mapper = new Mapper(configuration);
 
+            var userService = A.Fake<IUserService>();
             var channelService = new YoutubeChannelsService(channelRepository,
                                                          A.Fake<IStringLocalizer<ErrorMessages>>(),
                                                          A.Fake<IConfiguration>(),
-                                                         mapper);
+                                                         mapper,
+                                                         userService);
 
 
             var controller = new ChannelsController(channelService);

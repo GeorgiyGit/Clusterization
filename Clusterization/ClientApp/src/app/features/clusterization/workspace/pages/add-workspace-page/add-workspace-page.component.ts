@@ -30,6 +30,8 @@ export class AddWorkspacePageComponent implements OnInit {
   });
 
   typeId: string;
+  visibleType:string='AllCustomers';
+  changingType:string='AllCustomers';
 
   get formValue() {
     return this.workspaceForm.value as IAddClusterizationWorkspace;
@@ -57,6 +59,8 @@ export class AddWorkspacePageComponent implements OnInit {
     }
 
     model.typeId = this.typeId;
+    model.visibleType=this.visibleType;
+    model.changingType=this.changingType;
 
     this.isLoading = true;
     this.workspaceService.add(model).subscribe(res => {
@@ -71,6 +75,13 @@ export class AddWorkspacePageComponent implements OnInit {
 
   changeTypeId(id: string) {
     this.typeId = id;
+  }
+
+  changeVisibleType(type:string){
+    this.visibleType=type;
+  }
+  changeChangingType(type:string){
+    this.changingType=type;
   }
 
   closeOverflow() {

@@ -1,4 +1,5 @@
-﻿using Domain.Entities.DimensionalityReduction;
+﻿using Domain.Entities.Customers;
+using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.ExternalData;
 using Domain.Entities.Youtube;
 using System;
@@ -32,5 +33,11 @@ namespace Domain.Entities.Clusterization
         public int EntitiesCount { get; set; }
 
         public ICollection<ClusterizationWorkspaceDRTechnique> ClusterizationWorkspaceDRTechniques { get; set; } = new HashSet<ClusterizationWorkspaceDRTechnique>();
+    
+        public string VisibleType { get; set; }
+        public string ChangingType { get; set; }
+
+        public Customer Owner { get; set; }
+        public string OwnerId { get; set; }
     }
 }

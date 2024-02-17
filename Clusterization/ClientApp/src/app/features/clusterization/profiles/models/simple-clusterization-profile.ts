@@ -9,5 +9,9 @@ export interface ISimpleClusterizationProfile{
 
     fullTitle:string,
 
-    isElected:boolean
+    isElected:boolean,
+
+    visibleType:string,
+    changingType:string,
+    ownerId:string
 }

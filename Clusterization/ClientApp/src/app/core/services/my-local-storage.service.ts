@@ -5,17 +5,29 @@ import { Injectable } from '@angular/core';
 })
 export class MyLocalStorageService {
 
-  workspaceName:'selected_workspace';
+  workspaceName: 'selectedworkspace';
+  userTokenName: 'usertoken';
   constructor() { }
 
-  setSelectedWorkspace(id:number){
-    localStorage.setItem(this.workspaceName,id+"");
+  setSelectedWorkspace(id: number) {
+    localStorage.setItem("selectedworkspace", id + "");
   }
-  getSelectedWorkspace():number | undefined{
-    let id = localStorage.getItem(this.workspaceName);
+  getSelectedWorkspace(): number | undefined {
+    let id = localStorage.getItem("selectedworkspace");
 
-    if(id==null)return undefined;
+    if (id == null) return undefined;
 
     return parseInt(id);
+  }
+
+  setUserToken(token: string) {
+    console.log(token,this.userTokenName);
+    localStorage.setItem("usertoken", token);
+  }
+  getUserToken(): string | null {
+    return localStorage.getItem("usertoken");
+  }
+  removeUserToken(){
+    localStorage.removeItem("usertoken");
   }
 }

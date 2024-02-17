@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Interfaces.Youtube;
 using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Youtube
@@ -17,6 +18,7 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_by_id/{id}")]
+        [Authorize]
         public async Task<IActionResult> LoadById([FromRoute] string id)
         {
             await service.LoadById(id);
@@ -24,6 +26,7 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_from_channel")]
+        [Authorize]
         public async Task<IActionResult> LoadFromChannel([FromBody] LoadOptions options)
         {
             await service.LoadFromChannel(options);
@@ -31,6 +34,7 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_many_by_ids")]
+        [Authorize]
         public async Task<IActionResult> LoadManyByIds([FromBody] LoadManyByIdsRequest request)
         {
             await service.LoadManyByIds(request.Ids);
@@ -50,6 +54,7 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("get_without_loading")]
+        [Authorize]
         public async Task<IActionResult> GetWithoutLoading([FromBody] GetWithoutLoadingRequest request)
         {
             return Ok(await service.GetCollectionWithoutLoadingByName(request.Name, request.NextPageToken, request.ChannelId, request.FilterType));

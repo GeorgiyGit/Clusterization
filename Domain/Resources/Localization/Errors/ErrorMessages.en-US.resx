@@ -141,6 +141,9 @@
   <data name="JobIsAlreadyInQueue" xml:space="preserve">
     <value>Similar job is already in queue</value>
   </data>
+  <data name="NotAllDataEmbedded" xml:space="preserve">
+    <value>Not All Data Embedded</value>
+  </data>
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>The same profile is already loaded</value>
   </data>
@@ -155,6 +158,24 @@
   </data>
   <data name="TilesLevelNotFound" xml:space="preserve">
     <value>Tiles level not found</value>
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>User already exists</value>
+  </data>
+  <data name="UserBadEmail" xml:space="preserve">
+    <value>You are not registered, the email is incorrect</value>
+  </data>
+  <data name="UserBadPassword" xml:space="preserve">
+    <value>Wrong password</value>
+  </data>
+  <data name="UserCreationFailed" xml:space="preserve">
+    <value>An error occurred while creating the user</value>
+  </data>
+  <data name="UserNameNotValid" xml:space="preserve">
+    <value>User name not valid</value>
+  </data>
+  <data name="UserNotAuthorized" xml:space="preserve">
+    <value>User not authorized</value>
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Workspace not found</value>

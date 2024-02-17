@@ -7,6 +7,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ISelectAction } from 'src/app/core/models/select-action';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
+import { AccountService } from 'src/app/features/account/services/account.service';
 
 @Component({
   selector: 'app-youtube-full-channel-page',
@@ -21,13 +22,15 @@ export class YoutubeFullChannelPageComponent implements OnInit {
       name: 'Завантажити багато відео',
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'load-videos-by-channel/' + this.channel.id } }]);
-      }
+      },
+      isForAuthorized: true
     },
     {
       name: 'Завантажити багато коментарів',
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'load-comments-by-channel/' + this.channel.id } }]);
-      }
+      },
+      isForAuthorized: true
     },
     {
       name: 'Додати коментарі до робочого простору',
@@ -39,7 +42,8 @@ export class YoutubeFullChannelPageComponent implements OnInit {
           return;
         }
         this.router.navigateByUrl('workspaces/add-comments-by-channel/' + this.channel.id);
-      }
+      },
+      isForAuthorized: true
     },
     {
       name: 'Додати коментарі у відео до робочого простору',
@@ -51,7 +55,8 @@ export class YoutubeFullChannelPageComponent implements OnInit {
           return;
         }
         this.router.navigateByUrl('workspaces/add-comments-by-videos/' + this.channel.id);
-      }
+      },
+      isForAuthorized: true
     }
   ]
 
@@ -62,7 +67,8 @@ export class YoutubeFullChannelPageComponent implements OnInit {
     private router: Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,
-    private storageService: MyLocalStorageService) { }
+    private storageService: MyLocalStorageService,
+    private accountService: AccountService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 
@@ -85,6 +91,11 @@ export class YoutubeFullChannelPageComponent implements OnInit {
     this.clipboard.copy(text);
 
     this.toastr.success(msg + ' ' + 'скопійовано!!!');
+  }
 
+  openFindNewVideos(event: MouseEvent) {
+    if (!this.accountService.isAuthenticated()) {
+      this.toastr.error('You are not authorized!');
+    }
   }
 }

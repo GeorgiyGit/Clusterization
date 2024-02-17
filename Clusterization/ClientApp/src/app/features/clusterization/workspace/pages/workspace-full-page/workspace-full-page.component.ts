@@ -6,6 +6,7 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { ISelectAction } from 'src/app/core/models/select-action';
+import { AccountService } from 'src/app/features/account/services/account.service';
 
 @Component({
   selector: 'app-workspace-full-page',
@@ -23,7 +24,8 @@ export class WorkspaceFullPageComponent implements OnInit {
     private router: Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,
-    private myLocalStorage: MyLocalStorageService) { }
+    private myLocalStorage: MyLocalStorageService,
+    private accountService:AccountService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 
@@ -35,17 +37,31 @@ export class WorkspaceFullPageComponent implements OnInit {
         {
           name: 'Додати профіль',
           action: () => {
+            let userId = this.accountService.getUserId();
+            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
+              this.toastr.error("The workspace is only changeable by owner");
+              return;
+            }
+
             this.router.navigate([{ outlets: { overflow: 'profiles/add/' + this.workspace.id } }]);
-          }
+          },
+          isForAuthorized:true
         },
         {
           name: 'Завантажити ембедінги',
           action: () => {
+            let userId = this.accountService.getUserId();
+            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
+              this.toastr.error("The workspace is only changeable by owner");
+              return;
+            }
+
             this.workspaceService.embeddingData(this.workspace.id).subscribe(res => {
             }, error => {
               this.toastr.error(error.error.Message);
             });
-          }
+          },
+          isForAuthorized:true
         }
       ];
 
@@ -55,16 +71,28 @@ export class WorkspaceFullPageComponent implements OnInit {
         this.actions.push({
           name: 'Встановити активним',
           action: () => {
+            let userId = this.accountService.getUserId();
+            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
+              this.toastr.error("The workspace is only changeable by owner");
+              return;
+            }
             this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
-          }
+          },
+          isForAuthorized:true
         });
       }
       if (this.workspace.typeId == 'External') {
         this.actions.push({
           name: 'Завантажити зовнішні дані',
           action: () => {
+            let userId = this.accountService.getUserId();
+            if(this.workspace.changingType==='OnlyOwner' && (userId==null || userId!=this.workspace.ownerId)){
+              this.toastr.error("The workspace is only changeable by owner");
+              return;
+            }
             this.router.navigate([{ outlets: { overflow: 'workspace/add-external-data/' + this.workspace.id } }]);
-          }
+          },
+          isForAuthorized:true
         });
       }
 

@@ -4,25 +4,17 @@ using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Customers;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
-using Domain.Services.TaskServices;
 using Hangfire;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Domain.Services.Embeddings
@@ -38,6 +30,7 @@ namespace Domain.Services.Embeddings
         private readonly IEmbeddingsService embeddingsService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
+        private readonly IUserService _userService;
 
         private readonly string apiKey;
 
@@ -53,7 +46,8 @@ namespace Domain.Services.Embeddings
                                      IEmbeddingsService embeddingsService,
                                      IBackgroundJobClient backgroundJobClient,
                                      IMyTasksService taskService,
-                                     IRepository<ClusterizationEntity> entities_repository)
+                                     IRepository<ClusterizationEntity> entities_repository,
+                                     IUserService userService)
         {
             this.comment_repository = comment_repository;
             this.externalObjects_repository = externalObjects_repository;
@@ -62,6 +56,7 @@ namespace Domain.Services.Embeddings
             this.localizer = localizer;
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
+            _userService = userService;
 
             var openAIOptions = configuration.GetSection("OpenAIOptions");
 
@@ -71,13 +66,17 @@ namespace Domain.Services.Embeddings
         }
         public async Task LoadEmbeddingsByWorkspace(int workspaceId)
         {
-            backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId, userId));
         }
-        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId)
+        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId, string userId)
         {
+
             var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Entities)}")).FirstOrDefault();
 
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+            if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId)) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
             if (workspace.IsAllDataEmbedded) return;
 

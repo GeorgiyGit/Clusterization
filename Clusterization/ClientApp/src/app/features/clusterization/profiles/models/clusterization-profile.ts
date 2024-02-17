@@ -17,5 +17,9 @@ export interface IClusterizationProfile{
     maxTileLevel:number,
     dimensionalityReductionTechnique:IDimensionalityReductionTechnique,
 
-    isElected:boolean
+    isElected:boolean,
+
+    visibleType:string,
+    changingType:string,
+    ownerId:string
 }

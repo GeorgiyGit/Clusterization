@@ -30,6 +30,7 @@ using System.Xml.Linq;
 using Hangfire.Common;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using Domain.Interfaces.Customers;
 
 namespace Domain.Services.Youtube
 {
@@ -43,6 +44,7 @@ namespace Domain.Services.Youtube
         private readonly IMapper mapper;
         private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IUserService _userService;
         public YoutubeVideosService(IRepository<Entities.Youtube.Video> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
@@ -50,7 +52,8 @@ namespace Domain.Services.Youtube
                                      IYoutubeChannelsService youtubeChannelService,
                                      IMapper mapper,
                                      IMyTasksService taskService,
-                                     IBackgroundJobClient backgroundJobClient)
+                                     IBackgroundJobClient backgroundJobClient,
+                                     IUserService userService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -58,6 +61,7 @@ namespace Domain.Services.Youtube
             this.youtubeChannelService = youtubeChannelService;
             this.mapper = mapper;
             this.taskService = taskService;
+            _userService = userService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -72,9 +76,12 @@ namespace Domain.Services.Youtube
         #region load
         public async Task LoadFromChannel(DTOs.YoutubeDTOs.Requests.LoadOptions options)
         {
-            backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options, userId));
         }
-        public async Task LoadFromChannelBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options)
+        public async Task LoadFromChannelBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options, string userId)
         {
             string channelId = options.ParentId;
 
@@ -100,18 +107,6 @@ namespace Domain.Services.Youtube
                 {
                     var searchRequest = youtubeService.PlaylistItems.List("snippet");
 
-                    //var newChannelId = "UU" + channelId.Remove(0, 2);
-                    // Set the channelId to load videos from the specific channel
-                    //searchRequest.PlaylistId = newChannelId;
-                    // Set the order to retrieve videos by date (you can change this as needed)
-                    //searchRequest. = SearchResource.ListRequest.OrderEnum.Date;
-
-                    //searchRequest.MaxResults = 100;
-
-                    // Execute the request
-                    //var searchResponse = searchRequest.Execute();
-                    //nextPageToken = searchResponse.NextPageToken;
-
                     var searchListRequest = youtubeService.Search.List("snippet");
                     searchListRequest.ChannelId = channelId;
                     searchListRequest.Type = "video";
@@ -136,7 +131,6 @@ namespace Domain.Services.Youtube
 
                     // Execute the request and return the list of videos
                     var videosResponse = videosRequest.Execute();
-
 
 
                     var videos = videosResponse.Items;
@@ -199,6 +193,8 @@ namespace Domain.Services.Youtube
                             VideoImageUrl = video.Snippet.Thumbnails.Medium.Url
                         };
 
+                        newVideo.LoaderId = userId;
+
                         if (video.Statistics.LikeCount != null)
                         {
                             newVideo.LikeCount = (int)video.Statistics.LikeCount;
@@ -256,6 +252,9 @@ namespace Domain.Services.Youtube
 
             var video = response.Items[0];
 
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
             try
             {
                 var newVideo = new Entities.Youtube.Video()
@@ -277,6 +276,7 @@ namespace Domain.Services.Youtube
                     PublishedAtRaw = video.Snippet.PublishedAtRaw,
                     VideoImageUrl = video.Snippet.Thumbnails.Medium.Url
                 };
+                newVideo.LoaderId = userId;
 
                 if (video.Statistics.LikeCount != null)
                 {
@@ -304,6 +304,9 @@ namespace Domain.Services.Youtube
         }
         public async Task LoadManyByIds(ICollection<string> ids)
         {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
             while (ids.Count() > 0)
             {
                 // Create the videos request to retrieve video statistics and tags
@@ -342,6 +345,7 @@ namespace Domain.Services.Youtube
                         PublishedAtRaw = video.Snippet.PublishedAtRaw,
                         VideoImageUrl = video.Snippet.Thumbnails.Medium.Url
                     };
+                    newVideo.LoaderId = userId;
 
                     if (video.Statistics.LikeCount != null)
                     {

@@ -112,6 +112,10 @@ namespace Infrastructure.Builders
             modelBuilder.HasOne(e => e.DimensionalityReductionTechnique)
                         .WithMany(e => e.Profiles)
                         .HasForeignKey(e => e.DimensionalityReductionTechniqueId);
+
+            modelBuilder.HasOne(e => e.Owner)
+                        .WithMany(e => e.Profiles)
+                        .HasForeignKey(e => e.OwnerId);
         }
         public static void ClusterTypeBuild(EntityTypeBuilder<ClusterizationType> modelBuilder)
         {
@@ -142,6 +146,10 @@ namespace Infrastructure.Builders
 
             modelBuilder.HasMany(e => e.ExternalObjects)
                         .WithMany(e => e.Workspaces);
+
+            modelBuilder.HasOne(e => e.Owner)
+                        .WithMany(e => e.Workspaces)
+                        .HasForeignKey(e => e.OwnerId);
         }
         public static void DisplayedPointBuild(EntityTypeBuilder<DisplayedPoint> modelBuilder)
         {

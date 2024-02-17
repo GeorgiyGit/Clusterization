@@ -4,6 +4,7 @@ import { ISimpleClusterizationWorkspace } from '../../models/simpleClusterizatio
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IWorkspaceFilter } from '../../models/workspaceFilter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workspace-list-page',
@@ -23,9 +24,9 @@ export class WorkspaceListPageComponent implements OnInit{
   workspaces:ISimpleClusterizationWorkspace[]=[];
 
   constructor(private workspacesService:ClusterizationWorkspaceService,
-    private toastr:MyToastrService){}
+    private toastr:MyToastrService,
+    private router:Router){}
   ngOnInit(): void {
-    console.log(this.request);
     this.loadFirst();
   }
 
@@ -39,7 +40,6 @@ export class WorkspaceListPageComponent implements OnInit{
 
   isLoading:boolean;
   loadFirst(){
-    console.log(this.request);
     this.request.pageParameters.pageNumber=0;
 
     this.isLoading=true;
@@ -74,5 +74,9 @@ export class WorkspaceListPageComponent implements OnInit{
       this.request.pageParameters.pageNumber++;
       this.loadMore();
     }
+  }
+
+  openAddWorkspace(event:MouseEvent){
+    this.router.navigate([{outlets: {overflow: 'workspaces_add'}}]);
   }
 }

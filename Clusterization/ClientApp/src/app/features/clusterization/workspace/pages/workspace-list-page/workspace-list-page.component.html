@@ -13,4 +13,9 @@
     <div class="centered" *ngIf="isLoadMoreAvailable">
         <button class="more-btn" (click)="addMore()">Завантажити більше</button>
     </div>
+    <div class="add-workspace-btn-cont" (click)="openAddWorkspace($event)">
+        <a>
+            <span class="material-symbols-outlined icon" translate="no">add</span>
+        </a>
+    </div>
 </section>

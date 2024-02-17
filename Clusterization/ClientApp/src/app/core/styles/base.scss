@@ -1,5 +1,9 @@
 @import '/src/app/core/styles/colors.scss';
 
+.icon{
+    cursor: pointer;
+    user-select: none;
+}
 .my-tooltip {
     position: relative;
     display: inline-block;
@@ -249,7 +253,20 @@
         }
     }
 }
+.password-cont{
+    justify-content: space-between;
 
+    .password-input{
+        width: 100%;
+        input{
+            width: 100%;
+        }
+    }
+    .icon{
+        cursor: pointer;
+        user-select: none;
+    }
+}
 .errors {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
+import { LogInPageComponent } from "src/app/features/account/pages/log-in-page/log-in-page.component";
+import { SignUpPageComponent } from "src/app/features/account/pages/sign-up-page/sign-up-page.component";
 import { AbstractAlgorithmAddPageComponent } from "src/app/features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component";
 import { ClusterizationFullProfilePageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component";
 import { ClusterizationProfileAddPageComponent } from "src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component";
@@ -24,6 +26,7 @@ import { YoutubeLoadMultipleVideosComponent } from "src/app/features/youtube/vid
 import { YoutubeFullVideoPageComponent } from "src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component";
 import { YoutubeLoadAllVideosPageComponent } from "src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component";
 import { YoutubeVideoListPageComponent } from "src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component";
+import { CustomerGuard } from "../guard/customer.guard";
 const routes: Route[] = [
   {
     path:'',
@@ -46,6 +49,8 @@ const routes: Route[] = [
     path:'load-channel',
     component:YoutubeLoadNewChannelPageComponent,
     outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
     children:[
       {
         path:'',
@@ -77,7 +82,9 @@ const routes: Route[] = [
       },
       {
         path:'add_many/:id',
-        component:YoutubeLoadMultipleVideosComponent
+        component:YoutubeLoadMultipleVideosComponent,
+        canActivate:[CustomerGuard],
+        canActivateChild:[CustomerGuard],
       }
     ]
   },
@@ -88,12 +95,16 @@ const routes: Route[] = [
   {
     path:'load-videos-by-channel/:channelId',
     component:YoutubeLoadAllVideosPageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'load-comments-by-channel/:channelId',
     component:YoutubeLoadCommentsByChannelPageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'video-full-info/:id',
@@ -102,12 +113,15 @@ const routes: Route[] = [
   {
     path:'load-comments-by-video/:videoId',
     component:YoutubeLoadAllCommentsPageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'workspaces_add',
     component:AddWorkspacePageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
   },
   {
     path:'workspaces',
@@ -135,25 +149,45 @@ const routes: Route[] = [
   },
   {
     path:'workspaces/add-comments-by-channel/:channelId',
-    component:AddChannelCommentsToWorkspacePageComponent
+    component:AddChannelCommentsToWorkspacePageComponent,
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'workspaces/add-comments-by-videos/:channelId',
-    component:AddVideosCommentsToWorkspaceComponent
+    component:AddVideosCommentsToWorkspaceComponent,
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'algorithms/add',
     component:AbstractAlgorithmAddPageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'profiles/add/:workspaceId',
     component:ClusterizationProfileAddPageComponent,
-    outlet:'overflow'
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
   {
     path:'workspace/add-external-data/:workspaceId',
     component:AddExternalDataToWorkspaceComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'sign-up',
+    component:SignUpPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'log-in',
+    component:LogInPageComponent,
     outlet:'overflow'
   }
 ]

@@ -3,6 +3,7 @@ using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Embeddings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Clusterization
@@ -21,12 +22,14 @@ namespace Clusterization.Controllers.Clusterization
         }
 
         [HttpPost("add")]
+        [Authorize]
         public async Task<IActionResult> Add([FromBody] AddClusterizationWorkspaceDTO model)
         {
             await service.Add(model);
             return Ok();
         }
         [HttpPut("update")]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateClusterizationWorkspaceDTO model)
         {
             await service.Update(model);
@@ -34,12 +37,14 @@ namespace Clusterization.Controllers.Clusterization
         }
 
         [HttpPost("add_comments_by_channel")]
+        [Authorize]
         public async Task<IActionResult> AddCommentsByChannel([FromBody] AddCommentsToWorkspaceByChannelRequest request)
         {
             await service.LoadCommentsByChannel(request);
             return Ok();
         }
         [HttpPost("add_comments_by_videos")]
+        [Authorize]
         public async Task<IActionResult> AddCommentsByVideos([FromBody] AddCommentsToWorkspaceByVideosRequest request)
         {
             await service.LoadCommentsByVideos(request);
@@ -48,6 +53,7 @@ namespace Clusterization.Controllers.Clusterization
 
         [HttpPost]
         [Route("load_external_data")]
+        [Authorize]
         public async Task<IActionResult> LoadExternalData([FromForm] AddExternalDataDTO data)
         {
             await service.LoadExternalData(data);
@@ -76,6 +82,7 @@ namespace Clusterization.Controllers.Clusterization
 
         [HttpPost]
         [Route("load_embedding_data/{id}")]
+        [Authorize]
         public async Task<IActionResult> LoadEmbeddingData([FromRoute] int id)
         {
             await embeddingsService.LoadEmbeddingsByWorkspace(id);

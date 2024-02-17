@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Interfaces.Youtube;
 using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Youtube
@@ -16,12 +17,14 @@ namespace Clusterization.Controllers.Youtube
         }
 
         [HttpPost("load_from_video")]
+        [Authorize]
         public async Task<IActionResult> LoadFromVideo([FromBody] LoadOptions options)
         {
             await service.LoadFromVideo(options);
             return Ok();
         }
         [HttpPost("load_from_channel")]
+        [Authorize]
         public async Task<IActionResult> LoadFromChannel([FromBody] LoadCommentsByChannelOptions options)
         {
             await service.LoadFromChannel(options);

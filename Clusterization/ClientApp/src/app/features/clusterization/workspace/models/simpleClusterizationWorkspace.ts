@@ -4,5 +4,8 @@ export interface ISimpleClusterizationWorkspace{
     description:string,
     creationTime:Date,
     typeId:string,
-    typeName:string
+    typeName:string,
+    visibleType:string,
+    changingType:string,
+    ownerId:string
 }

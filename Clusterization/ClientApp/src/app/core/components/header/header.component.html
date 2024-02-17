@@ -4,11 +4,19 @@
             <ul>
                 <li routerLink="/channel-list">Канали</li>
                 <li routerLink="/video-list">Відео</li>
-                <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
+                <li (click)="openLoadChannel($event)">Завантажити канали</li>
                 <li routerLink="/tasks-list">Задачі</li>
-                <li [routerLink]="[{outlets: {overflow: 'workspaces_add'}}]">Додати робочий простір</li>
                 <li routerLink="/workspaces">Робочі простори</li>
-                <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
+                <li (click)="openAddAlgorithm($event)">Додати алгоритм</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li (click)="openSignUp($event)">Реєстрація</li>
+                <li>
+                    <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth">Увійти</a>
+                    <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth">Вийти</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -23,9 +31,13 @@
                     <li routerLink="/video-list">Відео</li>
                     <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]">Завантажити канали</li>
                     <li routerLink="/tasks-list">Задачі</li>
-                    <li [routerLink]="[{outlets: {overflow: 'workspaces_add'}}]">Додати робочий простір</li>
                     <li routerLink="/workspaces">Робочі простори</li>
                     <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]">Додати алгоритм</li>
+                    <li (click)="openSignUp($event)">Реєстрація</li>
+                    <li>
+                        <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth">Увійти</a>
+                        <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth">Вийти</a>
+                    </li>
                 </ul>
             </div>
         </div>

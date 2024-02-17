@@ -3,6 +3,13 @@
         <div class="title-cont">
             <p class="title" *ngIf="myLocalStorage.getSelectedWorkspace()!=workspace.id">{{workspace.title}}</p>
             <p class="title red" matTooltip="Встановлений активним" *ngIf="myLocalStorage.getSelectedWorkspace()==workspace.id">{{workspace.title}}</p>
+            <span class="material-symbols-outlined icon" translate="no" matTooltip="The workspace is your" *ngIf="isYour">face</span>
+
+            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible for all customers" *ngIf="workspace!=null && workspace.visibleType=='AllCustomers'">visibility</span>
+            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is visible only for you" *ngIf="workspace!=null && workspace.visibleType=='OnlyOwner'">visibility_off</span>
+    
+            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable by everyone" *ngIf="workspace!=null && workspace.changingType=='AllCustomers'">update</span>
+            <span class="material-symbols-outlined icon" translate="no" matTooltip="The profile is changeable only by you" *ngIf="workspace!=null && workspace.changingType=='OnlyOwner'">update_disabled</span>
         </div>
         <div class="my-tooltip">
             <span matTooltip="Дата створення" class="time-text">{{workspace.creationTime | normalizedDateTime}}</span>

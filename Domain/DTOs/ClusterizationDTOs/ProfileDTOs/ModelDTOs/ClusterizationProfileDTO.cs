@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using Domain.DTOs.DimensionalityReductionDTOs.TechniqueDTOs;
+using Domain.Resources.Types;
 
 namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 {
@@ -32,5 +33,9 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public DimensionalityReductionTechniqueDTO DimensionalityReductionTechnique { get; set; }
         
         public bool IsElected { get; set; }
+
+        public string VisibleType { get; set; }
+        public string ChangingType { get; set; }
+        public string OwnerId { get; set; }
     }
 }

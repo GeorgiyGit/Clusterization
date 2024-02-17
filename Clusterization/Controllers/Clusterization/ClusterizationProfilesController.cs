@@ -2,6 +2,7 @@
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Profiles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Clusterization
@@ -16,6 +17,7 @@ namespace Clusterization.Controllers.Clusterization
             this.service = service;
         }
         [HttpPost("add")]
+        [Authorize]
         public async Task<IActionResult> Add([FromBody] AddClusterizationProfileDTO model)
         {
             await service.Add(model);
@@ -43,6 +45,7 @@ namespace Clusterization.Controllers.Clusterization
 
 
         [HttpPost("elect/{id}")]
+        [Authorize]
         public async Task<IActionResult> Elect([FromRoute] int id)
         {
             await service.Elect(id);
@@ -50,6 +53,7 @@ namespace Clusterization.Controllers.Clusterization
         }
 
         [HttpPost("unelect/{id}")]
+        [Authorize]
         public async Task<IActionResult> Unelect([FromRoute] int id)
         {
             await service.UnElect(id);

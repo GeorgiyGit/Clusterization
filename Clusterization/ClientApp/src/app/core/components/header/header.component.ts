@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MyToastrService } from '../../services/my-toastr.service';
 import { environment } from 'src/environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AccountService } from 'src/app/features/account/services/account.service';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +44,8 @@ export class HeaderComponent implements OnInit {
   
   constructor(private responsive: BreakpointObserver,
     private router: Router,
-    private toaster: MyToastrService) {
+    private toaster: MyToastrService,
+    public accountService:AccountService) {
   }
 
   isPhoneMenuOpen: boolean;
@@ -78,5 +80,42 @@ export class HeaderComponent implements OnInit {
     setTimeout(()=>{
       this.isDisplayPhoneMenu = false;
     },500);
+  }
+
+
+  openSignUp(event: MouseEvent){
+    event.stopPropagation();
+
+    this.router.navigate([{ outlets: { overflow: 'sign-up' } }]);
+  }
+
+  openLogIn(event: MouseEvent) {
+    event.stopPropagation();
+
+    this.router.navigate([{ outlets: { overflow: 'log-in' } }]);
+  }
+
+  logout(): void {
+    this.accountService.logout();
+  }
+
+  openLoadChannel(event:MouseEvent){
+    event.stopPropagation();
+
+    if(!this.accountService.isAuthenticated()){
+      this.toaster.error('You are not authorized!');
+    }
+
+    this.router.navigate([{ outlets: { overflow: 'load-channel' } }]);
+  }
+
+  openAddAlgorithm(event:MouseEvent){
+    event.stopPropagation();
+
+    if(!this.accountService.isAuthenticated()){
+      this.toaster.error('You are not authorized!');
+    }
+
+    this.router.navigate([{ outlets: { overflow: 'algorithms/add' } }]);
   }
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.Customers;
 using Domain.Entities.Embeddings;
 using System;
 using System.Collections.Generic;
@@ -51,5 +52,8 @@ namespace Domain.Entities.Youtube
         
         public EmbeddingData? EmbeddingData { get; set; }
         public int? EmbeddingDataId { get; set; }
+
+        public Customer Loader { get; set; }
+        public string LoaderId { get; set; }
     }
 }

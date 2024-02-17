@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID,NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {LayoutModule} from '@angular/cdk/layout';
 import { AppComponent } from './app.component';
@@ -71,6 +71,17 @@ import { AddDbscanAlgorithmComponent } from './features/clusterization/algorithm
 import { AddSpectralClusteringAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component';
 import { AddGaussianMixtureAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component';
 import { AddExternalDataToWorkspaceComponent } from './features/clusterization/workspace/pages/add-external-data-to-workspace/add-external-data-to-workspace.component';
+import { LogInPageComponent } from './features/account/pages/log-in-page/log-in-page.component';
+import { SignUpPageComponent } from './features/account/pages/sign-up-page/sign-up-page.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { ChangingTypesSelectOptionComponent } from './core/components/changing-types-select-option/changing-types-select-option.component';
+import { VisibleTypesSelectOptionComponent } from './core/components/visible-types-select-option/visible-types-select-option.component';
+import { CustomHttpInterceptor } from './core/interceptors/custom-http.interceptor';
+import { CustomerGuard } from './core/guard/customer.guard';
+
+export function tokenGetter() {
+  return localStorage.getItem("user-token");
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +145,10 @@ import { AddExternalDataToWorkspaceComponent } from './features/clusterization/w
     AddSpectralClusteringAlgorithmComponent,
     AddGaussianMixtureAlgorithmComponent,
     AddExternalDataToWorkspaceComponent,
+    LogInPageComponent,
+    SignUpPageComponent,
+    VisibleTypesSelectOptionComponent,
+    ChangingTypesSelectOptionComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -147,8 +162,25 @@ import { AddExternalDataToWorkspaceComponent } from './features/clusterization/w
     BrowserAnimationsModule,
     LayoutModule,
     ToastrModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [
+          "sladkovskygeorge.website",
+        ]
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    JwtHelperService,
+    {provide: LOCALE_ID, useValue: 'en-US' },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    },
+    CustomerGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

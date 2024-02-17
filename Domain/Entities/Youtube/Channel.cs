@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Customers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -35,5 +36,8 @@ namespace Domain.Entities.Youtube
 
         public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+
+        public Customer Loader { get; set; }
+        public string LoaderId { get; set; }
     }
 }

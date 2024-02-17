@@ -47,6 +47,36 @@ section{
     .nothing-text{
         color: $first-color-1;
     }
+    .add-workspace-btn-cont{
+        position: absolute;
+        bottom: 100px;
+        padding: 10px;
+        
+        width: 50px;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        user-select: none;
+        cursor: pointer;
+        background-color: $second-color-1;
+        box-shadow: 0 0 10px 1px $first-color-2;
+        border-radius: 50%;
+
+        &:hover{
+            background-color: $second-color-2;
+        }
+        a{
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .icon{
+            color: $first-color-3;
+        }
+    }
 }
 
 .disable{

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { IOptionForSelectInput } from '../../models/option-for-select-input';
 import { Router } from '@angular/router';
 import { ISelectAction } from '../../models/select-action';
+import { AccountService } from 'src/app/features/account/services/account.service';
+import { MyToastrService } from '../../services/my-toastr.service';
 
 @Component({
   selector: 'app-more-action-select',
@@ -10,7 +12,8 @@ import { ISelectAction } from '../../models/select-action';
 })
 export class MoreActionSelectComponent{
   @Input() actions:ISelectAction[]=[];
-  constructor(private router:Router){}
+  constructor(private accountService:AccountService,
+    private toastr:MyToastrService){}
 
   isOpen:boolean;
   close(){
@@ -23,6 +26,12 @@ export class MoreActionSelectComponent{
   }
   selectOption(event:MouseEvent,action:ISelectAction){
     event.stopPropagation();
+
+    if(action.isForAuthorized && !this.accountService.isAuthenticated()){
+      if(!this.accountService.isAuthenticated()){
+        this.toastr.error('You are not authorized!');
+      }
+    }
 
     action.action();
 

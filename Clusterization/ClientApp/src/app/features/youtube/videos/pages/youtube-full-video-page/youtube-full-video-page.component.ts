@@ -18,7 +18,8 @@ export class YoutubeFullVideoPageComponent implements OnInit {
       name:'Завантажити коментарі',
       action:()=>{
         this.router.navigate([{outlets: {overflow: 'load-comments-by-video/'+this.video.id}}]);
-      }
+      },
+      isForAuthorized:true
     }
   ]
 

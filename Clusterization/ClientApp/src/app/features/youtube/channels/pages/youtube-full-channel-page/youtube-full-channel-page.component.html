@@ -41,7 +41,7 @@
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
                     <li routerLinkActive="active" [routerLink]="'list/'+channel.id">Завантажені відео</li>
-                    <li routerLinkActive="active" [routerLink]="'add_many/'+channel.id">Шукати нове відео</li>
+                    <li routerLinkActive="active" [routerLink]="'add_many/'+channel.id" (click)="openFindNewVideos($event)">Шукати нове відео</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

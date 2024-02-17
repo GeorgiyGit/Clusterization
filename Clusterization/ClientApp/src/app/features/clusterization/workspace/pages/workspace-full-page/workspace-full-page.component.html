@@ -3,7 +3,7 @@
     <div class="all-cont">
         <div class="info-cont">
             <div class="text-info-cont" *ngIf="workspace!=null">
-                <h2 class="title-text">{{workspace.title}}</h2>
+                    <h2 class="title-text">{{workspace.title}} <span class="material-symbols-outlined icon" translate="no" matTooltip="The workspace is your">face</span></h2>
                 <p>{{workspace.description}}</p>
                 <div class="block" (click)="copyToClipboard('Дату',workspace.creationTime+'',$event)">
                     <span matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
@@ -24,6 +24,14 @@
                 <div class="block">
                     <span matTooltip="Чи всі данні мають ембедінги" class="material-symbols-outlined icon" translate="no">polyline</span>
                     <p>{{workspace.isAllDataEmbedded}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <p>{{workspace.visibleType}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <p>{{workspace.changingType}}</p>
                 </div>
             </div>
         </div>

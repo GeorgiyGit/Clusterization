@@ -1,53 +1,42 @@
-﻿using Accord;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
 using Domain.Entities.Clusterization;
-using Domain.Entities.Embeddings;
 using Domain.Entities.ExternalData;
-using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Customers;
 using Domain.Interfaces.Tasks;
-using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Hangfire;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Services.Clusterization
 {
     public class ClusterizationWorkspacesService : IClusterizationWorkspacesService
     {
         private readonly IRepository<ClusterizationWorkspace> repository;
-        private readonly IRepository<Comment> comments_repository;
+        private readonly IRepository<Entities.Youtube.Comment> comments_repository;
         private readonly IRepository<ExternalObject> externalObjects_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
+        private readonly IUserService _userService;
         public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
                                                IStringLocalizer<ErrorMessages> localizer,
                                                IMapper mapper,
-                                               IRepository<Comment> comments_repository,
+                                               IRepository<Entities.Youtube.Comment> comments_repository,
                                                IRepository<ExternalObject> externalObjects_repository,
                                                IBackgroundJobClient backgroundJobClient,
-                                               IMyTasksService taskService)
+                                               IMyTasksService taskService,
+                                               IUserService userService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -56,16 +45,23 @@ namespace Domain.Services.Clusterization
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
             this.externalObjects_repository = externalObjects_repository;
+            _userService = userService;
         }
 
         #region add-update
         public async Task Add(AddClusterizationWorkspaceDTO model)
         {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
             var newWorkspace = new ClusterizationWorkspace()
             {
                 Title = model.Title,
                 Description = model.Description,
-                TypeId = model.TypeId
+                TypeId = model.TypeId,
+                VisibleType = model.VisibleType,
+                ChangingType = model.ChangingType,
+                OwnerId = userId
             };
 
             await repository.AddAsync(newWorkspace);
@@ -73,12 +69,17 @@ namespace Domain.Services.Clusterization
         }
         public async Task Update(UpdateClusterizationWorkspaceDTO model)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == model.Id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+            var workspace = (await repository.GetAsync(c => c.Id == model.Id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
+
+            if (workspace == null || workspace.OwnerId!=userId) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
             workspace.Title = model.Title;
             workspace.Description = model.Description;
+            workspace.VisibleType = model.VisibleType;
+            workspace.ChangingType = model.ChangingType;
 
             await repository.SaveChangesAsync();
         }
@@ -87,7 +88,9 @@ namespace Domain.Services.Clusterization
         #region get
         public async Task<ClusterizationWorkspaceDTO> GetFullById(int id)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+            var userId = await _userService.GetCurrentUserId();
+
+            var workspace = (await repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || (userId != null && c.OwnerId == userId)), includeProperties: $"{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -95,7 +98,9 @@ namespace Domain.Services.Clusterization
         }
         public async Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id)
         {
-            var workspace = (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+            var userId = await _userService.GetCurrentUserId();
+
+            var workspace = (await repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || (userId != null && c.OwnerId == userId)), includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -125,8 +130,20 @@ namespace Domain.Services.Clusterization
                 }
             }
 
+            var userId = await _userService.GetCurrentUserId();
+
+            if (userId != null)
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers || e.OwnerId == userId);
+            }
+            else
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers);
+            }
+            
+
             var pageParameters = request.PageParameters;
-            var workspaces = (await repository.GetAsync(filterCondition,includeProperties:$"{nameof(ClusterizationWorkspace.Type)}"))
+            var workspaces = (await repository.GetAsync(filterCondition,includeProperties:$"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
                                               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                               .Take(pageParameters.PageSize).ToList();
 
@@ -137,21 +154,25 @@ namespace Domain.Services.Clusterization
         #region add-entity
         public async Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request)
         {
-            backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId));
         }
-        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request)
+        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request, string userId)
         {
             var taskId = await taskService.CreateTask("Додавання коментарів");
             float percent = 0f;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
+
             try
             {
-                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+                var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
-                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments ||(workspace.ChangingType==ChangingTypes.OnlyOwner && (userId==null || userId!=workspace.OwnerId))) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
-                Expression<Func<Comment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
+                Expression<Func<Entities.Youtube.Comment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
 
                 if (request.DateFrom != null || request.DateTo != null)
                 {
@@ -170,7 +191,7 @@ namespace Domain.Services.Clusterization
                 int pageNumber = 1;
                 int pageSize = 1000;
                 while (true){
-                    var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Comment.Workspaces)}", pageParameters: new DTOs.PageParametersDTO()
+                    var comments = (await comments_repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Entities.Youtube.Comment.Workspaces)}", pageParameters: new DTOs.PageParametersDTO()
                     {
                         PageNumber = pageNumber,
                         PageSize = pageSize
@@ -218,13 +239,13 @@ namespace Domain.Services.Clusterization
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
+            var userId = await _userService.GetCurrentUserId();
             try
             {
                 var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
-                if (workspace == null || workspace.TypeId!=ClusterizationTypes.Comments) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
-
-                Expression<Func<Comment, bool>> filterCondition = e => true;
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || (workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId))) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+                Expression<Func<Entities.Youtube.Comment, bool>> filterCondition = e => true;
 
                 if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > request.DateFrom);
                 if (request.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < request.DateTo);
@@ -232,7 +253,7 @@ namespace Domain.Services.Clusterization
                 foreach (var id in request.VideoIds)
                 {
                     var newConditions = filterCondition.And(e => e.VideoId == id);
-                    var comments = (await comments_repository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Comment.Video)},{nameof(Comment.Workspaces)}")).Take(request.MaxCountInVideo);
+                    var comments = (await comments_repository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Entities.Youtube.Comment.Video)},{nameof(Entities.Youtube.Comment.Workspaces)}")).Take(request.MaxCountInVideo);
 
                     foreach (var comment in comments)
                     {
@@ -262,7 +283,8 @@ namespace Domain.Services.Clusterization
         {
             var workspace = (await repository.GetAsync(c => c.Id == data.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.ExternalObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
-            if (workspace == null || workspace.TypeId != ClusterizationTypes.External) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
+            var userId = await _userService.GetCurrentUserId();
+            if (workspace == null || workspace.TypeId != ClusterizationTypes.External || (workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId))) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
             var taskId = await taskService.CreateTask("Додавання зовнішніх об'єктів");
             float percent = 0f;
@@ -349,10 +371,6 @@ namespace Domain.Services.Clusterization
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
             }
-        }
-        public async Task LoadExternalDataBackgroundJob(AddExternalDataDTO data)
-        {
-            
         }
         #endregion
     }

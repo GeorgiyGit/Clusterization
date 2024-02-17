@@ -1,5 +1,6 @@
 ﻿using AutoMapper.Configuration.Conventions;
 using Domain.Entities.Clusterization.Algorithms;
+using Domain.Entities.Customers;
 using Domain.Entities.DimensionalityReduction;
 using System;
 using System.Collections.Generic;
@@ -36,5 +37,10 @@ namespace Domain.Entities.Clusterization
         public int MaxTileLevel { get; set; }
 
         public bool IsElected { get; set; }
+
+        public string VisibleType { get; set; }
+        public string ChangingType { get; set; }
+        public Customer Owner { get; set; }
+        public string OwnerId { get; set; }
     }
 }

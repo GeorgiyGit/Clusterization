@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Customers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -43,5 +44,8 @@ namespace Domain.Entities.Youtube
         public string ChannelId { get; set; }
 
         public DateTime LoadedDate { get; set; }
+
+        public Customer Loader { get; set; }
+        public string LoaderId { get; set; }
     }
 }

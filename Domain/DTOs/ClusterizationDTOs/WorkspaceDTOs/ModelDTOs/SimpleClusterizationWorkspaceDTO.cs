@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Resources.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,9 @@ namespace Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs
         public DateTime CreationTime { get; set; }
         public string TypeId { get; set; }
         public string TypeName { get; set; }
+
+        public string VisibleType { get; set; }
+        public string ChangingType { get; set; }
+        public string OwnerId { get; set; }
     }
 }

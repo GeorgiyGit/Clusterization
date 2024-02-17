@@ -19,12 +19,20 @@
                     <span matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
                     <p>{{profile.isCalculated}}</p>
                 </div>
+                <div class="block">
+                    <span matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <p>{{profile.visibleType}}</p>
+                </div>
+                <div class="block">
+                    <span matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <p>{{profile.changingType}}</p>
+                </div>
             </div>
         </div>
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" [routerLink]="'profile-points-map/'+profile.id">Карта точок</li>
+                    <li routerLinkActive="active" (click)="openMap($event)">Карта точок</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>
