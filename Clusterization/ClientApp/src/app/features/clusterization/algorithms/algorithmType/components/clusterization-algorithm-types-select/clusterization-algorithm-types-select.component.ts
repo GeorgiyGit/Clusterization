@@ -46,6 +46,6 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
   }
 
   select(option: IOptionForSelectInput) {
-    this.sendEvent.emit(option.value);
+    this.sendEvent.emit(option?.value);
   }
 }

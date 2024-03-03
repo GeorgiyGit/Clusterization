@@ -29,6 +29,11 @@ section {
             display: flex;
             flex-direction: column;
             gap: 10px;
+
+            .videos-list-cont{
+                max-height: 70vh;
+                overflow-x: auto;
+            }
         }
     }
 }

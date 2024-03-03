@@ -86,12 +86,14 @@ export class HeaderComponent implements OnInit {
   openSignUp(event: MouseEvent){
     event.stopPropagation();
 
+    this.closeDisplayPhoneMenu();
     this.router.navigate([{ outlets: { overflow: 'sign-up' } }]);
   }
 
   openLogIn(event: MouseEvent) {
     event.stopPropagation();
 
+    this.closeDisplayPhoneMenu();
     this.router.navigate([{ outlets: { overflow: 'log-in' } }]);
   }
 
@@ -107,6 +109,7 @@ export class HeaderComponent implements OnInit {
       this.toaster.error(this.notAuthorizedErrorStr);
     }
 
+    this.closeDisplayPhoneMenu();
     this.router.navigate([{ outlets: { overflow: 'load-channel' } }]);
   }
 
@@ -117,6 +120,7 @@ export class HeaderComponent implements OnInit {
       this.toaster.error(this.notAuthorizedErrorStr);
     }
 
+    this.closeDisplayPhoneMenu();
     this.router.navigate([{ outlets: { overflow: 'algorithms/add' } }]);
   }
 }

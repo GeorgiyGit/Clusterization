@@ -50,16 +50,12 @@ export class AddExternalDataToWorkspaceComponent implements OnInit {
 
   isLoading: boolean;
   load() {
-    console.log(1);
     if (this.selectedFile == null) return;
-    console.log(2);
     let model: IAddExternalData = {
       workspaceId: this.workspaceId,
       file: this.selectedFile
     };
-    console.log(3);
     this.workspaceService.addExternalData(model).subscribe(res => {
-      console.log(4);
       this.isLoading = false;
       this.closeOverflow();
     }, error => {

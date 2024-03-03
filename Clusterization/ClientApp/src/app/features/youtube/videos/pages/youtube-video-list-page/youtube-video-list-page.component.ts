@@ -59,7 +59,6 @@ export class YoutubeVideoListPageComponent implements OnInit{
   loadFirst(){
     this.request.pageParameters.pageNumber=1;
 
-    console.log(this.request);
     this.isLoading=true;
     this.videoService.getMany(this.request).subscribe(res=>{
       if(this.isSelectAvailable){

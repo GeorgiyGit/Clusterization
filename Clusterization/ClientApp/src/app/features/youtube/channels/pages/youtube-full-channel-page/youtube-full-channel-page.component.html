@@ -3,45 +3,45 @@
     <div class="all-cont">
         <div class="info-cont">
             <div class="image-cont">
-                <img [src]="channel.channelImageUrl" alt="channel image url">
+                <img [src]="channel?.channelImageUrl" alt="channel image url">
             </div>
             <div class="text-info-cont">
-                <h4 class="title-text">{{channel.title}}</h4>
+                <h4 class="title-text">{{channel?.title}}</h4>
                 <div class="block" (click)="copyToClipboard(dateStr,channel.publishedAtDateTimeOffset+'',$event)">
                     <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon"
                         translate="no">add_circle</span>
-                    <p>{{channel.publishedAtDateTimeOffset | normalizedDateTime}}</p>
+                    <p *ngIf="channel!=null">{{channel.publishedAtDateTimeOffset | normalizedDateTime}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(dateStr,channel.loadedDate+'',$event)">
                     <span i18n-matTooltip matTooltip="Дата останнього завантаження" class="material-symbols-outlined icon"
                         translate="no">download_for_offline</span>
-                    <p>{{channel.loadedDate | normalizedDateTime}}</p>
+                    <p *ngIf="channel!=null">{{channel.loadedDate | normalizedDateTime}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(countStr,channel.subscriberCount+'',$event)">
                     <span i18n-matTooltip matTooltip="Кількість підписників" class="material-symbols-outlined icon"
                         translate="no">groups</span>
-                    <p>{{channel.subscriberCount}}</p>
+                    <p>{{channel?.subscriberCount}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(countStr,channel.viewCount+'',$event)">
                     <span i18n-matTooltip matTooltip="Кількість переглядів" class="material-symbols-outlined icon"
                         translate="no">preview</span>
-                    <p>{{channel.viewCount}}</p>
+                    <p>{{channel?.viewCount}}</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Кількість відео" class="material-symbols-outlined icon"
                         translate="no">movie</span>
-                    <p i18n-matTooltip matTooltip="Загальна кількість відео" class="normal-color-text">{{channel.videoCount}}</p>
+                    <p i18n-matTooltip matTooltip="Загальна кількість відео" class="normal-color-text">{{channel?.videoCount}}</p>
                     <span> / </span>
                     <p i18n-matTooltip matTooltip="Кількість завантажених відео в систему" class="first-color-text">
-                        {{channel.loadedVideoCount}}</p>
+                        {{channel?.loadedVideoCount}}</p>
                 </div>
             </div>
         </div>
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" [routerLink]="'list/'+channel.id" i18n>Завантажені відео</li>
-                    <li routerLinkActive="active" [routerLink]="'add_many/'+channel.id" (click)="openFindNewVideos($event)" i18n>Шукати нове відео</li>
+                    <li routerLinkActive="active" [routerLink]="'list/'+channel?.id" i18n>Завантажені відео</li>
+                    <li routerLinkActive="active" [routerLink]="'add_many/'+channel?.id" (click)="openFindNewVideos($event)" i18n>Шукати нове відео</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

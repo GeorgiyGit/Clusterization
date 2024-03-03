@@ -96,10 +96,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   convertLayerValue() {
     if (this.tilesLevel != null) {
-      //console.log('layerValue', this.layerValue);
-      //console.log('tilesLevel', this.tilesLevel)
       this.convertedLayerValue = this.layerValue / this.tilesLevel.tileLength;
-      //console.log('convertedLayerValue', this.convertedLayerValue);
     }
   }
 
@@ -117,21 +114,6 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
     let yCord = Math.floor((-this.mouseChangesY) / (this.tilesLevel.tileLength * this.convertedLayerValue));
     if (yCord < 0) yCord = 0;
-
-    //console.log('tiles', this.tiles);
-    //console.log('points', this.displayedPoints);
-    //console.log('xTilesCount', xTilesCount);
-    //console.log('yTilesCount', yTilesCount);
-    //console.log('layerValue', this.layerValue);
-
-    //console.log('x',x,this.mouseChangesX);
-    //console.log('y',y,this.mouseChangesY);
-
-    //console.log(this.tilesLevel.tileLength);
-    //console.log(this.tilesLevel);
-
-    //console.log('canvas.width',this.ctx.canvas.width);
-    //console.log('canvas.height',this.ctx.canvas.height);
 
     var tiles: IMyPosition[] = [];
     for (let y = yCord; y <= yTilesCount; y++) {
@@ -250,16 +232,12 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     const rect = this.ctx.canvas.getBoundingClientRect();
 
     let pos = this.getMousePos(event);
-    //console.log('x',pos.x);
-    //console.log('y',pos.y);
 
     this.displayedPoints.forEach(point => {
       let xCoordinate = Math.round(point.x * this.convertedLayerValue + this.mouseChangesX + this.convertedLayerValue * Math.abs(this.tilesLevel.minXValue));
       let yCoordinate = Math.round(point.y * this.convertedLayerValue + this.mouseChangesY + this.convertedLayerValue * Math.abs(this.tilesLevel.minYValue));
 
-      //console.log(xCoordinate,yCoordinate);
       if (pos.x >= xCoordinate - this.radius && pos.x <= xCoordinate + this.radius && pos.y >= yCoordinate - this.radius && pos.y <= yCoordinate + this.radius) {
-        //console.log(xCoordinate,yCoordinate);
         this.displayedPointsService.getPointValue(point.id).subscribe(res => {
           this.toastr.success(res.value);
           return;

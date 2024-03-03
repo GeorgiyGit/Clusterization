@@ -9,16 +9,17 @@ import { IOptionForSelectInput } from '../../models/option-for-select-input';
 export class VisibleTypesSelectOptionComponent {
   @Output() sendEvent = new EventEmitter<string>();
 
+  tooltipForIcon:string=$localize`Область видимості`;
   @Input() isNullAvailable:boolean;
 
   options: IOptionForSelectInput[] = [
     {
       value:'AllCustomers',
-      description:$localize`Можуть змінювати всі`//Changeable by everyone
+      description:$localize`Можуть бачити всі`//Changeable by everyone
     },
     {
       value:'OnlyOwner',
-      description:$localize`Може змінювати тільки власник`//Changeable Only By Owner
+      description:$localize`Може бачити тільки власник`//Changeable Only By Owner
     }
   ];
 

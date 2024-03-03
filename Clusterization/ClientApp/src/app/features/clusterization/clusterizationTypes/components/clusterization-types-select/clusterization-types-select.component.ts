@@ -12,6 +12,8 @@ export class ClusterizationTypesSelectComponent implements OnInit {
 
   @Input() isNullAvailable:boolean;
 
+  typesTooltip:string=$localize`Тип робочого простору`;
+
   options: IOptionForSelectInput[] = [];
   constructor(private typesService: ClusterizationTypesService) { }
   ngOnInit(): void {
@@ -43,6 +45,6 @@ export class ClusterizationTypesSelectComponent implements OnInit {
   }
 
   select(option: IOptionForSelectInput) {
-    this.sendEvent.emit(option.value);
+    this.sendEvent.emit(option?.value);
   }
 }

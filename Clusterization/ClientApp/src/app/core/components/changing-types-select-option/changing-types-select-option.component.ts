@@ -8,7 +8,7 @@ import { IOptionForSelectInput } from '../../models/option-for-select-input';
 })
 export class ChangingTypesSelectOptionComponent {
   @Output() sendEvent = new EventEmitter<string>();
-
+  tooltipForIcon:string=$localize`Область модифікації`;
   @Input() isNullAvailable:boolean;
 
   options: IOptionForSelectInput[] = [

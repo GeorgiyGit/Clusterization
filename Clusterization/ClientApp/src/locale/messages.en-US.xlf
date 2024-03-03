@@ -2,14 +2,17 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="uk-UA" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="6853678511371083443" datatype="html">
+        <source>Modification area</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2851143444086140952" datatype="html">
         <source>Everyone can change</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -19,31 +22,27 @@
           <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="50901836370505515" datatype="html">
+        <source>Documentation</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8847018699088352655" datatype="html">
         <source>Channels</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2768538519711126161" datatype="html">
         <source>Videos</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5143917168868229616" datatype="html">
-        <source>Download channels</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">7</context>
@@ -52,9 +51,13 @@
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="9006086090092635077" datatype="html">
-        <source>Tasks</source>
+      <trans-unit id="5143917168868229616" datatype="html">
+        <source>Download channels</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">8</context>
@@ -64,8 +67,8 @@
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="49752753619351073" datatype="html">
-        <source>Workspaces</source>
+      <trans-unit id="9006086090092635077" datatype="html">
+        <source>Tasks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">9</context>
@@ -75,8 +78,8 @@
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5503041089914007895" datatype="html">
-        <source>Add algorithm</source>
+      <trans-unit id="49752753619351073" datatype="html">
+        <source>Workspaces</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">10</context>
@@ -85,16 +88,31 @@
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5503041089914007895" datatype="html">
+        <source>Add algorithm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4529511236521569287" datatype="html">
         <source>Sign up</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
@@ -105,11 +123,11 @@
         <source>Log in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
@@ -124,11 +142,11 @@
         <source>Log out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1650797384057519185" datatype="html">
@@ -161,6 +179,35 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8575946961592865712" datatype="html">
+        <source>Visibility area</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4473750148729558861" datatype="html">
+        <source>Everyone can see</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2642947990217825728" datatype="html">
+        <source>Only owner can see</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2765342578420328429" datatype="html">
         <source>Error</source>
         <context-group purpose="location">
@@ -191,7 +238,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="339847313868180612" datatype="html">
-        <source>The maximum number of characters is 1000</source>
+        <source>the maximum number of characters is 1000</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
           <context context-type="linenumber">19</context>
@@ -278,14 +325,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="2611877714726137265" datatype="html">
-        <source>The maximum number of characters is 100</source>
+        <source>The minimum number of characters is 3</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
           <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3383247238424239541" datatype="html">
-        <source>Let&apos;s start</source>
+        <source>Let&apos;s start...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
           <context context-type="linenumber">51</context>
@@ -328,7 +375,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component.ts</context>
@@ -379,21 +426,21 @@
         </context-group>
       </trans-unit>
       <trans-unit id="2152954005511135208" datatype="html">
-        <source>The minimum number of points in a cluster</source>
+        <source>The minimum number of elements in a cluster</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4275175508286659548" datatype="html">
-        <source>Minimum number of points in a cluster *</source>
+        <source>Minimum number of elements in a cluster *</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3185966962768362058" datatype="html">
-        <source>The minimum number of points in a cluster cannot be empty</source>
+        <source>The minimum number of elements in a cluster cannot be empty</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component.html</context>
           <context context-type="linenumber">18</context>
@@ -505,7 +552,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
@@ -563,7 +610,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="7519102519437630299" datatype="html">
-        <source>The color of the cluster is mandatory</source>
+        <source>Cluster color is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/oneCluster/components/add-one-cluster-algorithm/add-one-cluster-algorithm.component.html</context>
           <context context-type="linenumber">9</context>
@@ -588,6 +635,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component.html</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4757523602829064494" datatype="html">
+        <source>Type of workspace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9149015675699904183" datatype="html">
@@ -634,7 +688,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="2464299550324401119" datatype="html">
-        <source>This profile can be changed only by you</source>
+        <source>Only you can change this profile</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/components/clusterization-profile-card/clusterization-profile-card.component.html</context>
           <context context-type="linenumber">15</context>
@@ -658,29 +712,25 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5098637981725723477" datatype="html">
-        <source>Has clustering been carried out?</source>
+      <trans-unit id="2821467699300069238" datatype="html">
+        <source>The type of dimensionality reduction algorithm</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8575946961592865712" datatype="html">
-        <source>Field of view</source>
+      <trans-unit id="5098637981725723477" datatype="html">
+        <source>Is clustered?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
           <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
-          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2191923080742382714" datatype="html">
         <source>Changing area</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
@@ -691,7 +741,11 @@
         <source>Points map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295068312007428980" datatype="html">
@@ -702,7 +756,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="6708366678646868117" datatype="html">
-        <source>Cluster</source>
+        <source>Start clustering</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -742,11 +796,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="5334111273559748513" datatype="html">
-        <source>This profile was not clustered!</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
+        <source>Add a workspace</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
           <context context-type="linenumber">6</context>
@@ -785,7 +835,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1408346281574205624" datatype="html">
-        <source>Download more</source>
+        <source>Load more</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-list-page/clusterization-profile-list-page.component.html</context>
           <context context-type="linenumber">16</context>
@@ -812,7 +862,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="3150811829414675474" datatype="html">
-        <source>Set to active</source>
+        <source>Set active</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
           <context context-type="linenumber">5</context>
@@ -851,14 +901,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="9045732835759680979" datatype="html">
-        <source>This workspace can be modified  only by you</source>
+        <source>This workspace can be modified by only by you</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4774865915317367643" datatype="html">
-        <source>Date of creation</source>
+        <source>Creation date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/components/workspace-card/workspace-card.component.html</context>
           <context context-type="linenumber">15</context>
@@ -938,7 +988,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="116550855932905309" datatype="html">
-        <source>Maximum count*</source>
+        <source>Maximum quantity*</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
           <context context-type="linenumber">16</context>
@@ -949,21 +999,21 @@
         </context-group>
       </trans-unit>
       <trans-unit id="4146069456985089741" datatype="html">
-        <source>Add videos by date</source>
+        <source>Add by video&apos;s date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7503851547892368088" datatype="html">
-        <source>Add comments by date</source>
+        <source>Add by comments&apos;s date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5619517020452396113" datatype="html">
-        <source>Download</source>
+        <source>Load</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.html</context>
           <context context-type="linenumber">29</context>
@@ -998,7 +1048,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="5643207732832847886" datatype="html">
-        <source>The maximum number is zero</source>
+        <source>The "maximum number" is zero</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component.ts</context>
           <context context-type="linenumber">77</context>
@@ -1057,7 +1107,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="7508033104981753346" datatype="html">
-        <source>Maximum number (in video)*</source>
+        <source>Maximum number (in a video)*</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component.html</context>
           <context context-type="linenumber">16</context>
@@ -1159,7 +1209,7 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4985962777524939896" datatype="html">
+      <trans-unit id="1001350091219435478" datatype="html">
         <source>Does all data have embeddings</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
@@ -1172,9 +1222,13 @@
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="368625233976172370" datatype="html">
-        <source>The date</source>
+        <source>Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -1190,6 +1244,10 @@
       </trans-unit>
       <trans-unit id="2859017690851821057" datatype="html">
         <source>Add profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -1229,7 +1287,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="2618267646762818855" datatype="html">
-        <source>Load external data</source>
+        <source>Load external text data</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
           <context context-type="linenumber">91</context>
@@ -1254,6 +1312,1532 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component.ts</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3539630193907513872" datatype="html">
+        <source>DBSCAN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8992461886971082470" datatype="html">
+        <source>DBSCAN is one of the most effective clustering algorithms. It is robust against noise and works well with given data. This algorithm we recommend use the most. It is recommended to use in two dimensions with an Epsilon parameter equal to 50%</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="535444422738722652" datatype="html">
+        <source>Properties for creating DBSCAN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2799770706320287278" datatype="html">
+        <source>Epsilon: determines the radius near the point, represented not as an absolute value, but as a percentage, and 50% is the optimal value calculated by our algorithms</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8934787946607047931" datatype="html">
+        <source>Minimum number of points in a cluster: the minimum number of points in one cluster, an integer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2305991249486998056" datatype="html">
+        <source>The page of adding algorithm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="483460744897320076" datatype="html">
+        <source>Gaussian Mixture</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1792297795166058742" datatype="html">
+        <source>Gaussian Mixture is a complex probabilistic clustering algorithm. It is not recommended to use with a dimension greater than two due to high costs of clustering. When used with a larger dimension, clustering will take much longer.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1287697714643566982" datatype="html">
+        <source>Properties for creating Gaussian Mixture</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6746184253312585470" datatype="html">
+        <source>Number of clusters: number of clusters that will be created</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7054398101738318805" datatype="html">
+        <source>K-means</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="38256715380738030" datatype="html">
+        <source>K-means is one of the simplest clustering algorithms. It works very fast, so it can be used for large data sets.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="518259880735994204" datatype="html">
+        <source>Properties for creating k-means:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1916188769617017240" datatype="html">
+        <source>Number of clusters: the number of clusters that will be created during clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5100793990131497156" datatype="html">
+        <source>Seed: so that the same algorithms will give different output data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7513094198570031955" datatype="html">
+        <source>Main</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/embeddings/pages/doc-embeddings-main-page/doc-embeddings-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5969308542358448982" datatype="html">
+        <source>The developed web application enables flexible use and choice of clustering algorithms. 4 main types of clustering algorithms are implemented: k-means, DBSCAN, Gaussian Mixture and Spectral Clustering. Another additional One Cluster algorithm was also implemented, although it cannot be called a full-fledged clustering algorithm. These are only types of algorithms, not specific implementations. The user himself creates a specific implementation of the algorithm with specific properties individual for each algorithm.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">3,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4050836533298629655" datatype="html">
+        <source>Demonstration of work on the example of the k-means algorithm. The user must first create a specific algorithm. To do this, he opens the the adding algorithms page, selects k-means. In this case, k-means has two properties: the number of clusters and the seed. The user enters the values he needs and creates an algorithm. After that, it is possible to use this clustering algorithm. This algorithm is used with specific properties specified by the user. Such a system allows you to create algorithms for specific cases of clustering, which improves the final result.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">8,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1917606911178908757" datatype="html">
+        <source>One cluster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8336372990997654192" datatype="html">
+        <source>One cluster is the simplest clustering algorithm. It does not perform analysis functions, but only groups all points of space into one cluster. This is done for convenient visualization of data without breaking the logic of interaction.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9167848417837524334" datatype="html">
+        <source>Properties for creating One cluster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8844408094883716368" datatype="html">
+        <source>Points color</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="554960461431723238" datatype="html">
+        <source>Spectral Clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6085044903021191046" datatype="html">
+        <source>Spectral Clustering is too complex from the point of view of calculations, so its use is not recommended due to too complex calculations and time consumption.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6959917754514269445" datatype="html">
+        <source>Gamma: Recommended value is 1.0</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3313422594522414226" datatype="html">
+        <source>Creating embeddings or vector visualization of text is the process of converting text data into an array of numbers. The first transformation models worked like dictionaries, tooking a large number of words. Than, if a word was found in the dictionary, the number of such words in the text was placed on this place in array. As a result, we get an array of numbers that relatively represented the text. This technology is quite primitive, and could not work with synonyms or larger language structures. Today, much better models based on artificial intelligence are used, which help to convert text into an array of numbers much better. The web application uses the text-embedding-ada-002 model from OpenAI. In this case, the text is converted into a 1536-dimensional array (that is 1536 numbers).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/embeddings/pages/doc-embeddings-main-page/doc-embeddings-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="513631385573899260" datatype="html">
+        <source>Basic information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1883068400354641579" datatype="html">
+        <source>This application was created to automate the clustering of text data. This means complete automation, including preparation processes and loading of text data for clustering. The user downloads text data (for example, comments from the YouTube. This happens without leaving this site) and performs flexible clustering with many parameters.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7785350358599168618" datatype="html">
+        <source>Cluster analysis or clustering is the task of grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some specific sense defined by the analyst) to each other than to those in other groups (clusters). It is a main task of exploratory data analysis, and a common technique for statistical data analysis, used in many fields, including pattern recognition, image analysis, information retrieval, bioinformatics, data compression, computer graphics and machine learning.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="215110642970518835" datatype="html">
+        <source>An example of clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5025724188475137645" datatype="html">
+        <source>Text clustering can be conventionally divided into four stages: loading of text data, creation of embeddings (or vector visualisation of text), reduction of data dimensionality and, accordingly, clustering.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9024975322693662843" datatype="html">
+        <source>In the developed web application, downloading text data can be done in two ways: downloading comments from the YouTube (using the capabilities of the web application) or loading external sources in a special format.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6676207966757652367" datatype="html">
+        <source>Loading ebmedings or vector visualisation of text is the process of converting text into an array of numbers (vector). The application interacts with the text-embedding-ada-002 model from OpenAI.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5280812013710226572" datatype="html">
+        <source>For a normal display of the original clusters, it is necessary to reduce the dimension of the array of numbers. This is done using different dimensionality reduction algorithms.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2312923741105681492" datatype="html">
+        <source>4 main types of algorithms are used during clustering: DBSCAN, K-means, Spectral Clustering and Gaussian Mixture. By choosing a type, the user himself creates a specific algorithm with certain properties, so the number of real implementations of algorithms is actually unlimited.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2729306969454622244" datatype="html">
+        <source>All stages and subtleties are described in detail in the relevant sections.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8576092896798955976" datatype="html">
+        <source>Dynamic loading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-dynamic-loading-page/doc-points-map-dynamic-loading-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7457567877611948664" datatype="html">
+        <source>Dynamic loading of points on the map is implemented for better performance. Each point map consists of layers, which in turn are divided into tiles. This approach is used by online maps (for example, Google maps). For non-hierarchical clustering, only one layer is created, which is divided 16 by 16, creating 256 equal tiles. When viewing, only those tiles that the user sees are downloaded. With this approach there is no need to download all points, which increases performance with a large amount of data.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-dynamic-loading-page/doc-points-map-dynamic-loading-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4124916723579640017" datatype="html">
+        <source>The point map is responsible for displaying the final clusters. Each profile has its own map of points, and it becomes available after the first clustering of the profile. Each point is responsible for its own text (comment or text from external data). Points of the same color belong to the same cluster. Points are loaded dynamically.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5511771281079836311" datatype="html">
+        <source>By clicking on a specific point, its content is displaying.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3150297930508567449" datatype="html">
+        <source>An image of the clustering result.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5695253189348252394" datatype="html">
+        <source>Clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8199153500215020311" datatype="html">
+        <source>Clustering takes place in the profile with certain properties selected during the profile creation. Clustering is possible only when all workspace data have embeddings.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5357202443650239805" datatype="html">
+        <source>An image of how to start clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7385067282925093927" datatype="html">
+        <source>After that, a background task with data clustering will be created. In many cases, this is quite a long process, so clustering can take a very long time. It is recommended to use the DBSCAN clustering algorithm, which works quite fast.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4154801561177512618" datatype="html">
+        <source>Creation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7093281986211147598" datatype="html">
+        <source>The function of creating a profile is in the additional functionality of the workspace. You can add a profile only to the workspace that can be changed by all users (or you are the owner of the workspace).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="951239499798219241" datatype="html">
+        <source>Image of how to open the page for adding a profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4566584857639674631" datatype="html">
+        <source>Algorithm type: type of clustering algorithm. The parameter is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1327927775349317371" datatype="html">
+        <source>Algorithm: A specific algorithm of the selected type which will be used during clustering. The parameter is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1548554891442402047" datatype="html">
+        <source>Number of dimensions: the number of dimensions in which clustering will take place (the original result will be projected into two-dimensional space in any case). The parameter is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4463987326567161304" datatype="html">
+        <source>Projection algorithm: a type of data projection algorithm (dimensionality reduction). This algorithm will be used to display the final result of clustering. In the case of the selected dimension of clustering not equal to 1536, clustering will also take place in the dimension projected by this algorithm. The parameter is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1133817030153142198" datatype="html">
+        <source>Visibility: determines who will see the profile: everyone, or only its owner.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2556730930202994870" datatype="html">
+        <source>Modification area: defines who can modify the profile: everyone, or only its owner.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8895842741573624966" datatype="html">
+        <source>Add profile page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8478069899957796251" datatype="html">
+        <source>Displaying</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8272808355702772166" datatype="html">
+        <source>Profile card in the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1332870656942182377" datatype="html">
+        <source>The profile card is displayed in the list on the workspace page. It contains basic information about the profile, including the selected clustering algorithm, the number of dimensions, the dimensionality reduction algorithm, the visibility, and the modification area.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7648718855569820437" datatype="html">
+        <source>Profile card</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4886245854386045847" datatype="html">
+        <source>Profile page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1252311083719771735" datatype="html">
+        <source>The profile page contains all the basic information about it. Also, the user can view the clustering results (more details in the clustering and points map visualization section). Also, the button for clustering is in the additional functionality.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2554638215938325088" datatype="html">
+        <source>The profile system is used to isolate the clustering process with certain properties. Each profile is contained in some workspace and cannot exist independently.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2539726423346612079" datatype="html">
+        <source>When creating a profile, the user specifies certain clustering properties that are not changable during the profile using. This makes it possible to perform several different clusterings in the same workspace and easily compare their results.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8689448669847807829" datatype="html">
+        <source>Adding data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4850211324114943482" datatype="html">
+        <source>Adding data depends on the selected workspace type. If the type "Comments" is selected, comments from Youtube should be added. When the "From file" type is selected, adding text is implemented from a file in a special format.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1870224733150507826" datatype="html">
+        <source>Type &quot;Comments&quot;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="989635263215446409" datatype="html">
+        <source>With the selected type "Comments" adding data takes place from the Youtube platform (more details are described in the corresponding section).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1647372638982584022" datatype="html">
+        <source>After uploading comments from YouTube, it becomes possible to add them to the workspace. To begin with, workspace must be selected by clicking the appropriate button in the additional functionality of the workspace on its main page. At the same time, the selected workspace in the list will be highlighted in red. Adding is possible in several ways.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8564230896326913672" datatype="html">
+        <source>There are two approaches to adding comments: adding them from all videos by channel or by selecting one or more. All additions are implemented through the main page of the channel in additional functionality.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6562765096693026016" datatype="html">
+        <source>An image of how to add comments to a workspace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384167426423853605" datatype="html">
+        <source>Adding comments from the whole channel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7381868450623059743" datatype="html">
+        <source>To add comments from the entire channel, you need to select the appropriate function in the additional functionality of the channel. After that, the page for adding comments will open.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2991711140267483951" datatype="html">
+        <source>On the page, you need to select several parameters:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1058657390042329114" datatype="html">
+        <source>Date from: the date from which the comments are added. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2340653391673957941" datatype="html">
+        <source>Date to: The date to which the comments are added. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8883548294781660363" datatype="html">
+        <source>Maximum number: The maximum number of comments that can be added. It is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="312970813084467035" datatype="html">
+        <source>Choose between two options: add by video date or add by comment date. This determines on which of the dates the comments will be added</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="830983278883390319" datatype="html">
+        <source>After clicking the corresponding button, a background task will be created and comments with the appropriate parameters will be added to the selected workspace.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1208872984367995494" datatype="html">
+        <source>An image of how to add comments to a workspace from a channel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5761835508908136171" datatype="html">
+        <source>The comments adding process from specific videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1517182786462956617" datatype="html">
+        <source>To add comments from certain videos of the channel, you need to select the appropriate function in the additional functionality of the channel. After that, the page for adding comments will open.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4602991972533405662" datatype="html">
+        <source>Maximum number (in video): The maximum number of comments that can be added from one video. It is mandatory</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2709875152761455806" datatype="html">
+        <source>Also, you need to select videos from the list. They will be loaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6813209813959217321" datatype="html">
+        <source>An image of how to add comments to a workspace from multiple videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3746486829499026781" datatype="html">
+        <source>Type "From file"</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1973169092717824026" datatype="html">
+        <source>It is also possible to download text data from a file in JSON format, an example is given below.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1545484559650980594" datatype="html">
+        <source>Example file</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4511695603855654802" datatype="html">
+        <source>The &quot;Session&quot; variable in a file allows you to copy text data with the same Id but different sessions, which facilitates the process of uploading multiple files.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3587189528754936703" datatype="html">
+        <source>The variable &quot;ExternalObjects&quot; defines an array of text data that will be added to the workspace.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5686175553432393916" datatype="html">
+        <source>To add text from external sources, you must first open the corresponding page using the additional functionality of the workspace.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5866033057600484485" datatype="html">
+        <source>Image of how to open the add external data page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6284447541332252862" datatype="html">
+        <source>Page for adding text from external sources</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3136704596212916019" datatype="html">
+        <source>Every registered user can create a workspace. Also, when creating, the owner limits the scope of visibility and changes to ensure privacy and isolation of the workspace if necessary.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1694093160196201636" datatype="html">
+        <source>Each workspace has some properties, such as: input type (comments from the Youtube platform or external data in a specific format), visibility scope (which determines who can see the workspace profile) and modification scope (which determines who can modify the workspace ).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4608818540487081594" datatype="html">
+        <source>To open the workspace creation page, click on the corresponding button in the lower left corner of the screen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52947580526545545" datatype="html">
+        <source>Image of how to open the workspace creation page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3424493038722508678" datatype="html">
+        <source>Title: maximum length - 100. The field is mandatory</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3903094705958485459" datatype="html">
+        <source>Description: the maximum length is 3000. The field is mandatory</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2203304469627401141" datatype="html">
+        <source>Workspace type: &quot;Comments&quot; or "From file". Set the workspace specification. If "Comments" is selected, only comments from the YouTube platform can be added and worked with in the workspace. If "From file" is selected, various text data can be loaded into the workspace from a file in a special format (detailed in the appropriate section).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6665596671107501921" datatype="html">
+        <source>Visibility: defines who will see the workspace: everyone, or only its owner.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="517748110631601890" datatype="html">
+        <source>Modification area: defines who can modify the workspace: everyone, or only its owner.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7927628402958857905" datatype="html">
+        <source>The user can then add a workspace with the appropriate properties. According to the selected characteristics, the workspace can be available only to the owner or to all users.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2493975666544047759" datatype="html">
+        <source>Workspace creation page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="715321083537740584" datatype="html">
+        <source>Workspace card in the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5012519142301181195" datatype="html">
+        <source>When viewing workspaces in the list, each of them is displayed as a card. It shows: workspace title, description, visibility area, and modification area. The date the workspace was created is also displayed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="315836287155451403" datatype="html">
+        <source>Workspace card</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1670374416164612811" datatype="html">
+        <source>Workspace detail page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6172816736469024857" datatype="html">
+        <source>By clicking on the workspace card, you can get to the main page. It shows basic information about the workspace and a list of profiles added to it. In addition, there are additional interaction functionality</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2311578569142827893" datatype="html">
+        <source>Workspace page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2974330240935059179" datatype="html">
+        <source>Loading embeddings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7755538442689878223" datatype="html">
+        <source>Loading embeddings or vector visualisation of text: This is the process of converting text into an array of numbers. It is necessary for further text clustering. More details about vector visualization of text are described on the corresponding page.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="429391490356625919" datatype="html">
+        <source>In order to proceed with the clustering, it is necessary to provide a vector visualization of the text in the workspace. To do this, click on the corresponding function in the additional functionality. Vector rendering is a rather long process, so a background task is created, the progress of which can be seen on the corresponding page. After successful vector visualization of the text, the status of the corresponding workspace will change, and clustering will be possible in its profiles.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2570499610336692913" datatype="html">
+        <source>An image of how to start vector visualisation of text in the workspace.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1008820313139503688" datatype="html">
+        <source>The main purpose of workspaces: to isolate data and work with it, for more convenient multi-level clustering. Each workspace contains some text data that the user can add to it. Also, it contains an array of profiles: objects that are used for clustering with certain properties. Workspaces are independent of each other and do not interact with each other.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2359603853022043842" datatype="html">
+        <source>Channel display</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2588921877931942010" datatype="html">
+        <source>Channel card in the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7033469083446386263" datatype="html">
+        <source>When viewing channels in the list, each of them is displayed as a card. It shows: the name of the channel, an image, the number of subscribers, views and videos (both the total number of videos in the channel and the number of videos uploaded to the site system are displayed). The upload date of the channel is also displayed. Most data can be copied by clicking on it. If the channel is already loaded into the system, the color of its name is red. Otherwise, gray.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">4,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6581482830169752032" datatype="html">
+        <source>Channel card</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2242040266476398076" datatype="html">
+        <source>Channel detail page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6269696814032158613" datatype="html">
+        <source>By clicking on the channel card, you can get to the main page. It displays basic information about the channel. It also hosts other pages such as a list of the channel's uploaded videos and the option to upload more videos. In addition, there are additional interaction functions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3560195848023993068" datatype="html">
+        <source>Channel page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5958664504625849689" datatype="html">
+        <source>Loading the channel by id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2286056560635056611" datatype="html">
+        <source>Each YouTube channel has an identifier (id). We use it during loading. To get started, you need to enter the id in the corresponding field and click the "add" button. If a channel with this id exists, it will be loaded and added to the channel list. After a successful download, a corresponding message will appear</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5215776846393829393" datatype="html">
+        <source>Channel download page by id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6548277595597013238" datatype="html">
+        <source>Loading channels by name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7385005441538142858" datatype="html">
+        <source>To begin with, you need to enter a name and choose one of two sorting options: by popularity or creation time. After pressing enter or the search button, a certain number of channels are searched using the built-in tools of the YouTube platform. The search is performed using pagination, so if the number of found channels is large, not all of them are uploaded. In this case, you can upload the next group by pressing the corresponding button at the end of the channel list. After that, you can select the desired channels (already downloaded channels are highlighted in red and cannot be selected). After selecting the channels, you need to press the download button and the selected channels will be downloaded.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">3,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5423594335671030522" datatype="html">
+        <source>Channel download page by name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6436932280032860271" datatype="html">
+        <source>To download channels, you need to log in. All authorized users can download channels. Detailed information about the channel is uploaded to the server, including the number of videos (on the YouTube platform), subscribers and other statistics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="695362133297309479" datatype="html">
+        <source>The channel download page can be opened in the main header of the site. After that, two types of download are available: by channel id or by flexible search by name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5422762329833536602" datatype="html">
+        <source>Channel download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4691444420729982681" datatype="html">
+        <source>Loading comments from a channel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8636134541004097114" datatype="html">
+        <source>The button to open the page for downloading comments from the channel is located in the additional features of the channel.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6937828869767293991" datatype="html">
+        <source>Image of how to open the channel comments download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1061666925870604426" datatype="html">
+        <source>On the download page, you need to select several parameters:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="949751348101365802" datatype="html">
+        <source>Date from: The date from which the comments are loaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1455838421829744754" datatype="html">
+        <source>Date to: The date until which the comments are uploaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6103581511387717980" datatype="html">
+        <source>Maximum number: The maximum number of comments that can be uploaded. It is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4644224853386178641" datatype="html">
+        <source>Maximum number per video: The maximum number of comments that can be uploaded from a single video. It is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7447901637768182619" datatype="html">
+        <source>Choose between two options: download by video date or download by comment date. This determines on which of the dates the comments will be loaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7129648396701850172" datatype="html">
+        <source>After that, the user has to click on the appropriate download button and click on the button to download. This will create a special background task, and comments based on the given options will be loaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3791745478401607901" datatype="html">
+        <source>Many comments download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7236215972217496864" datatype="html">
+        <source>Download comments from a video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6858173200816184793" datatype="html">
+        <source>The button to open the page for uploading comments from the video is located in the additional funtionality of the video.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3153852979182021091" datatype="html">
+        <source>Image of how to open the video comments download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6716698995595509944" datatype="html">
+        <source>Comments from the YouTube platform are one of the sources of text data for clustering. They can be downloaded in two ways: from the channel and from a specific video. The YouTube platform does not allow you to download all published comments (deleted or blocked ones cannot be downloaded). On the other hand, the video statistics show the number of all comments, including deleted and blocked. This creates a small display problem where it appears that not all comments have been uploaded to the server, even though all available comments have actually been uploaded. When planning to upload comments, you need to take this fact and in some cases choose slightly larger numbers when uploading videos.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4443831670034688844" datatype="html">
+        <source>For the first step of clustering, you need to load text data. For this, we have a system of automatically uploading comments from the YouTube platform. Downloading of YouTube channels, videos and, accordingly, comments is implemented. All this is automated and occurs exclusively with the use of this site.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8096465392262999038" datatype="html">
+        <source>Display video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2578270168477448905" datatype="html">
+        <source>The video card in the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="755497453846821889" datatype="html">
+        <source>When viewing videos in the list, each of them is displayed as a card. It shows: the name of the video, an image, the number of likes, views and comments (both the total number of comments in the video and the number uploaded to the site's system are displayed). The video upload date is also displayed. Most data can be copied by clicking on it. If the video is already uploaded to the system, the color of its title is red. Otherwise, gray.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">4,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8131062624344441333" datatype="html">
+        <source>Video card</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6059561947513202286" datatype="html">
+        <source>Video detail page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="33788115032243635" datatype="html">
+        <source>By clicking on the video card, you can get to the main page. It displays basic information about the video and additional interaction funtionality</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1354071744310022062" datatype="html">
+        <source>Video page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1666909403332303689" datatype="html">
+        <source>Channel video list page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8180396396725529842" datatype="html">
+        <source>The channel page displays uploaded videos, you can view them, sort them and search for the ones you need.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="497697518792709155" datatype="html">
+        <source>Channel video list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8503729746000448512" datatype="html">
+        <source>Main list of videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1634385317554944531" datatype="html">
+        <source>It is possible to view all videos uploaded to the system, not only those belonging to a specific channel. User can sort videos and search them by name. Pagination is implemented, so the loading process is quite fast.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5203942946887719387" datatype="html">
+        <source>Download multiple videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6681797853930082563" datatype="html">
+        <source>One or more videos are downloaded in the corresponding section located on the channel's detailed page.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7123604238910744371" datatype="html">
+        <source>A certain number of videos from the corresponding channel are loaded into the section, which are displayed to the user. You can choose the criteria by which they are sorted: "Newest first"; or "Initially more popular". It is also possible to search by name. If the number of downloaded videos is not enough, it is possible to download more of them at the very bottom of the video list by clicking on the corresponding button.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5357721882910791260" datatype="html">
+        <source>After that, the user can select one or more videos (the name of already downloaded videos is highlighted in red and cannot be selected). And click the download button. This will create a special background task and the corresponding videos will be downloaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2101471800533036766" datatype="html">
+        <source>Multiple video download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="682376936752923535" datatype="html">
+        <source>Download many videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5963076347129743340" datatype="html">
+        <source>Downloading one or many videos takes place in the corresponding section, which can be opened in additional channel interaction functions.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1827481674018948585" datatype="html">
+        <source>Image of how to open the download page of many videos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="672656933123975034" datatype="html">
+        <source>Date From: The date from which the videos are downloaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5487448920106338495" datatype="html">
+        <source>Date to: The date until which the videos are uploaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5217115317864032831" datatype="html">
+        <source>Number of videos: the maximum number of videos that can be uploaded. It is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4057517324368139732" datatype="html">
+        <source>Minimum number of comments: Minimum number of comments in a video for it to be uploaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="456550088177431046" datatype="html">
+        <source>Minimum views: The minimum number of views a video needs to be uploaded. It is not required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4280459028490910211" datatype="html">
+        <source>After that, the user has to click on the appropriate download button and click on the button to download. This will create a special background task, and videos according to the given options will be downloaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1896707845928505246" datatype="html">
+        <source>Many videos download page</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1437538256103860646" datatype="html">
+        <source>You need to log in to download videos. All authorized users can download channels or videos. Detailed information about the channel is uploaded to the server, including the number of comments (on the YouTube platform), views and other statistics. Only video information and statistics are downloaded, there is no need to download a video sequence.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7799666205453788600" datatype="html">
+        <source>There are two ways to download channels: by selecting one or more videos, or automatically downloading a certain number of videos from a time limit.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="170115560383800074" datatype="html">
+        <source>Youtube</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1474936366881189364" datatype="html">
+        <source>Download by id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7249285010053880514" datatype="html">
+        <source>Download by name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3584966122157250410" datatype="html">
+        <source>Multiple downloads by id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3702061416354031280" datatype="html">
+        <source>Loading many</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7422384915401027192" datatype="html">
+        <source>Comments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7031863597491397587" datatype="html">
+        <source>Download from video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1169176545242956651" datatype="html">
+        <source>Downloading from the channel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4806013223380173695" datatype="html">
+        <source>Algorithms</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8902781372048301679" datatype="html">
+        <source>Displaying</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="737010553863134411" datatype="html">
+        <source>Embeddings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5176552263311101910" datatype="html">
@@ -1410,7 +2994,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="7171188994840788212" datatype="html">
-        <source>Less followers at first</source>
+        <source>Fewer followers at first</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -1607,7 +3191,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="5360457106736594826" datatype="html">
-        <source>Download a group of comments</source>
+        <source>Download by name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component.html</context>
           <context context-type="linenumber">6</context>

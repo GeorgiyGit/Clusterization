@@ -44,7 +44,7 @@ export class YoutubeFullChannelPageComponent implements OnInit {
           this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
-        this.router.navigateByUrl('workspaces/add-comments-by-channel/' + this.channel.id);
+        this.router.navigate([{ outlets: { overflow: 'workspaces/add-comments-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
@@ -57,7 +57,7 @@ export class YoutubeFullChannelPageComponent implements OnInit {
           this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
-        this.router.navigateByUrl('workspaces/add-comments-by-videos/' + this.channel.id);
+        this.router.navigate([{ outlets: { overflow: 'workspaces/add-comments-by-videos/' + this.channel.id } }]);
       },
       isForAuthorized: true
     }

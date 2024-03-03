@@ -44,12 +44,12 @@ namespace Infrastructure.Seeders
             var type1 = new ClusterizationType()
             {
                 Id = ClusterizationTypes.Comments,
-                Name = "Коментарі"
+                Name = "Comments"//"Коментарі"
             };
             var external = new ClusterizationType()
             {
                 Id = ClusterizationTypes.External,
-                Name = "З файлу"
+                Name = "From file"//"З файлу"
             };
 
             modelBuilder.HasData(

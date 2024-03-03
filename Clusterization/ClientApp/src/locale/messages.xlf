@@ -2,14 +2,17 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="uk-UA" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="6853678511371083443" datatype="html">
+        <source>Область модифікації</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2851143444086140952" datatype="html">
         <source>Можуть змінювати всі</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -19,31 +22,27 @@
           <context context-type="sourcefile">src/app/core/components/changing-types-select-option/changing-types-select-option.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="50901836370505515" datatype="html">
+        <source>Документація</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8847018699088352655" datatype="html">
         <source>Канали</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2768538519711126161" datatype="html">
         <source>Відео</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5143917168868229616" datatype="html">
-        <source>Завантажити канали</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">7</context>
@@ -52,9 +51,13 @@
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="9006086090092635077" datatype="html">
-        <source>Задачі</source>
+      <trans-unit id="5143917168868229616" datatype="html">
+        <source>Завантажити канали</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">8</context>
@@ -64,8 +67,8 @@
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="49752753619351073" datatype="html">
-        <source>Робочі простори</source>
+      <trans-unit id="9006086090092635077" datatype="html">
+        <source>Задачі</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">9</context>
@@ -75,8 +78,8 @@
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5503041089914007895" datatype="html">
-        <source>Додати алгоритм</source>
+      <trans-unit id="49752753619351073" datatype="html">
+        <source>Робочі простори</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">10</context>
@@ -85,16 +88,31 @@
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5503041089914007895" datatype="html">
+        <source>Додати алгоритм</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4529511236521569287" datatype="html">
         <source>Реєстрація</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/sign-up-page/sign-up-page.component.html</context>
@@ -105,11 +123,11 @@
         <source>Увійти</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/account/pages/log-in-page/log-in-page.component.html</context>
@@ -124,11 +142,11 @@
         <source>Вийти</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1650797384057519185" datatype="html">
@@ -159,6 +177,35 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component.html</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8575946961592865712" datatype="html">
+        <source>Область видимості</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4473750148729558861" datatype="html">
+        <source>Можуть бачити всі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2642947990217825728" datatype="html">
+        <source>Може бачити тільки власник</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/visible-types-select-option/visible-types-select-option.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2765342578420328429" datatype="html">
@@ -328,7 +375,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component.ts</context>
@@ -505,7 +552,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.ts</context>
@@ -590,6 +637,13 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4757523602829064494" datatype="html">
+        <source>Тип робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="9149015675699904183" datatype="html">
         <source>Кількість вимірів</source>
         <context-group purpose="location">
@@ -658,29 +712,25 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2821467699300069238" datatype="html">
+        <source>Тип алгоритму зменшення розмірності</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5098637981725723477" datatype="html">
         <source>Чи проведена кластеризація</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8575946961592865712" datatype="html">
-        <source>Область видимості</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
           <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
-          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2191923080742382714" datatype="html">
         <source>Область змінювання</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
@@ -691,7 +741,11 @@
         <source>Карта точок</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295068312007428980" datatype="html">
@@ -741,15 +795,15 @@
           <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5334111273559748513" datatype="html">
-        <source>Додати робочий простір</source>
+      <trans-unit id="2859017690851821057" datatype="html">
+        <source>Додати профіль</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/profiles/pages/clusterization-profile-add-page/clusterization-profile-add-page.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2726305553293927490" datatype="html">
@@ -1070,6 +1124,13 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5334111273559748513" datatype="html">
+        <source>Додати робочий простір</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1248699060068720979" datatype="html">
         <source>Назва*</source>
         <context-group purpose="location">
@@ -1159,7 +1220,7 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4985962777524939896" datatype="html">
+      <trans-unit id="1001350091219435478" datatype="html">
         <source>Чи всі дані мають ембедінги</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
@@ -1171,6 +1232,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.html</context>
           <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="368625233976172370" datatype="html">
@@ -1186,13 +1251,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component.ts</context>
           <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2859017690851821057" datatype="html">
-        <source>Додати профіль</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component.ts</context>
-          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1321995859419074555" datatype="html">
@@ -1254,6 +1312,1532 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component.ts</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3539630193907513872" datatype="html">
+        <source>DBSCAN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8992461886971082470" datatype="html">
+        <source>DBSCAN це один із найефективніших алгоритмів кластеризації. Він стійкий від шумів та добре працює із заданими даними. Саме цей алгоритм найбільше рекомендується для використання. Рекомендується використовувати в двох вимірах із параметром Epsilon рівним 50%</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="535444422738722652" datatype="html">
+        <source>Параметри для створення DBSCAN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2799770706320287278" datatype="html">
+        <source>Epsilon: визначає радіус біля точки, представлений не у абсолютному значені, а у відсотковому, причому 50% - це оптимальне значення розраховано алгоритмом</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8934787946607047931" datatype="html">
+        <source>Мінімальна кількість точок у кластері: мінімальна кількість точок в одному кластері, ціле число</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2305991249486998056" datatype="html">
+        <source>Сторінка додавання алгоритму</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-dbscan-page/doc-algorithms-dbscan-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="483460744897320076" datatype="html">
+        <source>Gaussian Mixture</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1792297795166058742" datatype="html">
+        <source>Gaussian Mixture це складний імовірнісний алгоритм кластеризації. Не рекомендується використовувати з виміром більшим двох через високі затрати кластеризації. При використанні з більшим виміром кластеризація буде проводитися набагато довше.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1287697714643566982" datatype="html">
+        <source>Параметри для створення Gaussian Mixture</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6746184253312585470" datatype="html">
+        <source>Кількість кластерів: кількість створених кластерів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-gaussian-mixture-page/doc-algorithms-gaussian-mixture-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7054398101738318805" datatype="html">
+        <source>K-means</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="38256715380738030" datatype="html">
+        <source>K-means це один із найпростіших алгоритмів кластеризації. Він працює дуже швидко, тому може використовуватися для великих масивів даних.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="518259880735994204" datatype="html">
+        <source>Параметри для створення k-means:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1916188769617017240" datatype="html">
+        <source>Кількість кластерів: кількість кластерів, які будуть створені при кластеризації</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5100793990131497156" datatype="html">
+        <source>Зерно (Seed): для того щоб однакові алгоритми давали різні вихідні дані</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7513094198570031955" datatype="html">
+        <source>Основне</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/embeddings/pages/doc-embeddings-main-page/doc-embeddings-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5969308542358448982" datatype="html">
+        <source>Розроблений веб-додаток дає можливість гнучкого використання та вибору алгоритмів кластеризації. Реалізовано чотири основних типи алгоритмів кластеризації: k-means, DBSCAN, Gaussian Mixture та Spectral Clustering. Також було імплементовано ще один додатковий алгоритм One Cluster, хоча його не можна назвати повноцінним алгоритмом кластеризації. Це є лише типами алгоритмів, а не конкретними реалізаціями. Користувач сам створює конкретну реалізацію алгоритму із конкретними властивостями індивідуальними для кожного алгоритму.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">3,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4050836533298629655" datatype="html">
+        <source>Демонстрація роботи на прикладі алгоритму k-means. Користувачу спочатку необхідно створити конкретний алгоритм. Для цього він відкриває сторінку додавання алгоритмів, вибирає k-means. В даному випадку k-means має дві властивості: кількість кластерів та зерно. Користувач вводить необхідні йому властивості та створює алгоритм. Після цього, можливе використання алгоритму при кластеризації. Використовується саме цей алгоритм із конкретними властивостями вказаними користувачем. Така система дозволяє створювати алгоритми для конкретних випадків кластеризації, що покращує кінцевий результат.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component.html</context>
+          <context context-type="linenumber">8,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1917606911178908757" datatype="html">
+        <source>One cluster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8336372990997654192" datatype="html">
+        <source>One cluster це найпростіший алгоритм кластеризації. Він не виконує функцій аналізу, а тільки групує всі точки простору в один кластер. Це зроблено для зручної візуалізації даних без порушення логіки взаємодії.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9167848417837524334" datatype="html">
+        <source>Параметри для створення One cluster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8844408094883716368" datatype="html">
+        <source>Колір точок</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="554960461431723238" datatype="html">
+        <source>Spectral Clustering</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6085044903021191046" datatype="html">
+        <source>Spectral Clustering це занадто складний з точки розрахунків алгоритм, тому його використання не рекомендується через надто складні обчисленні та затрати часу.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6959917754514269445" datatype="html">
+        <source>Gamma: рекомендоване значення 1.0</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3313422594522414226" datatype="html">
+        <source>Створення ембедингів або векторна візуалізація тексту - це процес перетворення текстових даних на масив чисел. Перші моделі перетворення працювали як словники, вони брали велику кількість слів. Та, якщо якесь слово зустрічалося в словнику, на місті ньому ставилася кількість таких слів у тексті. В кінцевому результаті ми отримували масив чисел, які відносно відображали текст. Ця технологія досить примітивна, та не могла працювати із синонімами або більшими мовними конструкціями. Сьогодні використовуються набагато кращі моделі на основі штучного інтелекту, які допомагають перетворювати текст в масив чисел значно краще. У веб-додатку використовується модель text-embedding-ada-002 від компанії OpenAI. В даному випадку текст перетворюється в 1536 мірний масив (тобто 1536 чисел).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/embeddings/pages/doc-embeddings-main-page/doc-embeddings-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="513631385573899260" datatype="html">
+        <source>Основна інформація</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1883068400354641579" datatype="html">
+        <source>Цей додаток створений для автоматизації кластеризації текстових даних. Під цим розуміється повна автоматизація, включаючи підготовчі процеси та завантаження текстових даних для кластеризації. Користувач завантажує текстові дані (наприклад коментарі з платформи ютуб, причому це відбувається в не покидаючи цей сайт) та проводить гнучку кластеризацію із багатьма параметрами.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7785350358599168618" datatype="html">
+        <source>Кластерний аналіз — задача розбиття заданої вибірки об&apos;єктів (ситуацій) на підмножини, які називаються кластерами, так, щоб кожен кластер складався з схожих об&apos;єктів, а об&apos;єкти різних кластерів істотно відрізнялися. Завдання кластеризації належить до статистичної обробки, а також до широкого класу завдань некерованого навчання. У випадку коментарів з платформи Youtube, кластерний аналіз допомагає групувати об&apos;єкти фактично за сенсом.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="215110642970518835" datatype="html">
+        <source>Приклад кластеризації</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5025724188475137645" datatype="html">
+        <source>Текстову кластеризацію можна умовно розділити на чотири етапи: завантаження текстових даних, створення ембедингів (або векторна кластеризація тексту), зменшення розмірності даних та відповідно кластеризація.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9024975322693662843" datatype="html">
+        <source>У розробленому веб-додатку завантаження текстових даних може відбувалися в два підходи: завантаження коментарів з платформи Youtube (використовуючи можливості веб-додатка) або завантаження зовнішніх джерел у спеціальному форматі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6676207966757652367" datatype="html">
+        <source>Завантаження ебмедингів або векторна візуалізація тексту — це процес перетворення тексту в масив чисел (вектор). Додаток взаємодіє з моделю text-embedding-ada-002 від компанії OpenAi.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5280812013710226572" datatype="html">
+        <source>Для нормального відображення вихідних кластерів, необхідно зменшити розмірність масиву чисел. Це робиться за допомогою різних алгоритмів зменшення розмірності.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2312923741105681492" datatype="html">
+        <source>Під час кластеризації використовуються чотири основних типи алгоритмів: DBSCAN, K-means, Spectral Clustering та Gaussian Mixture. Вибравши тип користувач сам створює конкретний алгоритм із певними властивостями, тому кількість реальних реалізацій алгоритмів фактично безмежна.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2729306969454622244" datatype="html">
+        <source>Детальніше всі етапи та тонкощі описані у відповідних розділах.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/pages/doc-info-main-page/doc-info-main-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8576092896798955976" datatype="html">
+        <source>Динамічне підвантаження</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-dynamic-loading-page/doc-points-map-dynamic-loading-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7457567877611948664" datatype="html">
+        <source>Для кращої продуктивності реалізовано динамічне підвантаження точок на мапу. Кожна мапа точок складається з рівнів, які в свою чергу діляться на квадрати. Даний підхід використовують онлайн карти (наприклад Google maps). Для неієрархічної кластеризації створюється лише один рівень, який ділиться 16 на 16, створюючи 256 рівних квадратів. При перегляді користувачем звантажуються тільки ті квадрати, які він бачить. Тобто необхідності завантажувати всі точки немає, що підвищує продуктивність при великій кількості даних.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-dynamic-loading-page/doc-points-map-dynamic-loading-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4124916723579640017" datatype="html">
+        <source>Карта точок відповідає за відображення кінцевих кластерів. В кожному профілі своя карта точок, причому вона стає доступна після першої кластеризації профілю. Кожна точка відповідає за свій текст (коментар або текст із зовнішніх даних). Точки одного кольору відносяться до одного кластеру. Завантаження точок відбувається динамічно.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5511771281079836311" datatype="html">
+        <source>Натиснувши на конкретну точку, висвітлюється її зміст.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3150297930508567449" datatype="html">
+        <source>Зображення результату кластеризації.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/points-map/pages/doc-points-map-main-page/doc-points-map-main-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5695253189348252394" datatype="html">
+        <source>Кластеризація</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8199153500215020311" datatype="html">
+        <source>У профілі відбувається кластеризація із певними властивостями вибраними при створені профілю. Кластеризація можлива тільки тоді, коли всі дані робочого простору мають завантажені ембедингі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5357202443650239805" datatype="html">
+        <source>Зображення, як почати кластеризацію</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7385067282925093927" datatype="html">
+        <source>Після цього створиться фонове завдання із кластеризацією даних. В багатьох випадках це досить довгий процес, тому кластеризація може тривати дуже довго. Рекомендується використовувати алгоритм кластеризації DBSCAN, який працює досить швидко.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4154801561177512618" datatype="html">
+        <source>Створення</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7093281986211147598" datatype="html">
+        <source>Функція створення профілю знаходиться в додатковому функціоналі робочого простору. Додати профіль можна тільки до того робочого простору, зміна якого можлива для всіх користувачів (або ви є власником робочого простору).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="951239499798219241" datatype="html">
+        <source>Зображення, як відкрити сторінку додавання профілю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4566584857639674631" datatype="html">
+        <source>Тип алгоритму: тип алгоритму кластеризації. Параметр є обов&apos;язковим.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1327927775349317371" datatype="html">
+        <source>алгоритм: певний алгоритм вибраного типу, який буде використовуватися під час кластеризації. Параметр є обов&apos;язковим.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1548554891442402047" datatype="html">
+        <source>Кількість вимірів: кількість вимірів у яких буде відбуватися кластеризація (вихідний результат в будь якому разі буде проектуватися в двовимірний простір). Параметр є обов&apos;язковим.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4463987326567161304" datatype="html">
+        <source>Алгоритм проекції: тип алгоритму проекції даних (зменшення розмірності). За допомогою якого алгоритму буде відбуватись відображення кінцевого результату кластеризації. У випадку вибраного виміру кластеризації не рівному 1536, кластеризація також буде відбуватися у спроектованому просторі даним алгоритмом. Параметр є обов&apos;язковим.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1133817030153142198" datatype="html">
+        <source>Область видимості: визначає, хто буде бачити профіль: всі, чи тільки його власник.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2556730930202994870" datatype="html">
+        <source>Область модифікації: визначає, хто може змінювати профіль: всі, чи тільки його власник.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8895842741573624966" datatype="html">
+        <source>Сторінка додавання профілю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-creation-page/doc-profiles-creation-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8478069899957796251" datatype="html">
+        <source>Відображення</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8272808355702772166" datatype="html">
+        <source>Картка профілю у списку</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1332870656942182377" datatype="html">
+        <source>У списку на сторінці робочого простору відображаються картка профілю. У ній знаходиться основна інформація про профіль, включаючи вибраний алгоритм кластеризації, кількість вимірів, алгоритм зменшення розмірності, область видимості та область модифікації.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7648718855569820437" datatype="html">
+        <source>Картка профілю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4886245854386045847" datatype="html">
+        <source>Сторінка профілю</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1252311083719771735" datatype="html">
+        <source>На сторінці профілю знаходиться вся основна інформація про нього. Також, користувач може переглядати результати кластеризації (детальніше у розділі візуалізації кластеризації та карти точок). Також, у додатковому функціоналі знаходиться кнопка кластеризації.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-displaying-page/doc-profiles-displaying-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2554638215938325088" datatype="html">
+        <source>Система профілів необхідна для ізоляції процесу кластеризації із певними властивостями. Кожен профіль міститься у якомусь робочому просторі та самостійно існувати не може.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2539726423346612079" datatype="html">
+        <source>При створенні профілю користувач вказує певні властивості кластеризації, які є не змінними під час користування профілем. Це дає змогу в одному робочому просторі проводити кілька різних кластеризацій та легко порівнювати їх результат.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8689448669847807829" datatype="html">
+        <source>Додавання даних</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4850211324114943482" datatype="html">
+        <source>Додавання даних залежить від вибраного типу робочого простору. Якщо вибрано тип &quot;Коментарі&quot;, додаються коментарі з платформи Youtube. При вибраному типі &quot;З файлу&quot;, додавання коментарів реалізовано з файлу в спеціальному форматі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1870224733150507826" datatype="html">
+        <source>Тип &quot;Коментарі&quot;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="989635263215446409" datatype="html">
+        <source>При вибраному типі &quot;Коментарі&quot; додавання даних відбувається з платформи Youtube (детальніше описано у відповідному розділі).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1647372638982584022" datatype="html">
+        <source>Після завантаження коментарів з платформи Youtube, стає можливим додавання їх у робочий простір. Для початку його необхідно вибрати, натиснувши відповідну кнопку в додатковому функціоналі робочого простору на основній його сторінці. При цьому вибраний робочий простір у списку буде підсвічуватися червоним кольором. Додавання можливе у кілька етапів.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8564230896326913672" datatype="html">
+        <source>Для додавання коментарів існує два підходи: додавати їх зі всіх відео через канал, чи вибравши одне або кілька. Всі додавання реалізовані через головну сторінку каналу в додатковому функціоналі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6562765096693026016" datatype="html">
+        <source>Зображення, як додати коментарі до робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384167426423853605" datatype="html">
+        <source>Додавання коментарів із всього каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7381868450623059743" datatype="html">
+        <source>Для додавання коментарів зі всього каналу необхідно вибрати відповідну функцію в додатковому функціоналі каналу. Після цього відкриється сторінка додавання коментарів.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2991711140267483951" datatype="html">
+        <source>На сторінці необхідно вибрати кілька параметрів:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1058657390042329114" datatype="html">
+        <source>Дата від: дата від якої додаються коментарі. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2340653391673957941" datatype="html">
+        <source>Дата до: дата до якої додаються коментарі. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8883548294781660363" datatype="html">
+        <source>Максимальна кількість: максимальна кількість коментарів, які можуть бути додані. Є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="312970813084467035" datatype="html">
+        <source>Вибір між двох параметрів: додати за датою відео або додати за датою коментарів. Це визначає по якій з дат будуть додані коментарі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="830983278883390319" datatype="html">
+        <source>Після натискання відповідної кнопки створиться фонове завдання та коментарі із відповідними параметрами будуть додані до вибраного робочого простору.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1208872984367995494" datatype="html">
+        <source>Зображення, як додати коментарі до робочого простору з каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5761835508908136171" datatype="html">
+        <source>Додавання коментарів із певних відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1517182786462956617" datatype="html">
+        <source>Для додавання коментарів зі певних відео каналу необхідно вибрати відповідну функцію в додатковому функціоналі каналу. Після цього відкриється сторінка додавання коментарів.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4602991972533405662" datatype="html">
+        <source>Максимальна кількість (у відео): максимальна кількість коментарів, які можуть бути додані з одного відер. Є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2709875152761455806" datatype="html">
+        <source>Також, необхідно вибрати відео із списку, які будуть завантажені</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6813209813959217321" datatype="html">
+        <source>Зображення, як додати коментарі до робочого простору з багатьох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3746486829499026781" datatype="html">
+        <source>Тип &quot;З файлу&quot;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1973169092717824026" datatype="html">
+        <source>Також можливе завантаження текстових даних із файлу в форматі JSON, приклад наведений нижче.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1545484559650980594" datatype="html">
+        <source>Приклад файлу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4511695603855654802" datatype="html">
+        <source>Змінна &quot;Session&quot; у файлі дає змогу копіювати текстові дані з однаковими Id але іншими сесіями, що полегшує процес завантаження кількох файлів.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3587189528754936703" datatype="html">
+        <source>Змінна &quot;ExternalObjects&quot; визначає масив текстових даних, які будуть додані до робочого простору.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5686175553432393916" datatype="html">
+        <source>Щоб додати текст із зовнішніх джерел, необхідно спочатку відкрити відповідну сторінку користуючись додатковим функціоналом робочого простору.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5866033057600484485" datatype="html">
+        <source>Зображення, як відкрити сторінку додавання зовнішніх даних</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6284447541332252862" datatype="html">
+        <source>Сторінка додавання тексту із зовнішніх джерел</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3136704596212916019" datatype="html">
+        <source>Кожен зареєстрований користувач може створити робочий простір. Також, власник при створенні обмежує область видимості та змінення, щоб забезпечити конфіденційність та ізольованість робочого простору при необхідності.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1694093160196201636" datatype="html">
+        <source>Кожен робочий простір має деякі властивості, такі як: тип вхідних даних (коментарі з платформи Youtube або зовнішні дані у певному форматі), область видимості (яка визначає, хто може бачити робочий профіль) та область змінювання (яка визначає, хто може змінювати робочий простір).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4608818540487081594" datatype="html">
+        <source>Щоб відкрити сторінку створення робочого простору, необхідно натиснути на відповідну кнопку в нижньому лівому куті екрану.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52947580526545545" datatype="html">
+        <source>Зображення як відкрити сторінку створення робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3424493038722508678" datatype="html">
+        <source>Заголовок: максимальна довжина - 100. Поле є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3903094705958485459" datatype="html">
+        <source>Опис: максимальна довжина - 3000. Поле є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2203304469627401141" datatype="html">
+        <source>Тип робочого простору: &quot;Коментарі&quot; або &quot;З файлу&quot;. Встановлюють специфікацію робочого простору. Якщо вибрано &quot;Коментарі&quot;, до робочого простору можна додавати та працювати тільки з коментарями з платформи Youtube. Якщо вибрано &quot;З файлу&quot;, до робочого простору можна завантажувати різні текстові дані з файлу у спеціальному форматі (детальніше описано у відповідному розділі).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6665596671107501921" datatype="html">
+        <source>Область видимості: визначає, хто буде бачити робочий простір: всі, чи тільки його власник.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="517748110631601890" datatype="html">
+        <source>Область модифікації: визначає, хто може змінювати робочий простір: всі, чи тільки його власник.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7927628402958857905" datatype="html">
+        <source>Після цього користувач може додати робочий простір із відповідними властивостями. Відповідно до вибраних характеристик, робочий простір може бути доступним як тільки власнику, так і всім користувачам.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2493975666544047759" datatype="html">
+        <source>Сторінка створення робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="715321083537740584" datatype="html">
+        <source>Картка робочого простору у списку</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5012519142301181195" datatype="html">
+        <source>При перегляді робочих просторі у списку кожен із них відображається у вигляді картки. На ній зображено: заголовок робочого простору, опис, область видимості та область модифікації. Також відображається дата створення робочого простору.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="315836287155451403" datatype="html">
+        <source>Картка робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1670374416164612811" datatype="html">
+        <source>Детальна сторінка робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6172816736469024857" datatype="html">
+        <source>Натиснувши на картку робочого простору можна попасти на основну сторінку. На ній зображається основна інформація про робочий простір та список доданих профілів до нього. Крім цього, існують додаткові функції взаємодії</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2311578569142827893" datatype="html">
+        <source>Сторінка робочого простору</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2974330240935059179" datatype="html">
+        <source>Завантаження ембедингів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7755538442689878223" datatype="html">
+        <source>Завантаження ембедингів чи векторна візуалізація тексту: це процес перетворення тексту в масив чисел. Він необхідний для подальшої кластеризації тексту. Детальніше про векторну візуалізацію тексту описану на відповідній сторінці.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="429391490356625919" datatype="html">
+        <source>Щоб продовжити кластеризацію, необхідно забезпечити векторну візуалізацію тексту в робочому просторі. Для цього в додатковому функціоналі необхідно натиснути на відповідну функцію. Векторна візуалізація це досить довгий процес, тому створюється фонове завдання, прогрес якого можна побачити на відповідній сторінці. Після успішного проведення векторної візуалізації тексту, у статус відповідного робочого простору зміниться, та у його профілях можна буде проводити кластеризацію.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2570499610336692913" datatype="html">
+        <source>Зображення, як почати векторну візуалізацію тексту в робочому просторі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1008820313139503688" datatype="html">
+        <source>Основна мета робочих просторів: ізолювати дані та роботу з ними, для зручнішої багаторівневої кластеризації. Кожен робочий простір містить у собі якісь текстові дані, які користувач може додавати до нього. Також, у ньому міститься масив профілів: об&apos;єктів, у яких проводиться кластеризація із певними властивостями. Робочі профілі незалежні один від одного та не взаємодіють між собою.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2359603853022043842" datatype="html">
+        <source>Відображення каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2588921877931942010" datatype="html">
+        <source>Картка каналу у списку</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7033469083446386263" datatype="html">
+        <source>При перегляді каналів у списку кожен із них відображається у вигляді картки. На ній зображено: назва каналу, зображення, кількість підписників, переглядів та відео (причому відображається як загальна кількість відео в каналі, так і кількість завантажених у систему сайту). Також відображається дата завантаження каналу. Більшість даних можна копіювати натиснувши на них. Якщо канал вже завантажено в систему, колір його назви червоний. У іншому випадку сірий.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">4,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6581482830169752032" datatype="html">
+        <source>Картка каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2242040266476398076" datatype="html">
+        <source>Детальна сторінка каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6269696814032158613" datatype="html">
+        <source>Натиснувши на картку каналу можна попасти на основну сторінку. На ній зображається основна інформація про канал. Також розміщуються інші сторінки, такі як список завантажених відео каналу та можливість завантажити більше відео. Крім цього, існують додаткові функції взаємодії</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3560195848023993068" datatype="html">
+        <source>Сторінка каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5958664504625849689" datatype="html">
+        <source>Завантаження каналу за id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2286056560635056611" datatype="html">
+        <source>У кожного каналу Youtube є ідентифікатор (id). Саме за ним відбувається завантаження. Для початку потрібно ввести код у відповідне поле та натиснути кнопку &quot;додати&quot;. Якщо канал з таким id існує, він буде завантажений та доданий до списку каналів. Після успішного завантаження з&apos;явиться відповідне повідомлення</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5215776846393829393" datatype="html">
+        <source>Сторінка завантаження каналу за id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6548277595597013238" datatype="html">
+        <source>Завантаження каналів за назвою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7385005441538142858" datatype="html">
+        <source>Для початку необхідно ввести назву та вибрати один з двох варіантів сортування: за популярністю або часом завантаження. Після натискання enter або кнопки пошуку відбувається пошук певної кількості каналів використовуючи вбудовані інструменти платформи Youtube. Пошук відбувається з використанням пагінації, тому якщо кількість знайдених каналів велика, вони підвантажуються не всі. У цьому випадку підвантажити наступну групу можна нажавши відповідну кнопку в кінці списку каналів. Після цього можна вибрати бажані канали (вже завантажені канали підсвічуються червоним та їх вибрати не можна). Після вибору каналів необхідно натиснути кнопку завантаження та вибрані канали завантажаться.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">3,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5423594335671030522" datatype="html">
+        <source>Сторінка завантаження каналів за назвою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6436932280032860271" datatype="html">
+        <source>Для завантаження каналів необхідно авторизуватися. Всі авторизовані користувачі можуть завантажувати канали. На сервер завантажується детальна інформація про канал, включаючи кількість відео (на платформі Youtube), підписників та інша статистика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="695362133297309479" datatype="html">
+        <source>Сторінку завантаження каналів можна відкрити у головному header сайту. Після цього доступно два види завантаження: за id каналу або після гнучкого пошуку за назвою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5422762329833536602" datatype="html">
+        <source>Сторінка завантаження каналів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4691444420729982681" datatype="html">
+        <source>Завантаження коментарів із каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8636134541004097114" datatype="html">
+        <source>Кнопка для відкривання сторінки завантаження коментарів із каналу знаходиться у додаткових функціях каналу.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6937828869767293991" datatype="html">
+        <source>Зображення як відкрити сторінку завантаження коментарів із каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1061666925870604426" datatype="html">
+        <source>На сторінці для завантаження необхідно вибрати кілька параметрів:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="949751348101365802" datatype="html">
+        <source>Дата від: дата від якої завантажуються коментарі. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1455838421829744754" datatype="html">
+        <source>Дата до: дата до якої завантажуються коментарі. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6103581511387717980" datatype="html">
+        <source>Максимальна кількість: максимальна кількість коментарів, які можуть бути завантаженні. Є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4644224853386178641" datatype="html">
+        <source>Максимальна кількість в одному відео: максимальна кількість коментарів, які можуть бути завантаженні з одного відео. Є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7447901637768182619" datatype="html">
+        <source>Вибір між двох параметрів: завантажити за датою відео або завантажити за датою коментарів. Це визначає по якій з дат будуть завантажуватися коментарі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7129648396701850172" datatype="html">
+        <source>Після цього користувач повинен натиснути відповідну кнопку завантаження та натиснути кнопку для завантаження. Це створить спеціальну фонову задачу, та коментарі по даним критеріям будуть завантажені</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3791745478401607901" datatype="html">
+        <source>Сторінка завантаження багатьох коментарів</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7236215972217496864" datatype="html">
+        <source>Завантаження коментарів із відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6858173200816184793" datatype="html">
+        <source>Кнопка для відкривання сторінки завантаження коментарів із відео знаходиться у додаткових функціях відео.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3153852979182021091" datatype="html">
+        <source>Зображення як відкрити сторінку завантаження коментарів із відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6716698995595509944" datatype="html">
+        <source>Саме коментарі з платформи Youtube є одним із джерел текстових даних для кластеризації. Їх завантаження можливе у два способи: з каналу та з конкретного відео. Платформа Youtube дозволяє завантажувати не всі опубліковані коментарі (не можна завантажити видаленні або заблоковані). З іншого боку, у статистиці відео відображається кількість усіх коментарів, включаючи видалені та заблоковані. Це створює невелику проблему відображення, коли на перший погляд на сервер завантажені не всі коментарі, хоча на справді було завантажено всі доступні. При плануванні завантаження коментарів необхідно враховувати цей факт та в деяких випадках вибирати дещо більші числа при завантажені відео.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4443831670034688844" datatype="html">
+        <source>Для першого кроку кластеризації необхідно завантажувати текстові дані. Для цього реалізовано систему автоматичного підвантаження коментарів із платформи Youtube. Імплементовано завантаження ютуб каналів, відео та відповідно коментарів. Все це автоматизовано та відбувається виключно із використанням даного сайту. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8096465392262999038" datatype="html">
+        <source>Відображення відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2578270168477448905" datatype="html">
+        <source>Картка відео у списку</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="755497453846821889" datatype="html">
+        <source>При перегляді відео у списку кожен із них відображається у вигляді картки. На ній зображено: назва відео, зображення, кількість вподобайок, переглядів та коментарів (причому відображається як загальна кількість коментарів в відео, так і кількість завантажених у систему сайту). Також відображається дата завантаження відео. Більшість даних можна копіювати натиснувши на них. Якщо відео вже завантажено в систему, колір його назви червоний. У іншому випадку сірий.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">4,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8131062624344441333" datatype="html">
+        <source>Картка відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6059561947513202286" datatype="html">
+        <source>Детальна сторінка відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="33788115032243635" datatype="html">
+        <source>Натиснувши на картку відео можна попасти на основну сторінку. На ній зображається основна інформація про відео та додаткові функції взаємодії</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1354071744310022062" datatype="html">
+        <source>Сторінка відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1666909403332303689" datatype="html">
+        <source>Сторінка списку відео в каналі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8180396396725529842" datatype="html">
+        <source>На сторінці каналу відображаються завантажені відео, їх можна переглядати, сортувати та шукати необхідні.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="497697518792709155" datatype="html">
+        <source>Список відео каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8503729746000448512" datatype="html">
+        <source>Головний список відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1634385317554944531" datatype="html">
+        <source>Можливий перегляд усіх відео завантажених у систему, а не тільки тих, що належать до конкретного каналу. Користувач може сортувати відео та шукати їх по назву. Реалізовано пагінацію, тому процес завантаження досить швидкий.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5203942946887719387" datatype="html">
+        <source>Завантаження кількох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6681797853930082563" datatype="html">
+        <source>Завантаження одного або кількох відео відбувається на відповідній секції яка знаходиться на детальній сторінці каналу.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7123604238910744371" datatype="html">
+        <source>У секції завантажується деяка кількість відео з відповідного каналу, які відображаються користувачеві. Можливий вибір, за яким критерієм вони відсортовані: &quot;Спочатку новіші&quot; або &quot;Спочатку популярніші&quot;. Також можливий пошук за назвою. Якщо кількість завантажених відео недостатня, можливе більше їх завантаження у самому низу списку відео, натиснувши на відповідну кнопку.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5357721882910791260" datatype="html">
+        <source>Після цього користувач може вибрати одне або кілька відео (назва вже завантажених відео підсвічується червоним, та їх вибрати неможливо). Та натиснути кнопку для завантаження. Це створить спеціальну фонову задачу, та відповідні відео будуть завантажені</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2101471800533036766" datatype="html">
+        <source>Сторінка завантаження кількох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="682376936752923535" datatype="html">
+        <source>Завантаження багатьох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5963076347129743340" datatype="html">
+        <source>Завантаження одного або багатьох відео відбувається на відповідній секції відкрити яку можна в додаткових функціях взаємодії каналу.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1827481674018948585" datatype="html">
+        <source>Зображення як відкрити сторінку завантаження багатьох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="672656933123975034" datatype="html">
+        <source>Дата від: дата від якої завантажуються відео. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5487448920106338495" datatype="html">
+        <source>Дата до: дата до якої завантажуються відео. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5217115317864032831" datatype="html">
+        <source>Кількість відео: максимальна кількість відео, які можуть бути завантаженні. Є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4057517324368139732" datatype="html">
+        <source>Мінімальна кількість коментарів: мінімальна кількість коментарів у відео, щоб воно було завантажене. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="456550088177431046" datatype="html">
+        <source>Мінімальна кількість переглядів: мінімальна кількість переглядів у відео, щоб воно було завантажене. Не є обов&apos;язковим</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4280459028490910211" datatype="html">
+        <source>Після цього користувач повинен натиснути відповідну кнопку завантаження та натиснути кнопку для завантаження. Це створить спеціальну фонову задачу, та відео по даним критеріям будуть завантажені</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1896707845928505246" datatype="html">
+        <source>Сторінка завантаження багатьох відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1437538256103860646" datatype="html">
+        <source>Для завантаження відео необхідно авторизуватися. Всі авторизовані користувачі можуть завантажувати канали. На сервер завантажується детальна інформація про канал, включаючи кількість коментарів (на платформі Youtube), переглядів та інша статистика. Завантажується тільки інформація та статистика відео, завантажувати відеоряд немає необхідності.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7799666205453788600" datatype="html">
+        <source>Існує два види завантаження каналів: через вибір одного або кількох відео, або автоматичне завантаження певної кількості відео із часової межі.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="170115560383800074" datatype="html">
+        <source>Youtube</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1474936366881189364" datatype="html">
+        <source>Завантаження за id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7249285010053880514" datatype="html">
+        <source>Завантаження за назвою</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3584966122157250410" datatype="html">
+        <source>Завантаження кількох за id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3702061416354031280" datatype="html">
+        <source>Завантаження багатьох</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7422384915401027192" datatype="html">
+        <source>Коментарі</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7031863597491397587" datatype="html">
+        <source>Завантаження з відео</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1169176545242956651" datatype="html">
+        <source>Завантаження з каналу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4806013223380173695" datatype="html">
+        <source>Алгоритми</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8902781372048301679" datatype="html">
+        <source>Відображеннях</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="737010553863134411" datatype="html">
+        <source>Ембедінги</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/documentation/pages/doc-navigation-page/doc-navigation-page.component.html</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5176552263311101910" datatype="html">

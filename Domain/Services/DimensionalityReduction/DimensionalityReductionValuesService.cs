@@ -1,30 +1,18 @@
 ﻿using Accord.Math;
 using Accord.Statistics.Analysis;
-using Accord.Statistics.Kernels;
 using Domain.Entities.Clusterization;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Interfaces;
 using Domain.Interfaces.DimensionalityReduction;
 using Domain.Resources.Types;
-using Accord.MachineLearning;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Accord.MachineLearning.Clustering;
 using Domain.HelpModels;
-using Newtonsoft.Json.Linq;
-using MathNet.Numerics.LinearAlgebra.Complex;
 using MathNet.Numerics.LinearAlgebra;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Reflection.Emit;
 using Domain.Exceptions;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
 using System.Net;
-using Microsoft.Extensions.Primitives;
 
 namespace Domain.Services.DimensionalityReduction
 {

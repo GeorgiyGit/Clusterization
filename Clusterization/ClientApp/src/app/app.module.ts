@@ -29,7 +29,7 @@ import { NormalizedDateTimePipe } from './core/pipes/normalized-date-time.pipe';
 import { YoutubeLoadOneChannelComponent } from './features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component';
 import { YoutubeLoadMultipleChannelsComponent } from './features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component';
 import { YoutubeFullChannelPageComponent } from './features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { YoutubeLoadNewVideoPageComponent } from './features/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component';
 import { YoutubeLoadOneVideoComponent } from './features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component';
@@ -172,6 +172,7 @@ export function tokenGetter() {
     }),
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     JwtHelperService,
     {provide: LOCALE_ID, useValue: 'en-US' },
     {

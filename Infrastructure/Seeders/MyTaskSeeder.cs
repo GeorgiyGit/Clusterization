@@ -16,27 +16,27 @@ namespace Infrastructure.Seeders
             var state1 = new MyTaskState()
             {
                 Id = TaskStates.Error,
-                Name = "Помилка"
+                Name = "Error"//"Помилка"
             };
             var state2 = new MyTaskState()
             {
                 Id = TaskStates.Wait,
-                Name = "Очікування"
+                Name = "Wait"//"Очікування"
             };
             var state3 = new MyTaskState()
             {
                 Id = TaskStates.Process,
-                Name = "Виконується"
+                Name = "Process"//"Виконується"
             };
             var state4 = new MyTaskState()
             {
                 Id = TaskStates.Completed,
-                Name = "Виконалася"
+                Name = "Completed"//"Виконалася"
             };
             var state5 = new MyTaskState()
             {
                 Id = TaskStates.Stopped,
-                Name = "Призупинено"
+                Name = "Stopped"//"Призупинено"
             };
 
 

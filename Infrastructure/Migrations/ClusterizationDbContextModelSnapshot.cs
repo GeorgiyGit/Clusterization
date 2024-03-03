@@ -116,14 +116,14 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "KMeans",
-                            Description = "Впорядкування множини об'єктів у порівняно однорідні групи.",
+                            Description = "Arrangement of a set of objects into relatively homogeneous groups.",
                             Name = "k-means"
                         },
                         new
                         {
                             Id = "OneCluster",
-                            Description = "Об'єднання елементів в один кластер",
-                            Name = "Один кластер"
+                            Description = "Combining all elements into one cluster",
+                            Name = "One cluster"
                         },
                         new
                         {
@@ -134,13 +134,13 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "SpectralClustering",
-                            Description = "Cпектральна кластеризація базується на принципах теорії графів і лінійної алгебри",
+                            Description = "Spectral clustering is based on the principles of graph theory and linear algebra",
                             Name = "Spectral Clustering"
                         },
                         new
                         {
                             Id = "GaussianMixture",
-                            Description = "Метод кластеризації, який моделює дані як суміш розділів Гауса",
+                            Description = "A clustering method that models the data as a mixture of Gaussian partitions",
                             Name = "Gaussian Mixture"
                         });
                 });
@@ -396,12 +396,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "Comments",
-                            Name = "Коментарі"
+                            Name = "Comments"
                         },
                         new
                         {
                             Id = "External",
-                            Name = "З файлу"
+                            Name = "From file"
                         });
                 });
 
@@ -787,27 +787,27 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "Error",
-                            Name = "Помилка"
+                            Name = "Error"
                         },
                         new
                         {
                             Id = "Wait",
-                            Name = "Очікування"
+                            Name = "Wait"
                         },
                         new
                         {
                             Id = "Process",
-                            Name = "Виконується"
+                            Name = "Process"
                         },
                         new
                         {
                             Id = "Completed",
-                            Name = "Виконалася"
+                            Name = "Completed"
                         },
                         new
                         {
                             Id = "Stopped",
-                            Name = "Призупинено"
+                            Name = "Stopped"
                         });
                 });
 

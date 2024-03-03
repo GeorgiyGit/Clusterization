@@ -4,7 +4,9 @@ import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
   name: 'normalizedDateTime'
 })
 export class NormalizedDateTimePipe implements PipeTransform {
-  @Inject(LOCALE_ID) public activeLocale: string;
+  constructor(@Inject(LOCALE_ID) public activeLocale: string){
+  }
+
 
   transform(date:Date): string {
     date = new Date(Date.UTC(

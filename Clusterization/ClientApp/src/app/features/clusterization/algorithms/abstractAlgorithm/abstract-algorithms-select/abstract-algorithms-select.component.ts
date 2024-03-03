@@ -42,8 +42,6 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
     this.generalAlgorithmsService.getAlgorithms(this.typeId).subscribe(res => {
       this.options = [];
 
-      console.log(res);
-
       if (this.isNullAvailable == true) {
         let nullOption: IOptionForSelectInput = {
           value: undefined,
@@ -70,6 +68,6 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
   }
 
   select(option: IOptionForSelectInput) {
-    this.sendEvent.emit(option.value);
+    this.sendEvent.emit(option?.value);
   }
 }

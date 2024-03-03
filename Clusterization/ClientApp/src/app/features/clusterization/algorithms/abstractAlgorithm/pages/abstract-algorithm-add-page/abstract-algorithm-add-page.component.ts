@@ -31,7 +31,6 @@ export class AbstractAlgorithmAddPageComponent implements OnInit{
 
   selectType(typeId:string){
     this.typeId=typeId;
-    console.log(this.typeId);
   }
 
   closeOverflow() {

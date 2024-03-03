@@ -63,7 +63,6 @@ export class ClusterizationProfileListPageComponent implements OnInit{
       if(res.length<this.request.pageParameters.pageSize)this.isLoadMoreAvailable=false;
       else this.isLoadMoreAvailable=true;
 
-      console.log(this.profiles);
     },error=>{
       this.isLoading=false;
       this.toastr.error(error.error.Message);

@@ -150,12 +150,14 @@ const routes: Route[] = [
   {
     path:'workspaces/add-comments-by-channel/:channelId',
     component:AddChannelCommentsToWorkspacePageComponent,
+    outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],
   },
   {
     path:'workspaces/add-comments-by-videos/:channelId',
     component:AddVideosCommentsToWorkspaceComponent,
+    outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],
   },
@@ -189,6 +191,10 @@ const routes: Route[] = [
     path:'log-in',
     component:LogInPageComponent,
     outlet:'overflow'
+  },
+  {
+    path:'documentation',
+    loadChildren: () => import('../../features/documentation/documentation.module').then(m => m.DocumentationModule)
   }
 ]
 

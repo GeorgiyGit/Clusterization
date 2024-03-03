@@ -21,7 +21,6 @@ export class MyLocalStorageService {
   }
 
   setUserToken(token: string) {
-    console.log(token,this.userTokenName);
     localStorage.setItem("usertoken", token);
   }
   getUserToken(): string | null {

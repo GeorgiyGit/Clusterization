@@ -44,7 +44,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("NewLocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'HostClusterizationDbContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("HostClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'HostClusterizationDbContextConnection' not found.");
 
 //var vectorConnectionString = builder.Configuration.GetConnectionString("VectorLocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'VectorLocalClusterizationDbContextConnection' not found.");
 
@@ -62,7 +62,7 @@ builder.Services.AddHangfire(configuration => configuration
        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
        .UseSimpleAssemblyNameTypeSerializer()
        .UseRecommendedSerializerSettings()
-       .UseSqlServerStorage(builder.Configuration.GetConnectionString("NewLocalClusterizationDbContextConnection"), new SqlServerStorageOptions
+       .UseSqlServerStorage(builder.Configuration.GetConnectionString("HostClusterizationDbContextConnection"), new SqlServerStorageOptions
        {
            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
@@ -195,7 +195,8 @@ app.UseCors(options =>
 {
     options.WithOrigins("https://localhost:44439",
                         "http://user29750.realhost-free.net/",
-                        "https://sladkovskygeorge.website/");
+                        "https://sladkovskygeorge.website/",
+                        "https://clusterization.website/");
     options.AllowCredentials();
     options.AllowAnyHeader();
     options.AllowAnyMethod();

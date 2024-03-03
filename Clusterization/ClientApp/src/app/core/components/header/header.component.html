@@ -2,6 +2,7 @@
     <nav class="standard" *ngIf="!isPhoneMenuOpen">
         <div>
             <ul>
+                <li routerLink="/documentation" i18n>Документація</li>
                 <li routerLink="/channel-list" i18n>Канали</li>
                 <li routerLink="/video-list" i18n>Відео</li>
                 <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
@@ -27,12 +28,14 @@
             </div>
             <div class="options-cont" (click)="closeDisplayPhoneMenu()">
                 <ul>
-                    <li routerLink="/channel-list i18n">Канали</li>
+                    
+                    <li routerLink="/channel-list" i18n>Канали</li>
                     <li routerLink="/video-list" i18n>Відео</li>
-                    <li [routerLink]="[{outlets: {overflow: 'load-channel'}}]" i18n>Завантажити канали</li>
+                    <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
                     <li routerLink="/tasks-list" i18n>Задачі</li>
                     <li routerLink="/workspaces" i18n>Робочі простори</li>
-                    <li [routerLink]="[{outlets: {overflow: 'algorithms/add'}}]" i18n>Додати алгоритм</li>
+                    <li (click)="openAddAlgorithm($event)" i18n>Додати алгоритм</li>
+                    <li routerLink="/documentation" i18n>Документація</li>
                     <li (click)="openSignUp($event)" i18n>Реєстрація</li>
                     <li>
                         <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>

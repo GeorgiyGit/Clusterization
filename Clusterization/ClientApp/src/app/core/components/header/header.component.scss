@@ -64,7 +64,10 @@ header {
                 font-size: 30px;
             }
         }
-
+        a{
+            text-decoration: none;
+            color: $first-color-3;
+        }
         .main-cont {
             position: fixed;
             left: 0;
