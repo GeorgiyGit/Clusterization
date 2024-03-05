@@ -13,9 +13,12 @@ using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Hangfire;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
+using System.Text;
 
 namespace Domain.Services.Clusterization
 {
@@ -24,6 +27,7 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<ClusterizationWorkspace> repository;
         private readonly IRepository<Entities.Youtube.Comment> comments_repository;
         private readonly IRepository<ExternalObject> externalObjects_repository;
+        private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -36,7 +40,8 @@ namespace Domain.Services.Clusterization
                                                IRepository<ExternalObject> externalObjects_repository,
                                                IBackgroundJobClient backgroundJobClient,
                                                IMyTasksService taskService,
-                                               IUserService userService)
+                                               IUserService userService,
+                                               IRepository<ClusterizationEntity> entities_repository)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -46,6 +51,7 @@ namespace Domain.Services.Clusterization
             this.taskService = taskService;
             this.externalObjects_repository = externalObjects_repository;
             _userService = userService;
+            this.entities_repository = entities_repository;
         }
 
         #region add-update
@@ -148,6 +154,15 @@ namespace Domain.Services.Clusterization
                                               .Take(pageParameters.PageSize).ToList();
 
             return mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+        }
+
+        public async Task<ICollection<string>> GetAllElementsInList(int id)
+        {
+            List<string> stringList = new List<string>();
+
+            stringList = (await entities_repository.GetAsync(e => e.WorkspaceId == id)).Select(e => e.TextValue).ToList();
+
+            return stringList;
         }
         #endregion
 

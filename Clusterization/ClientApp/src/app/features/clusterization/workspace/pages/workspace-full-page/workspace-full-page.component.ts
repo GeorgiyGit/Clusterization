@@ -7,6 +7,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { ISelectAction } from 'src/app/core/models/select-action';
 import { AccountService } from 'src/app/features/account/services/account.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-workspace-full-page',
@@ -24,6 +25,20 @@ export class WorkspaceFullPageComponent implements OnInit {
   profilesCountStr: string = $localize`Кількість профілів`;
 
   isLoading: boolean;
+
+  private downloadFile = (data: HttpResponse<Blob>) => {
+    const downloadedFile = new Blob([data.body as BlobPart], { type: data.body?.type });
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    a.download = 'entities.txt';
+    a.href = URL.createObjectURL(downloadedFile);
+    a.target = '_blank';
+    a.click();
+    document.body.removeChild(a);
+  }
+
+
   constructor(private workspaceService: ClusterizationWorkspaceService,
     private route: ActivatedRoute,
     private router: Router,
@@ -64,6 +79,23 @@ export class WorkspaceFullPageComponent implements OnInit {
             this.workspaceService.embeddingData(this.workspace.id).subscribe(res => {
             }, error => {
               this.toastr.error(error.error.Message);
+            });
+          },
+          isForAuthorized: true
+        },
+        {
+          name: $localize`Завантажити файл з текстовими даними`,
+          action: () => {
+            let userId = this.accountService.getUserId();
+            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
+              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
+              return;
+            }
+
+            this.workspaceService.downloadEntitiesFile(this.workspace.id).subscribe((event) => {
+              if (event.type === HttpEventType.Response) {
+                this.downloadFile(event);
+              }
             });
           },
           isForAuthorized: true

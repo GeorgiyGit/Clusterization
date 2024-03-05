@@ -1,6 +1,8 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +24,7 @@ namespace Domain.Interfaces.Clusterization
         public Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request);
 
         public Task LoadExternalData(AddExternalDataDTO data);
+
+        public Task<ICollection<string>> GetAllElementsInList(int id);
     }
 }

@@ -4,7 +4,14 @@ using Domain.DTOs.ExternalData;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Embeddings;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Web;
 
 namespace Clusterization.Controllers.Clusterization
 {
@@ -77,6 +84,44 @@ namespace Clusterization.Controllers.Clusterization
         public async Task<IActionResult> GetCollection([FromBody] GetWorkspacesRequest request)
         {
             return Ok(await service.GetCollection(request));
+        }
+
+        [HttpGet("get_entities/{id}"), DisableRequestSizeLimit]
+        public async Task<IActionResult> GetEntities([FromRoute] int id)
+        {
+            var list = await service.GetAllElementsInList(id);
+
+            // Your logic to get data or generate content
+            var content = "";
+            foreach (var item in list)
+            {
+                content += item.Replace("\n", "") + "\n";
+            }
+
+            // Replace "generated_text_file.txt" with your desired file name
+            string fileName = "entities.txt";
+
+            var memory = new MemoryStream();
+            using (StreamWriter streamWriter = new StreamWriter(memory, Encoding.UTF8, 1024, true))
+            {
+                // Write content line by line
+                streamWriter.WriteLine(content);
+                // Add more lines as needed
+            }
+            memory.Position = 0;
+            return File(memory, "text/plain", fileName);
+        }
+        private string GetContentType(string path)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+
+            if (!provider.TryGetContentType(path, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            return contentType;
         }
 
 

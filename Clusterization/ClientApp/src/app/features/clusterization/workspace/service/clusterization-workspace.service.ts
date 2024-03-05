@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { IAddClusterizationWorkspace } from '../models/addClusterizationWorkspace';
@@ -10,6 +10,7 @@ import { IClusterizationWorkspace } from '../models/clusterizationWorkspace';
 import { IGetWorkspacesRequest } from '../models/requests/getWorkspacesRequest';
 import { ISimpleClusterizationWorkspace } from '../models/simpleClusterizationWorkspace';
 import { IAddExternalData } from '../models/external-data/add-external-data';
+import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ import { IAddExternalData } from '../models/external-data/add-external-data';
 export class ClusterizationWorkspaceService {
   controllerUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private toastr:MyToastrService) {
     this.controllerUrl = environment.apiUrl + "clusterizationWorkspaces/";
   }
 
@@ -52,6 +54,14 @@ export class ClusterizationWorkspaceService {
   }
   getWorkspaces(request: IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
     return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection", request);
+  }
+
+  downloadEntitiesFile(id:number): Observable<any> {
+    return this.http.get(this.controllerUrl + "get_entities/"+id, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
   }
 
   embeddingData(id: number): Observable<any> {
