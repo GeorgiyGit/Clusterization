@@ -160,6 +160,7 @@
   <ItemGroup>
     <Folder Include="DTOs\ClusterizationDTOs\AlghorithmDTOs\RequestDTOs\" />
     <Folder Include="DTOs\DimensionalityReductionDTOs\ValueDTOs\" />
+    <Folder Include="DTOs\QuoteDTOs\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 
