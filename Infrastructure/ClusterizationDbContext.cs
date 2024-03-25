@@ -79,18 +79,7 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            MyTasksBuilder.BuildAll(modelBuilder);
-            EmbeddingsBuilder.BuildAll(modelBuilder);
-            ClusterizationBuilder.BuildAll(modelBuilder);
-            ClusterizationAlgorithmsBuilder.BuildAll(modelBuilder);
-            DimensionalityReductionBuilder.BuildAll(modelBuilder);
-
-            CommentBuilder.CommentBuild(modelBuilder.Entity<Comment>());
-            VideoBuilder.VideoBuild(modelBuilder.Entity<Video>());
-            ChannelBuilder.ChannelBuild(modelBuilder.Entity<Channel>());
-            ExternalDataBuilder.ExternalObjectsBuilder(modelBuilder.Entity<ExternalObject>());
-            CustomerBuilder.CustomerBuild(modelBuilder.Entity<Customer>());
-
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerBuilder).Assembly);
             Seed(modelBuilder);
         }
 

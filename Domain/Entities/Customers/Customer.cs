@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization;
+using Domain.Entities.Quotes;
 using Domain.Entities.Youtube;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -18,5 +19,8 @@ namespace Domain.Entities.Customers
         public ICollection<Channel> Channels { get; set; }=new HashSet<Channel>();
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
+
+        public ICollection<CustomerQuotes> Quotes { get; set; } = new HashSet<CustomerQuotes>();
+        public ICollection<QuotesLogs> QuotesLogsCollection { get; set; } = new HashSet<QuotesLogs>();
     }
 }

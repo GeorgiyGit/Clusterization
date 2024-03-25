@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Builders\Clusterization\Other\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
