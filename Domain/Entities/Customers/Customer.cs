@@ -1,12 +1,7 @@
 ﻿using Domain.Entities.Clusterization;
-using Domain.Entities.Quotes;
+using Domain.Entities.Quotas;
 using Domain.Entities.Youtube;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities.Customers
 {
@@ -20,9 +15,9 @@ namespace Domain.Entities.Customers
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
 
-        public ICollection<CustomerQuotes> Quotes { get; set; } = new HashSet<CustomerQuotes>();
-        public ICollection<QuotesLogs> QuotesLogsCollection { get; set; } = new HashSet<QuotesLogs>();
+        public ICollection<CustomerQuotas> Quotas { get; set; } = new HashSet<CustomerQuotas>();
+        public ICollection<QuotasLogs> QuotasLogsCollection { get; set; } = new HashSet<QuotasLogs>();
 
-        public ICollection<QuotesPackLogs> QuotesPackLogsCollection { get; set; } = new HashSet<QuotesPackLogs>();
+        public ICollection<QuotasPackLogs> QuotasPackLogsCollection { get; set; } = new HashSet<QuotasPackLogs>();
     }
 }

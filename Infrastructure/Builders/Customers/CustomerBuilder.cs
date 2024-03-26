@@ -35,11 +35,11 @@ namespace Infrastructure.Builders.Customers
                    .WithOne(e => e.Loader)
                    .HasForeignKey(e => e.LoaderId);
 
-            builder.HasMany(e => e.QuotesLogsCollection)
+            builder.HasMany(e => e.QuotasLogsCollection)
                    .WithOne(e => e.Customer)
                    .HasForeignKey(e => e.CustomerId);
 
-            builder.HasMany(e => e.Quotes)
+            builder.HasMany(e => e.Quotas)
                    .WithOne(e => e.Customer)
                    .HasForeignKey(e => e.CustomerId);
         }

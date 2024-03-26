@@ -1,17 +1,12 @@
-﻿using Domain.Entities.Quotes;
+﻿using Domain.Entities.Quotas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Infrastructure.Builders.Quotes.QuotesPacks
+namespace Infrastructure.Builders.Quotas.QuotasPacks
 {
-    internal class QuotesPackBuilder : IEntityTypeConfiguration<QuotesPack>
+    internal class QuotasPackBuilder : IEntityTypeConfiguration<QuotasPack>
     {
-        public void Configure(EntityTypeBuilder<QuotesPack> builder)
+        public void Configure(EntityTypeBuilder<QuotasPack> builder)
         {
             builder.HasMany(e => e.Items)
                    .WithOne(e => e.Pack)

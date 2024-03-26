@@ -1,60 +1,55 @@
-﻿using Domain.Entities.Quotes;
+﻿using Domain.Entities.Quotas;
 using Domain.Resources.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
-    internal class QuotesTypeSeeder : IEntityTypeConfiguration<QuotesType>
+    internal class QuotasTypeSeeder : IEntityTypeConfiguration<QuotasType>
     {
-        public void Configure(EntityTypeBuilder<QuotesType> builder)
+        public void Configure(EntityTypeBuilder<QuotasType> builder)
         {
-            var youtube = new QuotesType()
+            var youtube = new QuotasType()
             {
                 Id = QuotesTypes.Youtube,
                 Name = "Youtube",
                 Description = "Loading data from Youtube"
             };
 
-            var embeddings = new QuotesType()
+            var embeddings = new QuotasType()
             {
                 Id = QuotesTypes.Embeddings,
                 Name = "Embeddings",
                 Description = "Creating embeddings"
             };
 
-            var clustering = new QuotesType()
+            var clustering = new QuotasType()
             {
                 Id = QuotesTypes.Clustering,
                 Name = "Clustering",
                 Description = "Clusterization of data"
             };
 
-            var publicWorkspaces = new QuotesType()
+            var publicWorkspaces = new QuotasType()
             {
                 Id = QuotesTypes.PublicWorkspaces,
                 Name = "Public workspaces",
                 Description = "Creating public workspaces"
             };
-            var privateWorkspaces = new QuotesType()
+            var privateWorkspaces = new QuotasType()
             {
                 Id = QuotesTypes.PrivateWorkspaces,
                 Name = "Private workspaces",
                 Description = "Creating private workspaces"
             };
 
-            var publicProfiles = new QuotesType()
+            var publicProfiles = new QuotasType()
             {
                 Id = QuotesTypes.PublicProfiles,
                 Name = "Public profiles",
                 Description = "Creating public profiles"
             };
-            var privateProfiles = new QuotesType()
+            var privateProfiles = new QuotasType()
             {
                 Id = QuotesTypes.PrivateProfiles,
                 Name = "Private profiles",

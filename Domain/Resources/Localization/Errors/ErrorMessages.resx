@@ -150,6 +150,9 @@
   <data name="ProfileNotFound" xml:space="preserve">
     <value>Профіль не знайдено</value>
   </data>
+  <data name="QuotasPackNotFound" xml:space="preserve">
+    <value>Пакет квот не знайдено</value>
+  </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>Завдання не знайдено</value>
   </data>

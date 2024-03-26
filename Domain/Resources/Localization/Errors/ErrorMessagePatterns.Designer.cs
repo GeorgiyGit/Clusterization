@@ -160,6 +160,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QuotasPackNotFound.
+        /// </summary>
+        public static string QuotasPackNotFound {
+            get {
+                return ResourceManager.GetString("QuotasPackNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TaskNotFound.
         /// </summary>
         public static string TaskNotFound {

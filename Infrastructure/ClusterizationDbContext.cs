@@ -5,20 +5,12 @@ using Domain.Entities.Customers;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Entities.ExternalData;
-using Domain.Entities.Quotes;
+using Domain.Entities.Quotas;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
-using Infrastructure.Builders;
 using Infrastructure.Builders.Customers;
-using Infrastructure.Builders.Youtube;
-using Infrastructure.Seeders;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -74,13 +66,13 @@ namespace Infrastructure
         #endregion
 
         #region Quotes
-        public virtual DbSet<CustomerQuotes> CustomerQuotes { get; set; }
-        public virtual DbSet<QuotesType> QuotesTypes { get; set; }
-        public virtual DbSet<QuotesLogs> QuotesLogs { get; set; }
+        public virtual DbSet<CustomerQuotas> CustomerQuotas { get; set; }
+        public virtual DbSet<QuotasType> QuotasTypes { get; set; }
+        public virtual DbSet<QuotasLogs> QuotasLogs { get; set; }
 
-        public virtual DbSet<QuotesPack> QuotesPacks { get; set; }
-        public virtual DbSet<QuotesPackItem> QuotesPackItems { get; set; }
-        public virtual DbSet<QuotesPackLogs> QuotesPackLogs { get; set; }
+        public virtual DbSet<QuotasPack> QuotasPacks { get; set; }
+        public virtual DbSet<QuotasPackItem> QuotasPackItems { get; set; }
+        public virtual DbSet<QuotasPackLogs> QuotasPackLogs { get; set; }
         #endregion
 
         public ClusterizationDbContext(DbContextOptions options) : base(options)

@@ -160,6 +160,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пакет квот не знайдено.
+        /// </summary>
+        public static string QuotasPackNotFound {
+            get {
+                return ResourceManager.GetString("QuotasPackNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завдання не знайдено.
         /// </summary>
         public static string TaskNotFound {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Quotes
 {
-    internal class QuotesControllerService
+    internal class QuotasControllerService
     {
     }
 }

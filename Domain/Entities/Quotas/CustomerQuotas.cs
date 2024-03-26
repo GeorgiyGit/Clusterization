@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.Quotes
+namespace Domain.Entities.Quotas
 {
-    public class CustomerQuotes
+    public class CustomerQuotas
     {
         public int Id { get; set; }
 
         public int ExpiredCount { get; set; }
         public int AvailableCount { get; set; }
 
-        public QuotesType Type { get; set; }
+        public QuotasType Type { get; set; }
         public string TypeId { get; set; }
 
         public Customer Customer { get; set; }
