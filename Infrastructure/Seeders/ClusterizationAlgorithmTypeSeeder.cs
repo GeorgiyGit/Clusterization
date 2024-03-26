@@ -1,18 +1,20 @@
-﻿using Domain.Entities.Clusterization;
-using Domain.Entities.Clusterization.Algorithms;
+﻿using Domain.Entities.Clusterization.Algorithms;
+using Domain.Entities.Quotes;
 using Domain.Resources.Types;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
-    internal class ClusterizationAlgorithmTypesSeeder
+    internal class ClusterizationAlgorithmTypeSeeder : IEntityTypeConfiguration<ClusterizationAlgorithmType>
     {
-        public static void TypesSeeder(EntityTypeBuilder<ClusterizationAlgorithmType> modelBuilder)
+        public void Configure(EntityTypeBuilder<ClusterizationAlgorithmType> builder)
         {
             var kMeans = new ClusterizationAlgorithmType()
             {
@@ -47,7 +49,7 @@ namespace Infrastructure.Seeders
                 Description = "A clustering method that models the data as a mixture of Gaussian partitions"//"Метод кластеризації, який моделює дані як суміш розділів Гауса"
             };
 
-            modelBuilder.HasData(kMeans, oneCluster, dbSCAN, spectralClustering, gmm);
+            builder.HasData(kMeans, oneCluster, dbSCAN, spectralClustering, gmm);
         }
     }
 }

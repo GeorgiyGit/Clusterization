@@ -14,5 +14,6 @@ namespace Domain.Entities.Quotes
 
         public ICollection<CustomerQuotes> CustomerQuotes { get; set; } = new HashSet<CustomerQuotes>();
         public ICollection<QuotesLogs> QuotesLogsCollection { get; set; } = new HashSet<QuotesLogs>();
+        public ICollection<QuotesPackItem> PackItems { get; set; } = new HashSet<QuotesPackItem>();
     }
 }

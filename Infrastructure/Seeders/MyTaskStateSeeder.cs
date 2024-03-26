@@ -1,17 +1,20 @@
-﻿using Domain.Entities.Tasks;
+﻿using Domain.Entities.DimensionalityReduction;
+using Domain.Entities.Tasks;
 using Domain.Resources.Types;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
-    internal class MyTaskSeeder
+    internal class MyTaskStateSeeder : IEntityTypeConfiguration<MyTaskState>
     {
-        public static void StateSeeder(EntityTypeBuilder<MyTaskState> modelBuilder)
+        public void Configure(EntityTypeBuilder<MyTaskState> builder)
         {
             var state1 = new MyTaskState()
             {
@@ -40,11 +43,11 @@ namespace Infrastructure.Seeders
             };
 
 
-            modelBuilder.HasData(state1,
-                                 state2,
-                                 state3,
-                                 state4,
-                                 state5);
+            builder.HasData(state1,
+                            state2,
+                            state3,
+                            state4,
+                            state5);
         }
     }
 }

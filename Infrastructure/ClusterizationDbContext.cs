@@ -5,6 +5,7 @@ using Domain.Entities.Customers;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Entities.Embeddings;
 using Domain.Entities.ExternalData;
+using Domain.Entities.Quotes;
 using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
 using Infrastructure.Builders;
@@ -72,6 +73,16 @@ namespace Infrastructure
         public virtual DbSet<ExternalObject> ExternalObjects { get; set; }
         #endregion
 
+        #region Quotes
+        public virtual DbSet<CustomerQuotes> CustomerQuotes { get; set; }
+        public virtual DbSet<QuotesType> QuotesTypes { get; set; }
+        public virtual DbSet<QuotesLogs> QuotesLogs { get; set; }
+
+        public virtual DbSet<QuotesPack> QuotesPacks { get; set; }
+        public virtual DbSet<QuotesPackItem> QuotesPackItems { get; set; }
+        public virtual DbSet<QuotesPackLogs> QuotesPackLogs { get; set; }
+        #endregion
+
         public ClusterizationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -80,16 +91,6 @@ namespace Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerBuilder).Assembly);
-            Seed(modelBuilder);
-        }
-
-        private void Seed(ModelBuilder modelBuilder)
-        {
-            MyTaskSeeder.StateSeeder(modelBuilder.Entity<MyTaskState>());
-            ClusterizationSeeder.ClusterizationTypeSeeder(modelBuilder.Entity<ClusterizationType>());
-            ClusterizationSeeder.DimensionTypeSeeder(modelBuilder.Entity<ClusterizationDimensionType>());
-            ClusterizationAlgorithmTypesSeeder.TypesSeeder(modelBuilder.Entity<ClusterizationAlgorithmType>());
-            DimensionalityReductionSeeder.TechniquesSeeder(modelBuilder.Entity<DimensionalityReductionTechnique>());
         }
     }
 }

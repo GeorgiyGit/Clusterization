@@ -1,18 +1,20 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.DimensionalityReduction;
 using Domain.Resources.Types;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
-    internal class DimensionalityReductionSeeder
+    internal class DimensionalityReductionTechniqueSeeder : IEntityTypeConfiguration<DimensionalityReductionTechnique>
     {
-        public static void TechniquesSeeder(EntityTypeBuilder<DimensionalityReductionTechnique> modelBuilder)
+        public void Configure(EntityTypeBuilder<DimensionalityReductionTechnique> builder)
         {
             var PCA = new DimensionalityReductionTechnique()
             {
@@ -26,18 +28,18 @@ namespace Infrastructure.Seeders
             };
             //var MDS = new DimensionalityReductionTechnique()
             //{
-                //Id = DimensionalityReductionTechniques.MDS,
-                //Name = "Multi-Dimensional Scaling"
+            //Id = DimensionalityReductionTechniques.MDS,
+            //Name = "Multi-Dimensional Scaling"
             //};
             //var isomap = new DimensionalityReductionTechnique()
             //{
-                //Id = DimensionalityReductionTechniques.Isomap,
-                //Name = "Isomap"
+            //Id = DimensionalityReductionTechniques.Isomap,
+            //Name = "Isomap"
             //};
             //var LLE = new DimensionalityReductionTechnique()
             //{
-                //Id = DimensionalityReductionTechniques.LLE,
-                //Name = "Locally Linear Embedding"
+            //Id = DimensionalityReductionTechniques.LLE,
+            //Name = "Locally Linear Embedding"
             //};
             var JSL = new DimensionalityReductionTechnique()
             {
@@ -46,16 +48,16 @@ namespace Infrastructure.Seeders
             };
             //var LDA = new DimensionalityReductionTechnique()
             //{
-               //Id = DimensionalityReductionTechniques.LDA,
-               //Name = "Linear Discriminant Analysis"
+            //Id = DimensionalityReductionTechniques.LDA,
+            //Name = "Linear Discriminant Analysis"
             //};
 
-            modelBuilder.HasData(PCA,
-                                 tSNE,
-                                 //MDS,
-                                 //isomap,
-                                 //LLE,
-                                 JSL);
+            builder.HasData(PCA,
+                            tSNE,
+                            //MDS,
+                            //isomap,
+                             //LLE,
+                             JSL);
         }
     }
 }

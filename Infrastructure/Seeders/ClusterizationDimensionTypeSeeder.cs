@@ -1,18 +1,19 @@
 ﻿using Domain.Entities.Clusterization;
-using Domain.Entities.Tasks;
-using Domain.Resources.Types;
+using Domain.Entities.Clusterization.Algorithms;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
-    internal class ClusterizationSeeder
+    internal class ClusterizationDimensionTypeSeeder : IEntityTypeConfiguration<ClusterizationDimensionType>
     {
-        public static void DimensionTypeSeeder(EntityTypeBuilder<ClusterizationDimensionType> modelBuilder)
+        public void Configure(EntityTypeBuilder<ClusterizationDimensionType> builder)
         {
             var type1 = new ClusterizationDimensionType()
             {
@@ -31,32 +32,12 @@ namespace Infrastructure.Seeders
                 DimensionCount = 1536
             };
 
-            modelBuilder.HasData(
+            builder.HasData(
                 type1,
                 type2,
                 type3,
                 type4
                 );
-        }
-
-        public static void ClusterizationTypeSeeder(EntityTypeBuilder<ClusterizationType> modelBuilder)
-        {
-            var type1 = new ClusterizationType()
-            {
-                Id = ClusterizationTypes.Comments,
-                Name = "Comments"//"Коментарі"
-            };
-            var external = new ClusterizationType()
-            {
-                Id = ClusterizationTypes.External,
-                Name = "From file"//"З файлу"
-            };
-
-            modelBuilder.HasData(
-                type1,
-                external
-                );
-
         }
     }
 }
