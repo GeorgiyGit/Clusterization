@@ -16,6 +16,10 @@ namespace Domain.Mappers
             CreateMap<MyTask, TaskDTO>()
                     .ForMember(dest => dest.StateName,
                                ost => ost.MapFrom(e => e.State.Name));
+
+            CreateMap<MyTask, FullTaskDTO>()
+                    .ForMember(dest => dest.StateName,
+                               ost => ost.MapFrom(e => e.State.Name));
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Infrastructure.Builders.Tasks
             builder.HasOne(e => e.State)
                    .WithMany(e => e.Tasks)
                    .HasForeignKey(e => e.StateId);
+
+            builder.HasOne(e => e.Customer)
+                   .WithMany(e => e.Tasks)
+                   .HasForeignKey(e => e.CustomerId);
         }
     }
 }

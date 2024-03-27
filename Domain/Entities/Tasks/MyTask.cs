@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Customers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,10 @@ namespace Domain.Entities.Tasks
 
         public MyTaskState State { get; set; }
         public string StateId { get; set; }
+
+        public string? Description { get; set; }
+
+        public Customer Customer { get; set; }
+        public string CustomerId { get; set; }
     }
 }

@@ -42,6 +42,10 @@ namespace Infrastructure.Builders.Customers
             builder.HasMany(e => e.Quotas)
                    .WithOne(e => e.Customer)
                    .HasForeignKey(e => e.CustomerId);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.Customer)
+                   .HasForeignKey(e => e.CustomerId);
         }
     }
 }

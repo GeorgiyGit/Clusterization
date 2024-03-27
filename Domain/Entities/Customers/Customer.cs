@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.Quotas;
+using Domain.Entities.Tasks;
 using Domain.Entities.Youtube;
 using Microsoft.AspNetCore.Identity;
 
@@ -19,5 +20,7 @@ namespace Domain.Entities.Customers
         public ICollection<QuotasLogs> QuotasLogsCollection { get; set; } = new HashSet<QuotasLogs>();
 
         public ICollection<QuotasPackLogs> QuotasPackLogsCollection { get; set; } = new HashSet<QuotasPackLogs>();
+
+        public ICollection<MyTask> Tasks { get; set; } = new HashSet<MyTask>();
     }
 }

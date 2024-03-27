@@ -11,8 +11,6 @@ namespace Domain.Interfaces.Tasks
     {
         public Task<int> CreateTask(string name);
         public Task ChangeTaskState(int id, string newStateId);
-        public Task ChangeTaskPercent(int id,float newPercent);
-        public Task<TaskDTO> GetTask(int id);
-        public Task<ICollection<TaskDTO>> GetAllTasks();
+        public Task ChangeTaskPercent(int id, float newPercent);
     }
 }

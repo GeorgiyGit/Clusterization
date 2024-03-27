@@ -20,18 +20,12 @@ namespace Domain.Services.TaskServices
     {
         private readonly IRepository<MyTask> task_repository;
         private readonly IRepository<MyTaskState> state_repository;
-        private readonly IMapper mapper;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
 
         public MyTasksService(IRepository<MyTask> task_repository,
-                             IRepository<MyTaskState> state_repository,
-                             IMapper mapper,
-                             IStringLocalizer<ErrorMessages> localizer)
+                             IRepository<MyTaskState> state_repository)
         {
             this.task_repository = task_repository;
             this.state_repository = state_repository;
-            this.mapper = mapper;
-            this.localizer = localizer;
         }
 
         public async Task ChangeTaskPercent(int id, float newPercent)
@@ -74,22 +68,6 @@ namespace Domain.Services.TaskServices
             await task_repository.SaveChangesAsync();
 
             return task.Id;
-        }
-
-        public async Task<ICollection<TaskDTO>> GetAllTasks()
-        {
-            var tasks = await task_repository.GetAsync(includeProperties: $"{nameof(MyTask.State)}");
-
-            return mapper.Map<ICollection<TaskDTO>>(tasks);
-        }
-
-        public async Task<TaskDTO> GetTask(int id)
-        {
-            var task = (await task_repository.GetAsync(e=>e.Id==id,includeProperties:$"{nameof(MyTask.State)}")).FirstOrDefault();
-
-            if (task == null) throw new HttpException(localizer[ErrorMessagePatterns.TaskNotFound], HttpStatusCode.NotFound);
-
-            return mapper.Map<TaskDTO>(task);
         }
     }
 }

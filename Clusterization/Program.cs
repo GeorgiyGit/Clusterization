@@ -90,7 +90,10 @@ builder.Services.AddScoped<IPrivateYoutubeVideosService, PrivateYoutubeVideosSer
 builder.Services.AddScoped<IYoutubeChannelsService, YoutubeChannelsService>();
 builder.Services.AddScoped<IYoutubeVideoService, YoutubeVideosService>();
 builder.Services.AddScoped<IYoutubeCommentsService, YoutubeCommentsService>();
+
 builder.Services.AddScoped<IMyTasksService, MyTasksService>();
+builder.Services.AddScoped<IUserTasksService, UserTasksService>();
+builder.Services.AddScoped<IModeratorTasksService, ModeratorTasksService>();
 
 builder.Services.AddScoped<IClusterizationDimensionTypesService, ClusterizationDimensionTypesService>();
 builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
