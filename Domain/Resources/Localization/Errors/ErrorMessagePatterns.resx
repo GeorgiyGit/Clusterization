@@ -156,6 +156,9 @@
   <data name="QuotasPackNotFound" xml:space="preserve">
     <value>QuotasPackNotFound</value>
   </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>RoleNotFound</value>
+  </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>TaskNotFound</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="UserNotAuthorized" xml:space="preserve">
     <value>UserNotAuthorized</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>UserNotFound</value>
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>WorkspaceNotFound</value>

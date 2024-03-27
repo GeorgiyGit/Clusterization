@@ -156,6 +156,9 @@
   <data name="QuotasPackNotFound" xml:space="preserve">
     <value>Пакет квот не знайдено</value>
   </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>Роль не знайдено</value>
+  </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>Завдання не знайдено</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="UserNotAuthorized" xml:space="preserve">
     <value>Користувач не зарєєстрований</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Користувача не знайдено</value>
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Робоча область не знайдена</value>

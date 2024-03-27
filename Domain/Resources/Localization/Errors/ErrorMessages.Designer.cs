@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Роль не знайдено.
+        /// </summary>
+        public static string RoleNotFound {
+            get {
+                return ResourceManager.GetString("RoleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завдання не знайдено.
         /// </summary>
         public static string TaskNotFound {
@@ -255,6 +264,15 @@ namespace Domain.Resources.Localization.Errors {
         public static string UserNotAuthorized {
             get {
                 return ResourceManager.GetString("UserNotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Користувача не знайдено.
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         

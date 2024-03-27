@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.DTOs.CustomerDTOs.Requests;
+using Domain.DTOs.CustomerDTOs.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +11,6 @@ namespace Domain.Interfaces.Customers
     public interface IUserService
     {
         internal Task<string?> GetCurrentUserId();
+        public Task<ICollection<SimpleCustomerDTO>> GetCustomers(GetCustomersRequest request);
     }
 }
