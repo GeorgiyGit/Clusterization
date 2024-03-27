@@ -11,6 +11,7 @@ using Domain.Interfaces.Customers;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Domain.Services.TaskServices;
 using Google.Apis.Services;
@@ -39,9 +40,9 @@ namespace Domain.Services.Youtube
         private readonly IPrivateYoutubeChannelsService privateChannelService;
         private readonly IPrivateYoutubeVideosService privateVideoService;
         private readonly IYoutubeVideoService videoService;
-        private readonly IYoutubeChannelsService channelService;
         private readonly IMapper mapper;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IUserService _userService;
@@ -50,19 +51,18 @@ namespace Domain.Services.Youtube
                                       IPrivateYoutubeChannelsService privateChannelService,
                                       IPrivateYoutubeVideosService privateVideoService,
                                       IYoutubeVideoService videoService,
-                                      IYoutubeChannelsService channelService,
                                       IMapper mapper,
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMyTasksService taskService,
                                       IBackgroundJobClient backgroundJobClient,
                                       IRepository<Entities.Youtube.Video> videos_repository,
-                                      IUserService userService)
+                                      IUserService userService,
+                                      IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.repository = repository;
             this.privateChannelService = privateChannelService;
             this.privateVideoService = privateVideoService;
             this.videoService = videoService;
-            this.channelService = channelService;
             this.mapper = mapper;
             this.localizer = localizer;
             this.taskService = taskService;
@@ -77,7 +77,7 @@ namespace Domain.Services.Youtube
                 ApiKey = youtubeOptions["ApiKey"],
                 ApplicationName = youtubeOptions["ApplicationName"]
             });
-
+            _tasksLocalizer = tasksLocalizer;
         }
 
         #region load
@@ -85,10 +85,12 @@ namespace Domain.Services.Youtube
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+            
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
 
-            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options,userId));
+            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options,userId, taskId));
         }
-        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options, string userId)
+        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options, string userId, int taskId)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;
@@ -98,11 +100,12 @@ namespace Domain.Services.Youtube
                 isNewVideo = true;
             }
 
-            var taskId = await taskService.CreateTask("Завантаження коментарів");
-            float percent = 0f;
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
+            float percent = 0f;
             try
             {
                 var nextPageToken = "";
@@ -212,9 +215,10 @@ namespace Domain.Services.Youtube
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
 
@@ -224,18 +228,21 @@ namespace Domain.Services.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId));
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options, string userId)
+        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options, string userId, int taskId)
         {
             string channelId= options.ParentId;
             if ((await privateChannelService.GetById(channelId)) == null) return;
 
-            var taskId = await taskService.CreateTask("Завантаження коментарів");
-            float percent = 0f;
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
+            float percent = 0f;
             try
             {
                 Expression<Func<Entities.Youtube.Video, bool>> filterCondition = e => true;
@@ -369,9 +376,10 @@ namespace Domain.Services.Youtube
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         #endregion

@@ -24,6 +24,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Resources.Localization.Tasks;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -31,10 +32,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
     {
         private readonly IRepository<SpectralClusteringAlgorithm> repository;
         private readonly IRepository<ClusterizationProfile> profile_repository;
-        private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IRepository<Cluster> clusters_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
-        private readonly IRepository<DimensionalityReductionValue> drValues_repository;
 
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -42,6 +41,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IDimensionalityReductionValuesService drValues_service;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IMapper mapper;
 
         private readonly IClusterizationAlgorithmsHelpService helpService;
@@ -52,29 +52,27 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMapper mapper,
                                       IRepository<ClusterizationProfile> profile_repository,
-                                      IRepository<ClusterizationEntity> entities_repository,
                                       IClusterizationTilesService tilesService,
                                       IRepository<Cluster> clusters_repository,
                                       IBackgroundJobClient backgroundJobClient,
                                       IMyTasksService taskService,
                                       IRepository<ClusterizationTilesLevel> tilesLevel_repository,
                                       IDimensionalityReductionValuesService drValues_service,
-                                      IRepository<DimensionalityReductionValue> drValues_repository,
-                                      IClusterizationAlgorithmsHelpService helpService)
+                                      IClusterizationAlgorithmsHelpService helpService,
+                                      IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
             this.profile_repository = profile_repository;
-            this.entities_repository = entities_repository;
             this.tilesService = tilesService;
             this.clusters_repository = clusters_repository;
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
             this.tilesLevel_repository = tilesLevel_repository;
             this.drValues_service = drValues_service;
-            this.drValues_repository = drValues_repository;
             this.helpService = helpService;
+            _tasksLocalizer = tasksLocalizer;
         }
         public async Task AddAlgorithm(AddSpectralClusteringAlgorithmDTO model)
         {
@@ -97,16 +95,20 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         {
             await WorkspaceVerification(profileId);
 
-            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId));
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationSpectralClustering]);
+            
+            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId));
         }
         public async Task WorkspaceVerification(int profileId)
         {
             var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
             if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
         }
-        public async Task ClusterDataBackgroundJob(int profileId)
+        public async Task ClusterDataBackgroundJob(int profileId, int taskId)
         {
-            var taskId = await taskService.CreateTask("Кластеризація (Spectral Clustering)");
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
+
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
@@ -186,9 +188,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         #region algorithm

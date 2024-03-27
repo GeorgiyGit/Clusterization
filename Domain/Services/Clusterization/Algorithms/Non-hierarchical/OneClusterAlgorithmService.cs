@@ -13,6 +13,7 @@ using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Hangfire;
 using Microsoft.Extensions.Localization;
@@ -40,6 +41,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IDimensionalityReductionValuesService drValues_service;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IMapper mapper;
 
         private const int TILES_COUNT = 16;
@@ -54,7 +56,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IBackgroundJobClient backgroundJobClient,
                                       IMyTasksService taskService,
                                       IRepository<ClusterizationTilesLevel> tilesLevel_repository,
-                                      IDimensionalityReductionValuesService drValues_service)
+                                      IDimensionalityReductionValuesService drValues_service,
+                                      IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -67,6 +70,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.taskService = taskService;
             this.tilesLevel_repository = tilesLevel_repository;
             this.drValues_service = drValues_service;
+            _tasksLocalizer = tasksLocalizer;
         }
 
         public async Task AddAlgorithm(AddOneClusterAlgorithmDTO model)
@@ -96,16 +100,20 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         {
             await WorkspaceVerification(profileId);
 
-            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId));
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationOneCluser]);
+            
+            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId));
         }
         public async Task WorkspaceVerification(int profileId)
         {
             var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
             if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
         }
-        public async Task ClusterDataBackgroundJob(int profileId)
+        public async Task ClusterDataBackgroundJob(int profileId, int taskId)
         {
-            var taskId = await taskService.CreateTask("Кластеризація (один кластер)");
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
+
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
             try
             {
@@ -180,9 +188,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
     }

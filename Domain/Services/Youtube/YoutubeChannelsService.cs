@@ -4,12 +4,10 @@ using Domain.DTOs.YoutubeDTOs.ChannelDTOs;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.Responses;
 using Domain.DTOs.YoutubeDTOs.VideoDTOs;
-using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Youtube;
-using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Google.Apis.Services;
@@ -17,12 +15,7 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services.Youtube
 {

@@ -9,6 +9,7 @@ using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Tasks;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,7 @@ namespace Domain.Services.Embeddings
         private readonly IRepository<ClusterizationWorkspace> workspace_repository;
         private readonly IClusterizationDimensionTypesService DimensionTypeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IEmbeddingsService embeddingsService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
@@ -47,7 +49,8 @@ namespace Domain.Services.Embeddings
                                      IBackgroundJobClient backgroundJobClient,
                                      IMyTasksService taskService,
                                      IRepository<ClusterizationEntity> entities_repository,
-                                     IUserService userService)
+                                     IUserService userService,
+                                     IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.comment_repository = comment_repository;
             this.externalObjects_repository = externalObjects_repository;
@@ -63,26 +66,30 @@ namespace Domain.Services.Embeddings
             this.apiKey = openAIOptions["ApiKey"];
             this.embeddingsService = embeddingsService;
             this.entities_repository = entities_repository;
+            _tasksLocalizer = tasksLocalizer;
         }
         public async Task LoadEmbeddingsByWorkspace(int workspaceId)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId, userId));
-        }
-        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId, string userId)
-        {
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddings]);
 
+            backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(workspaceId, userId, taskId));
+        }
+        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int workspaceId, string userId, int taskId)
+        {
             var workspace = (await workspace_repository.GetAsync(c => c.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Entities)}")).FirstOrDefault();
 
             if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId)) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
             if (workspace.IsAllDataEmbedded) return;
 
-            var taskId = await taskService.CreateTask("Завантаження ембедингів");
-            
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
+
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
+
             try
             {
                 if (workspace.TypeId == ClusterizationTypes.Comments)
@@ -97,8 +104,10 @@ namespace Domain.Services.Embeddings
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch{
+            catch (Exception ex)
+            {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         public async Task LoadEmbeddingsToComments(int taskId, ClusterizationWorkspace workspace)

@@ -42,6 +42,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Localization\Tasks\TaskTitles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TaskTitles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Localization\Tasks\TaskTitlesPatterns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TaskTitlesPatterns.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Types\ChangingTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -110,6 +120,14 @@
     <EmbeddedResource Update="Resources\Localization\Errors\ErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Localization\Tasks\TaskTitles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TaskTitles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Localization\Tasks\TaskTitlesPatterns.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TaskTitlesPatterns.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\ChangingTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

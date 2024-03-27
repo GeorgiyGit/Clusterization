@@ -1,11 +1,5 @@
 ﻿using Domain.Interfaces.Youtube;
 using Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Youtube;
 using Domain.Exceptions;
 using Domain.Resources.Localization.Errors;
 using Google.Apis.Services;
@@ -17,20 +11,12 @@ using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.VideoDTOs;
 using AutoMapper;
 using Domain.Resources.Types;
-using System.Security.Cryptography;
-using System.Threading.Channels;
 using System.Linq.Expressions;
 using Domain.DTOs.YoutubeDTOs.Responses;
-using Domain.DTOs.YoutubeDTOs.ChannelDTOs;
 using Hangfire;
 using Domain.Interfaces.Tasks;
-using System.Net;
-using Hangfire.States;
-using System.Xml.Linq;
-using Hangfire.Common;
-using System.Runtime.InteropServices;
-using System.ComponentModel;
 using Domain.Interfaces.Customers;
+using Domain.Resources.Localization.Tasks;
 
 namespace Domain.Services.Youtube
 {
@@ -39,6 +25,7 @@ namespace Domain.Services.Youtube
         private readonly IRepository<Entities.Youtube.Video> repository;
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IPrivateYoutubeChannelsService privateChannelService;
         private readonly IYoutubeChannelsService youtubeChannelService;
         private readonly IMapper mapper;
@@ -53,7 +40,8 @@ namespace Domain.Services.Youtube
                                      IMapper mapper,
                                      IMyTasksService taskService,
                                      IBackgroundJobClient backgroundJobClient,
-                                     IUserService userService)
+                                     IUserService userService,
+                                     IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -62,6 +50,7 @@ namespace Domain.Services.Youtube
             this.mapper = mapper;
             this.taskService = taskService;
             _userService = userService;
+            _tasksLocalizer = tasksLocalizer;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -79,9 +68,11 @@ namespace Domain.Services.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options, userId));
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingVideosFromYoutube]);
+
+            backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadFromChannelBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options, string userId)
+        public async Task LoadFromChannelBackgroundJob(DTOs.YoutubeDTOs.Requests.LoadOptions options, string userId, int taskId)
         {
             string channelId = options.ParentId;
 
@@ -92,11 +83,12 @@ namespace Domain.Services.Youtube
                 isNewChannel = true;
             }
 
-            var taskId = await taskService.CreateTask("Завантаження відео");
-            float percent = 0f;
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
+            float percent = 0f;
             try
             {
                 var nextPageToken = "";
@@ -223,9 +215,10 @@ namespace Domain.Services.Youtube
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         public async Task LoadById(string id)

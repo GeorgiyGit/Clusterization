@@ -11,14 +11,13 @@ using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Hangfire;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {
@@ -29,6 +28,7 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<ExternalObject> externalObjects_repository;
         private readonly IRepository<ClusterizationEntity> entities_repository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
         private readonly IMapper mapper;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
@@ -41,7 +41,8 @@ namespace Domain.Services.Clusterization
                                                IBackgroundJobClient backgroundJobClient,
                                                IMyTasksService taskService,
                                                IUserService userService,
-                                               IRepository<ClusterizationEntity> entities_repository)
+                                               IRepository<ClusterizationEntity> entities_repository,
+                                               IStringLocalizer<TaskTitles> tasksLocalizer)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -52,6 +53,7 @@ namespace Domain.Services.Clusterization
             this.externalObjects_repository = externalObjects_repository;
             _userService = userService;
             this.entities_repository = entities_repository;
+            _tasksLocalizer = tasksLocalizer;
         }
 
         #region add-update
@@ -172,12 +174,14 @@ namespace Domain.Services.Clusterization
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId));
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingCommentsToWorkspace]);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request, string userId)
+        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request, string userId, int taskId)
         {
-            var taskId = await taskService.CreateTask("Додавання коментарів");
-            float percent = 0f;
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
@@ -237,24 +241,29 @@ namespace Domain.Services.Clusterization
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
 
         public async Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request)
         {
-            backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request));
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingCommentsToWorkspace]);
+
+            backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByVideosBackgroundJob(AddCommentsToWorkspaceByVideosRequest request)
+        public async Task LoadCommentsByVideosBackgroundJob(AddCommentsToWorkspaceByVideosRequest request, string userId, int taskId)
         {
-            var taskId = await taskService.CreateTask("Додавання коментарів");
-            float percent = 0f;
+            var stateId = await taskService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
-            var userId = await _userService.GetCurrentUserId();
             try
             {
                 var workspace = (await repository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.Comments)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
@@ -288,9 +297,10 @@ namespace Domain.Services.Clusterization
                 await taskService.ChangeTaskPercent(taskId, 100f);
                 await taskService.ChangeTaskState(taskId, TaskStates.Completed);
             }
-            catch
+            catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
 
@@ -301,7 +311,7 @@ namespace Domain.Services.Clusterization
             var userId = await _userService.GetCurrentUserId();
             if (workspace == null || workspace.TypeId != ClusterizationTypes.External || (workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId))) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
-            var taskId = await taskService.CreateTask("Додавання зовнішніх об'єктів");
+            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace]);
             float percent = 0f;
 
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
@@ -380,11 +390,13 @@ namespace Domain.Services.Clusterization
                 else
                 {
                     await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                    await taskService.ChangeTaskDescription(taskId, "File is unavailable");
                 }
             }
             catch (Exception ex)
             {
                 await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         #endregion
