@@ -123,6 +123,9 @@
   <data name="ClusterizationAlgorithmTypeIdNotExist" xml:space="preserve">
     <value>Вказаний тип не існує</value>
   </data>
+  <data name="CustomerQuotasNotFound" xml:space="preserve">
+    <value>Квоти користувача не знайдені</value>
+  </data>
   <data name="DRTechniqueNotFound" xml:space="preserve">
     <value>Техніка зменшення розмірності не знайдена</value>
   </data>

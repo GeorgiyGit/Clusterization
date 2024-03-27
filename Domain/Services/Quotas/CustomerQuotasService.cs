@@ -1,4 +1,5 @@
-﻿using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
+﻿using AutoMapper;
+using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
 using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
 using Domain.Entities.Quotas;
 using Domain.Exceptions;
@@ -14,31 +15,45 @@ namespace Domain.Services.Quotas
     public class CustomerQuotasService : ICustomerQuotasService
     {
         private readonly IUserService _userService;
-        private readonly IRepository<CustomerQuotas> _customerQuotesRepository;
-        private readonly IRepository<QuotasPack> _packsRepositorty;
+        private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
+        private readonly IRepository<QuotasPackItem> _packItemsRepositorty;
         private IStringLocalizer<ErrorMessages> _localizer;
+        private IMapper _mapper;
         public CustomerQuotasService(IUserService userService,
-            IRepository<CustomerQuotas> customerQuotesRepository,
-            IRepository<QuotasPack> packsRepository,
-            IStringLocalizer<ErrorMessages> localizer)
+            IRepository<CustomerQuotas> customerQuotasRepository,
+            IRepository<QuotasPackItem> packItemsRepositorty,
+            IStringLocalizer<ErrorMessages> localizer,
+            IMapper mapper)
         {
             _userService = userService;
-            _customerQuotesRepository = customerQuotesRepository;
-            _packsRepositorty = packsRepository;
+            _customerQuotasRepository = customerQuotasRepository;
+            _packItemsRepositorty = packItemsRepositorty;
             _localizer = localizer;
+            _mapper = mapper;
         }
         public async Task AddQuotesPackToCustomer(AddQuotasToCustomerDTO request)
         {
-            var pack = (await _packsRepositorty.GetAsync(e => e.Id == request.PackId, includeProperties: $"{nameof(QuotasPack.Items)}")).FirstOrDefault();
+            var packItems = (await _packItemsRepositorty.GetAsync(e => e.PackId == request.PackId, includeProperties: $"{nameof(QuotasPackItem.Type)}"));
 
-            if (pack == null) throw new HttpException(_localizer[ErrorMessagePatterns.QuotasPackNotFound], HttpStatusCode.NotFound);
+            foreach (var packItem in packItems)
+            {
+                var customerQuota = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == request.CustomerId && e.TypeId == packItem.TypeId)).FirstOrDefault();
 
+                if (customerQuota == null) throw new HttpException(_localizer[ErrorMessagePatterns.QuotasPackNotFound], HttpStatusCode.NotFound);
+                
+                customerQuota.AvailableCount += packItem.Count;
+            }
 
+            await _customerQuotasRepository.SaveChangesAsync();
         }
 
-        public Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotes()
+        public async Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotes()
         {
-            throw new NotImplementedException();
+            var customerId = await _userService.GetCurrentUserId();
+
+            var customerQuotasCollection = await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId);
+
+            return _mapper.Map<ICollection<CustomerQuotasDTO>>(customerQuotasCollection);
         }
     }
 }

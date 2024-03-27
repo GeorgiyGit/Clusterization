@@ -12,6 +12,7 @@ using Domain.Interfaces.Clusterization.Profiles;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.Embeddings;
+using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Services.Clusterization;
@@ -21,6 +22,7 @@ using Domain.Services.Clusterization.Profiles;
 using Domain.Services.Customers;
 using Domain.Services.DimensionalityReduction;
 using Domain.Services.Embeddings;
+using Domain.Services.Quotas;
 using Domain.Services.TaskServices;
 using Domain.Services.Youtube;
 using Domain.Validators.Clusterization.Workspaces;
@@ -112,6 +114,8 @@ builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddDBScanAlgo
 builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO>, SpectralClusteringAlgorithmService>();
 builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO>, GaussianMixtureAlgorithmService>();
 
+builder.Services.AddScoped<IQuotasPacksService, QuotasPacksService>();
+builder.Services.AddScoped<ICustomerQuotasService, CustomerQuotasService>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();

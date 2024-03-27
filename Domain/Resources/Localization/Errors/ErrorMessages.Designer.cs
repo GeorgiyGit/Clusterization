@@ -79,6 +79,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Квоти користувача не знайдені.
+        /// </summary>
+        public static string CustomerQuotasNotFound {
+            get {
+                return ResourceManager.GetString("CustomerQuotasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Техніка зменшення розмірності не знайдена.
         /// </summary>
         public static string DRTechniqueNotFound {

@@ -123,6 +123,9 @@
   <data name="ClusterizationAlgorithmTypeIdNotExist" xml:space="preserve">
     <value>Type id does not exist</value>
   </data>
+  <data name="CustomerQuotasNotFound" xml:space="preserve">
+    <value>Customer quotas not found</value>
+  </data>
   <data name="DRTechniqueNotFound" xml:space="preserve">
     <value>Dimensionality reduction technique not found</value>
   </data>
