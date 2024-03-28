@@ -47,7 +47,7 @@ namespace Domain.Services.Quotas
             await _customerQuotasRepository.SaveChangesAsync();
         }
 
-        public async Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotes()
+        public async Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotas()
         {
             var customerId = await _userService.GetCurrentUserId();
 

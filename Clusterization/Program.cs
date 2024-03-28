@@ -23,6 +23,7 @@ using Domain.Services.Customers;
 using Domain.Services.DimensionalityReduction;
 using Domain.Services.Embeddings;
 using Domain.Services.Quotas;
+using Domain.Services.Quotes;
 using Domain.Services.TaskServices;
 using Domain.Services.Youtube;
 using Domain.Validators.Clusterization.Workspaces;
@@ -117,6 +118,7 @@ builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddGaussianMi
 
 builder.Services.AddScoped<IQuotasPacksService, QuotasPacksService>();
 builder.Services.AddScoped<ICustomerQuotasService, CustomerQuotasService>();
+builder.Services.AddScoped<IQuotasControllerService, QuotasControllerService>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
