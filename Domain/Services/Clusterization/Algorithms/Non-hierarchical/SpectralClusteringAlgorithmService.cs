@@ -25,6 +25,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Resources.Localization.Tasks;
+using Domain.Interfaces.Quotas;
+using Domain.Interfaces.Customers;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -34,6 +36,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         private readonly IRepository<ClusterizationProfile> profile_repository;
         private readonly IRepository<Cluster> clusters_repository;
         private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
+        private readonly IRepository<ClusterizationEntity> _entities_repository;
 
         private readonly IClusterizationTilesService tilesService;
         private readonly IBackgroundJobClient backgroundJobClient;
@@ -48,6 +51,9 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
         private const int TILES_COUNT = 16;
 
+        private readonly IQuotasControllerService _quotasControllerService;
+        private readonly IUserService _userService;
+
         public SpectralClusteringAlgorithmService(IRepository<SpectralClusteringAlgorithm> repository,
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMapper mapper,
@@ -59,7 +65,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IRepository<ClusterizationTilesLevel> tilesLevel_repository,
                                       IDimensionalityReductionValuesService drValues_service,
                                       IClusterizationAlgorithmsHelpService helpService,
-                                      IStringLocalizer<TaskTitles> tasksLocalizer)
+                                      IStringLocalizer<TaskTitles> tasksLocalizer,
+                                      IRepository<ClusterizationEntity> entities_repository,
+                                      IQuotasControllerService quotasControllerService,
+                                      IUserService userService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -73,6 +82,9 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             this.drValues_service = drValues_service;
             this.helpService = helpService;
             _tasksLocalizer = tasksLocalizer;
+            _entities_repository = entities_repository;
+            _quotasControllerService = quotasControllerService;
+            _userService = userService;
         }
         public async Task AddAlgorithm(AddSpectralClusteringAlgorithmDTO model)
         {
@@ -94,17 +106,26 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         public async Task ClusterData(int profileId)
         {
             await WorkspaceVerification(profileId);
+            
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationSpectralClustering]);
             
-            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId));
+            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId));
+        }
+        public async Task<int> GetWorkspaceElementsCount(int profileId)
+        {
+            var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+
+            return (await _entities_repository.GetAsync(e => e.WorkspaceId == profile.WorkspaceId)).Count();
         }
         public async Task WorkspaceVerification(int profileId)
         {
             var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
             if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
         }
-        public async Task ClusterDataBackgroundJob(int profileId, int taskId)
+        public async Task ClusterDataBackgroundJob(int profileId, int taskId, string userId)
         {
             var stateId = await taskService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -117,6 +138,17 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.SpectralClustering) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
                 var clusterAlgorithm = (await repository.GetAsync(e => e.Id == profile.AlgorithmId)).FirstOrDefault();
+                
+                var entitiesCount = await GetWorkspaceElementsCount(profileId);
+
+                double quotasCount = (double)entitiesCount * (double)profile.DimensionCount * 1000;
+
+                var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount);
+
+                if (!quotasResult)
+                {
+                    throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                }
 
                 for (int i = 0; i < profile.Clusters.Count(); i++)
                 {

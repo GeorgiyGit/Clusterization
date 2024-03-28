@@ -9,6 +9,7 @@ using Domain.Extensions;
 using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Localization.Tasks;
@@ -33,6 +34,7 @@ namespace Domain.Services.Clusterization
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
         public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
                                                IStringLocalizer<ErrorMessages> localizer,
                                                IMapper mapper,
@@ -42,7 +44,8 @@ namespace Domain.Services.Clusterization
                                                IMyTasksService taskService,
                                                IUserService userService,
                                                IRepository<ClusterizationEntity> entities_repository,
-                                               IStringLocalizer<TaskTitles> tasksLocalizer)
+                                               IStringLocalizer<TaskTitles> tasksLocalizer,
+                                               IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -54,6 +57,7 @@ namespace Domain.Services.Clusterization
             _userService = userService;
             this.entities_repository = entities_repository;
             _tasksLocalizer = tasksLocalizer;
+            _quotasControllerService = quotasControllerService;
         }
 
         #region add-update
@@ -61,6 +65,24 @@ namespace Domain.Services.Clusterization
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            string type = null;
+
+            if (model.VisibleType == VisibleTypes.AllCustomers)
+            {
+                type = QuotasTypes.PublicWorkspaces;
+            }
+            else if (model.VisibleType == VisibleTypes.OnlyOwner)
+            {
+                type = QuotasTypes.PrivateWorkspaces;
+            }
+
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1);
+
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
 
             var newWorkspace = new ClusterizationWorkspace()
             {

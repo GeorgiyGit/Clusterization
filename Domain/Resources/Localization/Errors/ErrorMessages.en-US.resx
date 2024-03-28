@@ -147,6 +147,9 @@
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Not All Data Embedded</value>
   </data>
+  <data name="NotEnoughQuotas" xml:space="preserve">
+    <value>Not enough quotas</value>
+  </data>
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>The same profile is already loaded</value>
   </data>

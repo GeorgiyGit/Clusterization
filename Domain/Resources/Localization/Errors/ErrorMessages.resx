@@ -147,6 +147,9 @@
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Не всі дані вбудовані</value>
   </data>
+  <data name="NotEnoughQuotas" xml:space="preserve">
+    <value>Не достатньо квот</value>
+  </data>
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>Такий самий профіль уже завантажено</value>
   </data>

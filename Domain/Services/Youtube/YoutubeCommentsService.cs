@@ -8,6 +8,7 @@ using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Resources.Localization.Errors;
@@ -25,6 +26,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -46,6 +48,7 @@ namespace Domain.Services.Youtube
         private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
         public YoutubeCommentsService(IRepository<Entities.Youtube.Comment> repository,
                                       IConfiguration configuration,
                                       IPrivateYoutubeChannelsService privateChannelService,
@@ -57,7 +60,8 @@ namespace Domain.Services.Youtube
                                       IBackgroundJobClient backgroundJobClient,
                                       IRepository<Entities.Youtube.Video> videos_repository,
                                       IUserService userService,
-                                      IStringLocalizer<TaskTitles> tasksLocalizer)
+                                      IStringLocalizer<TaskTitles> tasksLocalizer,
+                                      IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.privateChannelService = privateChannelService;
@@ -69,6 +73,7 @@ namespace Domain.Services.Youtube
             this.backgroundJobClient = backgroundJobClient;
             this.videos_repository = videos_repository;
             _userService = userService;
+            _quotasControllerService = quotasControllerService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -160,6 +165,15 @@ namespace Domain.Services.Youtube
                             }
                         }
 
+                        var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1);
+
+                        if (!quotasResult)
+                        {
+                            await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                            await taskService.ChangeTaskDescription(taskId, localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                            return;
+                        }
+
                         var newComment = new Entities.Youtube.Comment()
                         {
                             Id = comment.Id,
@@ -204,7 +218,6 @@ namespace Domain.Services.Youtube
                         }
 
                         await taskService.ChangeTaskPercent(taskId, percent);
-                        
                     }
 
                     await repository.SaveChangesAsync();
@@ -310,6 +323,15 @@ namespace Domain.Services.Youtube
                             if (await repository.FindAsync(comment.Id) != null)
                             {
                                 continue;
+                            }
+
+                            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1);
+
+                            if (!quotasResult)
+                            {
+                                await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                                await taskService.ChangeTaskDescription(taskId, localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                                return;
                             }
 
                             var newComment = new Entities.Youtube.Comment()

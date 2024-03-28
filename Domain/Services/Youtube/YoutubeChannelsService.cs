@@ -7,6 +7,7 @@ using Domain.DTOs.YoutubeDTOs.VideoDTOs;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Youtube;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
@@ -16,26 +17,32 @@ using Google.Apis.YouTube.v3.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Domain.Services.Youtube
 {
     public class YoutubeChannelsService : IYoutubeChannelsService
     {
+        private const int loadChannelQutasCount = 50;
         private readonly IRepository<Entities.Youtube.Channel> repository;
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IMapper mapper;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
         public YoutubeChannelsService(IRepository<Entities.Youtube.Channel> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IMapper mapper,
-                                     IUserService userService)
+                                     IUserService userService,
+                                     IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
             _userService = userService;
+            _quotasControllerService = quotasControllerService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -70,6 +77,15 @@ namespace Domain.Services.Youtube
             if (response.Items == null || response.Items.Count()==0) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelDoesNotExist], System.Net.HttpStatusCode.NotFound);
 
             var channel = response.Items[0];
+
+            var customerId = await _userService.GetCurrentUserId();
+
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(customerId, QuotasTypes.Youtube, loadChannelQutasCount);
+
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
 
             try
             {
@@ -137,6 +153,14 @@ namespace Domain.Services.Youtube
                     ids.Remove(channel.Id);
 
                     if ((await repository.FindAsync(channel.Id)) != null) continue;
+
+                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadChannelQutasCount);
+
+                    if (!quotasResult)
+                    {
+                        throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                    }
+
                     var newChannel = new Entities.Youtube.Channel()
                     {
                         Id = channel.Id,

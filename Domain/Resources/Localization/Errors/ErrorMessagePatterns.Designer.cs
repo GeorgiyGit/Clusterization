@@ -151,6 +151,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NotEnoughQuotas.
+        /// </summary>
+        public static string NotEnoughQuotas {
+            get {
+                return ResourceManager.GetString("NotEnoughQuotas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ProfileAlreadyExist.
         /// </summary>
         public static string ProfileAlreadyExist {

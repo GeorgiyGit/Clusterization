@@ -17,11 +17,15 @@ using Hangfire;
 using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Customers;
 using Domain.Resources.Localization.Tasks;
+using Domain.Interfaces.Quotas;
+using System.Net;
 
 namespace Domain.Services.Youtube
 {
     public class YoutubeVideosService : IYoutubeVideoService
     {
+        private const int loadVideoQutasCount = 10;
+
         private readonly IRepository<Entities.Youtube.Video> repository;
         private readonly YouTubeService youtubeService;
         private readonly IStringLocalizer<ErrorMessages> localizer;
@@ -32,6 +36,7 @@ namespace Domain.Services.Youtube
         private readonly IMyTasksService taskService;
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
         public YoutubeVideosService(IRepository<Entities.Youtube.Video> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
@@ -41,7 +46,8 @@ namespace Domain.Services.Youtube
                                      IMyTasksService taskService,
                                      IBackgroundJobClient backgroundJobClient,
                                      IUserService userService,
-                                     IStringLocalizer<TaskTitles> tasksLocalizer)
+                                     IStringLocalizer<TaskTitles> tasksLocalizer,
+                                     IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -51,6 +57,7 @@ namespace Domain.Services.Youtube
             this.taskService = taskService;
             _userService = userService;
             _tasksLocalizer = tasksLocalizer;
+            _quotasControllerService = quotasControllerService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
@@ -165,6 +172,15 @@ namespace Domain.Services.Youtube
                             }
                         }
 
+                        var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadVideoQutasCount);
+
+                        if (!quotasResult)
+                        {
+                            await taskService.ChangeTaskState(taskId, TaskStates.Error);
+                            await taskService.ChangeTaskDescription(taskId, localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                            return;
+                        }
+
                         var newVideo = new Entities.Youtube.Video()
                         {
                             Id = video.Id,
@@ -248,6 +264,13 @@ namespace Domain.Services.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadVideoQutasCount);
+
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
+
             try
             {
                 var newVideo = new Entities.Youtube.Video()
@@ -319,6 +342,14 @@ namespace Domain.Services.Youtube
                     ids.Remove(video.Id);
 
                     if ((await repository.FindAsync(video.Id)) != null) continue;
+
+                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadVideoQutasCount);
+
+                    if (!quotasResult)
+                    {
+                        throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                    }
+
                     var newVideo = new Entities.Youtube.Video()
                     {
                         Id = video.Id,

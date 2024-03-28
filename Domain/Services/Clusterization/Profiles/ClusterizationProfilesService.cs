@@ -9,10 +9,12 @@ using Domain.Interfaces;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.Clusterization.Profiles;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
+using System.Net;
 
 namespace Domain.Services.Clusterization.Profiles
 {
@@ -23,17 +25,20 @@ namespace Domain.Services.Clusterization.Profiles
         private readonly IMapper mapper;
         private readonly IGeneralClusterizationAlgorithmService generalAlgorithmService;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
         public ClusterizationProfilesService(IRepository<ClusterizationProfile> repository,
                                              IStringLocalizer<ErrorMessages> localizer,
                                              IMapper mapper,
                                              IGeneralClusterizationAlgorithmService generalAlgorithmService,
-                                             IUserService userService)
+                                             IUserService userService,
+                                             IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
             this.generalAlgorithmService = generalAlgorithmService;
             _userService = userService;
+            _quotasControllerService = quotasControllerService;
         }
 
         public async Task Add(AddClusterizationProfileDTO model)
@@ -55,6 +60,26 @@ namespace Domain.Services.Clusterization.Profiles
             var oldProfile = (await repository.GetAsync(filter: filterCondition)).FirstOrDefault();
 
             if (oldProfile != null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileAlreadyExist], System.Net.HttpStatusCode.BadGateway);
+
+
+            string type = null;
+
+            if (model.VisibleType == VisibleTypes.AllCustomers)
+            {
+                type = QuotasTypes.PublicProfiles;
+            }
+            else if (model.VisibleType == VisibleTypes.OnlyOwner)
+            {
+                type = QuotasTypes.PrivateProfiles;
+            }
+
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1);
+
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
+
 
             var newProfile = new ClusterizationProfile()
             {

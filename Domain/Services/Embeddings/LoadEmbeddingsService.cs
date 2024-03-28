@@ -6,6 +6,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Embeddings;
+using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Tasks;
 using Domain.LoadHelpModels;
 using Domain.Resources.Localization.Errors;
@@ -15,6 +16,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using System.Net;
 using System.Text;
 using System.Web;
 
@@ -33,6 +35,7 @@ namespace Domain.Services.Embeddings
         private readonly IBackgroundJobClient backgroundJobClient;
         private readonly IMyTasksService taskService;
         private readonly IUserService _userService;
+        private readonly IQuotasControllerService _quotasControllerService;
 
         private readonly string apiKey;
 
@@ -50,7 +53,8 @@ namespace Domain.Services.Embeddings
                                      IMyTasksService taskService,
                                      IRepository<ClusterizationEntity> entities_repository,
                                      IUserService userService,
-                                     IStringLocalizer<TaskTitles> tasksLocalizer)
+                                     IStringLocalizer<TaskTitles> tasksLocalizer,
+                                     IQuotasControllerService quotasControllerService)
         {
             this.comment_repository = comment_repository;
             this.externalObjects_repository = externalObjects_repository;
@@ -60,6 +64,7 @@ namespace Domain.Services.Embeddings
             this.backgroundJobClient = backgroundJobClient;
             this.taskService = taskService;
             _userService = userService;
+            _quotasControllerService = quotasControllerService;
 
             var openAIOptions = configuration.GetSection("OpenAIOptions");
 
@@ -94,11 +99,11 @@ namespace Domain.Services.Embeddings
             {
                 if (workspace.TypeId == ClusterizationTypes.Comments)
                 {
-                    await LoadEmbeddingsToComments(taskId, workspace);
+                    await LoadEmbeddingsToComments(taskId, workspace, userId);
                 }
                 else if (workspace.TypeId == ClusterizationTypes.External)
                 {
-                    await LoadEmbeddingsToExternalData(taskId, workspace);
+                    await LoadEmbeddingsToExternalData(taskId, workspace, userId);
                 }
                 
                 await taskService.ChangeTaskPercent(taskId, 100f);
@@ -110,7 +115,7 @@ namespace Domain.Services.Embeddings
                 await taskService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
-        public async Task LoadEmbeddingsToComments(int taskId, ClusterizationWorkspace workspace)
+        public async Task LoadEmbeddingsToComments(int taskId, ClusterizationWorkspace workspace, string userId)
         {
             var Dimensions = (await DimensionTypeService.GetAll()).ToList();
 
@@ -122,6 +127,13 @@ namespace Domain.Services.Embeddings
             workspace.Entities.Clear();
 
             float percent = 0f;
+
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, comments.Count());
+
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
 
             foreach (var comment in comments)
             {
@@ -206,7 +218,7 @@ namespace Domain.Services.Embeddings
             workspace.IsAllDataEmbedded = true;
             await workspace_repository.SaveChangesAsync();
         }
-        public async Task LoadEmbeddingsToExternalData(int taskId, ClusterizationWorkspace workspace)
+        public async Task LoadEmbeddingsToExternalData(int taskId, ClusterizationWorkspace workspace, string userId)
         {
             var Dimensions = (await DimensionTypeService.GetAll()).ToList();
 
@@ -218,6 +230,12 @@ namespace Domain.Services.Embeddings
             workspace.Entities.Clear();
 
             float percent = 0f;
+
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, externalObjects.Count());
+            if (!quotasResult)
+            {
+                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+            }
 
             foreach (var externalObj in externalObjects)
             {
