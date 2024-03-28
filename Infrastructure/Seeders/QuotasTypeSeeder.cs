@@ -11,47 +11,47 @@ namespace Infrastructure.Seeders
         {
             var youtube = new QuotasType()
             {
-                Id = QuotesTypes.Youtube,
+                Id = QuotasTypes.Youtube,
                 Name = "Youtube",
                 Description = "Loading data from Youtube"
             };
 
             var embeddings = new QuotasType()
             {
-                Id = QuotesTypes.Embeddings,
+                Id = QuotasTypes.Embeddings,
                 Name = "Embeddings",
                 Description = "Creating embeddings"
             };
 
             var clustering = new QuotasType()
             {
-                Id = QuotesTypes.Clustering,
+                Id = QuotasTypes.Clustering,
                 Name = "Clustering",
                 Description = "Clusterization of data"
             };
 
             var publicWorkspaces = new QuotasType()
             {
-                Id = QuotesTypes.PublicWorkspaces,
+                Id = QuotasTypes.PublicWorkspaces,
                 Name = "Public workspaces",
                 Description = "Creating public workspaces"
             };
             var privateWorkspaces = new QuotasType()
             {
-                Id = QuotesTypes.PrivateWorkspaces,
+                Id = QuotasTypes.PrivateWorkspaces,
                 Name = "Private workspaces",
                 Description = "Creating private workspaces"
             };
 
             var publicProfiles = new QuotasType()
             {
-                Id = QuotesTypes.PublicProfiles,
+                Id = QuotasTypes.PublicProfiles,
                 Name = "Public profiles",
                 Description = "Creating public profiles"
             };
             var privateProfiles = new QuotasType()
             {
-                Id = QuotesTypes.PrivateProfiles,
+                Id = QuotasTypes.PrivateProfiles,
                 Name = "Private profiles",
                 Description = "Creating private profiles"
             };

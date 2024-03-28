@@ -87,10 +87,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LoadFilterOptions.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\QuotesTypes.Designer.cs">
+    <Compile Update="Resources\Types\QuotasTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>QuotesTypes.resx</DependentUpon>
+      <DependentUpon>QuotasTypes.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Types\TaskStates.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -157,9 +157,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LoadFilterOptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\QuotesTypes.resx">
+    <EmbeddedResource Update="Resources\Types\QuotasTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuotesTypes.Designer.cs</LastGenOutput>
+      <LastGenOutput>QuotasTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\TaskStates.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -19,17 +19,17 @@ namespace Clusterization.Controllers.Quotas
 
         [HttpPost("add_to_customer")]
         [Authorize(Roles = UserRoles.Moderator)]
-        public async Task<IActionResult> AddQuotesPackToCustomer([FromBody] AddQuotasToCustomerDTO request)
+        public async Task<IActionResult> AddQuotasPackToCustomer([FromBody] AddQuotasToCustomerDTO request)
         {
-            await service.AddQuotesPackToCustomer(request);
+            await service.AddQuotasPackToCustomer(request);
             return Ok();
         }
 
         [HttpGet("get_all")]
         [Authorize]
-        public async Task<IActionResult> GetAllCustomerQuotes()
+        public async Task<IActionResult> GetAllCustomerQuotas()
         {
-            return Ok(await service.GetAllCustomerQuotes());
+            return Ok(await service.GetAllCustomerQuotas());
         }
     }
 }

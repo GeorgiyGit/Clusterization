@@ -8,6 +8,7 @@ using Domain.Interfaces.Tasks;
 using Domain.Interfaces.Youtube;
 using Domain.Mappers;
 using Domain.Resources.Localization.Errors;
+using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Domain.Services.Youtube;
 using FakeItEasy;
@@ -143,7 +144,8 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          A.Fake<IMapper>(),
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         A.Fake<IUserService>(),
+                                                         A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -183,7 +185,8 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          A.Fake<IMapper>(),
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService,
+                                                         A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -224,7 +227,8 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          A.Fake<IMapper>(),
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService,
+                                                         A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -267,7 +271,8 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService,
+                                                         A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -308,7 +313,8 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService,
+                                                         A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -343,7 +349,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -399,7 +405,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -456,7 +462,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -512,7 +518,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -569,7 +575,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -625,7 +631,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -682,7 +688,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -738,7 +744,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);
@@ -795,7 +801,7 @@ namespace Clusterization.Tests.Controllers.Youtube
                                                          mapper,
                                                          A.Fake<IMyTasksService>(),
                                                          A.Fake<IBackgroundJobClient>(),
-                                                         userService);
+                                                         userService, A.Fake<IStringLocalizer<TaskTitles>>());
 
 
             var controller = new VideosController(videosService);

@@ -5,7 +5,7 @@ namespace Domain.Interfaces.Quotas
 {
     public interface ICustomerQuotasService
     {
-        public Task AddQuotesPackToCustomer(AddQuotasToCustomerDTO request);
+        public Task AddQuotasPackToCustomer(AddQuotasToCustomerDTO request);
         public Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotas();
     }
 }

@@ -31,7 +31,7 @@ namespace Domain.Services.Quotas
             _localizer = localizer;
             _mapper = mapper;
         }
-        public async Task AddQuotesPackToCustomer(AddQuotasToCustomerDTO request)
+        public async Task AddQuotasPackToCustomer(AddQuotasToCustomerDTO request)
         {
             var packItems = (await _packItemsRepositorty.GetAsync(e => e.PackId == request.PackId, includeProperties: $"{nameof(QuotasPackItem.Type)}"));
 
