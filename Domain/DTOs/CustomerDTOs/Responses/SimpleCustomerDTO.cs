@@ -12,5 +12,7 @@ namespace Domain.DTOs.CustomerDTOs.Responses
         public string Id { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        public DateTime CreationTime { get; set; }
+        public bool IsModerator { get; set; }
     }
 }

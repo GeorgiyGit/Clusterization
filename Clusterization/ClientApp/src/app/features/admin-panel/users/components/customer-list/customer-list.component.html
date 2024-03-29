@@ -1,0 +1,7 @@
+<div class="cont">
+    @for (customer of customers; track $index) {
+        <app-customer-card [customer]="customer"></app-customer-card>
+    }@empty {
+        <p i18n class="nothing-text">Користувачів не знайдено</p>
+    }
+</div>

@@ -78,6 +78,12 @@ import { ChangingTypesSelectOptionComponent } from './core/components/changing-t
 import { VisibleTypesSelectOptionComponent } from './core/components/visible-types-select-option/visible-types-select-option.component';
 import { CustomHttpInterceptor } from './core/interceptors/custom-http.interceptor';
 import { CustomerGuard } from './core/guard/customer.guard';
+import { CustomerCardComponent } from './features/admin-panel/users/components/customer-card/customer-card.component';
+import { CustomerListComponent } from './features/admin-panel/users/components/customer-list/customer-list.component';
+import { CustomerListPageComponent } from './features/admin-panel/users/pages/customer-list-page/customer-list-page.component';
+import { AdminPanelNavigationPageComponent } from './features/admin-panel/pages/admin-panel-navigation-page/admin-panel-navigation-page.component';
+import { ModeratorGuard } from './core/guard/moderator.guard';
+import { AdminPanelRoutingModule } from './core/routing/admin-panel-routing.module';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -148,13 +154,19 @@ export function tokenGetter() {
     LogInPageComponent,
     SignUpPageComponent,
     VisibleTypesSelectOptionComponent,
-    ChangingTypesSelectOptionComponent
+    ChangingTypesSelectOptionComponent,
+
+    CustomerCardComponent,
+    CustomerListComponent,
+    CustomerListPageComponent,
+    AdminPanelNavigationPageComponent,
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     CommonModule,
     AppRoutingModule,
+    AdminPanelRoutingModule,
     FormsModule,
     RouterModule,
     MatTooltipModule,
@@ -180,7 +192,8 @@ export function tokenGetter() {
       useClass: CustomHttpInterceptor,
       multi: true
     },
-    CustomerGuard
+    CustomerGuard,
+    ModeratorGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -84,4 +84,7 @@ export class AccountService {
   isUserAdmin(): boolean {
     return this.getRoles().includes('Admin');
   }
+  isUserModerator(): boolean {
+    return this.getRoles().includes('Moderator');
+  }
 }

@@ -12,5 +12,6 @@ namespace Domain.Interfaces.Customers
     {
         internal Task<string?> GetCurrentUserId();
         public Task<ICollection<SimpleCustomerDTO>> GetCustomers(GetCustomersRequest request);
+        public Task<string?> GetCustomerIdByEmail(string email);
     }
 }

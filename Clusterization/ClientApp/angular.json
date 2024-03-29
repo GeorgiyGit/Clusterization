@@ -28,7 +28,7 @@
           "options": {
             "progress": false,
             "localize": [
-              "en-US"
+              "uk-UA"
             ],
             "outputPath": "dist",
             "index": "src/index.html",

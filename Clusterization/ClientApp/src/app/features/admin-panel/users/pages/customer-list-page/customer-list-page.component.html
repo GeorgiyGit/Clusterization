@@ -1,0 +1,18 @@
+<section>
+    <h1 i18n>Список користувачів</h1>
+    <div class="mb-10">
+        <app-search-input (sendEvent)="changeFilterStr($event)"></app-search-input>
+    </div>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <app-customer-list
+        [class.disable]="isLoading"
+        [customers]="customers"></app-customer-list>
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered mt-10" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

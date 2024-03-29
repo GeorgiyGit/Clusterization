@@ -1,0 +1,11 @@
+<div class="card-cont">
+    <div class="first-cont">
+        <div class="block" (click)="copyToClipboard(customer.email,$event)">
+            <p>{{customer.email}}</p>
+        </div>
+        <app-more-action-select [actions]="actions"></app-more-action-select>
+    </div>
+    <div class="block btn-cont" (click)="copyToClipboard(customer.userName,$event)">
+        <p>{{customer.userName}}</p>
+    </div>
+</div>

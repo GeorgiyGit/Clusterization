@@ -4,6 +4,7 @@ using Domain.DTOs.CustomerDTOs.Responses;
 using Domain.Entities.Customers;
 using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -51,9 +52,23 @@ namespace Domain.Services.Customers
 
             if (request.FilterStr != null && request.FilterStr != "") filterCondition = e => e.UserName.Contains(request.FilterStr) || e.Email.Contains(request.FilterStr);
 
-            var customers = await _repository.GetAsync(filter: filterCondition, pageParameters: request.PageParameters);
+            var customers = (await _repository.GetAsync(filter: filterCondition, pageParameters: request.PageParameters)).ToList();
 
-            return _mapper.Map<ICollection<SimpleCustomerDTO>>(customers);
+            var mappedUsers = _mapper.Map<List<SimpleCustomerDTO>>(customers);
+
+            for(int i = 0; i < customers.Count(); i++)
+            {
+                mappedUsers[i].IsModerator = await _userManager.IsInRoleAsync(customers[i], UserRoles.Moderator);
+            }
+
+            return mappedUsers;
+        }
+        public async Task<string?> GetCustomerIdByEmail(string email)
+        {
+            var customer = (await _userManager.FindByEmailAsync(email));
+
+            if (customer == null) return null;
+            return customer.Id;
         }
     }
 }

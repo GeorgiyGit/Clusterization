@@ -27,6 +27,7 @@ import { YoutubeFullVideoPageComponent } from "src/app/features/youtube/videos/p
 import { YoutubeLoadAllVideosPageComponent } from "src/app/features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component";
 import { YoutubeVideoListPageComponent } from "src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component";
 import { CustomerGuard } from "../guard/customer.guard";
+import { ModeratorGuard } from "../guard/moderator.guard";
 const routes: Route[] = [
   {
     path:'',
@@ -195,6 +196,12 @@ const routes: Route[] = [
   {
     path:'documentation',
     loadChildren: () => import('../../features/documentation/documentation.module').then(m => m.DocumentationModule)
+  },
+  {
+    path:'admin-panel',
+    loadChildren: () => import('./admin-panel-routing.module').then(m => m.AdminPanelRoutingModule),
+    canActivate:[ModeratorGuard],
+    canActivateChild:[ModeratorGuard],
   }
 ]
 
