@@ -36,7 +36,6 @@ import { YoutubeLoadOneVideoComponent } from './features/youtube/videos/componen
 import { YoutubeLoadMultipleVideosComponent } from './features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component';
 import { YoutubeVideosSearchFilterComponent } from './features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component';
 import { TaskCardComponent } from './features/tasks/components/task-card/task-card.component';
-import { TaskListPageComponent } from './features/tasks/pages/task-list-page/task-list-page.component';
 import { TaskListComponent } from './features/tasks/components/task-list/task-list.component';
 import { YoutubeLoadAllVideosPageComponent } from './features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component';
 import { YoutubeFullVideoPageComponent } from './features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component';
@@ -93,6 +92,9 @@ import { CustomerQuotasMainPageComponent } from './features/customer-account-det
 import { CustomerQuotasLogsPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-logs-page/customer-quotas-logs-page.component';
 import { CustomerDetailsRoutingModule } from './core/routing/customer-details-routing.module';
 import { CustomerQuotasItemCardComponent } from './features/customer-account-details/children/quotas/components/customer-quotas-item-card/customer-quotas-item-card.component';
+import { TaskStatusesSelectComponent } from './features/tasks/components/task-statuses-select/task-statuses-select.component';
+import { CustomerTasksListComponent } from './features/customer-account-details/children/tasks/components/customer-tasks-list/customer-tasks-list.component';
+import { CustomerTasksListPageComponent } from './features/customer-account-details/children/tasks/pages/customer-tasks-list-page/customer-tasks-list-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -125,7 +127,6 @@ export function tokenGetter() {
     YoutubeLoadMultipleVideosComponent,
     YoutubeVideosSearchFilterComponent,
     TaskCardComponent,
-    TaskListPageComponent,
     TaskListComponent,
     YoutubeLoadAllVideosPageComponent,
     YoutubeFullVideoPageComponent,
@@ -178,7 +179,10 @@ export function tokenGetter() {
     CustomerQuotasListPageComponent,
     CustomerQuotasMainPageComponent,
     CustomerQuotasLogsPageComponent,
-    CustomerQuotasItemCardComponent
+    CustomerQuotasItemCardComponent,
+    TaskStatusesSelectComponent,
+    CustomerTasksListComponent,
+    CustomerTasksListPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

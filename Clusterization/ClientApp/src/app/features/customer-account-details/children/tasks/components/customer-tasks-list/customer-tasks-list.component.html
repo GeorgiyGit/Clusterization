@@ -1,0 +1,24 @@
+<section>
+    <div class="top-cont">
+        <app-task-statuses-select (sendEvent)="selectStatus($event)"></app-task-statuses-select>
+    </div>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="list-cont">
+        @for (task of tasks; track $index) {
+            <app-task-card [task]="task"></app-task-card>
+        }@empty {
+            <div class="centered">
+                <p class="nothing-text" i18n>Відео не знайдено</p>
+            </div>
+        }
+    </div>
+
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="loadMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

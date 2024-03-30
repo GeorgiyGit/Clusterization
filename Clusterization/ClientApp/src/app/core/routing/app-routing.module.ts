@@ -13,7 +13,6 @@ import { AddWorkspacePageComponent } from "src/app/features/clusterization/works
 import { WorkspaceFullPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component";
 import { WorkspaceListPageComponent } from "src/app/features/clusterization/workspace/pages/workspace-list-page/workspace-list-page.component";
 import { PointsMapPageComponent } from "src/app/features/points-map/pages/points-map-page/points-map-page.component";
-import { TaskListPageComponent } from "src/app/features/tasks/pages/task-list-page/task-list-page.component";
 import { YoutubeLoadMultipleChannelsComponent } from "src/app/features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component";
 import { YoutubeLoadOneChannelComponent } from "src/app/features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component";
 import { YoutubeChannelListPageComponent } from "src/app/features/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component";
@@ -89,10 +88,6 @@ const routes: Route[] = [
         canActivateChild:[CustomerGuard],
       }
     ]
-  },
-  {
-    path:'tasks-list',
-    component:TaskListPageComponent
   },
   {
     path:'load-videos-by-channel/:channelId',
