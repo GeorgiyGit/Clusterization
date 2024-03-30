@@ -9,6 +9,10 @@ namespace Domain.Mappers.Quotas
         {
             CreateMap<QuotasPack, QuotasPackDTO>();
             CreateMap<QuotasPackItem, QuotasPackItemDTO>();
+
+            CreateMap<QuotasPackLogs, QuotasPackLogsDTO>()
+                .ForMember(dest => dest.Pack,
+                           ost => ost.Ignore());
         }
     }
 }

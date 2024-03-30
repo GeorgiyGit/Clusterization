@@ -132,6 +132,7 @@ internal class Program
         builder.Services.AddScoped<IQuotasPacksService, QuotasPacksService>();
         builder.Services.AddScoped<ICustomerQuotasService, CustomerQuotasService>();
         builder.Services.AddScoped<IQuotasControllerService, QuotasControllerService>();
+        builder.Services.AddScoped<IQuotasLogsService, QuotasLogsService>();
 
         builder.Services.AddScoped<IAccountService, AccountService>();
         builder.Services.AddScoped<IUserService, UserService>();

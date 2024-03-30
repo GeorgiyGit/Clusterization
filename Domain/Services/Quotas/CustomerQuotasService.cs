@@ -17,18 +17,15 @@ namespace Domain.Services.Quotas
         private readonly IUserService _userService;
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
         private readonly IRepository<QuotasPackItem> _packItemsRepositorty;
-        private IStringLocalizer<ErrorMessages> _localizer;
         private IMapper _mapper;
         public CustomerQuotasService(IUserService userService,
             IRepository<CustomerQuotas> customerQuotasRepository,
             IRepository<QuotasPackItem> packItemsRepositorty,
-            IStringLocalizer<ErrorMessages> localizer,
             IMapper mapper)
         {
             _userService = userService;
             _customerQuotasRepository = customerQuotasRepository;
             _packItemsRepositorty = packItemsRepositorty;
-            _localizer = localizer;
             _mapper = mapper;
         }
         public async Task AddQuotasPackToCustomer(AddQuotasToCustomerDTO request)

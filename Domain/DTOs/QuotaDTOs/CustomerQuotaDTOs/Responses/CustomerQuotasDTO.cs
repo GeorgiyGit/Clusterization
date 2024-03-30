@@ -10,7 +10,6 @@ namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
         public int ExpiredCount { get; set; }
         public int AvailableCount { get; set; }
 
-        public string TypeId { get; set; }
-        public string TypeName { get; set; }
+        public QuotasTypeDTO Type { get; set; }
     }
 }

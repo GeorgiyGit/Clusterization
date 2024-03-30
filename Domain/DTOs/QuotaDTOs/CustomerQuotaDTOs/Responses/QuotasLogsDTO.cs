@@ -1,20 +1,19 @@
 ﻿using Domain.Entities.Customers;
+using Domain.Entities.Quotas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.Quotas
+namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
 {
-    public class QuotasLogs
+    public class QuotasLogsDTO
     {
         public int Id { get; set; }
-        
-        public QuotasType Type { get; set; }
-        public string TypeId { get; set; }
 
-        public Customer Customer { get; set; }
+        public QuotasTypeDTO Type { get; set; }
+
         public string CustomerId { get; set; }
 
         public int Count { get; set; }
