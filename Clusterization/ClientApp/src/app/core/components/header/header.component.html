@@ -14,7 +14,8 @@
         </div>
         <div>
             <ul>
-                <li (click)="openSignUp($event)" i18n>Реєстрація</li>
+                <li *ngIf="!accountService.isAuthenticated()" (click)="openSignUp($event)" i18n>Реєстрація</li>
+                <li *ngIf="accountService.isAuthenticated()" routerLink="/customer-details" i18n>Акаунт</li>
                 <li>
                     <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
                     <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>

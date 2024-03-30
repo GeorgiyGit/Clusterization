@@ -1,0 +1,6 @@
+<div class="cont">
+    @for (qPack of quotasPacks; track $index) {
+        <app-quotas-pack-card [quotasPack]="qPack"
+        (selectEvent)="selectQuotasPack($event)"></app-quotas-pack-card>
+    }
+</div>

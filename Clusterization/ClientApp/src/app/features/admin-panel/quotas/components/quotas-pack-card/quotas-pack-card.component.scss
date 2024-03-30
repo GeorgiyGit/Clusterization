@@ -1,0 +1,41 @@
+@import '../../../../../core/styles/colors.scss';
+
+.card-cont {
+    flex: 1;
+    background-color: $second-color-1;
+    //padding: 20px;
+    border-radius: 10px;
+
+    color: $first-color-3;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+
+    .block{
+        display: flex;
+        border-bottom: 1px dashed $first-color-2;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    p{
+        margin: 0;
+        padding: 0;
+        color: $first-color-4;
+    }
+}
+.selected{
+    background-color: $warn-1;
+    &:hover{
+        background-color: $warn-2;
+    }
+}

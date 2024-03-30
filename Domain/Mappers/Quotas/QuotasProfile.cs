@@ -12,7 +12,9 @@ namespace Domain.Mappers.Quotas
     {
         public QuotasProfile()
         {
-            CreateMap<CustomerQuotas, CustomerQuotasDTO>();
+            CreateMap<CustomerQuotas, CustomerQuotasDTO>()
+                .ForMember(dest => dest.TypeName,
+                           ost => ost.MapFrom(e => e.Type.Name));
         }
     }
 }

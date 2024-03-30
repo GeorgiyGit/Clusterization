@@ -1,0 +1,14 @@
+<div class="my-card">
+    <div class="top-cont">
+        <p class="percent-text">
+            <span i18n-matTooltip matTooltip="Залишилося">{{item.availableCount}}</span>
+            <span>/</span>
+            <span i18n-matTooltip matTooltip="Використано">{{item.expiredCount}}</span>
+        </p>
+        <p class="title-text">{{item.typeName}}</p>
+    </div>
+    <div class="progress-bar-cont">
+        <div class="progress-bar normal" [style.width.%]="item.availableCount/(item.availableCount+item.expiredCount)*100">
+        </div>
+    </div>
+</div>

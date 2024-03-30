@@ -50,7 +50,7 @@ export class CustomerCardComponent implements OnInit {
         action: () => {
           this.rolesService.addModerator(this.customer.id).subscribe(res => {
             this.customer.isModerator = true;
-
+            
             this.actions = [];
             this.addActions();
           }, error => {
@@ -60,6 +60,13 @@ export class CustomerCardComponent implements OnInit {
         isForAuthorized: true
       });
     }
+    this.actions.push({
+      name: $localize`Додати пак квот`,
+      action: () => {
+        this.router.navigate([{ outlets: { overflow: 'admin-panel/add-quotas-pack/'+this.customer.id } }]);
+      },
+      isForAuthorized: true
+    });
   }
 
   copyToClipboard(text: string, event: MouseEvent) {

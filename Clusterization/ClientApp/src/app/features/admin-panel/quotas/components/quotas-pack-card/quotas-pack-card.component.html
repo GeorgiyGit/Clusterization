@@ -1,0 +1,8 @@
+<div class="card-cont" [class.selected]="quotasPack.isSelected" (click)="select()">
+    @for (item of quotasPack.items; track $index) {
+        <div class="block">
+            <p>{{item.typeId}}</p>
+            <p>{{item.count}}</p>
+        </div>
+    }
+</div>

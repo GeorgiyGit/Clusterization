@@ -1,0 +1,15 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Додати пак квот до користувача</h1>
+        <div class="mb-10">
+            <app-quotas-pack-list (selectEvent)="selectPack($event)"></app-quotas-pack-list>
+        </div>
+
+        <div class="centered">
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n (click)="add()">Додати</button>
+        </div>
+        </div>
+</section>

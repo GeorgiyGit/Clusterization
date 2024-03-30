@@ -43,6 +43,8 @@ namespace Domain.Services.Quotes
             try
             {
                 customerQuotas.AvailableCount -= quotasCount;
+                customerQuotas.ExpiredCount += quotasCount;
+
                 await _customerQuotasRepository.SaveChangesAsync();
 
                 return true;

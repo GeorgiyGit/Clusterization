@@ -39,7 +39,21 @@ namespace Domain.Services.Quotas
             {
                 var customerQuota = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == request.CustomerId && e.TypeId == packItem.TypeId)).FirstOrDefault();
 
-                if (customerQuota == null) throw new HttpException(_localizer[ErrorMessagePatterns.QuotasPackNotFound], HttpStatusCode.NotFound);
+                if (customerQuota == null)
+                {
+                    var newQuota = new CustomerQuotas()
+                    {
+                        CustomerId = request.CustomerId,
+                        TypeId = packItem.TypeId,
+                        AvailableCount = packItem.Count,
+                        ExpiredCount = 0
+                    };
+
+                    await _customerQuotasRepository.AddAsync(newQuota);
+                    await _customerQuotasRepository.SaveChangesAsync();
+
+                    customerQuota = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == request.CustomerId && e.TypeId == packItem.TypeId)).FirstOrDefault();
+                }
                 
                 customerQuota.AvailableCount += packItem.Count;
             }
@@ -51,7 +65,7 @@ namespace Domain.Services.Quotas
         {
             var customerId = await _userService.GetCurrentUserId();
 
-            var customerQuotasCollection = await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId);
+            var customerQuotasCollection = await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId, includeProperties:$"{nameof(CustomerQuotas.Type)}");
 
             return _mapper.Map<ICollection<CustomerQuotasDTO>>(customerQuotasCollection);
         }

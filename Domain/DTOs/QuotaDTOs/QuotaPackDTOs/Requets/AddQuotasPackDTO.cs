@@ -8,7 +8,6 @@ namespace Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Requets
 {
     public class AddQuotasPackDTO
     {
-        public int Id { get; set; }
         public ICollection<AddQuotasPackItemDTO> Items { get; set; } = new HashSet<AddQuotasPackItemDTO>();
     }
 }

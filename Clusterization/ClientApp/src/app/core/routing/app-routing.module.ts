@@ -28,6 +28,7 @@ import { YoutubeLoadAllVideosPageComponent } from "src/app/features/youtube/vide
 import { YoutubeVideoListPageComponent } from "src/app/features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component";
 import { CustomerGuard } from "../guard/customer.guard";
 import { ModeratorGuard } from "../guard/moderator.guard";
+import { AddQuatasPackToCustomerPageComponent } from "src/app/features/admin-panel/quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component";
 const routes: Route[] = [
   {
     path:'',
@@ -202,7 +203,17 @@ const routes: Route[] = [
     loadChildren: () => import('./admin-panel-routing.module').then(m => m.AdminPanelRoutingModule),
     canActivate:[ModeratorGuard],
     canActivateChild:[ModeratorGuard],
-  }
+  },
+  {
+    path:'admin-panel/add-quotas-pack/:customerId',
+    component:AddQuatasPackToCustomerPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'customer-details',
+    loadChildren: () => import('./customer-details-routing.module').then(m => m.CustomerDetailsRoutingModule),
+    canActivate:[CustomerGuard],
+  },
 ]
 
 @NgModule({

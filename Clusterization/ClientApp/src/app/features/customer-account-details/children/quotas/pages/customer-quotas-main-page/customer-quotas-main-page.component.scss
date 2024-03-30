@@ -1,0 +1,34 @@
+@import '/src/app/core/styles/base.scss';
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    li{
+        margin: 0;
+        padding: 0;
+
+        padding: 10px;
+
+        cursor: pointer;
+        &:hover{
+            background-color: $second-color-3;
+            a{
+                color: $first-color-4;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: $first-color-3;
+            font-weight: bold;
+        }
+        a.active{
+            color: $warn-1;
+        }
+    }
+}
+h1{
+    color: $first-color-3;
+}

@@ -3,6 +3,7 @@ using Domain.DTOs.CustomerDTOs.Responses;
 using Domain.Entities.Customers;
 using Domain.Exceptions;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Microsoft.AspNetCore.Identity;
@@ -26,15 +27,17 @@ namespace Domain.Services.Customers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration configuration;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly ICustomerQuotasService _quotasService;
         public AccountService(UserManager<Customer> userManager,
                               RoleManager<IdentityRole> _roleManager,
                               IConfiguration configuration,
-                              IStringLocalizer<ErrorMessages> localizer)
+                              IStringLocalizer<ErrorMessages> localizer,
+                              ICustomerQuotasService quotasService)
         {
             this.userManager = userManager;
             this._roleManager = _roleManager;
             this.configuration = configuration;
-
+            _quotasService = quotasService;
 
             this.localizer = localizer;
         }
@@ -77,6 +80,12 @@ namespace Domain.Services.Customers
             {
                 await userManager.AddToRoleAsync(user, UserRoles.User);
             }
+
+            await _quotasService.AddQuotasPackToCustomer(new DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests.AddQuotasToCustomerDTO()
+            {
+                CustomerId = user.Id,
+                PackId = 1
+            });
 
             return await LogIn(new CustomerLogInRequest()
             {

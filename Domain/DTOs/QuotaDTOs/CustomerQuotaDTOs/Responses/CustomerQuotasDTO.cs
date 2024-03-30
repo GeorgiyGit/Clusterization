@@ -1,4 +1,6 @@
 ﻿
+using Google.Apis.Http;
+
 namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
 {
     public class CustomerQuotasDTO
@@ -9,5 +11,6 @@ namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
         public int AvailableCount { get; set; }
 
         public string TypeId { get; set; }
+        public string TypeName { get; set; }
     }
 }

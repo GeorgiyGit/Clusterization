@@ -84,6 +84,15 @@ import { CustomerListPageComponent } from './features/admin-panel/users/pages/cu
 import { AdminPanelNavigationPageComponent } from './features/admin-panel/pages/admin-panel-navigation-page/admin-panel-navigation-page.component';
 import { ModeratorGuard } from './core/guard/moderator.guard';
 import { AdminPanelRoutingModule } from './core/routing/admin-panel-routing.module';
+import { QuotasPackListComponent } from './features/admin-panel/quotas/components/quotas-pack-list/quotas-pack-list.component';
+import { QuotasPackCardComponent } from './features/admin-panel/quotas/components/quotas-pack-card/quotas-pack-card.component';
+import { AddQuatasPackToCustomerPageComponent } from './features/admin-panel/quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component';
+import { CustomerAccountDetailsNavPageComponent } from './features/customer-account-details/pages/customer-account-details-nav-page/customer-account-details-nav-page.component';
+import { CustomerQuotasListPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-list-page/customer-quotas-list-page.component';
+import { CustomerQuotasMainPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-main-page/customer-quotas-main-page.component';
+import { CustomerQuotasLogsPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-logs-page/customer-quotas-logs-page.component';
+import { CustomerDetailsRoutingModule } from './core/routing/customer-details-routing.module';
+import { CustomerQuotasItemCardComponent } from './features/customer-account-details/children/quotas/components/customer-quotas-item-card/customer-quotas-item-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -160,6 +169,16 @@ export function tokenGetter() {
     CustomerListComponent,
     CustomerListPageComponent,
     AdminPanelNavigationPageComponent,
+
+    QuotasPackCardComponent,
+    QuotasPackListComponent,
+    AddQuatasPackToCustomerPageComponent,
+
+    CustomerAccountDetailsNavPageComponent,
+    CustomerQuotasListPageComponent,
+    CustomerQuotasMainPageComponent,
+    CustomerQuotasLogsPageComponent,
+    CustomerQuotasItemCardComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -167,6 +186,7 @@ export function tokenGetter() {
     CommonModule,
     AppRoutingModule,
     AdminPanelRoutingModule,
+    CustomerDetailsRoutingModule,
     FormsModule,
     RouterModule,
     MatTooltipModule,
