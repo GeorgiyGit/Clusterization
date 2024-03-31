@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
 using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
+using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Requets;
 using Domain.Entities.Quotas;
 using Domain.Exceptions;
 using Domain.Interfaces;
@@ -18,15 +19,18 @@ namespace Domain.Services.Quotas
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
         private readonly IRepository<QuotasPackItem> _packItemsRepositorty;
         private IMapper _mapper;
+        private readonly IQuotasLogsService _quotasLogsService;
         public CustomerQuotasService(IUserService userService,
             IRepository<CustomerQuotas> customerQuotasRepository,
             IRepository<QuotasPackItem> packItemsRepositorty,
-            IMapper mapper)
+            IMapper mapper,
+            IQuotasLogsService quotasLogsService)
         {
             _userService = userService;
             _customerQuotasRepository = customerQuotasRepository;
             _packItemsRepositorty = packItemsRepositorty;
             _mapper = mapper;
+            _quotasLogsService = quotasLogsService;
         }
         public async Task AddQuotasPackToCustomer(AddQuotasToCustomerDTO request)
         {
@@ -56,6 +60,12 @@ namespace Domain.Services.Quotas
             }
 
             await _customerQuotasRepository.SaveChangesAsync();
+
+            await _quotasLogsService.AddQuotasPackLogs(new AddQuotasPackLogsDTO()
+            {
+                CustomerId = request.CustomerId,
+                PackId = request.PackId
+            });
         }
 
         public async Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotas()

@@ -73,7 +73,7 @@ namespace Domain.Services.Clusterization.Profiles
                 type = QuotasTypes.PrivateProfiles;
             }
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1);
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1,Guid.NewGuid().ToString());
 
             if (!quotasResult)
             {

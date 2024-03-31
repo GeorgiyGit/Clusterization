@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Quotas;
+﻿using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
+using Domain.Entities.Quotas;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Quotas;
@@ -17,11 +18,14 @@ namespace Domain.Services.Quotes
     {
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
+        private readonly IQuotasLogsService _quotasLogsService;
         public QuotasControllerService(IRepository<CustomerQuotas> customerQuotasRepository,
-            IStringLocalizer<ErrorMessages> localizer)
+            IStringLocalizer<ErrorMessages> localizer,
+            IQuotasLogsService quotasLogsService)
         {
             _customerQuotasRepository = customerQuotasRepository;
             _localizer = localizer;
+            _quotasLogsService = quotasLogsService;
         }
         public async Task<int> GetCustomerQuotasCount(string customerId, string typeId)
         {
@@ -32,7 +36,7 @@ namespace Domain.Services.Quotes
             return customerQuotas.AvailableCount;
         }
 
-        public async Task<bool> TakeCustomerQuotas(string customerId, string typeId, int quotasCount)
+        public async Task<bool> TakeCustomerQuotas(string customerId, string typeId, int quotasCount, string logsId)
         {
             var customerQuotas = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId && e.TypeId == typeId)).FirstOrDefault();
 
@@ -47,6 +51,13 @@ namespace Domain.Services.Quotes
 
                 await _customerQuotasRepository.SaveChangesAsync();
 
+                await _quotasLogsService.AddQuotasLogs(new AddQuotasLogsDTO()
+                {
+                    Id = logsId,
+                    Count = quotasCount,
+                    CustomerId = customerId,
+                    TypeId = typeId
+                });
                 return true;
             }
             catch

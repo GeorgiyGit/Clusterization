@@ -14,5 +14,8 @@ namespace Domain.Interfaces.Quotas
     {
         public Task<ICollection<QuotasLogsDTO>> GetQuotasLogs(GetQuotasLogsRequest request);
         public Task<ICollection<QuotasPackLogsDTO>> GetQuotasPackLogs(GetQuotasPackLogsRequest request);
+
+        public Task AddQuotasLogs(AddQuotasLogsDTO model);
+        public Task AddQuotasPackLogs(AddQuotasPackLogsDTO model);
     }
 }

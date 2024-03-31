@@ -10,12 +10,14 @@ namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
 {
     public class QuotasLogsDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public QuotasTypeDTO Type { get; set; }
 
         public string CustomerId { get; set; }
 
         public int Count { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

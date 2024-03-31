@@ -785,18 +785,30 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Quotas.QuotasLogs", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastDeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TypeId")
                         .IsRequired()
@@ -969,9 +981,24 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastDeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PackId")
                         .HasColumnType("int");

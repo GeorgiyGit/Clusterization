@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Entities.Customers;
+using Domain.Entities.Monitorings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Quotas
 {
-    public class QuotasPackLogs
+    public class QuotasPackLogs : Monitoring
     {
         public int Id { get; set; }
 

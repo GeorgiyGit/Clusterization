@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IAddQuotasToCustomer } from '../models/requests/add-quotas-to-customer';
-import { ICustomerQuotas } from '../models/responses/customer-quoatas';
+import { ICustomerQuotas } from '../models/responses/customer-quotas';
 
 @Injectable({
   providedIn: 'root'

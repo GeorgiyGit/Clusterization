@@ -95,6 +95,10 @@ import { CustomerQuotasItemCardComponent } from './features/customer-account-det
 import { TaskStatusesSelectComponent } from './features/tasks/components/task-statuses-select/task-statuses-select.component';
 import { CustomerTasksListComponent } from './features/customer-account-details/children/tasks/components/customer-tasks-list/customer-tasks-list.component';
 import { CustomerTasksListPageComponent } from './features/customer-account-details/children/tasks/pages/customer-tasks-list-page/customer-tasks-list-page.component';
+import { QuotasTypesSelectComponent } from './features/quotas/components/quotas-types-select/quotas-types-select.component';
+import { QuotasLogsCardComponent } from './features/quotas/components/quotas-logs-card/quotas-logs-card.component';
+import { QuotasPackLogsCardComponent } from './features/quotas/components/quotas-pack-logs-card/quotas-pack-logs-card.component';
+import { CustomerQuotasPackLogsPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-pack-logs-page/customer-quotas-pack-logs-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -182,7 +186,11 @@ export function tokenGetter() {
     CustomerQuotasItemCardComponent,
     TaskStatusesSelectComponent,
     CustomerTasksListComponent,
-    CustomerTasksListPageComponent
+    CustomerTasksListPageComponent,
+    QuotasTypesSelectComponent,
+    QuotasLogsCardComponent,
+    QuotasPackLogsCardComponent,
+    CustomerQuotasPackLogsPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

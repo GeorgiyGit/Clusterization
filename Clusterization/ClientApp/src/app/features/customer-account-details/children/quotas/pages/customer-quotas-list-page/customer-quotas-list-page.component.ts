@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { ICustomerQuotas } from 'src/app/features/quotas/models/responses/customer-quoatas';
+import { ICustomerQuotas } from 'src/app/features/quotas/models/responses/customer-quotas';
 import { CustomerQuotasService } from 'src/app/features/quotas/services/customer-quotas.service';
 
 @Component({

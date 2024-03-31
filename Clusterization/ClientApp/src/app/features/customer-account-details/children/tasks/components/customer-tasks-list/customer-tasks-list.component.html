@@ -9,8 +9,8 @@
         @for (task of tasks; track $index) {
             <app-task-card [task]="task"></app-task-card>
         }@empty {
-            <div class="centered">
-                <p class="nothing-text" i18n>Відео не знайдено</p>
+            <div class="centered" *ngIf="!isLoading && !isLoading2">
+                <p class="nothing-text" i18n>Завдань не знайдено</p>
             </div>
         }
     </div>

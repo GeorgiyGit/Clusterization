@@ -6,7 +6,6 @@
                 <li routerLink="/channel-list" i18n>Канали</li>
                 <li routerLink="/video-list" i18n>Відео</li>
                 <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
-                <li routerLink="/tasks-list" i18n>Задачі</li>
                 <li routerLink="/workspaces" i18n>Робочі простори</li>
                 <li routerLink="/admin-panel" i18n *ngIf="accountService.isAuthenticated() && accountService.isUserModerator()">Панель адміністратора</li>
                 <li (click)="openAddAlgorithm($event)" i18n>Додати алгоритм</li>
@@ -34,7 +33,6 @@
                     <li routerLink="/channel-list" i18n>Канали</li>
                     <li routerLink="/video-list" i18n>Відео</li>
                     <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
-                    <li routerLink="/tasks-list" i18n>Задачі</li>
                     <li routerLink="/workspaces" i18n>Робочі простори</li>
                     <li (click)="openAddAlgorithm($event)" i18n>Додати алгоритм</li>
                     <li routerLink="/documentation" i18n>Документація</li>

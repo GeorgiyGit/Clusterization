@@ -15,5 +15,7 @@ namespace Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Responses
         public QuotasPackDTO Pack { get; set; }
 
         public string CustomerId { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

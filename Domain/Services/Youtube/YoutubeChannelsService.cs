@@ -80,7 +80,7 @@ namespace Domain.Services.Youtube
 
             var customerId = await _userService.GetCurrentUserId();
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(customerId, QuotasTypes.Youtube, loadChannelQutasCount);
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(customerId, QuotasTypes.Youtube, loadChannelQutasCount, Guid.NewGuid().ToString());
 
             if (!quotasResult)
             {
@@ -134,6 +134,7 @@ namespace Domain.Services.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
+            var logs = Guid.NewGuid().ToString();
             while (ids.Count() > 0)
             {
                 // Create the videos request to retrieve video statistics and tags
@@ -154,7 +155,7 @@ namespace Domain.Services.Youtube
 
                     if ((await repository.FindAsync(channel.Id)) != null) continue;
 
-                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadChannelQutasCount);
+                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadChannelQutasCount, logs);
 
                     if (!quotasResult)
                     {

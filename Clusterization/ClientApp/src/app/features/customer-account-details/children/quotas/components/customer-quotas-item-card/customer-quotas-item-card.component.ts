@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ICustomerQuotas } from 'src/app/features/quotas/models/responses/customer-quoatas';
+import { ICustomerQuotas } from 'src/app/features/quotas/models/responses/customer-quotas';
 
 @Component({
   selector: 'app-customer-quotas-item-card',

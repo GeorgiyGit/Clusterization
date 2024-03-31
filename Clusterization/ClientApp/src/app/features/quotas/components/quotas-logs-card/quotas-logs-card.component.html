@@ -1,0 +1,11 @@
+<div class="card-cont">
+    <div class="first-cont">
+        <div class="block" (click)="copyToClipboard(logs.type.name,$event)" i18n-matTooltip matTooltip="Тип квот">
+            <p>{{logs.type.name}}</p>
+        </div>
+        <p i18n-matTooltip matTooltip="Дата використання">{{logs.creationTime | normalizedDateTime}}</p>
+    </div>
+    <div class="block btn-cont" (click)="copyToClipboard(logs.count+'',$event)">
+        <p i18n-matTooltip matTooltip="Кількість квот">{{logs.count}}</p>
+    </div>
+</div>

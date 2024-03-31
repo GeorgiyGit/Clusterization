@@ -128,7 +128,7 @@ namespace Domain.Services.Embeddings
 
             float percent = 0f;
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, comments.Count());
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, comments.Count(), Guid.NewGuid().ToString());
 
             if (!quotasResult)
             {
@@ -231,7 +231,7 @@ namespace Domain.Services.Embeddings
 
             float percent = 0f;
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, externalObjects.Count());
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, externalObjects.Count(), Guid.NewGuid().ToString());
             if (!quotasResult)
             {
                 throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);

@@ -8,16 +8,20 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('youtube')">
                         <a routerLinkActive="active" routerLink="youtube" i18n>Youtube</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['youtube']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['youtube']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['youtube']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['youtube']">expand_less</span>
                     </div>
-    
+
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['youtube']">
                         <li>
                             <div class="parent-element-cont" (click)="toggleSelect('youtube/channels')">
                                 <a routerLinkActive="active" routerLink="youtube/channels" i18n>Канали</a>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['youtube/channels']">expand_more</span>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['youtube/channels']">expand_less</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="!this.states.SearchFor['youtube/channels']">expand_more</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="this.states.SearchFor['youtube/channels']">expand_less</span>
                             </div>
                             <ul class="ul-l3" [class.closed]="!this.states.SearchFor['youtube/channels']">
                                 <li class="child-element-cont" routerLink="youtube/channels/main">
@@ -30,18 +34,20 @@
                                     <a routerLinkActive="active" i18n>Завантаження за назвою</a>
                                 </li>
                                 <li class="child-element-cont" routerLink="youtube/channels/displaying">
-                                    <a routerLinkActive="active"  i18n>Відображення</a>
+                                    <a routerLinkActive="active" i18n>Відображення</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <div class="parent-element-cont" (click)="toggleSelect('youtube/videos')">
                                 <a routerLinkActive="active" routerLink="youtube/videos" i18n>Відео</a>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['youtube/videos']">expand_more</span>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['youtube/videos']">expand_less</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="!this.states.SearchFor['youtube/videos']">expand_more</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="this.states.SearchFor['youtube/videos']">expand_less</span>
                             </div>
                             <ul class="ul-l3" [class.closed]="!this.states.SearchFor['youtube/videos']">
-                                <li class="child-element-cont"routerLink="youtube/videos/main">
+                                <li class="child-element-cont" routerLink="youtube/videos/main">
                                     <a routerLinkActive="active" i18n>Основне</a>
                                 </li>
                                 <li class="child-element-cont" routerLink="youtube/videos/loading_by_ids">
@@ -58,8 +64,10 @@
                         <li>
                             <div class="parent-element-cont" (click)="toggleSelect('youtube/comments')">
                                 <a routerLinkActive="active" routerLink="youtube/comments" i18n>Коментарі</a>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['youtube/comments']">expand_more</span>
-                                <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['youtube/comments']">expand_less</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="!this.states.SearchFor['youtube/comments']">expand_more</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="this.states.SearchFor['youtube/comments']">expand_less</span>
                             </div>
                             <ul class="ul-l3" [class.closed]="!this.states.SearchFor['youtube/comments']">
                                 <li class="child-element-cont" routerLink="youtube/comments/main">
@@ -78,8 +86,10 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('algorithms')">
                         <a routerLinkActive="active" routerLink="algorithms" i18n>Алгоритми</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['algorithms']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['algorithms']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['algorithms']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['algorithms']">expand_less</span>
                     </div>
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['algorithms']">
                         <li class="child-element-cont" routerLink="algorithms/main">
@@ -105,8 +115,10 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('workspaces')">
                         <a routerLinkActive="active" routerLink="workspaces" i18n>Робочі простори</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['workspaces']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['workspaces']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['workspaces']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['workspaces']">expand_less</span>
                     </div>
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['workspaces']">
                         <li class="child-element-cont" routerLink="workspaces/main">
@@ -129,8 +141,10 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('embeddings')">
                         <a routerLinkActive="active" routerLink="embeddings" i18n>Ембедінги</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['embeddings']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['embeddings']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['embeddings']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['embeddings']">expand_less</span>
                     </div>
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['embeddings']">
                         <li class="child-element-cont" routerLink="embeddings/main">
@@ -141,8 +155,10 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('profiles')">
                         <a routerLinkActive="active" routerLink="profiles" i18n>Профілі</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['profiles']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['profiles']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['profiles']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['profiles']">expand_less</span>
                     </div>
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['profiles']">
                         <li class="child-element-cont" routerLink="profiles/main">
@@ -162,8 +178,10 @@
                 <li>
                     <div class="parent-element-cont" (click)="toggleSelect('points-map')">
                         <a routerLinkActive="active" routerLink="points-map" i18n>Карта точок</a>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="!this.states.SearchFor['points-map']">expand_more</span>
-                        <span class="material-symbols-outlined icon" translate="no" *ngIf="this.states.SearchFor['points-map']">expand_less</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['points-map']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['points-map']">expand_less</span>
                     </div>
                     <ul class="ul-l2" [class.closed]="!this.states.SearchFor['points-map']">
                         <li class="child-element-cont" routerLink="points-map/main">

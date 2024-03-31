@@ -139,7 +139,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 double quotasCount = 1 + (double)entitiesCount / 5d;
 
-                var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount);
+                var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount, Guid.NewGuid().ToString());
 
                 if (!quotasResult)
                 {

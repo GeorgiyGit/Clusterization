@@ -1,1 +1,24 @@
-<p>customer-quotas-logs-page works!</p>
+<section>
+    <div class="top-cont">
+        <app-quotas-types-select (sendEvent)="selectTypeId($event)"></app-quotas-types-select>
+    </div>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="list-cont">
+        @for (logs of logsCollection; track $index) {
+            <app-quotas-logs-card [logs]="logs"></app-quotas-logs-card>
+        }@empty {
+            <div class="centered">
+                <p class="nothing-text" i18n *ngIf="!isLoading && !isLoading2">Логів не знайдено</p>
+            </div>
+        }
+    </div>
+
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="loadMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

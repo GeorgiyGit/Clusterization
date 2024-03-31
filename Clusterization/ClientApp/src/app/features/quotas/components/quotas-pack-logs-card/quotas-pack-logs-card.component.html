@@ -1,0 +1,11 @@
+<div class="card-cont">
+    <div class="top-cont">
+        <p i18n-matTooltip matTooltip="Дата здобуття">{{logs.creationTime | normalizedDateTime}}</p>
+    </div>
+    @for (item of logs.pack.items; track $index) {
+        <div class="block">
+            <p>{{item.typeId}}</p>
+            <p>{{item.count}}</p>
+        </div>
+    }
+</div>

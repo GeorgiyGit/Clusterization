@@ -6,6 +6,7 @@ import { CustomerListPageComponent } from "src/app/features/admin-panel/users/pa
 import { CustomerQuotasListPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-list-page/customer-quotas-list-page.component";
 import { CustomerQuotasLogsPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-logs-page/customer-quotas-logs-page.component";
 import { CustomerQuotasMainPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-main-page/customer-quotas-main-page.component";
+import { CustomerQuotasPackLogsPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-pack-logs-page/customer-quotas-pack-logs-page.component";
 import { CustomerTasksListComponent } from "src/app/features/customer-account-details/children/tasks/components/customer-tasks-list/customer-tasks-list.component";
 import { CustomerTasksListPageComponent } from "src/app/features/customer-account-details/children/tasks/pages/customer-tasks-list-page/customer-tasks-list-page.component";
 import { CustomerAccountDetailsNavPageComponent } from "src/app/features/customer-account-details/pages/customer-account-details-nav-page/customer-account-details-nav-page.component";
@@ -36,6 +37,10 @@ const routes: Route[] = [
           {
             path:'logs',
             component:CustomerQuotasLogsPageComponent
+          },
+          {
+            path:'pack-logs',
+            component:CustomerQuotasPackLogsPageComponent
           },
         ]
       },

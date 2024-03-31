@@ -111,6 +111,8 @@ namespace Domain.Services.Youtube
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
             float percent = 0f;
+
+            var logsId = Guid.NewGuid().ToString();
             try
             {
                 var nextPageToken = "";
@@ -165,7 +167,7 @@ namespace Domain.Services.Youtube
                             }
                         }
 
-                        var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1);
+                        var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1, logsId);
 
                         if (!quotasResult)
                         {
@@ -256,6 +258,8 @@ namespace Domain.Services.Youtube
             await taskService.ChangeTaskState(taskId, TaskStates.Process);
 
             float percent = 0f;
+
+            var logsId = Guid.NewGuid().ToString();
             try
             {
                 Expression<Func<Entities.Youtube.Video, bool>> filterCondition = e => true;
@@ -325,7 +329,7 @@ namespace Domain.Services.Youtube
                                 continue;
                             }
 
-                            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1);
+                            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, 1, logsId);
 
                             if (!quotasResult)
                             {
