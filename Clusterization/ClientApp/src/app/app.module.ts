@@ -105,6 +105,8 @@ import { FullNormalizedDateTimePipe } from './core/pipes/full-normalized-date-ti
 import { TimeDifferencePipe } from './core/pipes/time-difference.pipe';
 import { CustomerWorkspacesMainPageComponent } from './features/customer-account-details/children/workspaces/pages/customer-workspaces-main-page/customer-workspaces-main-page.component';
 import { CustomerWorkspacesListPageComponent } from './features/customer-account-details/children/workspaces/pages/customer-workspaces-list-page/customer-workspaces-list-page.component';
+import { CustomerProfilesListPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-list-page/customer-profiles-list-page.component';
+import { CustomerProfilesMainPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-main-page/customer-profiles-main-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -204,7 +206,10 @@ export function tokenGetter() {
     TimeDifferencePipe,
 
     CustomerWorkspacesMainPageComponent,
-    CustomerWorkspacesListPageComponent
+    CustomerWorkspacesListPageComponent,
+
+    CustomerProfilesMainPageComponent,
+    CustomerProfilesListPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

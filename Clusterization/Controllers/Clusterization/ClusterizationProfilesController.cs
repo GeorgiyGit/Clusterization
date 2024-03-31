@@ -43,6 +43,13 @@ namespace Clusterization.Controllers.Clusterization
             return Ok(await service.GetCollection(request));
         }
 
+        [HttpPost("get_customer_collection")]
+        [Authorize]
+        public async Task<IActionResult> GetCustomerCollection([FromBody] CustomerGetClusterizationProfilesRequest request)
+        {
+            return Ok(await service.GetCustomerCollection(request));
+        }
+
 
         [HttpPost("elect/{id}")]
         [Authorize]

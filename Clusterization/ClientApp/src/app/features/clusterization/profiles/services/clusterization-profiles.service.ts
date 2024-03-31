@@ -7,6 +7,7 @@ import { IAddClusterizationProfile } from '../models/add-clusterization-profile'
 import { IClusterizationProfile } from '../models/clusterization-profile';
 import { IGetClusterizationProfilesRequest } from '../models/get-clusterization-profiles-request';
 import { ISimpleClusterizationProfile } from '../models/simple-clusterization-profile';
+import { ICustomerGetClusterizationProfilesRequest } from '../models/customer-get-profiles-request';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,9 @@ export class ClusterizationProfilesService {
 
   getCollection(request:IGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
     return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_collection",request);
+  }
+  getCustomerCollection(request:ICustomerGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
+    return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_customer_collection",request);
   }
 
   elect(id:number): Observable<any> {

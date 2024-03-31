@@ -157,7 +157,70 @@ namespace Domain.Services.Clusterization.Profiles
 
             return mappedProfiles;
         }
+        public async Task<ICollection<SimpleClusterizationProfileDTO>> GetCustomerCollection(CustomerGetClusterizationProfilesRequest request)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
+            Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.OwnerId == userId;
+
+            if (request.AlgorithmTypeId != null) filterCondition = filterCondition.And(e => e.Algorithm.TypeId == request.AlgorithmTypeId);
+            if (request.DimensionCount != null) filterCondition = filterCondition.And(e => e.DimensionCount == request.DimensionCount);
+
+
+            if (userId != null)
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers || e.OwnerId == userId);
+            }
+            else
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers);
+            }
+
+            var pageParameters = request.PageParameters;
+            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)}"))
+                                            .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                            .Take(pageParameters.PageSize).ToList();
+
+            var mappedProfiles = mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
+            for (int i = 0; i < profiles.Count(); i++)
+            {
+                var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
+                mappedProfiles[i].AlgorithmType = type;
+
+                string fullAlgName = "";
+                if (type.Id == ClusterizationAlgorithmTypes.OneCluster)
+                {
+                    var algorithm = profiles[i].Algorithm as OneClusterAlgorithm;
+                    fullAlgName = algorithm.ClusterColor + "";
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.KMeans)
+                {
+                    var algorithm = profiles[i].Algorithm as KMeansAlgorithm;
+                    fullAlgName = algorithm.NumClusters + "";
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.DBScan)
+                {
+                    var algorithm = profiles[i].Algorithm as DBScanAlgorithm;
+                    fullAlgName = algorithm.Epsilon + " " + algorithm.MinimumPointsPerCluster;
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.SpectralClustering)
+                {
+                    var algorithm = profiles[i].Algorithm as SpectralClusteringAlgorithm;
+                    fullAlgName = algorithm.NumClusters + " " + algorithm.Gamma;
+                }
+                else if (type.Id == ClusterizationAlgorithmTypes.GaussianMixture)
+                {
+                    var algorithm = profiles[i].Algorithm as GaussianMixtureAlgorithm;
+                    fullAlgName = algorithm.NumberOfComponents + "";
+                }
+
+                mappedProfiles[i].FullTitle = type.Name + " (" + fullAlgName + ") " + mappedProfiles[i].DimensionalityReductionTechnique.Id + " " + mappedProfiles[i].DimensionCount;
+
+            }
+
+            return mappedProfiles;
+        }
         public async Task<ClusterizationProfileDTO> GetFullById(int id)
         {
             var userId = await _userService.GetCurrentUserId();

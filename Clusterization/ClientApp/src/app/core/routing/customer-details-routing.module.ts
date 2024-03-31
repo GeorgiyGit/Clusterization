@@ -3,6 +3,8 @@ import { Route, RouterModule } from "@angular/router";
 import { AdminPanelNavigationPageComponent } from "src/app/features/admin-panel/pages/admin-panel-navigation-page/admin-panel-navigation-page.component";
 import { AddQuatasPackToCustomerPageComponent } from "src/app/features/admin-panel/quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component";
 import { CustomerListPageComponent } from "src/app/features/admin-panel/users/pages/customer-list-page/customer-list-page.component";
+import { CustomerProfilesListPageComponent } from "src/app/features/customer-account-details/children/profiles/pages/customer-profiles-list-page/customer-profiles-list-page.component";
+import { CustomerProfilesMainPageComponent } from "src/app/features/customer-account-details/children/profiles/pages/customer-profiles-main-page/customer-profiles-main-page.component";
 import { CustomerQuotasListPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-list-page/customer-quotas-list-page.component";
 import { CustomerQuotasLogsPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-logs-page/customer-quotas-logs-page.component";
 import { CustomerQuotasMainPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-main-page/customer-quotas-main-page.component";
@@ -73,6 +75,21 @@ const routes: Route[] = [
           {
             path:'list',
             component:CustomerWorkspacesListPageComponent
+          }
+        ]
+      },
+      {
+        path:'profiles',
+        component:CustomerProfilesMainPageComponent,
+        children:[
+          {
+            path:'',
+            redirectTo:'list',
+            pathMatch:'full'
+          },
+          {
+            path:'list',
+            component:CustomerProfilesListPageComponent
           }
         ]
       }
