@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="card">
+        <div class="box">
+            <div class="percent">
+                <svg>
+                    <circle cx="70" cy="70" r="70"></circle>
+                    <circle cx="70" cy="70" r="70"
+                    [class.complete]="fullTask.stateId=='Completed'"
+                    [class.error]="fullTask.stateId=='Error'"
+                    [class.normal]="fullTask.stateId!='Error'"
+                    [style.stroke-dashoffset]="440 - (440 * fullTask.percent / 100)"></circle>
+                </svg>
+                <div class="num">
+                    <h2>{{fullTask.percent.toFixed(1)}}<span>%</span></h2>
+                </div>
+            </div>
+            <h2 class="text">{{fullTask.stateName}}</h2>
+        </div>
+    </div>
+</div>

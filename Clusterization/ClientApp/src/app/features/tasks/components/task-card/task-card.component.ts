@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IMyTask } from '../../models/myTask';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-card',
@@ -7,5 +8,12 @@ import { IMyTask } from '../../models/myTask';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent {
-  @Input() task:IMyTask;
+  @Input() task: IMyTask;
+
+  constructor(private router: Router) { }
+  openFull(event:MouseEvent) {
+    event.stopPropagation();
+
+    this.router.navigate([{ outlets: { overflow: 'tasks-details/'+this.task.id } }]);
+  }
 }

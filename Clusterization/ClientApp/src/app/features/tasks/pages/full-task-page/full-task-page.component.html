@@ -1,0 +1,16 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Опис завдання</h1>
+
+        <app-circular-progress-bar [fullTask]="fullTask"></app-circular-progress-bar>
+        <div class="time-cont">
+            <span i18n-matTooltip matTooltip="Дата початку">{{fullTask.startTime | normalizedDateTime}}</span>
+            <span *ngIf="fullTask.endTime!=null"> - </span>
+            <span i18n-matTooltip matTooltip="Дата кінця" *ngIf="fullTask.endTime!=null">{{fullTask.endTime | normalizedDateTime}}</span>
+        </div>
+        <p class="error" *ngIf="fullTask.description!=null" i18n-matTooltip matTooltip="Помилка">{{fullTask.description}}</p>
+        </div>
+</section>

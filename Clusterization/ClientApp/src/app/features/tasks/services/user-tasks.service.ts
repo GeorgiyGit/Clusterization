@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IMyTask } from '../models/myTask';
 import { ICustomerGetTasksRequest } from '../models/customer-get-tasks-request';
+import { IMyFullTask } from '../models/my-full-task';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserTasksService {
     return this.http.post<IMyTask[]>(this.controllerUrl + "get_collection",request);
   }
 
-  getFullTask(id:number): Observable<IMyTask> {
-    return this.http.get<IMyTask>(this.controllerUrl + "get_full/"+id);
+  getFullTask(id:number): Observable<IMyFullTask> {
+    return this.http.get<IMyFullTask>(this.controllerUrl + "get_full/"+id);
   }
 }

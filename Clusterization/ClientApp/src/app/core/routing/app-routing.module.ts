@@ -28,6 +28,7 @@ import { YoutubeVideoListPageComponent } from "src/app/features/youtube/videos/p
 import { CustomerGuard } from "../guard/customer.guard";
 import { ModeratorGuard } from "../guard/moderator.guard";
 import { AddQuatasPackToCustomerPageComponent } from "src/app/features/admin-panel/quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component";
+import { FullTaskPageComponent } from "src/app/features/tasks/pages/full-task-page/full-task-page.component";
 const routes: Route[] = [
   {
     path:'',
@@ -208,6 +209,11 @@ const routes: Route[] = [
     path:'customer-details',
     loadChildren: () => import('./customer-details-routing.module').then(m => m.CustomerDetailsRoutingModule),
     canActivate:[CustomerGuard],
+  },
+  {
+    path:'tasks-details/:id',
+    component:FullTaskPageComponent,
+    outlet:'overflow'
   },
 ]
 

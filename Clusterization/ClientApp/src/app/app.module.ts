@@ -99,6 +99,8 @@ import { QuotasTypesSelectComponent } from './features/quotas/components/quotas-
 import { QuotasLogsCardComponent } from './features/quotas/components/quotas-logs-card/quotas-logs-card.component';
 import { QuotasPackLogsCardComponent } from './features/quotas/components/quotas-pack-logs-card/quotas-pack-logs-card.component';
 import { CustomerQuotasPackLogsPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-pack-logs-page/customer-quotas-pack-logs-page.component';
+import { FullTaskPageComponent } from './features/tasks/pages/full-task-page/full-task-page.component';
+import { CircularProgressBarComponent } from './features/tasks/components/circular-progress-bar/circular-progress-bar.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -190,7 +192,10 @@ export function tokenGetter() {
     QuotasTypesSelectComponent,
     QuotasLogsCardComponent,
     QuotasPackLogsCardComponent,
-    CustomerQuotasPackLogsPageComponent
+    CustomerQuotasPackLogsPageComponent,
+
+    CircularProgressBarComponent,
+    FullTaskPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

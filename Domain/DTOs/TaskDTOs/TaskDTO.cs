@@ -18,5 +18,8 @@ namespace Domain.DTOs.TaskDTOs
 
         public string StateName { get; set; }
         public string StateId { get; set; }
+
+        public DateTime StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

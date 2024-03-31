@@ -9,6 +9,8 @@
     flex-direction: column;
     gap: 10px;
 
+    cursor: pointer;
+
     &:hover {
         background-color: $second-color-3;
     }
