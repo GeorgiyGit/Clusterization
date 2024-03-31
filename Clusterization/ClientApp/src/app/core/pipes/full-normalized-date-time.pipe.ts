@@ -1,12 +1,12 @@
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'normalizedDateTime'
+  name: 'fullNormalizedDateTime'
 })
-export class NormalizedDateTimePipe implements PipeTransform {
+export class FullNormalizedDateTimePipe implements PipeTransform {
+
   constructor(@Inject(LOCALE_ID) public activeLocale: string){
   }
-
 
   transform(date:Date): string {
     date = new Date(Date.UTC(

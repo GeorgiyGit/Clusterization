@@ -14,6 +14,7 @@ namespace Domain.Interfaces.Clusterization
     public interface IClusterizationWorkspacesService
     {
         public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request);
+        public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCustomerCollection(GetWorkspacesRequest request);
         public Task<ClusterizationWorkspaceDTO> GetFullById(int id);
         public Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id);
 

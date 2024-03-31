@@ -136,6 +136,7 @@ namespace Domain.Services.Clusterization
 
             return mapper.Map<SimpleClusterizationWorkspaceDTO>(workspace);
         }
+        
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request)
         {
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;
@@ -174,6 +175,50 @@ namespace Domain.Services.Clusterization
 
             var pageParameters = request.PageParameters;
             var workspaces = (await repository.GetAsync(filterCondition,includeProperties:$"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
+                                              .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                              .Take(pageParameters.PageSize).ToList();
+
+            return mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+        }
+        public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCustomerCollection(GetWorkspacesRequest request)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.OwnerId == userId;
+
+
+            if (request.FilterStr != null && request.FilterStr != "")
+            {
+                if (request.TypeId != null)
+                {
+                    filterCondition = e => (e.TypeId == request.TypeId) && e.Title.Contains(request.FilterStr);
+                }
+                else
+                {
+                    filterCondition = e => e.Title.Contains(request.FilterStr);
+                }
+            }
+            else
+            {
+                if (request.TypeId != null)
+                {
+                    filterCondition = e => (e.TypeId == request.TypeId);
+                }
+            }
+
+            if (userId != null)
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers || e.OwnerId == userId);
+            }
+            else
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers);
+            }
+
+
+            var pageParameters = request.PageParameters;
+            var workspaces = (await repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
                                               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                               .Take(pageParameters.PageSize).ToList();
 

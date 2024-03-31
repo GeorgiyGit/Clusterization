@@ -101,6 +101,10 @@ import { QuotasPackLogsCardComponent } from './features/quotas/components/quotas
 import { CustomerQuotasPackLogsPageComponent } from './features/customer-account-details/children/quotas/pages/customer-quotas-pack-logs-page/customer-quotas-pack-logs-page.component';
 import { FullTaskPageComponent } from './features/tasks/pages/full-task-page/full-task-page.component';
 import { CircularProgressBarComponent } from './features/tasks/components/circular-progress-bar/circular-progress-bar.component';
+import { FullNormalizedDateTimePipe } from './core/pipes/full-normalized-date-time.pipe';
+import { TimeDifferencePipe } from './core/pipes/time-difference.pipe';
+import { CustomerWorkspacesMainPageComponent } from './features/customer-account-details/children/workspaces/pages/customer-workspaces-main-page/customer-workspaces-main-page.component';
+import { CustomerWorkspacesListPageComponent } from './features/customer-account-details/children/workspaces/pages/customer-workspaces-list-page/customer-workspaces-list-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -195,7 +199,12 @@ export function tokenGetter() {
     CustomerQuotasPackLogsPageComponent,
 
     CircularProgressBarComponent,
-    FullTaskPageComponent
+    FullTaskPageComponent,
+    FullNormalizedDateTimePipe,
+    TimeDifferencePipe,
+
+    CustomerWorkspacesMainPageComponent,
+    CustomerWorkspacesListPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -55,6 +55,9 @@ export class ClusterizationWorkspaceService {
   getWorkspaces(request: IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
     return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_collection", request);
   }
+  getCustomerWorkspaces(request: IGetWorkspacesRequest): Observable<ISimpleClusterizationWorkspace[]> {
+    return this.http.post<ISimpleClusterizationWorkspace[]>(this.controllerUrl + "get_customer_collection", request);
+  }
 
   downloadEntitiesFile(id:number): Observable<any> {
     return this.http.get(this.controllerUrl + "get_entities/"+id, {

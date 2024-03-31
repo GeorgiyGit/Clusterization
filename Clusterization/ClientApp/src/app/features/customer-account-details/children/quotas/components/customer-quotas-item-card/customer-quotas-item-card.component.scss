@@ -21,6 +21,7 @@
         .percent-text {
             color: $first-color-1;
             font-size: 1.5rem;
+            cursor: pointer;
         }
 
         .title-text {
@@ -56,7 +57,9 @@
         }
     }
 }
-
+.warn{
+    color: $warn-1;
+}
 p {
     margin: 0;
     padding: 0;

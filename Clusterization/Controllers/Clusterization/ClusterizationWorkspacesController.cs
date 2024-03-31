@@ -86,6 +86,13 @@ namespace Clusterization.Controllers.Clusterization
             return Ok(await service.GetCollection(request));
         }
 
+        [HttpPost("get_customer_collection")]
+        [Authorize]
+        public async Task<IActionResult> GetCustomerCollection([FromBody] GetWorkspacesRequest request)
+        {
+            return Ok(await service.GetCustomerCollection(request));
+        }
+
         [HttpGet("get_entities/{id}"), DisableRequestSizeLimit]
         public async Task<IActionResult> GetEntities([FromRoute] int id)
         {

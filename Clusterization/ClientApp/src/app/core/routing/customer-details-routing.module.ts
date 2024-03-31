@@ -9,6 +9,8 @@ import { CustomerQuotasMainPageComponent } from "src/app/features/customer-accou
 import { CustomerQuotasPackLogsPageComponent } from "src/app/features/customer-account-details/children/quotas/pages/customer-quotas-pack-logs-page/customer-quotas-pack-logs-page.component";
 import { CustomerTasksListComponent } from "src/app/features/customer-account-details/children/tasks/components/customer-tasks-list/customer-tasks-list.component";
 import { CustomerTasksListPageComponent } from "src/app/features/customer-account-details/children/tasks/pages/customer-tasks-list-page/customer-tasks-list-page.component";
+import { CustomerWorkspacesListPageComponent } from "src/app/features/customer-account-details/children/workspaces/pages/customer-workspaces-list-page/customer-workspaces-list-page.component";
+import { CustomerWorkspacesMainPageComponent } from "src/app/features/customer-account-details/children/workspaces/pages/customer-workspaces-main-page/customer-workspaces-main-page.component";
 import { CustomerAccountDetailsNavPageComponent } from "src/app/features/customer-account-details/pages/customer-account-details-nav-page/customer-account-details-nav-page.component";
 
 const routes: Route[] = [
@@ -56,6 +58,21 @@ const routes: Route[] = [
           {
             path:'list',
             component:CustomerTasksListComponent
+          }
+        ]
+      },
+      {
+        path:'workspaces',
+        component:CustomerWorkspacesMainPageComponent,
+        children:[
+          {
+            path:'',
+            redirectTo:'list',
+            pathMatch:'full'
+          },
+          {
+            path:'list',
+            component:CustomerWorkspacesListPageComponent
           }
         ]
       }

@@ -54,6 +54,8 @@ namespace Domain.Services.TaskServices
             var taskState = await state_repository.FindAsync(newStateId);
             if(taskState == null) return;
 
+            if (newStateId == TaskStates.Completed) task.EndTime = DateTime.UtcNow;
+
             task.StateId = newStateId;
             task.State = taskState;
 

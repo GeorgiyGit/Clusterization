@@ -5,12 +5,18 @@
         </div>
         <h1 i18n>Опис завдання</h1>
 
-        <app-circular-progress-bar [fullTask]="fullTask"></app-circular-progress-bar>
-        <div class="time-cont">
-            <span i18n-matTooltip matTooltip="Дата початку">{{fullTask.startTime | normalizedDateTime}}</span>
+        <app-circular-progress-bar [fullTask]="fullTask" *ngIf="fullTask!=null"></app-circular-progress-bar>
+        <div class="time-cont" *ngIf="fullTask!=null">
+            <span i18n-matTooltip matTooltip="Дата початку">{{fullTask.startTime | fullNormalizedDateTime}}</span>
             <span *ngIf="fullTask.endTime!=null"> - </span>
-            <span i18n-matTooltip matTooltip="Дата кінця" *ngIf="fullTask.endTime!=null">{{fullTask.endTime | normalizedDateTime}}</span>
+            <span i18n-matTooltip matTooltip="Дата кінця" *ngIf="fullTask.endTime!=null">{{fullTask.endTime |
+                fullNormalizedDateTime}}</span>
         </div>
-        <p class="error" *ngIf="fullTask.description!=null" i18n-matTooltip matTooltip="Помилка">{{fullTask.description}}</p>
+        <div class="time-cont" *ngIf="fullTask!=null && fullTask.endTime!=null">
+            <span i18n-matTooltip matTooltip="Час виконання">{{fullTask.startTime | timeDifference :
+                fullTask.endTime}}</span>
         </div>
+        <p class="error" *ngIf="fullTask!=null && fullTask.description!=null" i18n-matTooltip matTooltip="Помилка">
+            {{fullTask.description}}</p>
+    </div>
 </section>

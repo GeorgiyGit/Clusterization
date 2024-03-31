@@ -1,0 +1,14 @@
+<section>
+    <h1 i18n>Сторінка робочих просторів користувача</h1>
+    <div class="mb-20 scroll">
+        <ul>
+            <li routerLink="list">
+                <a routerLinkActive="active" i18n>Список</a>
+            </li>
+            <li (click)="openAddWorkspace($event)">
+                <a routerLinkActive="active" i18n>Додати</a>
+            </li>
+        </ul>
+    </div>
+    <router-outlet></router-outlet>
+</section>
