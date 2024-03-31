@@ -52,11 +52,11 @@ namespace Domain.Services.Quotas
 
                     await _customerQuotasRepository.AddAsync(newQuota);
                     await _customerQuotasRepository.SaveChangesAsync();
-
-                    customerQuota = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == request.CustomerId && e.TypeId == packItem.TypeId)).FirstOrDefault();
                 }
-                
-                customerQuota.AvailableCount += packItem.Count;
+                else
+                {
+                    customerQuota.AvailableCount += packItem.Count;
+                }
             }
 
             await _customerQuotasRepository.SaveChangesAsync();
