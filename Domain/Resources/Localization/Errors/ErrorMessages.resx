@@ -192,6 +192,9 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>Користувача не знайдено</value>
   </data>
+  <data name="WorkspaceDataObjectsAddPackNotFound" xml:space="preserve">
+    <value>Пакет додавання об’єктів даних робочої області не знайдено</value>
+  </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Робоча область не знайдена</value>
   </data>

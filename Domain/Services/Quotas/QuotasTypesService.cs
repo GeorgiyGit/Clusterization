@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
 using Domain.Entities.Quotas;
-using Domain.Interfaces;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 
 namespace Domain.Services.Quotas

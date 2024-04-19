@@ -1,7 +1,7 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
 using Domain.DTOs.ClusterizationDTOs.TileDTOs;
 using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
-using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Clusterization.Displaying;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Clusterization

@@ -2,8 +2,9 @@
 using Domain.Entities.Monitorings;
 using Domain.Entities.Quotas;
 using Domain.Entities.Tasks;
-using Domain.Entities.Youtube;
 using Microsoft.AspNetCore.Identity;
+using Domain.Entities.Clusterization.Workspaces;
+using Domain.Entities.DataSources.Youtube;
 
 namespace Domain.Entities.Customers
 {
@@ -13,7 +14,7 @@ namespace Domain.Entities.Customers
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
 
 
-        public ICollection<Channel> Channels { get; set; }=new HashSet<Channel>();
+        public ICollection<Channel> Channels { get; set; } = new HashSet<Channel>();
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
 
@@ -31,5 +32,7 @@ namespace Domain.Entities.Customers
 
         public bool IsDeleted { get; set; }
         public bool IsEdited { get; set; }
+
+        public ICollection<WorkspaceDataObjectsAddPack> WorkspaceDataObjectsAddPacks { get; set; } = new HashSet<WorkspaceDataObjectsAddPack>();
     }
 }

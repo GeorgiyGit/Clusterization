@@ -7,9 +7,9 @@ namespace Clusterization.Controllers.Clusterization.Algorithms.Non_hierarchical
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DBSCANAlgorithmController : AbstractClusterizationAlgorithmController<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO>
+    public class DBSCANAlgorithmController : AbstractClusterizationAlgorithmController<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO>
     {
-        public DBSCANAlgorithmController(IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO> service) : base(service)
+        public DBSCANAlgorithmController(IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> service) : base(service)
         {
         }
     }

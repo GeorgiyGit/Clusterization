@@ -22,49 +22,34 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ClusterClusterizationEntity", b =>
+            modelBuilder.Entity("ClusterMyDataObject", b =>
                 {
                     b.Property<int>("ClustersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EntitiesId")
-                        .HasColumnType("int");
+                    b.Property<long>("DataObjectsId")
+                        .HasColumnType("bigint");
 
-                    b.HasKey("ClustersId", "EntitiesId");
+                    b.HasKey("ClustersId", "DataObjectsId");
 
-                    b.HasIndex("EntitiesId");
+                    b.HasIndex("DataObjectsId");
 
-                    b.ToTable("ClusterClusterizationEntity");
+                    b.ToTable("ClusterMyDataObject");
                 });
 
-            modelBuilder.Entity("ClusterizationWorkspaceComment", b =>
+            modelBuilder.Entity("ClusterizationWorkspaceMyDataObject", b =>
                 {
-                    b.Property<string>("CommentsId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("DataObjectsId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("WorkspacesId")
                         .HasColumnType("int");
 
-                    b.HasKey("CommentsId", "WorkspacesId");
+                    b.HasKey("DataObjectsId", "WorkspacesId");
 
                     b.HasIndex("WorkspacesId");
 
-                    b.ToTable("ClusterizationWorkspaceComment");
-                });
-
-            modelBuilder.Entity("ClusterizationWorkspaceExternalObject", b =>
-                {
-                    b.Property<string>("ExternalObjectsFullId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("WorkspacesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExternalObjectsFullId", "WorkspacesId");
-
-                    b.HasIndex("WorkspacesId");
-
-                    b.ToTable("ClusterizationWorkspaceExternalObject");
+                    b.ToTable("ClusterizationWorkspaceMyDataObject");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
@@ -110,7 +95,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClusterizationAlgorithmType");
+                    b.ToTable("ClusterizationAlgorithmTypes");
 
                     b.HasData(
                         new
@@ -127,7 +112,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "DBScan",
+                            Id = "DBSCAN",
                             Description = "Density-Based Spatial Clustering Of Applications With Noise",
                             Name = "DBSCAN"
                         },
@@ -172,74 +157,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Clusters");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationDimensionType", b =>
-                {
-                    b.Property<int>("DimensionCount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DimensionCount"));
-
-                    b.HasKey("DimensionCount");
-
-                    b.ToTable("ClusterizationDimensionTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            DimensionCount = 2
-                        },
-                        new
-                        {
-                            DimensionCount = 3
-                        },
-                        new
-                        {
-                            DimensionCount = 100
-                        },
-                        new
-                        {
-                            DimensionCount = 1536
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CommentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("EmbeddingDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExternalObjectId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TextValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WorkspaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("EmbeddingDataId");
-
-                    b.HasIndex("ExternalObjectId");
-
-                    b.HasIndex("WorkspaceId");
-
-                    b.ToTable("ClusterizationEntites");
-                });
-
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -255,10 +172,17 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DRTechniqueId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("DimensionCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("DimensionalityReductionTechniqueId")
+                    b.Property<int>("EmbeddingLoadingStateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmbeddingModelId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -289,9 +213,11 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AlgorithmId");
 
+                    b.HasIndex("DRTechniqueId");
+
                     b.HasIndex("DimensionCount");
 
-                    b.HasIndex("DimensionalityReductionTechniqueId");
+                    b.HasIndex("EmbeddingModelId");
 
                     b.HasIndex("OwnerId");
 
@@ -300,7 +226,33 @@ namespace Infrastructure.Migrations
                     b.ToTable("ClusterizationProfiles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTile", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClusterizationTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "Comments",
+                            Name = "Comments"
+                        },
+                        new
+                        {
+                            Id = "External",
+                            Name = "From file"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -340,7 +292,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("ClusterizationTiles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTilesLevel", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTilesLevel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -379,33 +331,44 @@ namespace Infrastructure.Migrations
                     b.ToTable("ClusterizationTilesLevels");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationType", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.DisplayedPoint", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClusterId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DataObjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("OptimizationLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TileId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("X")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Y")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClusterizationTypes");
+                    b.HasIndex("ClusterId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "Comments",
-                            Name = "Comments"
-                        },
-                        new
-                        {
-                            Id = "External",
-                            Name = "From file"
-                        });
+                    b.HasIndex("DataObjectId");
+
+                    b.HasIndex("TileId");
+
+                    b.ToTable("DisplayedPoints");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspace", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -429,6 +392,18 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("IsAllDataEmbedded")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastDeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
@@ -455,7 +430,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("ClusterizationWorkspaces");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -463,7 +438,22 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DRTechniqueId")
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastDeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -472,47 +462,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DRTechniqueId");
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("WorkspaceId");
 
-                    b.ToTable("ClusterizationWorkspaceDRTechniques");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.DisplayedPoint", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClusterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OptimizationLevel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TileId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("X")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Y")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClusterId");
-
-                    b.HasIndex("TileId");
-
-                    b.ToTable("DisplayedPoints");
+                    b.ToTable("WorkspaceDataObjectsAddPacks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Customers.Customer", b =>
@@ -595,7 +549,326 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", b =>
+            modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObject", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CommentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExternalObjectId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("MyDataObject");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObjectType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MyDataObjectType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObject", b =>
+                {
+                    b.Property<string>("FullId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("DataObjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Session")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FullId");
+
+                    b.HasIndex("DataObjectId")
+                        .IsUnique();
+
+                    b.ToTable("ExternalObjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ChannelImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LoadedCommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LoadedVideoCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PublishedAtRaw")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SubscriberCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VideoCount")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ViewCount")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoaderId");
+
+                    b.HasIndex("PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount");
+
+                    b.ToTable("Channels");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Comment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorChannelId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuthorChannelUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuthorDisplayName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuthorProfileImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CanReply")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ChannelId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long?>("DataObjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ETag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PublishedAtRaw")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextDisplay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextOriginal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("TotalReplyCount")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset>("UpdatedAtDateTimeOffset")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedAtRaw")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelId");
+
+                    b.HasIndex("DataObjectId")
+                        .IsUnique()
+                        .HasFilter("[DataObjectId] IS NOT NULL");
+
+                    b.HasIndex("LoaderId");
+
+                    b.HasIndex("PublishedAtDateTimeOffset");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ChannelId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ChannelTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DefaultAudioLanguage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DefaultLanguage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LiveBroadcaseContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LoadedCommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PublishedAtRaw")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ViewCount")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelId");
+
+                    b.HasIndex("LoaderId");
+
+                    b.HasIndex("PublishedAtDateTimeOffset", "CommentCount", "ViewCount");
+
+                    b.ToTable("Videos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -626,85 +899,76 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", b =>
+            modelBuilder.Entity("Domain.Entities.EmbeddingModels.EmbeddingModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ClusterizationEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClusterizationWorkspaceDRTechniqueId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmbeddingDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TechniqueId")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClusterizationEntityId");
-
-                    b.HasIndex("ClusterizationWorkspaceDRTechniqueId");
-
-                    b.HasIndex("TechniqueId", "ClusterizationWorkspaceDRTechniqueId");
-
-                    b.ToTable("DimensionalityReductionValues");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CommentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("DimensionalityReductionValueId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExternalObjectId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OriginalEmbeddingId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId")
-                        .IsUnique()
-                        .HasFilter("[CommentId] IS NOT NULL");
-
-                    b.HasIndex("DimensionalityReductionValueId")
-                        .IsUnique();
-
-                    b.ToTable("EmbeddingDatas");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingDimensionValue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DimensionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DimensionalityReductionValueId")
+                    b.Property<int>("MaxInputCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmbeddingDataId")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuotasPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DimensionTypeId");
+
+                    b.ToTable("EmbeddingModels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "text-embedding-ada-002",
+                            Description = "Text embedding Ada 002",
+                            DimensionTypeId = 1536,
+                            MaxInputCount = 4000,
+                            Name = "text-embedding-ada-002",
+                            QuotasPrice = 5
+                        },
+                        new
+                        {
+                            Id = "text-embedding-3-large",
+                            Description = "Text embedding 3 large",
+                            DimensionTypeId = 3072,
+                            MaxInputCount = 4000,
+                            Name = "text_embedding_3_large",
+                            QuotasPrice = 8
+                        },
+                        new
+                        {
+                            Id = "text-embedding-3-small",
+                            Description = "Text embedding 3 small",
+                            DimensionTypeId = 1536,
+                            MaxInputCount = 4000,
+                            Name = "text-embedding-ada-002",
+                            QuotasPrice = 1
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.DimensionEntities.DimensionEmbeddingObject", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("EmbeddingObjectsGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("ValuesString")
@@ -713,43 +977,115 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DimensionTypeId");
+                    b.HasIndex("EmbeddingObjectsGroupId");
 
-                    b.HasIndex("DimensionalityReductionValueId");
+                    b.HasIndex("TypeId");
 
-                    b.HasIndex("EmbeddingDataId")
-                        .IsUnique()
-                        .HasFilter("[EmbeddingDataId] IS NOT NULL");
-
-                    b.ToTable("EmbeddingDimensionValues");
+                    b.ToTable("DimensionEmbeddingObjects");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ExternalData.ExternalObject", b =>
+            modelBuilder.Entity("Domain.Entities.Embeddings.DimensionEntities.DimensionType", b =>
                 {
-                    b.Property<string>("FullId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("EmbeddingDataId")
+                    b.Property<int>("DimensionCount")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DimensionCount"));
 
-                    b.Property<string>("Session")
+                    b.HasKey("DimensionCount");
+
+                    b.ToTable("DimensionTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            DimensionCount = 2
+                        },
+                        new
+                        {
+                            DimensionCount = 3
+                        },
+                        new
+                        {
+                            DimensionCount = 100
+                        },
+                        new
+                        {
+                            DimensionCount = 1536
+                        },
+                        new
+                        {
+                            DimensionCount = 3072
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingLoadingState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddPackId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmbeddingModelId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsAllEmbeddingsLoaded")
+                        .HasColumnType("bit");
 
-                    b.HasKey("FullId");
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("EmbeddingDataId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddPackId");
+
+                    b.HasIndex("EmbeddingModelId");
+
+                    b.HasIndex("ProfileId")
                         .IsUnique()
-                        .HasFilter("[EmbeddingDataId] IS NOT NULL");
+                        .HasFilter("[ProfileId] IS NOT NULL");
 
-                    b.ToTable("ExternalObjects");
+                    b.ToTable("EmbeddingLoadingStates");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingObjectsGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("DRTechniqueId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("DataObjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("EmbeddingModelId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkspaceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DRTechniqueId");
+
+                    b.HasIndex("DataObjectId");
+
+                    b.HasIndex("EmbeddingModelId");
+
+                    b.HasIndex("WorkspaceId");
+
+                    b.ToTable("EmbeddingObjectsGroups");
                 });
 
             modelBuilder.Entity("Domain.Entities.Quotas.CustomerQuotas", b =>
@@ -883,7 +1219,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Count = 1000,
+                            Count = 2000,
                             PackId = 1,
                             TypeId = "Embeddings"
                         },
@@ -1156,251 +1492,6 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Youtube.Channel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ChannelImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ETag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LoadedCommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LoadedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LoadedVideoCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LoaderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PublishedAtRaw")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("SubscriberCount")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VideoCount")
-                        .HasColumnType("int");
-
-                    b.Property<long>("ViewCount")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LoaderId");
-
-                    b.HasIndex("PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount");
-
-                    b.ToTable("Channels");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Comment", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AuthorChannelId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorChannelUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorDisplayName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorProfileImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CanReply")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ChannelId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ETag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("EmbeddingDataId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LikeCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LoadedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LoaderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PublishedAtRaw")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TextDisplay")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TextOriginal")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<short>("TotalReplyCount")
-                        .HasColumnType("smallint");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTimeOffset>("UpdatedAtDateTimeOffset")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("UpdatedAtRaw")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChannelId");
-
-                    b.HasIndex("LoaderId");
-
-                    b.HasIndex("PublishedAtDateTimeOffset");
-
-                    b.HasIndex("VideoId");
-
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Video", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChannelId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ChannelTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DefaultAudioLanguage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DefaultLanguage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ETag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LikeCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LiveBroadcaseContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LoadedCommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LoadedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LoaderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTimeOffset>("PublishedAtDateTimeOffset")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PublishedAtRaw")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("ViewCount")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChannelId");
-
-                    b.HasIndex("LoaderId");
-
-                    b.HasIndex("PublishedAtDateTimeOffset", "CommentCount", "ViewCount");
-
-                    b.ToTable("Videos");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1534,7 +1625,22 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.DBScanAlgorithm", b =>
+            modelBuilder.Entity("MyDataObjectWorkspaceDataObjectsAddPack", b =>
+                {
+                    b.Property<long>("DataObjectsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("WorkspaceDataObjectsAddPacksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DataObjectsId", "WorkspaceDataObjectsAddPacksId");
+
+                    b.HasIndex("WorkspaceDataObjectsAddPacksId");
+
+                    b.ToTable("MyDataObjectWorkspaceDataObjectsAddPack");
+                });
+
+            modelBuilder.Entity("Domain.Entitie.Clusterization.Algorithms.Non_hierarchical.DBSCANAlgorithm", b =>
                 {
                     b.HasBaseType("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm");
 
@@ -1544,7 +1650,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MinimumPointsPerCluster")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("DBScanAlgorithm");
+                    b.HasDiscriminator().HasValue("DBSCANAlgorithm");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.GaussianMixtureAlgorithm", b =>
@@ -1600,7 +1706,7 @@ namespace Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("SpectralClusteringAlgorithm");
                 });
 
-            modelBuilder.Entity("ClusterClusterizationEntity", b =>
+            modelBuilder.Entity("ClusterMyDataObject", b =>
                 {
                     b.HasOne("Domain.Entities.Clusterization.Cluster", null)
                         .WithMany()
@@ -1608,37 +1714,22 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationEntity", null)
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", null)
                         .WithMany()
-                        .HasForeignKey("EntitiesId")
+                        .HasForeignKey("DataObjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ClusterizationWorkspaceComment", b =>
+            modelBuilder.Entity("ClusterizationWorkspaceMyDataObject", b =>
                 {
-                    b.HasOne("Domain.Entities.Youtube.Comment", null)
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", null)
                         .WithMany()
-                        .HasForeignKey("CommentsId")
+                        .HasForeignKey("DataObjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", null)
-                        .WithMany()
-                        .HasForeignKey("WorkspacesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ClusterizationWorkspaceExternalObject", b =>
-                {
-                    b.HasOne("Domain.Entities.ExternalData.ExternalObject", null)
-                        .WithMany()
-                        .HasForeignKey("ExternalObjectsFullId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", null)
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", null)
                         .WithMany()
                         .HasForeignKey("WorkspacesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1673,35 +1764,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.Youtube.Comment", "Comment")
-                        .WithMany("ClusterizationEntities")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("Domain.Entities.Embeddings.EmbeddingData", "EmbeddingData")
-                        .WithMany("Entities")
-                        .HasForeignKey("EmbeddingDataId");
-
-                    b.HasOne("Domain.Entities.ExternalData.ExternalObject", "ExternalObject")
-                        .WithMany("ClusterizationEntities")
-                        .HasForeignKey("ExternalObjectId");
-
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", "Workspace")
-                        .WithMany("Entities")
-                        .HasForeignKey("WorkspaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("EmbeddingData");
-
-                    b.Navigation("ExternalObject");
-
-                    b.Navigation("Workspace");
-                });
-
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationProfile", b =>
                 {
                     b.HasOne("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", "Algorithm")
@@ -1710,16 +1772,22 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationDimensionType", "DimensionType")
+                    b.HasOne("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", "DRTechnique")
+                        .WithMany("Profiles")
+                        .HasForeignKey("DRTechniqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Embeddings.DimensionEntities.DimensionType", "DimensionType")
                         .WithMany("Profiles")
                         .HasForeignKey("DimensionCount")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", "DimensionalityReductionTechnique")
+                    b.HasOne("Domain.Entities.EmbeddingModels.EmbeddingModel", "EmbeddingModel")
                         .WithMany("Profiles")
-                        .HasForeignKey("DimensionalityReductionTechniqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("EmbeddingModelId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Customers.Customer", "Owner")
@@ -1728,26 +1796,28 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", "Workspace")
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", "Workspace")
                         .WithMany("Profiles")
                         .HasForeignKey("WorkspaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Algorithm");
 
+                    b.Navigation("DRTechnique");
+
                     b.Navigation("DimensionType");
 
-                    b.Navigation("DimensionalityReductionTechnique");
+                    b.Navigation("EmbeddingModel");
 
                     b.Navigation("Owner");
 
                     b.Navigation("Workspace");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTile", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTile", b =>
                 {
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationTile", "Parent")
+                    b.HasOne("Domain.Entities.Clusterization.Displaying.ClusterizationTile", "Parent")
                         .WithMany("ChildTiles")
                         .HasForeignKey("ParentId");
 
@@ -1757,10 +1827,10 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationTilesLevel", "TilesLevel")
+                    b.HasOne("Domain.Entities.Clusterization.Displaying.ClusterizationTilesLevel", "TilesLevel")
                         .WithMany("Tiles")
                         .HasForeignKey("TilesLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Parent");
@@ -1770,7 +1840,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("TilesLevel");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTilesLevel", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTilesLevel", b =>
                 {
                     b.HasOne("Domain.Entities.Clusterization.ClusterizationProfile", "Profile")
                         .WithMany("TilesLevels")
@@ -1781,7 +1851,34 @@ namespace Infrastructure.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspace", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.DisplayedPoint", b =>
+                {
+                    b.HasOne("Domain.Entities.Clusterization.Cluster", "Cluster")
+                        .WithMany("DisplayedPoints")
+                        .HasForeignKey("ClusterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithMany("DisplayedPoints")
+                        .HasForeignKey("DataObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.Displaying.ClusterizationTile", "Tile")
+                        .WithMany("Points")
+                        .HasForeignKey("TileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cluster");
+
+                    b.Navigation("DataObject");
+
+                    b.Navigation("Tile");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", b =>
                 {
                     b.HasOne("Domain.Entities.Customers.Customer", "Owner")
                         .WithMany("Workspaces")
@@ -1800,114 +1897,194 @@ namespace Infrastructure.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", b =>
                 {
-                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", "DRTechnique")
-                        .WithMany("ClusterizationWorkspaceDRTechniques")
+                    b.HasOne("Domain.Entities.Customers.Customer", "Owner")
+                        .WithMany("WorkspaceDataObjectsAddPacks")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", "Workspace")
+                        .WithMany("WorkspaceDataObjectsAddPacks")
+                        .HasForeignKey("WorkspaceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("Workspace");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObject", b =>
+                {
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObjectType", "Type")
+                        .WithMany("DataObjects")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObject", b =>
+                {
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithOne("ExternalObject")
+                        .HasForeignKey("Domain.Entities.DataSources.ExternalData.ExternalObject", "DataObjectId");
+
+                    b.Navigation("DataObject");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+                {
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("Channels")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loader");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Comment", b =>
+                {
+                    b.HasOne("Domain.Entities.DataSources.Youtube.Channel", "Channel")
+                        .WithMany("Comments")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithOne("Comment")
+                        .HasForeignKey("Domain.Entities.DataSources.Youtube.Comment", "DataObjectId");
+
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("Comments")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataSources.Youtube.Video", "Video")
+                        .WithMany("Comments")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
+
+                    b.Navigation("DataObject");
+
+                    b.Navigation("Loader");
+
+                    b.Navigation("Video");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+                {
+                    b.HasOne("Domain.Entities.DataSources.Youtube.Channel", "Channel")
+                        .WithMany("Videos")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("Videos")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
+
+                    b.Navigation("Loader");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EmbeddingModels.EmbeddingModel", b =>
+                {
+                    b.HasOne("Domain.Entities.Embeddings.DimensionEntities.DimensionType", "DimensionType")
+                        .WithMany("EmbeddingModels")
+                        .HasForeignKey("DimensionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DimensionType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.DimensionEntities.DimensionEmbeddingObject", b =>
+                {
+                    b.HasOne("Domain.Entities.Embeddings.EmbeddingObjectsGroup", "EmbeddingObjectsGroup")
+                        .WithMany("DimensionEmbeddingObjects")
+                        .HasForeignKey("EmbeddingObjectsGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Embeddings.DimensionEntities.DimensionType", "Type")
+                        .WithMany("DimensionEmbeddingObjects")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EmbeddingObjectsGroup");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingLoadingState", b =>
+                {
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", "AddPack")
+                        .WithMany("EmbeddingLoadingStates")
+                        .HasForeignKey("AddPackId");
+
+                    b.HasOne("Domain.Entities.EmbeddingModels.EmbeddingModel", "EmbeddingModel")
+                        .WithMany("EmbeddingLoadingStates")
+                        .HasForeignKey("EmbeddingModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.ClusterizationProfile", "Profile")
+                        .WithOne("EmbeddingLoadingState")
+                        .HasForeignKey("Domain.Entities.Embeddings.EmbeddingLoadingState", "ProfileId");
+
+                    b.Navigation("AddPack");
+
+                    b.Navigation("EmbeddingModel");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingObjectsGroup", b =>
+                {
+                    b.HasOne("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", "DRTechnique")
+                        .WithMany("Groups")
                         .HasForeignKey("DRTechniqueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspace", "Workspace")
-                        .WithMany("ClusterizationWorkspaceDRTechniques")
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithMany("EmbeddingObjectsGroups")
+                        .HasForeignKey("DataObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.EmbeddingModels.EmbeddingModel", "EmbeddingModel")
+                        .WithMany("Groups")
+                        .HasForeignKey("EmbeddingModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", "Workspace")
+                        .WithMany("EmbeddingObjectsGroups")
                         .HasForeignKey("WorkspaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DRTechnique");
 
+                    b.Navigation("DataObject");
+
+                    b.Navigation("EmbeddingModel");
+
                     b.Navigation("Workspace");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.DisplayedPoint", b =>
-                {
-                    b.HasOne("Domain.Entities.Clusterization.Cluster", "Cluster")
-                        .WithMany("DisplayedPoints")
-                        .HasForeignKey("ClusterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationTile", "Tile")
-                        .WithMany("Points")
-                        .HasForeignKey("TileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cluster");
-
-                    b.Navigation("Tile");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", b =>
-                {
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationEntity", "ClusterizationEntity")
-                        .WithMany("DimensionalityReductionValues")
-                        .HasForeignKey("ClusterizationEntityId");
-
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", "ClusterizationWorkspaceDRTechnique")
-                        .WithMany("DRValues")
-                        .HasForeignKey("ClusterizationWorkspaceDRTechniqueId");
-
-                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", "Technique")
-                        .WithMany("Values")
-                        .HasForeignKey("TechniqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ClusterizationEntity");
-
-                    b.Navigation("ClusterizationWorkspaceDRTechnique");
-
-                    b.Navigation("Technique");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingData", b =>
-                {
-                    b.HasOne("Domain.Entities.Youtube.Comment", "Comment")
-                        .WithOne("EmbeddingData")
-                        .HasForeignKey("Domain.Entities.Embeddings.EmbeddingData", "CommentId");
-
-                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", "DimensionalityReductionValue")
-                        .WithOne("EmbeddingData")
-                        .HasForeignKey("Domain.Entities.Embeddings.EmbeddingData", "DimensionalityReductionValueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("DimensionalityReductionValue");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingDimensionValue", b =>
-                {
-                    b.HasOne("Domain.Entities.Clusterization.ClusterizationDimensionType", "DimensionType")
-                        .WithMany("DimensionValues")
-                        .HasForeignKey("DimensionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", "DimensionalityReductionValue")
-                        .WithMany("Embeddings")
-                        .HasForeignKey("DimensionalityReductionValueId");
-
-                    b.HasOne("Domain.Entities.Embeddings.EmbeddingData", "EmbeddingData")
-                        .WithOne("OriginalEmbedding")
-                        .HasForeignKey("Domain.Entities.Embeddings.EmbeddingDimensionValue", "EmbeddingDataId");
-
-                    b.Navigation("DimensionType");
-
-                    b.Navigation("DimensionalityReductionValue");
-
-                    b.Navigation("EmbeddingData");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ExternalData.ExternalObject", b =>
-                {
-                    b.HasOne("Domain.Entities.Embeddings.EmbeddingData", "EmbeddingData")
-                        .WithOne("ExternalObject")
-                        .HasForeignKey("Domain.Entities.ExternalData.ExternalObject", "EmbeddingDataId");
-
-                    b.Navigation("EmbeddingData");
                 });
 
             modelBuilder.Entity("Domain.Entities.Quotas.CustomerQuotas", b =>
@@ -2005,63 +2182,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Youtube.Channel", b =>
-                {
-                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Channels")
-                        .HasForeignKey("LoaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Loader");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Comment", b =>
-                {
-                    b.HasOne("Domain.Entities.Youtube.Channel", "Channel")
-                        .WithMany("Comments")
-                        .HasForeignKey("ChannelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Comments")
-                        .HasForeignKey("LoaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Youtube.Video", "Video")
-                        .WithMany("Comments")
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Channel");
-
-                    b.Navigation("Loader");
-
-                    b.Navigation("Video");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Video", b =>
-                {
-                    b.HasOne("Domain.Entities.Youtube.Channel", "Channel")
-                        .WithMany("Videos")
-                        .HasForeignKey("ChannelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Videos")
-                        .HasForeignKey("LoaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Channel");
-
-                    b.Navigation("Loader");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -2113,6 +2233,21 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyDataObjectWorkspaceDataObjectsAddPack", b =>
+                {
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", null)
+                        .WithMany()
+                        .HasForeignKey("DataObjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", null)
+                        .WithMany()
+                        .HasForeignKey("WorkspaceDataObjectsAddPacksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
                 {
                     b.Navigation("Profiles");
@@ -2130,37 +2265,16 @@ namespace Infrastructure.Migrations
                     b.Navigation("DisplayedPoints");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationDimensionType", b =>
-                {
-                    b.Navigation("DimensionValues");
-
-                    b.Navigation("Profiles");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationEntity", b =>
-                {
-                    b.Navigation("DimensionalityReductionValues");
-                });
-
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationProfile", b =>
                 {
                     b.Navigation("Clusters");
 
+                    b.Navigation("EmbeddingLoadingState")
+                        .IsRequired();
+
                     b.Navigation("Tiles");
 
                     b.Navigation("TilesLevels");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTile", b =>
-                {
-                    b.Navigation("ChildTiles");
-
-                    b.Navigation("Points");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationTilesLevel", b =>
-                {
-                    b.Navigation("Tiles");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationType", b =>
@@ -2168,18 +2282,30 @@ namespace Infrastructure.Migrations
                     b.Navigation("Workspaces");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspace", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTile", b =>
                 {
-                    b.Navigation("ClusterizationWorkspaceDRTechniques");
+                    b.Navigation("ChildTiles");
 
-                    b.Navigation("Entities");
-
-                    b.Navigation("Profiles");
+                    b.Navigation("Points");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Clusterization.ClusterizationWorkspaceDRTechnique", b =>
+            modelBuilder.Entity("Domain.Entities.Clusterization.Displaying.ClusterizationTilesLevel", b =>
                 {
-                    b.Navigation("DRValues");
+                    b.Navigation("Tiles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", b =>
+                {
+                    b.Navigation("EmbeddingObjectsGroups");
+
+                    b.Navigation("Profiles");
+
+                    b.Navigation("WorkspaceDataObjectsAddPacks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", b =>
+                {
+                    b.Navigation("EmbeddingLoadingStates");
                 });
 
             modelBuilder.Entity("Domain.Entities.Customers.Customer", b =>
@@ -2200,38 +2326,67 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Videos");
 
+                    b.Navigation("WorkspaceDataObjectsAddPacks");
+
                     b.Navigation("Workspaces");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionTechnique", b =>
+            modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObject", b =>
                 {
-                    b.Navigation("ClusterizationWorkspaceDRTechniques");
+                    b.Navigation("Comment");
 
-                    b.Navigation("Profiles");
+                    b.Navigation("DisplayedPoints");
 
-                    b.Navigation("Values");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DimensionalityReduction.DimensionalityReductionValue", b =>
-                {
-                    b.Navigation("EmbeddingData");
-
-                    b.Navigation("Embeddings");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingData", b =>
-                {
-                    b.Navigation("Entities");
+                    b.Navigation("EmbeddingObjectsGroups");
 
                     b.Navigation("ExternalObject");
-
-                    b.Navigation("OriginalEmbedding")
-                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.ExternalData.ExternalObject", b =>
+            modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObjectType", b =>
                 {
-                    b.Navigation("ClusterizationEntities");
+                    b.Navigation("DataObjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Videos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", b =>
+                {
+                    b.Navigation("Groups");
+
+                    b.Navigation("Profiles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EmbeddingModels.EmbeddingModel", b =>
+                {
+                    b.Navigation("EmbeddingLoadingStates");
+
+                    b.Navigation("Groups");
+
+                    b.Navigation("Profiles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.DimensionEntities.DimensionType", b =>
+                {
+                    b.Navigation("DimensionEmbeddingObjects");
+
+                    b.Navigation("EmbeddingModels");
+
+                    b.Navigation("Profiles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Embeddings.EmbeddingObjectsGroup", b =>
+                {
+                    b.Navigation("DimensionEmbeddingObjects");
                 });
 
             modelBuilder.Entity("Domain.Entities.Quotas.QuotasPack", b =>
@@ -2253,25 +2408,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Tasks.MyTaskState", b =>
                 {
                     b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Channel", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Videos");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Comment", b =>
-                {
-                    b.Navigation("ClusterizationEntities");
-
-                    b.Navigation("EmbeddingData");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Youtube.Video", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

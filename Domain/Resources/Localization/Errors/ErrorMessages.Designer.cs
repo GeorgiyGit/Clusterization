@@ -286,6 +286,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пакет додавання об’єктів даних робочої області не знайдено.
+        /// </summary>
+        public static string WorkspaceDataObjectsAddPackNotFound {
+            get {
+                return ResourceManager.GetString("WorkspaceDataObjectsAddPackNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Робоча область не знайдена.
         /// </summary>
         public static string WorkspaceNotFound {

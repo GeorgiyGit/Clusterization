@@ -124,6 +124,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Завантаження всіх ембедингів з робочого простору.
+        /// </summary>
+        public static string LoadingAllEmbeddingsInWorkspace {
+            get {
+                return ResourceManager.GetString("LoadingAllEmbeddingsInWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завантаження каналів з платформи Youtube.
         /// </summary>
         public static string LoadingChannelsFromYoutube {
@@ -142,11 +151,11 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Завантаження ембедингів.
+        ///   Looks up a localized string similar to Завантаження ембедингів з паку.
         /// </summary>
-        public static string LoadingEmbeddings {
+        public static string LoadingEmbeddingsPack {
             get {
-                return ResourceManager.GetString("LoadingEmbeddings", resourceCulture);
+                return ResourceManager.GetString("LoadingEmbeddingsPack", resourceCulture);
             }
         }
         

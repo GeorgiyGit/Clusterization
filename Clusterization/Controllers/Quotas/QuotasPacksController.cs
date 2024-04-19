@@ -19,7 +19,7 @@ namespace Clusterization.Controllers.Quotas
 
         [HttpPost("add_pack")]
         [Authorize(Roles = UserRoles.Moderator)]
-        public async Task<IActionResult> Add([FromBody] AddQuotasPackDTO model)
+        public async Task<IActionResult> Add([FromBody] AddQuotasPackRequest model)
         {
             await service.Add(model);
             return Ok();

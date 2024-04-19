@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs
 {
-    public class DBScanAlgorithmDTO:AbstractAlgorithmDTO
+    public class DBSCANAlgorithmDTO:AbstractAlgorithmDTO
     {
         public double Epsilon { get; set; }
         public int MinimumPointsPerCluster { get; set; }

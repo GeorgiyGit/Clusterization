@@ -7,9 +7,9 @@ namespace Clusterization.Controllers.Clusterization.Algorithms.Non_hierarchical
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GaussianMixtureAlgorithmController : AbstractClusterizationAlgorithmController<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO>
+    public class GaussianMixtureAlgorithmController : AbstractClusterizationAlgorithmController<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO>
     {
-        public GaussianMixtureAlgorithmController(IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO> service) : base(service)
+        public GaussianMixtureAlgorithmController(IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> service) : base(service)
         {
         }
     }

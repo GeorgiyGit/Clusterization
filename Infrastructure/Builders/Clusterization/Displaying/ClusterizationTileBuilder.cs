@@ -1,5 +1,5 @@
-﻿using Domain.Entities.Clusterization;
-using Domain.Entities.Customers;
+﻿using Domain.Entities.Customers;
+using Domain.Entities.Clusterization.Displaying;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

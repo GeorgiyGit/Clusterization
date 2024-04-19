@@ -138,14 +138,17 @@
   <data name="ClusterizationSpectralClustering" xml:space="preserve">
     <value>ClusterizationSpectralClustering</value>
   </data>
+  <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
+    <value>LoadingAllEmbeddingsInWorkspace</value>
+  </data>
   <data name="LoadingChannelsFromYoutube" xml:space="preserve">
     <value>LoadingChannelsFromYoutube</value>
   </data>
   <data name="LoadingCommentsFromYoutube" xml:space="preserve">
     <value>LoadingCommentsFromYoutube</value>
   </data>
-  <data name="LoadingEmbeddings" xml:space="preserve">
-    <value>LoadingEmbeddings</value>
+  <data name="LoadingEmbeddingsPack" xml:space="preserve">
+    <value>LoadingEmbeddingsPack</value>
   </data>
   <data name="LoadingVideosFromYoutube" xml:space="preserve">
     <value>LoadingVideosFromYoutube</value>

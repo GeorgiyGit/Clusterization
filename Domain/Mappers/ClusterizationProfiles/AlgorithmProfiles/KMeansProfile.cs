@@ -1,8 +1,8 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.DTOs.TaskDTOs;
-using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
+using Domain.Entities.Clusterization.Algorithms;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;

@@ -7,9 +7,9 @@ namespace Clusterization.Controllers.Clusterization.Algorithms.Non_hierarchical
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OneClusterAlgorithmController : AbstractClusterizationAlgorithmController<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO>
+    public class OneClusterAlgorithmController : AbstractClusterizationAlgorithmController<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO>
     {
-        public OneClusterAlgorithmController(IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO> service) : base(service)
+        public OneClusterAlgorithmController(IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> service) : base(service)
         {
         }
     }

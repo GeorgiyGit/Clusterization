@@ -43,9 +43,17 @@ namespace Infrastructure.Builders.Customers
                    .WithOne(e => e.Customer)
                    .HasForeignKey(e => e.CustomerId);
 
+            builder.HasMany(e => e.QuotasPackLogsCollection)
+                   .WithOne(e => e.Customer)
+                   .HasForeignKey(e => e.CustomerId);
+
             builder.HasMany(e => e.Tasks)
                    .WithOne(e => e.Customer)
                    .HasForeignKey(e => e.CustomerId);
+
+            builder.HasMany(e => e.WorkspaceDataObjectsAddPacks)
+                   .WithOne(e => e.Owner)
+                   .HasForeignKey(e => e.OwnerId);
         }
     }
 }

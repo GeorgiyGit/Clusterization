@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://clusterization.website/api/",
+  apiUrl: "https://sladkovskygeorge.website/api/",
 };

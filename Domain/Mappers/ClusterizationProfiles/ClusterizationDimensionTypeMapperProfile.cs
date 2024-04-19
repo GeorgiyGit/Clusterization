@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO;
 using Domain.Entities.Clusterization;
+using Domain.Entities.Embeddings.DimensionEntities;
 
 namespace Domain.Mappers.ClusterizationProfiles
 {
@@ -7,7 +8,7 @@ namespace Domain.Mappers.ClusterizationProfiles
     {
         public ClusterizationDimensionTypeMapperProfile()
         {
-            CreateMap<ClusterizationDimensionType, ClusterizationDimensionTypeDTO>();
+            CreateMap<DimensionType, ClusterizationDimensionTypeDTO>();
         }
     }
 }

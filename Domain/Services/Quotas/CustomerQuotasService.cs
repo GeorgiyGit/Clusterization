@@ -4,8 +4,8 @@ using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
 using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Requets;
 using Domain.Entities.Quotas;
 using Domain.Exceptions;
-using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
@@ -32,7 +32,7 @@ namespace Domain.Services.Quotas
             _mapper = mapper;
             _quotasLogsService = quotasLogsService;
         }
-        public async Task AddQuotasPackToCustomer(AddQuotasToCustomerDTO request)
+        public async Task AddQuotasPackToCustomer(AddQuotasToCustomerRequest request)
         {
             var packItems = (await _packItemsRepositorty.GetAsync(e => e.PackId == request.PackId, includeProperties: $"{nameof(QuotasPackItem.Type)}"));
 
@@ -61,7 +61,7 @@ namespace Domain.Services.Quotas
 
             await _customerQuotasRepository.SaveChangesAsync();
 
-            await _quotasLogsService.AddQuotasPackLogs(new AddQuotasPackLogsDTO()
+            await _quotasLogsService.AddQuotasPackLogs(new AddQuotasPackLogsRequest()
             {
                 CustomerId = request.CustomerId,
                 PackId = request.PackId

@@ -6,48 +6,51 @@ using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.SpectralClusteringDTOs;
 using Domain.Entities.Customers;
-using Domain.Interfaces;
-using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
+using Domain.Interfaces.Clusterization.Dimensions;
+using Domain.Interfaces.Clusterization.Displaying;
 using Domain.Interfaces.Clusterization.Profiles;
+using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.DataSources.ExternalData;
+using Domain.Interfaces.DataSources.Youtube;
 using Domain.Interfaces.DimensionalityReduction;
+using Domain.Interfaces.EmbeddingModels;
 using Domain.Interfaces.Embeddings;
+using Domain.Interfaces.Embeddings.EmbeddingsLoading;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Tasks;
-using Domain.Interfaces.Youtube;
-using Domain.Resources.Types;
-using Domain.Services.Clusterization;
 using Domain.Services.Clusterization.Algorithms;
 using Domain.Services.Clusterization.Algorithms.Non_hierarchical;
+using Domain.Services.Clusterization.Dimensions;
+using Domain.Services.Clusterization.Displaying;
 using Domain.Services.Clusterization.Profiles;
+using Domain.Services.Clusterization.Workspaces;
 using Domain.Services.Customers;
+using Domain.Services.DataSources.ExternalData;
+using Domain.Services.DataSources.Youtube;
 using Domain.Services.DimensionalityReduction;
+using Domain.Services.EmbeddingModels;
 using Domain.Services.Embeddings;
+using Domain.Services.Embeddings.EmbeddingsLoading;
 using Domain.Services.Quotas;
-using Domain.Services.Quotes;
 using Domain.Services.TaskServices;
-using Domain.Services.Youtube;
 using Domain.Validators.Clusterization.Workspaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Google;
 using Hangfire;
 using Hangfire.SqlServer;
 using Infrastructure;
-using MathNet.Numerics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
+using OpenAI.Extensions;
 using System.Globalization;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 internal class Program
@@ -91,43 +94,56 @@ internal class Program
         builder.Services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(AddWorkspaceValidator)));
 
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         builder.Services.AddLocalization();
         builder.Services.AddControllers();
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+        builder.Services.AddScoped<IGeneralClusterizationAlgorithmService, GeneralClusterizationAlgorithmService>();
+        builder.Services.AddScoped<IClusterizationAlgorithmTypesService, ClusterizationAlgorithmTypesService>();
+
+        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO>, KMeansAlgorithmService>();
+        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO>, OneClusterAlgorithmService>();
+        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO>, DBSCANAlgorithmService>();
+        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO>, SpectralClusteringAlgorithmService>();
+        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO>, GaussianMixtureAlgorithmService>();
+
+        builder.Services.AddScoped<IClusterizationDimensionTypesService, ClusterizationDimensionTypesService>();
+        
+        builder.Services.AddScoped<IClusterizationDisplayedPointsService, ClusterizationDisplayedPointsService>();
+        builder.Services.AddScoped<IClusterizationTilesService, ClusterizationTilesService>();
+        builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
+        
+        builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
+        builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
+
+        builder.Services.AddScoped<IAccountService, AccountService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IRolesService, RolesService>();
+
         builder.Services.AddScoped<IPrivateYoutubeChannelsService, PrivateYoutubeChannelsService>();
         builder.Services.AddScoped<IPrivateYoutubeVideosService, PrivateYoutubeVideosService>();
         builder.Services.AddScoped<IYoutubeChannelsService, YoutubeChannelsService>();
         builder.Services.AddScoped<IYoutubeVideoService, YoutubeVideosService>();
         builder.Services.AddScoped<IYoutubeCommentsService, YoutubeCommentsService>();
+        builder.Services.AddScoped<IYoutubeDataObjectsService, YoutubeDataObjectsService>();
+
+        builder.Services.AddScoped<IExternalDataObjectsService, ExternalDataObjectsService>();
+
+        builder.Services.AddScoped<IDimensionalityReductionService, DimensionalityReductionService>();
+        builder.Services.AddScoped<IDimensionalityReductionTechniquesService, DimensionalityReductionTechniquesService>();
+
+        builder.Services.AddScoped<IEmbeddingModelsService, EmbeddingModelsService>();
+
+        builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();
+        builder.Services.AddScoped<IEmbeddingsLoadingService, EmbeddingsLoadingService>();
+        builder.Services.AddScoped<IEmbeddingLoadingStatesService, EmbeddingLoadingStatesService>();
 
         builder.Services.AddScoped<IMyTasksService, MyTasksService>();
         builder.Services.AddScoped<IUserTasksService, UserTasksService>();
         builder.Services.AddScoped<IModeratorTasksService, ModeratorTasksService>();
-
-        builder.Services.AddScoped<IClusterizationDimensionTypesService, ClusterizationDimensionTypesService>();
-        builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
-        builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
-        builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
-        builder.Services.AddScoped<IClusterizationTilesService, ClusterizationTilesService>();
-        builder.Services.AddScoped<IClusterizationDisplayedPointsService, ClusterizationDisplayedPointsService>();
-
-        builder.Services.AddScoped<IEmbeddingsService, EmbeddingsService>();
-        builder.Services.AddScoped<ILoadEmbeddingsService, LoadEmbeddingsService>();
-
-        builder.Services.AddScoped<IDimensionalityReductionTechniquesService, DimensionalityReductionTechniquesService>();
-        builder.Services.AddScoped<IDimensionalityReductionValuesService, DimensionalityReductionValuesService>();
-
-        builder.Services.AddScoped<IGeneralClusterizationAlgorithmService, GeneralClusterizationAlgorithmService>();
-        builder.Services.AddScoped<IClusterizationAlgorithmTypesService, ClusterizationAlgorithmTypesService>();
-
-        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO>, KMeansAlgorithmService>();
-        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO>, OneClusterAlgorithmService>();
-        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO>, DbScanAlgorithmService>();
-        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO>, SpectralClusteringAlgorithmService>();
-        builder.Services.AddScoped<IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO>, GaussianMixtureAlgorithmService>();
 
         builder.Services.AddScoped<IQuotasPacksService, QuotasPacksService>();
         builder.Services.AddScoped<ICustomerQuotasService, CustomerQuotasService>();
@@ -135,15 +151,7 @@ internal class Program
         builder.Services.AddScoped<IQuotasLogsService, QuotasLogsService>();
         builder.Services.AddScoped<IQuotasTypesService, QuotasTypesService>();
 
-        builder.Services.AddScoped<IAccountService, AccountService>();
-        builder.Services.AddScoped<IUserService, UserService>();
-        builder.Services.AddScoped<IRolesService, RolesService>();
-        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-        builder.Services.AddScoped<IClusterizationAlgorithmsHelpService, ClusterizationAlgorithmsHelpService>();
-        builder.Services.AddControllersWithViews();
-
-        builder.Services.AddAuthentication();
+        builder.Services.AddOpenAIService();
 
         builder.Services.AddIdentity<Customer, IdentityRole>(o =>
         {
@@ -279,10 +287,10 @@ internal class Program
 
         app.MapFallbackToFile("index.html");
 
-        using (var scope = app.Services.CreateScope())
-        {
-            UserSeeders.Configure(scope.ServiceProvider).Wait();
-        }
+        //using (var scope = app.Services.CreateScope())
+        //{
+            //UserSeeders.Configure(scope.ServiceProvider).Wait();
+        //}
 
         app.Run();
 

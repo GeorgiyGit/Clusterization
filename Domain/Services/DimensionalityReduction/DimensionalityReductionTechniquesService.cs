@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using Domain.DTOs.DimensionalityReductionDTOs.TechniqueDTOs;
-using Domain.Entities.DimensionalityReduction;
-using Domain.Interfaces;
+using Domain.Entities.DimensionalityReductionEntities;
 using Domain.Interfaces.DimensionalityReduction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces.Other;
 
 namespace Domain.Services.DimensionalityReduction
 {

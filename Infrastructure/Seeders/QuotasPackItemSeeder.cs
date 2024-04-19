@@ -2,11 +2,6 @@
 using Domain.Resources.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Seeders
 {
@@ -32,7 +27,7 @@ namespace Infrastructure.Seeders
                 Id = 2,
                 TypeId = QuotasTypes.Embeddings,
                 PackId = 1,
-                Count = 1000
+                Count = 2000
             };
 
             //depending on the context

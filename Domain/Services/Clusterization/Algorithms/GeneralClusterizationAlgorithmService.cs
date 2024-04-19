@@ -7,37 +7,31 @@ using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterD
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.SpectralClusteringDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using Domain.Entities.Clusterization.Algorithms;
-using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Exceptions;
-using Domain.Interfaces;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces.Other;
 
 namespace Domain.Services.Clusterization.Algorithms
 {
     public class GeneralClusterizationAlgorithmService : IGeneralClusterizationAlgorithmService
     {
-        private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO> kMeansService;
-        private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO> oneClusterService;
-        private readonly IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO> dbSCANService;
-        private readonly IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO> spectralClusteringService;
-        private readonly IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO> gaussianMixtureService;
+        private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> kMeansService;
+        private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService;
+        private readonly IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService;
+        private readonly IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> spectralClusteringService;
+        private readonly IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService;
 
         private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IRepository<ClusterizationAbstactAlgorithm> abstractRepository;
         private readonly IMapper mapper;
-        public GeneralClusterizationAlgorithmService(IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmDTO, KMeansAlgorithmDTO> kMeansService,
-                                                     IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmDTO, OneClusterAlgorithmDTO> oneClusterService,
-                                                     IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO> dbSCANService,
-                                                     IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO> spectralClusteringService,
-                                                     IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmDTO, GaussianMixtureAlgorithmDTO> gaussianMixtureService,
+        public GeneralClusterizationAlgorithmService(IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> kMeansService,
+                                                     IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService,
+                                                     IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService,
+                                                     IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> spectralClusteringService,
+                                                     IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService,
                                                      IStringLocalizer<ErrorMessages> localizer,
                                                      IRepository<ClusterizationAbstactAlgorithm> abstractRepository,
                                                      IMapper mapper)
@@ -63,7 +57,7 @@ namespace Domain.Services.Clusterization.Algorithms
             {
                 return (await oneClusterService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
-            else if (typeId == ClusterizationAlgorithmTypes.DBScan)
+            else if (typeId == ClusterizationAlgorithmTypes.DBSCAN)
             {
                 return (await dbSCANService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }

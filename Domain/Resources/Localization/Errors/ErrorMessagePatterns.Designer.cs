@@ -286,6 +286,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WorkspaceDataObjectsAddPackNotFound.
+        /// </summary>
+        public static string WorkspaceDataObjectsAddPackNotFound {
+            get {
+                return ResourceManager.GetString("WorkspaceDataObjectsAddPackNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WorkspaceNotFound.
         /// </summary>
         public static string WorkspaceNotFound {

@@ -7,16 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
-    <EmbeddedResource Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
-    <None Remove="DTOs\ClusterizationDTOs\ResponseDTOs\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
     <PackageReference Include="Accord.Math" Version="3.8.0" />
     <PackageReference Include="Accord.Statistics" Version="3.8.0" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Betalgo.OpenAI" Version="7.4.6" />
     <PackageReference Include="Dbscan" Version="3.0.0" />
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -77,10 +72,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CommentFilterTypes.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Types\DataObjectTypes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataObjectTypes.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Types\DimensionalityReductionTechniques.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DimensionalityReductionTechniques.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Types\EmbeddingModelList.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EmbeddingModelList.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Types\LoadFilterOptions.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -149,9 +154,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommentFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\DataObjectTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataObjectTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\DimensionalityReductionTechniques.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DimensionalityReductionTechniques.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\EmbeddingModelList.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmbeddingModelList.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\LoadFilterOptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -176,8 +189,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ClusterizationDTOs\AlghorithmDTOs\RequestDTOs\" />
-    <Folder Include="DTOs\DimensionalityReductionDTOs\ValueDTOs\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities.Clusterization.Algorithms;
 
-namespace Domain.Entities.Clusterization.Algorithms.Non_hierarchical
+namespace Domain.Entitie.Clusterization.Algorithms.Non_hierarchical
 {
-    public class DBScanAlgorithm: ClusterizationAbstactAlgorithm
+    public class DBSCANAlgorithm: ClusterizationAbstactAlgorithm
     {
         public double Epsilon { get; set; }
         public int MinimumPointsPerCluster { get; set; }

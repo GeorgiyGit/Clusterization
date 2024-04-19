@@ -192,6 +192,9 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>UserNotFound</value>
   </data>
+  <data name="WorkspaceDataObjectsAddPackNotFound" xml:space="preserve">
+    <value>WorkspaceDataObjectsAddPackNotFound</value>
+  </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>WorkspaceNotFound</value>
   </data>

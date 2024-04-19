@@ -5,18 +5,13 @@ using Domain.Entities.Customers;
 using Domain.Entities.Tasks;
 using Domain.Exceptions;
 using Domain.Extensions;
-using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services.TaskServices
 {

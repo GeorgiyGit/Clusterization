@@ -124,6 +124,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LoadingAllEmbeddingsInWorkspace.
+        /// </summary>
+        internal static string LoadingAllEmbeddingsInWorkspace {
+            get {
+                return ResourceManager.GetString("LoadingAllEmbeddingsInWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LoadingChannelsFromYoutube.
         /// </summary>
         internal static string LoadingChannelsFromYoutube {
@@ -142,11 +151,11 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LoadingEmbeddings.
+        ///   Looks up a localized string similar to LoadingEmbeddingsPack.
         /// </summary>
-        internal static string LoadingEmbeddings {
+        internal static string LoadingEmbeddingsPack {
             get {
-                return ResourceManager.GetString("LoadingEmbeddings", resourceCulture);
+                return ResourceManager.GetString("LoadingEmbeddingsPack", resourceCulture);
             }
         }
         

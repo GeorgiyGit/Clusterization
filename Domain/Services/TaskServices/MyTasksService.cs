@@ -2,8 +2,8 @@
 using Domain.DTOs.TaskDTOs;
 using Domain.Entities.Tasks;
 using Domain.Exceptions;
-using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;

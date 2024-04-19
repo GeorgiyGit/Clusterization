@@ -1,16 +1,12 @@
 ﻿using Domain.Entities.Clusterization;
 using Domain.Entities.Embeddings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Entities.DataObjects;
 
 namespace Domain.HelpModels
 {
     public class TileGeneratingHelpModel
     {
-        public ClusterizationEntity Entity { get; set; }
+        public MyDataObject DataObject { get; set; }
         public double[] EmbeddingValues { get; set; }
         public Cluster Cluster { get; set; }
     }

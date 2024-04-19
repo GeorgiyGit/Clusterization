@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Domain.DTOs.TaskDTOs;
-using Domain.Entities.Tasks;
 using Domain.Interfaces.Customers;
-using Domain.Interfaces;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
@@ -13,6 +11,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Extensions;
+using Domain.Entities.Tasks;
+using Domain.Interfaces.Other;
 
 namespace Domain.Services.TaskServices
 {

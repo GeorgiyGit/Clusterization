@@ -1,6 +1,5 @@
 ﻿using Domain.DTOs.CustomerDTOs.Requests;
 using Domain.Interfaces.Customers;
-using Domain.Interfaces.Youtube;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Customers

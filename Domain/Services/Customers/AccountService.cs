@@ -81,7 +81,7 @@ namespace Domain.Services.Customers
                 await userManager.AddToRoleAsync(user, UserRoles.User);
             }
 
-            await _quotasService.AddQuotasPackToCustomer(new DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests.AddQuotasToCustomerDTO()
+            await _quotasService.AddQuotasPackToCustomer(new DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests.AddQuotasToCustomerRequest()
             {
                 CustomerId = user.Id,
                 PackId = 1

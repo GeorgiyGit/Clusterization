@@ -1,5 +1,4 @@
-﻿using Domain.Interfaces.Clusterization;
-using Domain.Interfaces.DimensionalityReduction;
+﻿using Domain.Interfaces.DimensionalityReduction;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.DimensionalityReduction

@@ -1,12 +1,7 @@
 ﻿using Domain.DTOs;
-using Domain.Interfaces;
+using Domain.Interfaces.Other;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -35,7 +30,7 @@ namespace Infrastructure
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "",
-            PageParametersDTO? pageParameters = null)
+            PageParameters? pageParameters = null)
         {
             IQueryable<TEntity> query = dbSet;
 

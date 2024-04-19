@@ -1,7 +1,7 @@
 ﻿using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
 using Domain.Entities.Quotas;
 using Domain.Exceptions;
-using Domain.Interfaces;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Microsoft.Extensions.Localization;
@@ -12,7 +12,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Services.Quotes
+namespace Domain.Services.Quotas
 {
     public class QuotasControllerService : IQuotasControllerService
     {
@@ -51,7 +51,7 @@ namespace Domain.Services.Quotes
 
                 await _customerQuotasRepository.SaveChangesAsync();
 
-                await _quotasLogsService.AddQuotasLogs(new AddQuotasLogsDTO()
+                await _quotasLogsService.AddQuotasLogs(new AddQuotasLogsRequest()
                 {
                     Id = logsId,
                     Count = quotasCount,

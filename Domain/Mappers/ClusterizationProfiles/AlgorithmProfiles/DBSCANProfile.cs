@@ -1,13 +1,7 @@
-﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
-using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
-using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Entities.Clusterization.Algorithms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
+using Domain.Entities.Clusterization.Algorithms;
+using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
 
 namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
 {
@@ -15,7 +9,7 @@ namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
     {
         public DBSCANProfile()
         {
-            CreateMap<DBScanAlgorithm, DBScanAlgorithmDTO>()
+            CreateMap<DBSCANAlgorithm, DBSCANAlgorithmDTO>()
                 .IncludeBase<ClusterizationAbstactAlgorithm, AbstractAlgorithmDTO>()
                 .ForMember(dest => dest.FullTitle,
                            ost => ost.MapFrom(e => e.Type.Name + " " + e.Epsilon + " " + e.MinimumPointsPerCluster));

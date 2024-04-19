@@ -7,9 +7,9 @@ namespace Clusterization.Controllers.Clusterization.Algorithms.Non_hierarchical
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpectralClusteringAlgorithmController : AbstractClusterizationAlgorithmController<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO>
+    public class SpectralClusteringAlgorithmController : AbstractClusterizationAlgorithmController<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO>
     {
-        public SpectralClusteringAlgorithmController(IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmDTO, SpectralClusteringAlgorithmDTO> service) : base(service)
+        public SpectralClusteringAlgorithmController(IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> service) : base(service)
         {
         }
     }

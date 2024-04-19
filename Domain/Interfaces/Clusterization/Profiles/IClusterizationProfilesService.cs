@@ -10,12 +10,12 @@ namespace Domain.Interfaces.Clusterization.Profiles
 {
     public interface IClusterizationProfilesService
     {
-        public Task Add(AddClusterizationProfileDTO model);
+        public Task Add(AddClusterizationProfileRequest model);
         
         public Task<ClusterizationProfileDTO> GetFullById(int id);
         public Task<SimpleClusterizationProfileDTO> GetSimpleById(int id);
 
-        public Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequestDTO request);
+        public Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequest request);
         public Task<ICollection<SimpleClusterizationProfileDTO>> GetCustomerCollection(CustomerGetClusterizationProfilesRequest request);
         
         public Task Elect(int id);

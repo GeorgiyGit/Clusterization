@@ -1,7 +1,7 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Entities.Clusterization.Algorithms;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
+using Domain.Entities.Clusterization.Algorithms;
 
 namespace Domain.Mappers.ClusterizationProfiles.AlgorithmProfiles
 {

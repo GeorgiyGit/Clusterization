@@ -1,7 +1,7 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
-using Domain.Interfaces.Clusterization;
+using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Embeddings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,24 +20,21 @@ namespace Clusterization.Controllers.Clusterization
     public class ClusterizationWorkspacesController : ControllerBase
     {
         private readonly IClusterizationWorkspacesService service;
-        private readonly ILoadEmbeddingsService embeddingsService;
-        public ClusterizationWorkspacesController(IClusterizationWorkspacesService service,
-                                                  ILoadEmbeddingsService embeddingsService)
+        public ClusterizationWorkspacesController(IClusterizationWorkspacesService service)
         {
             this.service = service;
-            this.embeddingsService = embeddingsService;
         }
 
         [HttpPost("add")]
         [Authorize]
-        public async Task<IActionResult> Add([FromBody] AddClusterizationWorkspaceDTO model)
+        public async Task<IActionResult> Add([FromBody] AddClusterizationWorkspaceRequest model)
         {
             await service.Add(model);
             return Ok();
         }
         [HttpPut("update")]
         [Authorize]
-        public async Task<IActionResult> Update([FromBody] UpdateClusterizationWorkspaceDTO model)
+        public async Task<IActionResult> Update([FromBody] UpdateClusterizationWorkspaceRequest model)
         {
             await service.Update(model);
             return Ok();
@@ -47,23 +44,20 @@ namespace Clusterization.Controllers.Clusterization
         [Authorize]
         public async Task<IActionResult> AddCommentsByChannel([FromBody] AddCommentsToWorkspaceByChannelRequest request)
         {
-            await service.LoadCommentsByChannel(request);
             return Ok();
         }
         [HttpPost("add_comments_by_videos")]
         [Authorize]
         public async Task<IActionResult> AddCommentsByVideos([FromBody] AddCommentsToWorkspaceByVideosRequest request)
         {
-            await service.LoadCommentsByVideos(request);
             return Ok();
         }
 
         [HttpPost]
         [Route("load_external_data")]
         [Authorize]
-        public async Task<IActionResult> LoadExternalData([FromForm] AddExternalDataDTO data)
+        public async Task<IActionResult> LoadExternalData([FromForm] AddExternalDataRequest data)
         {
-            await service.LoadExternalData(data);
             return Ok();
         }
 
@@ -96,7 +90,7 @@ namespace Clusterization.Controllers.Clusterization
         [HttpGet("get_entities/{id}"), DisableRequestSizeLimit]
         public async Task<IActionResult> GetEntities([FromRoute] int id)
         {
-            var list = await service.GetAllElementsInList(id);
+            var list = await service.GetAllDataObjectsInList(id);
 
             // Your logic to get data or generate content
             var content = "";
@@ -132,13 +126,13 @@ namespace Clusterization.Controllers.Clusterization
         }
 
 
-        [HttpPost]
+        /*[HttpPost]
         [Route("load_embedding_data/{id}")]
         [Authorize]
         public async Task<IActionResult> LoadEmbeddingData([FromRoute] int id)
         {
             await embeddingsService.LoadEmbeddingsByWorkspace(id);
             return Ok();
-        }
+        }*/
     }
 }

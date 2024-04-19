@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.Entities.Clusterization.Displaying;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,7 +20,12 @@ namespace Infrastructure.Builders.Clusterization.Displaying
 
             builder.HasOne(e => e.Cluster)
                    .WithMany(e => e.DisplayedPoints)
-                   .HasForeignKey(e => e.ClusterId);
+                   .HasForeignKey(e => e.ClusterId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(e => e.DataObject)
+                   .WithMany(e => e.DisplayedPoints)
+                   .HasForeignKey(e => e.DataObjectId);
         }
     }
 }

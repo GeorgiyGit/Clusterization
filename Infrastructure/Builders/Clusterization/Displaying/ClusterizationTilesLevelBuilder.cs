@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.Entities.Clusterization.Displaying;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -16,7 +16,8 @@ namespace Infrastructure.Builders.Clusterization.Displaying
         {
             builder.HasMany(e => e.Tiles)
                    .WithOne(e => e.TilesLevel)
-                   .HasForeignKey(e => e.TilesLevelId);
+                   .HasForeignKey(e => e.TilesLevelId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.Profile)
                    .WithMany(e => e.TilesLevels)

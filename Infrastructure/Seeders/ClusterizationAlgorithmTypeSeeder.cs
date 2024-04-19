@@ -25,7 +25,7 @@ namespace Infrastructure.Seeders
 
             var dbSCAN = new ClusterizationAlgorithmType()
             {
-                Id = ClusterizationAlgorithmTypes.DBScan,
+                Id = ClusterizationAlgorithmTypes.DBSCAN,
                 Name = "DBSCAN",
                 Description = "Density-Based Spatial Clustering Of Applications With Noise"
             };

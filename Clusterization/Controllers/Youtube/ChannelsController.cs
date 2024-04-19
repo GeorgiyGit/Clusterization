@@ -1,5 +1,5 @@
 ﻿using Domain.DTOs.YoutubeDTOs.Requests;
-using Domain.Interfaces.Youtube;
+using Domain.Interfaces.DataSources.Youtube;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

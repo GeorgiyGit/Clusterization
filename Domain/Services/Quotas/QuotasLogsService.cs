@@ -3,11 +3,10 @@ using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests;
 using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
 using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Requets;
 using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Responses;
-using Domain.Entities.Quotas;
 using Domain.Entities.Tasks;
+using Domain.Entities.Quotas;
 using Domain.Exceptions;
 using Domain.Extensions;
-using Domain.Interfaces;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
@@ -18,6 +17,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Interfaces.Other;
 
 namespace Domain.Services.Quotas
 {
@@ -80,7 +80,7 @@ namespace Domain.Services.Quotas
             return mappedLogs;
         }
 
-        public async Task AddQuotasLogs(AddQuotasLogsDTO model)
+        public async Task AddQuotasLogs(AddQuotasLogsRequest model)
         {
             var logs = (await _quotasLogsRepository.GetAsync(e => e.Id == model.Id)).FirstOrDefault();
 
@@ -103,7 +103,7 @@ namespace Domain.Services.Quotas
             await _quotasLogsRepository.SaveChangesAsync();
         }
 
-        public async Task AddQuotasPackLogs(AddQuotasPackLogsDTO model)
+        public async Task AddQuotasPackLogs(AddQuotasPackLogsRequest model)
         {
             var newLogs = new QuotasPackLogs()
             {

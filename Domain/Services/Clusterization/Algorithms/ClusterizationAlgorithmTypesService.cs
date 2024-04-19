@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using Domain.Entities.Clusterization.Algorithms;
-using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Interfaces;
 using Domain.Interfaces.Clusterization.Algorithms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces.Other;
 
 namespace Domain.Services.Clusterization.Algorithms
 {

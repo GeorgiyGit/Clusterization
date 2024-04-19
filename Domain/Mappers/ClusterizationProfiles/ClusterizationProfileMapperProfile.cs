@@ -17,7 +17,9 @@ namespace Domain.Mappers.ClusterizationProfiles
                 .ForMember(dest => dest.AlgorithmType,
                            ost => ost.Ignore())
                 .ForMember(dest => dest.ClustersCount,
-                           ost => ost.MapFrom(e => e.Clusters.Count()));
+                           ost => ost.MapFrom(e => e.Clusters.Count()))
+                .ForMember(dest => dest.IsAllEmbeddingsLoaded,
+                           ost => ost.MapFrom(e => e.EmbeddingLoadingState.IsAllEmbeddingsLoaded));
 
 
             CreateMap<ClusterizationProfile, SimpleClusterizationProfileDTO>()

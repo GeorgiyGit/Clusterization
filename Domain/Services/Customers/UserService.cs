@@ -2,8 +2,8 @@
 using Domain.DTOs.CustomerDTOs.Requests;
 using Domain.DTOs.CustomerDTOs.Responses;
 using Domain.Entities.Customers;
-using Domain.Interfaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Other;
 using Domain.Resources.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

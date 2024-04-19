@@ -2,7 +2,7 @@
 using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Requets;
 using Domain.DTOs.QuotaDTOs.QuotaPackDTOs.Responses;
 using Domain.Entities.Quotas;
-using Domain.Interfaces;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 
 namespace Domain.Services.Quotas
@@ -21,7 +21,7 @@ namespace Domain.Services.Quotas
             _packsRepository = packsRepository;
             _mapper = mapper;
         }
-        public async Task Add(AddQuotasPackDTO model)
+        public async Task Add(AddQuotasPackRequest model)
         {
             var pack = new QuotasPack();
 

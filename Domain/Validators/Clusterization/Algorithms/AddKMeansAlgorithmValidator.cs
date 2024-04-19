@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Validators.Clusterization.Algorithms
 {
-    public class AddKMeansAlgorithmValidator : AbstractValidator<AddKMeansAlgorithmDTO>
+    public class AddKMeansAlgorithmValidator : AbstractValidator<AddKMeansAlgorithmRequest>
     {
         public AddKMeansAlgorithmValidator() : base()
         {

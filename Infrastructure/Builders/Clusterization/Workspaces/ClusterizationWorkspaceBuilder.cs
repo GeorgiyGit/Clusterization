@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.Entities.Clusterization.Workspaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,27 +18,24 @@ namespace Infrastructure.Builders.Clusterization.Workspaces
                    .WithMany(e => e.Workspaces)
                    .HasForeignKey(e => e.TypeId);
 
-            builder.HasMany(e => e.Comments)
-                   .WithMany(e => e.Workspaces);
-
             builder.HasMany(e => e.Profiles)
                    .WithOne(e => e.Workspace)
                    .HasForeignKey(e => e.WorkspaceId);
 
-            builder.HasMany(e => e.Entities)
-                   .WithOne(e => e.Workspace)
-                   .HasForeignKey(e => e.WorkspaceId);
-
-            builder.HasMany(e => e.ClusterizationWorkspaceDRTechniques)
-                   .WithOne(e => e.Workspace)
-                   .HasForeignKey(e => e.WorkspaceId);
-
-            builder.HasMany(e => e.ExternalObjects)
-                   .WithMany(e => e.Workspaces);
-
             builder.HasOne(e => e.Owner)
                    .WithMany(e => e.Workspaces)
                    .HasForeignKey(e => e.OwnerId);
+
+            builder.HasMany(e => e.EmbeddingObjectsGroups)
+                   .WithOne(e => e.Workspace)
+                   .HasForeignKey(e => e.WorkspaceId);
+
+            builder.HasMany(e => e.DataObjects)
+                   .WithMany(e => e.Workspaces);
+
+            builder.HasMany(e => e.WorkspaceDataObjectsAddPacks)
+                   .WithOne(e => e.Workspace)
+                   .HasForeignKey(e => e.WorkspaceId);
         }
     }
 }

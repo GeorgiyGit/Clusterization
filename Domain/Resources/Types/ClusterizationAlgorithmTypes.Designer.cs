@@ -61,11 +61,11 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DBScan.
+        ///   Looks up a localized string similar to DBSCAN.
         /// </summary>
-        public static string DBScan {
+        public static string DBSCAN {
             get {
-                return ResourceManager.GetString("DBScan", resourceCulture);
+                return ResourceManager.GetString("DBSCAN", resourceCulture);
             }
         }
         

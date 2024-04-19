@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities.Clusterization.Displaying;
+using Domain.Entities.DataObjects;
 
 namespace Domain.Entities.Clusterization
 {
@@ -11,8 +8,7 @@ namespace Domain.Entities.Clusterization
         public int Id { get; set; }
 
         public string Color { get; set; }
-        
-        public ICollection<ClusterizationEntity> Entities { get; set; } = new HashSet<ClusterizationEntity>();
+
 
         public ClusterizationProfile Profile { get; set; }
         public int ProfileId { get; set; }
@@ -22,6 +18,8 @@ namespace Domain.Entities.Clusterization
         public Cluster? ParentCluster { get; set; }
         public int? ParentClusterId { get; set; }
 
-        public ICollection<DisplayedPoint> DisplayedPoints { get; set; }=new HashSet<DisplayedPoint>();
+        public ICollection<MyDataObject> DataObjects { get; set; } = new HashSet<MyDataObject>();
+
+        public ICollection<DisplayedPoint> DisplayedPoints { get; set; } = new HashSet<DisplayedPoint>();
     }
 }

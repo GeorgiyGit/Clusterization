@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
-using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Entities.Clusterization;
-using Domain.Interfaces.Clusterization;
-using Domain.Interfaces;
 using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.Tasks;
@@ -13,87 +10,84 @@ using Microsoft.Extensions.Localization;
 using Domain.Exceptions;
 using Domain.Resources.Types;
 using System.Net;
-using Domain.Entities.Clusterization.Algorithms;
 using Domain.HelpModels;
 using Domain.ClusteringAlgorithms;
 using Domain.Resources.Localization.Tasks;
 using Domain.Interfaces.Quotas;
 using Domain.Interfaces.Customers;
-using System.Runtime.CompilerServices;
+using Domain.Entities.Clusterization.Displaying;
+using Domain.Interfaces.Clusterization.Displaying;
+using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
+using Domain.Entities.DataObjects;
+using Domain.Entities.Clusterization.Algorithms;
+using Domain.Entities.Embeddings.DimensionEntities;
+using Domain.Entities.Embeddings;
+using Domain.Interfaces.Other;
+using Domain.Entities.Clusterization.Workspaces;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
-    public class DbScanAlgorithmService : IAbstractClusterizationAlgorithmService<AddDBScanAlgorithmDTO, DBScanAlgorithmDTO>
+    public class DBSCANAlgorithmService : AbstractAlgorithmService<DBSCANAlgorithm, DBSCANAlgorithmDTO>, IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO>
     {
-        private readonly IRepository<DBScanAlgorithm> repository;
-        private readonly IRepository<ClusterizationProfile> profile_repository;
-        private readonly IRepository<Cluster> clusters_repository;
-        private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
-        private readonly IRepository<ClusterizationEntity> _entities_repository;
+        private readonly IRepository<ClusterizationWorkspace> _workspaceRepository;
 
-        private readonly IClusterizationTilesService tilesService;
-        private readonly IBackgroundJobClient backgroundJobClient;
-        private readonly IMyTasksService taskService;
-        private readonly IDimensionalityReductionValuesService drValues_service;
-        private readonly IUserService _userService;
+        private readonly IBackgroundJobClient _backgroundJobClient;
+        private readonly IMyTasksService _tasksService;
+        private readonly IDimensionalityReductionService _dimensionalityReductionService;
 
-        private readonly IStringLocalizer<ErrorMessages> localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
-        private readonly IMapper mapper;
-
-        private readonly IClusterizationAlgorithmsHelpService helpService;
-
-        private const int TILES_COUNT = 16;
 
         private readonly IQuotasControllerService _quotasControllerService;
+        private readonly IUserService _userService;
 
-        public DbScanAlgorithmService(IRepository<DBScanAlgorithm> repository,
+        public DBSCANAlgorithmService(IRepository<DBSCANAlgorithm> algorithmsRepository,
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMapper mapper,
-                                      IRepository<ClusterizationProfile> profile_repository,
+                                      IRepository<ClusterizationProfile> profilesRepository,
                                       IClusterizationTilesService tilesService,
-                                      IRepository<Cluster> clusters_repository,
+                                      IRepository<Cluster> clustersRepository,
                                       IBackgroundJobClient backgroundJobClient,
-                                      IMyTasksService taskService,
-                                      IRepository<ClusterizationTilesLevel> tilesLevel_repository,
-                                      IDimensionalityReductionValuesService drValues_service,
-                                      IClusterizationAlgorithmsHelpService helpService,
+                                      IMyTasksService tasksService,
+                                      IRepository<ClusterizationTilesLevel> tilesLevelRepository,
+                                      IDimensionalityReductionService dimensionalityReductionService,
                                       IStringLocalizer<TaskTitles> tasksLocalizer,
                                       IQuotasControllerService quotasControllerService,
                                       IUserService userService,
-                                      IRepository<ClusterizationEntity> entities_repository)
+                                      IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
+                                      IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
+                                      IRepository<ClusterizationWorkspace> workspaceRepository) : base(clustersRepository,
+                                                                                                       tilesService,
+                                                                                                       tilesLevelRepository,
+                                                                                                       algorithmsRepository,
+                                                                                                       mapper,
+                                                                                                       localizer,
+                                                                                                       profilesRepository,
+                                                                                                       embeddingObjectsGroupsRepository,
+                                                                                                       dimensionEmbeddingObjectsRepository)
         {
-            this.repository = repository;
-            this.localizer = localizer;
-            this.mapper = mapper;
-            this.profile_repository = profile_repository;
-            this.tilesService = tilesService;
-            this.clusters_repository = clusters_repository;
-            this.backgroundJobClient = backgroundJobClient;
-            this.taskService = taskService;
-            this.tilesLevel_repository = tilesLevel_repository;
-            this.drValues_service = drValues_service;
-            this.helpService = helpService;
+            _backgroundJobClient = backgroundJobClient;
+            _tasksService = tasksService;
             _tasksLocalizer = tasksLocalizer;
             _quotasControllerService = quotasControllerService;
             _userService = userService;
-            _entities_repository = entities_repository;
+            _dimensionalityReductionService = dimensionalityReductionService;
+            _workspaceRepository = workspaceRepository;
         }
-        public async Task AddAlgorithm(AddDBScanAlgorithmDTO model)
+        public async Task AddAlgorithm(AddDBSCANAlgorithmRequest model)
         {
-            var list = await repository.GetAsync(c => c.Epsilon == model.Epsilon && c.MinimumPointsPerCluster == model.MinimumPointsPerCluster);
+            var list = await _algorithmsRepository.GetAsync(c => c.Epsilon == model.Epsilon && c.MinimumPointsPerCluster == model.MinimumPointsPerCluster);
 
-            if (list.Any()) throw new HttpException(localizer[ErrorMessagePatterns.AlgorithmAlreadyExists], HttpStatusCode.BadRequest);
+            if (list.Any()) throw new HttpException(_localizer[ErrorMessagePatterns.AlgorithmAlreadyExists], HttpStatusCode.BadRequest);
 
-            var newAlg = new DBScanAlgorithm()
+            var newAlg = new DBSCANAlgorithm()
             {
                 Epsilon = model.Epsilon,
                 MinimumPointsPerCluster = model.MinimumPointsPerCluster,
-                TypeId = ClusterizationAlgorithmTypes.DBScan
+                TypeId = ClusterizationAlgorithmTypes.DBSCAN
             };
 
-            await repository.AddAsync(newAlg);
-            await repository.SaveChangesAsync();
+            await _algorithmsRepository.AddAsync(newAlg);
+            await _algorithmsRepository.SaveChangesAsync();
         }
 
         public async Task ClusterData(int profileId)
@@ -101,87 +95,59 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             await WorkspaceVerification(profileId);
 
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationDBSCAN]);
+            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationDBSCAN]);
 
-            backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId));
-        }
-        public async Task<int> GetWorkspaceElementsCount(int profileId)
-        {
-            var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
-
-            return (await _entities_repository.GetAsync(e => e.WorkspaceId == profile.WorkspaceId)).Count();
-        }
-        public async Task WorkspaceVerification(int profileId)
-        {
-            var profile = (await profile_repository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
-            if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+            _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId));
         }
         public async Task ClusterDataBackgroundJob(int profileId,int taskId, string userId)
         {
-            var stateId = await taskService.GetTaskStateId(taskId);
+            var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
 
-            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
             try
             {
-                var profile = (await profile_repository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DimensionalityReductionTechnique)},{nameof(ClusterizationProfile.DimensionType)}")).FirstOrDefault();
+                var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
 
-                if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.DBScan) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
+                if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
-                var clusterAlgorithm = (await repository.GetAsync(e => e.Id == profile.AlgorithmId)).FirstOrDefault();
+                if (!profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
 
-                var entitiesCount = await GetWorkspaceElementsCount(profileId);
+                var clusterAlgorithm = (await _algorithmsRepository.GetAsync(e => e.Id == profile.AlgorithmId)).FirstOrDefault();
 
-                double quotasCount = (double)entitiesCount * (double)profile.DimensionCount / 2d;
+                double quotasCount = (double)profile.Workspace.EntitiesCount * (double)profile.DimensionCount / 2d;
 
                 var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount,Guid.NewGuid().ToString());
 
                 if (!quotasResult)
                 {
-                    throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
                 }
 
-                for (int i = 0; i < profile.Clusters.Count(); i++)
+                await RemoveClusters(profile);
+
+                var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
+
+                var dataObjects = workspace.DataObjects;
+
+                if (profile.DRTechniqueId != DimensionalityReductionTechniques.Original)
                 {
-                    var id = profile.Clusters.ElementAt(i).Id;
-                    var clusterForDelete = (await clusters_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(Cluster.Entities)},{nameof(Cluster.DisplayedPoints)},{nameof(Cluster.Profile)}")).FirstOrDefault();
-
-                    clusters_repository.Remove(clusterForDelete);
+                    await _dimensionalityReductionService.AddEmbeddingValues(profile.WorkspaceId, profile.DRTechniqueId, profile.EmbeddingModelId, profile.DimensionCount);
                 }
-                for (int i = 0; i < profile.TilesLevels.Count(); i++)
-                {
-                    var id = profile.TilesLevels.ElementAt(i).Id;
-                    await tilesService.FullRemoveTilesLevel(id);
-                }
+                await _tasksService.ChangeTaskPercent(taskId, 30f);
 
-                profile.Clusters.Clear();
-                profile.TilesLevels.Clear();
-
-                if (profile.DimensionalityReductionTechniqueId != DimensionalityReductionTechniques.JSL)
-                {
-                    if (profile.DimensionCount == 1536)
-                    {
-                        await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId, 2);
-                    }
-                    else
-                    {
-                        await drValues_service.AddEmbeddingValues(profile.WorkspaceId, profile.DimensionalityReductionTechniqueId, profile.DimensionCount);
-                    }
-                }
-                await taskService.ChangeTaskPercent(taskId, 30f);
-
-                var entitiesHelpModels = await helpService.CreateHelpModels(profile);
-                var clusters = await DBSCAN(entitiesHelpModels, profile.DimensionalityReductionTechniqueId, profile.DimensionCount, clusterAlgorithm.Epsilon, clusterAlgorithm.MinimumPointsPerCluster);
+                var entitiesHelpModels = await CreateHelpModels(dataObjects.ToList(), profile.DRTechniqueId, profile.EmbeddingModelId, profile.WorkspaceId, profile.DimensionCount);
+                var clusters = await DBSCAN(entitiesHelpModels, profile.DRTechniqueId, profile.DimensionCount, clusterAlgorithm.Epsilon, clusterAlgorithm.MinimumPointsPerCluster);
 
                 foreach (var cluster in clusters)
                 {
                     cluster.ProfileId = profile.Id;
-                    await clusters_repository.AddAsync(cluster);
+                    await _clustersRepository.AddAsync(cluster);
                 }
-                await taskService.ChangeTaskPercent(taskId, 60f);
+                await _tasksService.ChangeTaskPercent(taskId, 60f);
 
                 List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(entitiesHelpModels.Count());
 
@@ -189,37 +155,23 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 {
                     helpModels.Add(new TileGeneratingHelpModel()
                     {
-                        Entity = entityHelpModel.Entity,
-                        Cluster = clusters.Where(e => e.Entities.Contains(entityHelpModel.Entity)).FirstOrDefault()
+                        DataObject = entityHelpModel.DataObject,
+                        Cluster = clusters.Where(e => e.DataObjects.Contains(entityHelpModel.DataObject)).FirstOrDefault()
                     });
                 }
-                var tilesLevel = new ClusterizationTilesLevel()
-                {
-                    Profile = profile,
-                    TileCount = TILES_COUNT,
-                    Z = 0
-                };
 
-                var tiles = await tilesService.GenerateOneLevelTiles(helpModels, TILES_COUNT, 0, tilesLevel, profile.DimensionalityReductionTechniqueId);
-                tilesLevel.Tiles = tiles;
+                await AddTiles(profile, helpModels);
 
-                await tilesLevel_repository.AddAsync(tilesLevel);
-
-                profile.MaxTileLevel = 0;
-                profile.MinTileLevel = 0;
-
-                profile.Tiles = tiles;
-                profile.IsCalculated = true;
-
-                await taskService.ChangeTaskPercent(taskId, 100f);
-                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(taskId, 100f);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
             }
             catch (Exception ex)
             {
-                await taskService.ChangeTaskState(taskId, TaskStates.Error);
-                await taskService.ChangeTaskDescription(taskId, ex.Message);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
+        
         #region algorithm
         public async Task<List<Cluster>> DBSCAN(List<AddEmbeddingsWithDRHelpModel> helpModels, string drTechniqueId, int dimensionsCount, double epsilonPercent, int minimumPointsPerCluster)
         {
@@ -261,7 +213,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 resultedClusters.Add(newCluster);
                 foreach (int index in tempCluster.EntityIds)
                 {
-                    newCluster.Entities.Add(helpModels[index].Entity);
+                    newCluster.DataObjects.Add(helpModels[index].DataObject);
                 }
             }
 
@@ -313,12 +265,5 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             return $"#{random.Next(0x1000000):X6}";
         }
         #endregion
-
-        public async Task<ICollection<DBScanAlgorithmDTO>> GetAllAlgorithms()
-        {
-            var algorithms = await repository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}");
-
-            return mapper.Map<ICollection<DBScanAlgorithmDTO>>(algorithms);
-        }
     }
 }

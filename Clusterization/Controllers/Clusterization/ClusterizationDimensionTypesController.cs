@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.Clusterization;
+﻿using Domain.Interfaces.Clusterization.Dimensions;
 using Domain.Interfaces.Tasks;
 using Microsoft.AspNetCore.Mvc;
 

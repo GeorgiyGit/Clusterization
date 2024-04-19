@@ -18,7 +18,7 @@ namespace Clusterization.Controllers.Clusterization
         }
         [HttpPost("add")]
         [Authorize]
-        public async Task<IActionResult> Add([FromBody] AddClusterizationProfileDTO model)
+        public async Task<IActionResult> Add([FromBody] AddClusterizationProfileRequest model)
         {
             await service.Add(model);
             return Ok();
@@ -38,7 +38,7 @@ namespace Clusterization.Controllers.Clusterization
         }
 
         [HttpPost("get_collection")]
-        public async Task<IActionResult> GetCollection([FromBody] GetClusterizationProfilesRequestDTO request)
+        public async Task<IActionResult> GetCollection([FromBody] GetClusterizationProfilesRequest request)
         {
             return Ok(await service.GetCollection(request));
         }
