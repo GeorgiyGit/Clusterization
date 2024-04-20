@@ -40,19 +40,6 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
             return Ok();
         }
 
-        [HttpPost("add_comments_by_channel")]
-        [Authorize]
-        public async Task<IActionResult> AddCommentsByChannel([FromBody] AddCommentsToWorkspaceByChannelRequest request)
-        {
-            return Ok();
-        }
-        [HttpPost("add_comments_by_videos")]
-        [Authorize]
-        public async Task<IActionResult> AddCommentsByVideos([FromBody] AddCommentsToWorkspaceByVideosRequest request)
-        {
-            return Ok();
-        }
-
         [HttpPost]
         [Route("load_external_data")]
         [Authorize]
@@ -124,15 +111,5 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
 
             return contentType;
         }
-
-
-        /*[HttpPost]
-        [Route("load_embedding_data/{id}")]
-        [Authorize]
-        public async Task<IActionResult> LoadEmbeddingData([FromRoute] int id)
-        {
-            await embeddingsService.LoadEmbeddingsByWorkspace(id);
-            return Ok();
-        }*/
     }
 }
