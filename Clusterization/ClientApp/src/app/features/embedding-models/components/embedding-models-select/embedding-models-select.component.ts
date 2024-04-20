@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
-import { ClusterizationAlgorithmTypesService } from '../../services/clusterization-algorithm-types.service';
+import { EmbeddingModelsService } from '../../services/embedding-models.service';
 
 @Component({
-  selector: 'app-clusterization-algorithm-types-select',
-  templateUrl: './clusterization-algorithm-types-select.component.html',
-  styleUrls: ['./clusterization-algorithm-types-select.component.scss']
+  selector: 'app-embedding-models-select',
+  templateUrl: './embedding-models-select.component.html',
+  styleUrl: './embedding-models-select.component.scss'
 })
-export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
+export class EmbeddingModelsSelectComponent implements OnInit {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable:boolean;
@@ -15,9 +15,9 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
   tooltip:string=$localize`Тип алгоритму`;
 
   options: IOptionForSelectInput[] = [];
-  constructor(private algorithmTypesService: ClusterizationAlgorithmTypesService) { }
+  constructor(private embeddingModelsService: EmbeddingModelsService) { }
   ngOnInit(): void {
-    this.algorithmTypesService.getAll().subscribe(res => {
+    this.embeddingModelsService.getAll().subscribe(res => {
       this.options = [];
       
       if(this.isNullAvailable==true){

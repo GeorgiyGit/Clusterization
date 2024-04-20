@@ -107,6 +107,7 @@ import { CustomerWorkspacesMainPageComponent } from './features/customer-account
 import { CustomerWorkspacesListPageComponent } from './features/customer-account-details/children/workspaces/pages/customer-workspaces-list-page/customer-workspaces-list-page.component';
 import { CustomerProfilesListPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-list-page/customer-profiles-list-page.component';
 import { CustomerProfilesMainPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-main-page/customer-profiles-main-page.component';
+import { EmbeddingModelsSelectComponent } from './features/embedding-models/components/embedding-models-select/embedding-models-select.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -209,7 +210,9 @@ export function tokenGetter() {
     CustomerWorkspacesListPageComponent,
 
     CustomerProfilesMainPageComponent,
-    CustomerProfilesListPageComponent
+    CustomerProfilesListPageComponent,
+
+    EmbeddingModelsSelectComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

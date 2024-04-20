@@ -17,4 +17,8 @@ export class ClusterizationDimensionTypesService {
   getAll(): Observable<IClusterizationDimensionType[]> {
     return this.http.get<IClusterizationDimensionType[]>(this.controllerUrl + "get_all/");
   }
+
+  getAllByEmbeddingModel(embeddingModelId:string): Observable<IClusterizationDimensionType[]> {
+    return this.http.get<IClusterizationDimensionType[]>(this.controllerUrl + "get_all_in_embedding_model/"+embeddingModelId);
+  }
 }

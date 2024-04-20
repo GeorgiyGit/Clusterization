@@ -32,6 +32,7 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
   DRTechniqueId: string;
 
   workspaceId: number;
+  embeddingModelId:string;
 
   isActive: boolean;
 
@@ -69,7 +70,8 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
       dimensionCount: this.dimensionTypeId,
       DRTechniqueId:this.DRTechniqueId,
       visibleType:this.visibleType,
-      changingType:this.changingType
+      changingType:this.changingType,
+      embeddingModelId:this.embeddingModelId
     };
 
     this.isLoading = true;
@@ -113,6 +115,11 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
     else {
       this.isActive = false;
     }
+  }
+
+
+  changeEmbeddingModel(id:string){
+    this.embeddingModelId=id;
   }
 
   changeVisibleType(type:string){

@@ -11,7 +11,9 @@
             <app-abstract-algorithms-select (sendEvent)="changeAlgorithm($event)"
                 [typeId]="algorithmTypeId"></app-abstract-algorithms-select>
 
-            <app-clusterization-dimension-types-input [isNullAvailable]="true"
+            <app-embedding-models-select [isNullAvailable]="false"
+                (sendEvent)="changeEmbeddingModel($event)"></app-embedding-models-select>
+            <app-clusterization-dimension-types-input [isNullAvailable]="true" [embeddingModelId]="embeddingModelId"
                 (sendEvent)="changeDimensionType($event)"></app-clusterization-dimension-types-input>
 
             <app-dimensionality-reduction-techniques-select
@@ -26,8 +28,8 @@
             </div>
             <div class="centered">
                 <app-loader *ngIf="isLoading"></app-loader>
-                <button class="standard-btn" type="submit" [disabled]="!isActive" *ngIf="!isLoading"
-                    (click)="submit()" i18n>Додати</button>
+                <button class="standard-btn" type="submit" [disabled]="!isActive" *ngIf="!isLoading" (click)="submit()"
+                    i18n>Додати</button>
             </div>
 
         </form>

@@ -20,5 +20,11 @@ namespace Clusterization.Controllers.Clusterization
         {
             return Ok(await service.GetAll());
         }
+
+        [HttpGet("get_all_in_embedding_model/{id}")]
+        public async Task<IActionResult> GetAllInEmbeddingModel([FromRoute] string id)
+        {
+            return Ok(await service.GetAllInEmbeddingModel(id));
+        }
     }
 }
