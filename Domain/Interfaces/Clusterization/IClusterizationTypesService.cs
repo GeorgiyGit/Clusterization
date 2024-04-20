@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces.Clusterization.Displaying
+namespace Domain.Interfaces.Clusterization
 {
     public interface IClusterizationTypesService
     {

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Clusterization.Displaying;
+using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataObjects;
 
 namespace Domain.Entities.Clusterization

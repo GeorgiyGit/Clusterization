@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.Clusterization.Displaying;
+﻿using Domain.Interfaces.Clusterization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Clusterization

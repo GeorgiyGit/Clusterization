@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.Entities.Clusterization.Profiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

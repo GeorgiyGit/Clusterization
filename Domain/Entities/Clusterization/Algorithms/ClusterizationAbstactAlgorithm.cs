@@ -1,4 +1,6 @@
 ﻿
+using Domain.Entities.Clusterization.Profiles;
+
 namespace Domain.Entities.Clusterization.Algorithms
 {
     public class ClusterizationAbstactAlgorithm

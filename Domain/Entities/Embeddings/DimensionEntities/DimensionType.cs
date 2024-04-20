@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.EmbeddingModels;
 
 namespace Domain.Entities.Embeddings.DimensionEntities

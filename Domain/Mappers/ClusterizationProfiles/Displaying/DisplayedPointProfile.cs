@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Mappers.ClusterizationProfiles
+namespace Domain.Mappers.ClusterizationProfiles.Displaying
 {
     internal class DisplayedPointProfile : AutoMapper.Profile
     {

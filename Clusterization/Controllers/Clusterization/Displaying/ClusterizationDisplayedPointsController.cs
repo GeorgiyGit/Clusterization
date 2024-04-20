@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces.Clusterization.Displaying;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Clusterization
+namespace Clusterization.Controllers.Clusterization.Displaying
 {
     [Route("api/[controller]")]
     [ApiController]

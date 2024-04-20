@@ -1,6 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.TypeDTO;
-using Domain.Entities.Clusterization;
+using Domain.Entities.Clusterization.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

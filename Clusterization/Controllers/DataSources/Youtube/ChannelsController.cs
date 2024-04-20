@@ -3,7 +3,7 @@ using Domain.Interfaces.DataSources.Youtube;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Youtube
+namespace Clusterization.Controllers.DataSources.Youtube
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -47,7 +47,7 @@ namespace Clusterization.Controllers.Youtube
         [Authorize]
         public async Task<IActionResult> GetWithoutLoading([FromBody] GetWithoutLoadingRequest request)
         {
-            return Ok(await service.GetCollectionWithoutLoadingByName(request.Name, request.NextPageToken,request.FilterType));
+            return Ok(await service.GetCollectionWithoutLoadingByName(request.Name, request.NextPageToken, request.FilterType));
         }
     }
 }

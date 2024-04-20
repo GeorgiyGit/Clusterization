@@ -5,7 +5,7 @@ using Domain.Interfaces.Clusterization.Profiles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Clusterization
+namespace Clusterization.Controllers.Clusterization.Profiles
 {
     [Route("api/[controller]")]
     [ApiController]

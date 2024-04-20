@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.TypeDTO;
 using Domain.Entities.Clusterization;
-using Domain.Interfaces.Clusterization.Displaying;
+using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Other;
 
-namespace Domain.Services.Clusterization.Displaying
+namespace Domain.Services.Clusterization
 {
     public class ClusterizationTypeService : IClusterizationTypesService
     {

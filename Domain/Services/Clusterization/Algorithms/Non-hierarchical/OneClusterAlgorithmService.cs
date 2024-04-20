@@ -3,7 +3,6 @@ using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Displaying;
 using Domain.Exceptions;
@@ -27,6 +26,7 @@ using Domain.Entities.Embeddings.DimensionEntities;
 using Domain.Entities.Embeddings;
 using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Workspaces;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {

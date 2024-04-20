@@ -16,6 +16,7 @@ using Domain.Entities.DimensionalityReductionEntities;
 using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Embeddings.DimensionEntities;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Infrastructure
 {

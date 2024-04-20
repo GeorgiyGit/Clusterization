@@ -3,7 +3,7 @@ using Domain.Interfaces.DataSources.Youtube;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Youtube
+namespace Clusterization.Controllers.DataSources.Youtube
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -13,7 +13,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace Clusterization.Controllers.Clusterization
+namespace Clusterization.Controllers.Clusterization.Workspaces
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,16 +1,15 @@
 ﻿using Domain.Interfaces.Clusterization.Dimensions;
-using Domain.Interfaces.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clusterization.Controllers.Clusterization
+namespace Clusterization.Controllers.Clusterization.Dimensions
 {
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ClusterizationDimensionTypesController:ControllerBase
+    public class DimensionTypesController : ControllerBase
     {
         private readonly IClusterizationDimensionTypesService service;
-        public ClusterizationDimensionTypesController(IClusterizationDimensionTypesService service)
+        public DimensionTypesController(IClusterizationDimensionTypesService service)
         {
             this.service = service;
         }

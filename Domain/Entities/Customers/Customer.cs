@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Clusterization;
-using Domain.Entities.Monitorings;
+﻿using Domain.Entities.Monitorings;
 using Domain.Entities.Quotas;
 using Domain.Entities.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.DataSources.Youtube;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Domain.Entities.Customers
 {

@@ -7,7 +7,7 @@ using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
 
-namespace Domain.Entities.Clusterization
+namespace Domain.Entities.Clusterization.Profiles
 {
     public class ClusterizationProfile
     {

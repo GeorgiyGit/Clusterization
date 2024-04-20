@@ -2,7 +2,6 @@
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
 using Domain.Entities.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Entities.Clusterization;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Interfaces.Clusterization.Algorithms;
@@ -16,6 +15,7 @@ using System.Linq.Expressions;
 using System.Net;
 using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Interfaces.Other;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Domain.Services.Clusterization.Profiles
 {

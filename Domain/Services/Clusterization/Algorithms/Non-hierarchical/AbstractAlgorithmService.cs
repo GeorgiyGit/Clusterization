@@ -2,6 +2,7 @@
 using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.Displaying;
+using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataObjects;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Embeddings.DimensionEntities;

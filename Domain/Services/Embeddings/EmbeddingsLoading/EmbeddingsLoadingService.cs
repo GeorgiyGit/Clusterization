@@ -16,9 +16,9 @@ using OpenAI.ObjectModels;
 using Domain.Entities.DataObjects;
 using Accord.Math;
 using Domain.Entities.EmbeddingModels;
-using Domain.Entities.Clusterization;
 using Domain.Interfaces.Other;
 using OpenAI.ObjectModels.ResponseModels;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {

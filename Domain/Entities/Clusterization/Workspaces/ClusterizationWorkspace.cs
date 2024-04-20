@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Customers;
+﻿using Domain.Entities.Clusterization.Profiles;
+using Domain.Entities.Customers;
 using Domain.Entities.DataObjects;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Monitorings;
