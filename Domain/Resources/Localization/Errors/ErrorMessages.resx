@@ -192,11 +192,17 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>Користувача не знайдено</value>
   </data>
+  <data name="WorkspaceChangingTypeIsOnlyOwner" xml:space="preserve">
+    <value>Цей робочий простір може змінювати тільки власник</value>
+  </data>
   <data name="WorkspaceDataObjectsAddPackNotFound" xml:space="preserve">
     <value>Пакет додавання об’єктів даних робочої області не знайдено</value>
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Робоча область не знайдена</value>
+  </data>
+  <data name="WorkspaceVisibleTypeIsOnlyOwner" xml:space="preserve">
+    <value>Цей робочий простір може переглядати тільки власник</value>
   </data>
   <data name="YoutubeChannelAddingError" xml:space="preserve">
     <value>Щось пішло не так при додаванні ютуб каналу</value>

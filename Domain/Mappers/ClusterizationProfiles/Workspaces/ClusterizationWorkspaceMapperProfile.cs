@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Mappers.ClusterizationProfiles
+namespace Domain.Mappers.ClusterizationProfiles.Workspaces
 {
     internal class ClusterizationWorkspaceMapperProfile : AutoMapper.Profile
     {

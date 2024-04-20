@@ -1,5 +1,4 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
-using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.DataSources.Youtube;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

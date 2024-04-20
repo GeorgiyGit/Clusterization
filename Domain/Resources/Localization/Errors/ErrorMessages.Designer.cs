@@ -286,6 +286,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цей робочий простір може змінювати тільки власник.
+        /// </summary>
+        public static string WorkspaceChangingTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("WorkspaceChangingTypeIsOnlyOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пакет додавання об’єктів даних робочої області не знайдено.
         /// </summary>
         public static string WorkspaceDataObjectsAddPackNotFound {
@@ -300,6 +309,15 @@ namespace Domain.Resources.Localization.Errors {
         public static string WorkspaceNotFound {
             get {
                 return ResourceManager.GetString("WorkspaceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цей робочий простір може переглядати тільки власник.
+        /// </summary>
+        public static string WorkspaceVisibleTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("WorkspaceVisibleTypeIsOnlyOwner", resourceCulture);
             }
         }
         

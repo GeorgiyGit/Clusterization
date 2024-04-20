@@ -192,11 +192,17 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
   </data>
+  <data name="WorkspaceChangingTypeIsOnlyOwner" xml:space="preserve">
+    <value>This workspace can only be changed by the owner</value>
+  </data>
   <data name="WorkspaceDataObjectsAddPackNotFound" xml:space="preserve">
     <value>Workspace data objects add pack not found</value>
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Workspace not found</value>
+  </data>
+  <data name="WorkspaceVisibleTypeIsOnlyOwner" xml:space="preserve">
+    <value>This workspace can only be viewed by the owner</value>
   </data>
   <data name="YoutubeChannelAddingError" xml:space="preserve">
     <value>Something went wrong while adding the YouTube channel</value>

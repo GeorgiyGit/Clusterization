@@ -101,6 +101,8 @@ namespace Domain.Services.DataSources.Youtube
                     WorkspaceId = workspace.Id
                 };
 
+                int addedElementsCount = 0;
+
                 await _addPacksRepository.AddAsync(pack);
                 await _addPacksRepository.SaveChangesAsync();
 
@@ -145,6 +147,7 @@ namespace Domain.Services.DataSources.Youtube
 
                             workspace.DataObjects.Add(dataObject);
                             count++;
+                            addedElementsCount++;
                             request.MaxCount--;
                             workspace.EntitiesCount++;
                         }
@@ -157,6 +160,7 @@ namespace Domain.Services.DataSources.Youtube
                     pageNumber++;
                 }
                 workspace.IsAllDataEmbedded = false;
+                pack.DataObjectsCount = addedElementsCount;
 
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
@@ -201,6 +205,8 @@ namespace Domain.Services.DataSources.Youtube
                     WorkspaceId = workspace.Id
                 };
 
+                int addedElementsCount = 0;
+
                 await _addPacksRepository.AddAsync(pack);
                 await _addPacksRepository.SaveChangesAsync();
 
@@ -239,11 +245,13 @@ namespace Domain.Services.DataSources.Youtube
 
                             workspace.DataObjects.Add(dataObject);
                             workspace.EntitiesCount++;
+                            addedElementsCount++;
                         }
                     }
                 }
 
                 workspace.IsAllDataEmbedded = false;
+                pack.DataObjectsCount = addedElementsCount;
 
                 await _workspacesRepository.SaveChangesAsync();
 

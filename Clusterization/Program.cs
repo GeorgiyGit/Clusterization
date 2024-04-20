@@ -119,6 +119,7 @@ internal class Program
         builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
         
         builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
+        builder.Services.AddScoped<IWorkspaceDataObjectsAddPacksService, WorkspaceDataObjectsAddPacksService>();
         builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
 
         builder.Services.AddScoped<IAccountService, AccountService>();

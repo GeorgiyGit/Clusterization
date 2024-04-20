@@ -5,15 +5,16 @@ using Domain.Entities.Monitorings;
 
 namespace Domain.Entities.Clusterization.Workspaces
 {
-    public class WorkspaceDataObjectsAddPack:Monitoring
+    public class WorkspaceDataObjectsAddPack : Monitoring
     {
         public int Id { get; set; }
 
         public ICollection<MyDataObject> DataObjects { get; set; } = new HashSet<MyDataObject>();
+        public int DataObjectsCount { get; set; }
 
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
-    
+
         public Customer Owner { get; set; }
         public string OwnerId { get; set; }
 
