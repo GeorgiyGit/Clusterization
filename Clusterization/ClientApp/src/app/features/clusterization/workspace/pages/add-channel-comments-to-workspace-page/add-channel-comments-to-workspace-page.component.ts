@@ -7,6 +7,7 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { YoutubeVideoService } from 'src/app/features/youtube/videos/services/youtube-video.service';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
+import { YoutubeDataObjectsService } from 'src/app/features/youtube/services/youtube-data-objects.service';
 
 @Component({
   selector: 'app-add-channel-comments-to-workspace-page',
@@ -45,7 +46,7 @@ export class AddChannelCommentsToWorkspacePageComponent implements OnInit{
   constructor(private router:Router,
     private fb: FormBuilder,
     private route:ActivatedRoute,
-    private workspaceService:ClusterizationWorkspaceService,
+    private youtubeDataObjectsService:YoutubeDataObjectsService,
     private toaster:MyToastrService,
     private storageService:MyLocalStorageService){}
   ngOnInit(): void {
@@ -86,7 +87,7 @@ export class AddChannelCommentsToWorkspacePageComponent implements OnInit{
     }
     options.workspaceId=workspaceId;
 
-    this.workspaceService.addCommentsByChannel(options).subscribe(res=>{
+    this.youtubeDataObjectsService.addCommentsByChannel(options).subscribe(res=>{
       this.toaster.success($localize`Коментарі додано`);
       this.isLoading=false;
       this.closeOverflow();

@@ -1,5 +1,4 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Requests;
-using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +33,6 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         {
             return Ok(await service.GetFullPack(id));
         }
-
 
         [HttpDelete("delete/{id}")]
         [Authorize]

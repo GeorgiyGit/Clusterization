@@ -4,7 +4,6 @@ import { YoutubeChannelService } from '../../services/youtube-channel.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ISelectAction } from 'src/app/core/models/select-action';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { AccountService } from 'src/app/features/account/services/account.service';

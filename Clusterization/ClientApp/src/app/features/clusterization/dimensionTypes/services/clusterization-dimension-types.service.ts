@@ -11,7 +11,7 @@ export class ClusterizationDimensionTypesService {
   controllerUrl: string;
 
   constructor(private http: HttpClient) {
-    this.controllerUrl = environment.apiUrl + "clusterizationDimensionTypes/";
+    this.controllerUrl = environment.apiUrl + "DimensionTypes/";
   }
 
   getAll(): Observable<IClusterizationDimensionType[]> {

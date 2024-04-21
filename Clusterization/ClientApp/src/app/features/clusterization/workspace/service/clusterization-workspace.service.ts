@@ -29,21 +29,14 @@ export class ClusterizationWorkspaceService {
   update(model: IUpdateClusterizationWorkspace): Observable<any> {
     return this.http.put(this.controllerUrl + "update", model);
   }
-
-  addCommentsByChannel(request: IAddCommentsToWorkspaceByChannelRequest): Observable<any> {
-    return this.http.post(this.controllerUrl + "add_comments_by_channel", request);
-  }
-  addCommentsByVideos(request: IAddCommentsToWorkspaceByVideosRequest): Observable<any> {
-    return this.http.post(this.controllerUrl + "add_comments_by_videos", request);
-  }
-  addExternalData(data: IAddExternalData): Observable<any> {
+  /*addExternalData(data: IAddExternalData): Observable<any> {
     let formData = new FormData();
 
     formData.append("file", data.file);
     formData.append("workspaceId", data.workspaceId + "");
 
     return this.http.post(this.controllerUrl + "load_external_data", formData);
-  }
+  }*/
 
   getFullById(id: number): Observable<IClusterizationWorkspace> {
     return this.http.get<IClusterizationWorkspace>(this.controllerUrl + "get_full_by_id/" + id);

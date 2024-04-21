@@ -4,5 +4,6 @@ export interface IGetClusterizationProfilesRequest{
     workspaceId:number,
     pageParameters:IPageParameters,
     algorithmTypeId:string | undefined,
-    dimensionCount:number | undefined
+    dimensionCount:number | undefined,
+    embeddingModelId:string | undefined
 }

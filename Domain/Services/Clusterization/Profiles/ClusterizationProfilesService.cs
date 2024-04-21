@@ -117,7 +117,7 @@ namespace Domain.Services.Clusterization.Profiles
             }
 
             var pageParameters = request.PageParameters;
-            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechniqueId)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
+            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
                                             .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                             .Take(pageParameters.PageSize).ToList();
 

@@ -49,13 +49,13 @@ export class CustomerTasksListComponent implements OnInit {
 
     this.isLoading2 = true;
     this.userTasksService.getTasks(this.request).subscribe(res => {
-      this.isLoading = false;
+      this.isLoading2 = false;
       this.tasks = this.tasks.concat(res);
 
       if (res.length < this.request.pageParameters.pageSize) this.isLoadMoreAvailable = false;
       else this.isLoadMoreAvailable = true;
     }, error => {
-      this.isLoading = false;
+      this.isLoading2 = false;
       this.toastr.error(error.error.Message);
     })
   }

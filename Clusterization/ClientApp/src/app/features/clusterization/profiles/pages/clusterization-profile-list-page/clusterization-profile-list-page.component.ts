@@ -15,6 +15,7 @@ export class ClusterizationProfileListPageComponent implements OnInit{
   request:IGetClusterizationProfilesRequest={
     algorithmTypeId:undefined,
     dimensionCount:undefined,
+    embeddingModelId:undefined,
     pageParameters:{
       pageNumber:1,
       pageSize:10
@@ -40,11 +41,13 @@ export class ClusterizationProfileListPageComponent implements OnInit{
   changeFilter(filter:IProfileFilter){
     let flag=true;
     if(this.request.algorithmTypeId==filter.algorithmTypeId &&
-       this.request.dimensionCount==filter.dimensionCount){
+       this.request.dimensionCount==filter.dimensionCount &&
+       this.request.embeddingModelId==filter.embeddingModelId){
         flag=false;
     }
     this.request.algorithmTypeId=filter.algorithmTypeId;
     this.request.dimensionCount=filter.dimensionCount;
+    this.request.embeddingModelId=filter.embeddingModelId;
 
     if(flag){
       this.loadFirst();

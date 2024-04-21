@@ -16,6 +16,6 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs
         public string? AlgorithmTypeId { get; set; }
         public int? DimensionCount { get; set; }
 
-        public string EmbeddingModelId { get; set; }
+        public string? EmbeddingModelId { get; set; }
     }
 }

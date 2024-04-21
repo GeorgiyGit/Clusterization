@@ -9,7 +9,8 @@ import { IProfileFilter } from '../../models/profile-filter';
 export class ClusterizationProfileSearchFilterComponent {
   @Input() filter:IProfileFilter={
     algorithmTypeId:undefined,
-    dimensionCount:undefined
+    dimensionCount:undefined,
+    embeddingModelId:undefined
   };
 
   @Output() sendEvent=new EventEmitter<IProfileFilter>();
@@ -22,6 +23,10 @@ export class ClusterizationProfileSearchFilterComponent {
 
   algorithmTypeIdChange(id:string){
     this.filter.algorithmTypeId=id;
+    this.sendEvent.emit(this.filter);
+  }
+  embeddingModelIdChange(id:string){
+    this.filter.embeddingModelId=id;
     this.sendEvent.emit(this.filter);
   }
 }

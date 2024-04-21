@@ -7,6 +7,7 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { ISimpleVideo } from 'src/app/features/youtube/videos/models/simple-video';
 import { IAddCommentsToWorkspaceByVideosRequest } from '../../models/requests/addCommentsToWorkspaceByVideos';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
+import { YoutubeDataObjectsService } from 'src/app/features/youtube/services/youtube-data-objects.service';
 
 @Component({
   selector: 'app-add-videos-comments-to-workspace',
@@ -47,7 +48,7 @@ export class AddVideosCommentsToWorkspaceComponent implements OnInit{
   constructor(private router:Router,
     private fb: FormBuilder,
     private route:ActivatedRoute,
-    private workspaceService:ClusterizationWorkspaceService,
+    private youtubeDataObjectsService:YoutubeDataObjectsService,
     private toaster:MyToastrService,
     private storageService:MyLocalStorageService){}
   ngOnInit(): void {
@@ -97,7 +98,7 @@ export class AddVideosCommentsToWorkspaceComponent implements OnInit{
     options.videoIds=ids;
     options.workspaceId=workspaceId;
 
-    this.workspaceService.addCommentsByVideos(options).subscribe(res=>{
+    this.youtubeDataObjectsService.addCommentsByVideos(options).subscribe(res=>{
       this.toaster.success($localize`Коментарі додано`);
       this.isLoading=false;
       this.closeOverflow();

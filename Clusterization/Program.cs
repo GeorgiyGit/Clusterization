@@ -290,10 +290,10 @@ internal class Program
 
         app.MapFallbackToFile("index.html");
 
-        //using (var scope = app.Services.CreateScope())
-        //{
-            //UserSeeders.Configure(scope.ServiceProvider).Wait();
-        //}
+        using (var scope = app.Services.CreateScope())
+        {
+            UserSeeders.Configure(scope.ServiceProvider).Wait();
+        }
 
         app.Run();
 

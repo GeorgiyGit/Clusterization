@@ -1,4 +1,5 @@
 <div class="cont">
     <app-clusterization-dimension-types-input [isNullAvailable]="true" (sendEvent)="dimensionCountChange($event)"></app-clusterization-dimension-types-input>
     <app-clusterization-algorithm-types-select [isNullAvailable]="true" (sendEvent)="algorithmTypeIdChange($event)"></app-clusterization-algorithm-types-select>
+    <app-embedding-models-select [isNullAvailable]="true" (sendEvent)="embeddingModelIdChange($event)"></app-embedding-models-select>
 </div>

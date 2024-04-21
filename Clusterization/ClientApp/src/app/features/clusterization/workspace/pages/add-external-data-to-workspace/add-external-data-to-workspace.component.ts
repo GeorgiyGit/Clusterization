@@ -55,13 +55,13 @@ export class AddExternalDataToWorkspaceComponent implements OnInit {
       workspaceId: this.workspaceId,
       file: this.selectedFile
     };
-    this.workspaceService.addExternalData(model).subscribe(res => {
+    /*this.workspaceService.addExternalData(model).subscribe(res => {
       this.isLoading = false;
       this.closeOverflow();
     }, error => {
       this.isLoading = false;
       this.toaster.error(error.error.Message);
-    });
+    });*/
   }
 
   onFileSelected(event: Event) {
