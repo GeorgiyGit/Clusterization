@@ -3,7 +3,6 @@ import { IClusterizationProfile } from '../../models/clusterization-profile';
 import { ClusterizationProfilesService } from '../../services/clusterization-profiles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ISelectAction } from 'src/app/core/models/select-action';
-import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { OneClusterAlgorithmService } from '../../../algorithms/non-hierarchical/oneCluster/services/one-cluster-algorithm.service';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -12,6 +11,7 @@ import { DbscanService } from '../../../algorithms/non-hierarchical/dbscan/servi
 import { SpectralClusteringService } from '../../../algorithms/non-hierarchical/spectral-clustering/services/spectral-clustering.service';
 import { GaussianMixtureService } from '../../../algorithms/non-hierarchical/gaussian-mixture/services/gaussian-mixture.service';
 import { AccountService } from 'src/app/features/account/services/account.service';
+import { EmbeddingsLoadingService } from 'src/app/features/embeddings/services/embeddings-loading.service';
 
 @Component({
   selector: 'app-clusterization-full-profile-page',
@@ -26,6 +26,23 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
   clustersCountStr:string=$localize`Кількість кластерів`;
 
   actions: ISelectAction[] = [
+    {
+      name: $localize`Завантажити ембедингі`,
+      action: () => {
+        let userId = this.accountService.getUserId();
+        if (this.profile.changingType === 'OnlyOwner' && (userId == null || userId != this.profile.ownerId)) {
+          this.toastr.error($localize`Цей профіль може змінювати тільки власник!!!`);
+          return;
+        }
+
+        this.embeddingsLoadingService.loadEmbeddingsByProfile(this.profile.id).subscribe(res=>{
+          this.toastr.success($localize`Завдання успішно створено`);
+        },error=>{
+          this.toastr.error(error.error.Message);
+        })
+      },
+      isForAuthorized: true
+    },
     {
       name: $localize`Кластеризувати`,
       action: () => {
@@ -83,7 +100,8 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
     private toastr: MyToastrService,
     private clipboard: Clipboard,
     private accountService: AccountService,
-    private kMeansService: KMeansService) { }
+    private kMeansService: KMeansService,
+    private embeddingsLoadingService:EmbeddingsLoadingService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 

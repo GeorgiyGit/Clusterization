@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.DTOs.TaskDTOs;
+using Domain.Entities.Customers;
 using Domain.Entities.Tasks;
 using Domain.Exceptions;
 using Domain.Interfaces.Customers;
@@ -68,6 +69,10 @@ namespace Domain.Services.TaskServices
 
             if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.Unauthorized);
 
+            return await CreateTaskWithUserId(name, customerId);
+        }
+        public async Task<int> CreateTaskWithUserId(string name, string userId)
+        {
             var state = await state_repository.FindAsync(TaskStates.Wait);
 
             var task = new MyTask()
@@ -75,7 +80,7 @@ namespace Domain.Services.TaskServices
                 Title = name,
                 Percent = 0,
                 StateId = state.Id,
-                CustomerId = customerId
+                CustomerId = userId
             };
 
             await task_repository.AddAsync(task);
@@ -83,6 +88,7 @@ namespace Domain.Services.TaskServices
 
             return task.Id;
         }
+
         public async Task<string?> GetTaskStateId(int id)
         {
             var task = (await task_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)}")).FirstOrDefault();

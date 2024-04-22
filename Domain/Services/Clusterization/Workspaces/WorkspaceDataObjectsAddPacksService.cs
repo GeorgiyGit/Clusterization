@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Requests;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Respones;
-using Domain.DTOs.EmbeddingDTOs;
+using Domain.DTOs.EmbeddingDTOs.Responses;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Embeddings;
 using Domain.Exceptions;

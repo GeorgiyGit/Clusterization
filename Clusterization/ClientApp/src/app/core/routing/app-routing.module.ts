@@ -31,6 +31,7 @@ import { AddQuatasPackToCustomerPageComponent } from "src/app/features/admin-pan
 import { FullTaskPageComponent } from "src/app/features/tasks/pages/full-task-page/full-task-page.component";
 import { WorkspaceAddDataPackListPageComponent } from "src/app/features/clusterization/workspaceAddDataPacks/pages/workspace-add-data-pack-list-page/workspace-add-data-pack-list-page.component";
 import { WorkspaceAddPackFullPageComponent } from "src/app/features/clusterization/workspaceAddDataPacks/pages/workspace-add-pack-full-page/workspace-add-pack-full-page.component";
+import { LoadEmbeddingsByPackPageComponent } from "src/app/features/embeddings/pages/load-embeddings-by-pack-page/load-embeddings-by-pack-page.component";
 const routes: Route[] = [
   {
     path:'',
@@ -224,6 +225,11 @@ const routes: Route[] = [
   {
     path:'workspace-add-data-packs/full/:id',
     component:WorkspaceAddPackFullPageComponent,
+    outlet:'overflow',
+  },
+  {
+    path:'embeddings-loading/load-by-data-pack/:id',
+    component:LoadEmbeddingsByPackPageComponent,
     outlet:'overflow',
   },
 ]

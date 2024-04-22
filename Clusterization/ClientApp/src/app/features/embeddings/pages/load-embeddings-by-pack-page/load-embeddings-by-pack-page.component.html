@@ -1,0 +1,14 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Завантажити ембедингі</h1>
+        <app-embedding-models-select [isNullAvailable]="false"
+            (sendEvent)="selectEmbeddingModelId($event)"></app-embedding-models-select>
+        <div class="centered mt-10">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" (click)="submit()" i18n>Почати</button>
+        </div>
+    </div>
+</section>

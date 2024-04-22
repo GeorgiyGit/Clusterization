@@ -1,5 +1,5 @@
 ﻿using Domain.DTOs.CustomerDTOs.Responses;
-using Domain.DTOs.EmbeddingDTOs;
+using Domain.DTOs.EmbeddingDTOs.Responses;
 
 namespace Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Respones
 {

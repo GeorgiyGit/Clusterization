@@ -72,9 +72,9 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
 
             var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace]);
 
-            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceBackgroundJob(profileId, userId, taskId));
+            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId));
         }
-        public async Task LoadEmbeddingsByWorkspaceBackgroundJob(int profileId, string userId, int taskId)
+        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, int taskId)
         {
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
 
@@ -87,9 +87,10 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             if (workspace.IsAllDataEmbedded) return;
 
             bool flag = false;
-            foreach(var pack in workspace.WorkspaceDataObjectsAddPacks)
+            var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted);
+            foreach (var pack in packs)
             {
-                var packTaskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack]);
+                var packTaskId = await _tasksService.CreateTaskWithUserId(_tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack], userId);
 
                 await LoadEmbeddingsByWorkspaceDataPackBackgroundJob(pack.Id, userId, packTaskId, profile.EmbeddingModelId);
 

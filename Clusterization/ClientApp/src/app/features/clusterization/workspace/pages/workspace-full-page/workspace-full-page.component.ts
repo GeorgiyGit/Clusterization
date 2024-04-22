@@ -67,22 +67,6 @@ export class WorkspaceFullPageComponent implements OnInit {
           isForAuthorized: true
         },
         {
-          name: $localize`Завантажити ембедінги`,
-          action: () => {
-            let userId = this.accountService.getUserId();
-            if (this.workspace.changingType === 'OnlyOwner' && (userId == null || userId != this.workspace.ownerId)) {
-              this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
-              return;
-            }
-
-            this.workspaceService.embeddingData(this.workspace.id).subscribe(res => {
-            }, error => {
-              this.toastr.error(error.error.Message);
-            });
-          },
-          isForAuthorized: true
-        },
-        {
           name: $localize`Завантажити файл з текстовими даними`,
           action: () => {
             let userId = this.accountService.getUserId();

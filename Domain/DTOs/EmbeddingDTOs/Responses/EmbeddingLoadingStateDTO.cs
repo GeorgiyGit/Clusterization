@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.DTOs.EmbeddingDTOs
+namespace Domain.DTOs.EmbeddingDTOs.Responses
 {
     public class EmbeddingLoadingStateDTO
     {

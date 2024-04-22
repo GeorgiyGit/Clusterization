@@ -12,7 +12,7 @@ export class EmbeddingModelsSelectComponent implements OnInit {
 
   @Input() isNullAvailable:boolean;
 
-  tooltip:string=$localize`Тип алгоритму`;
+  tooltip:string=$localize`Тип моделі ембедингу`;
 
   options: IOptionForSelectInput[] = [];
   constructor(private embeddingModelsService: EmbeddingModelsService) { }

@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.EmbeddingDTOs;
+﻿using Domain.DTOs.EmbeddingDTOs.Responses;
 using Domain.Entities.Embeddings;
 using System;
 using System.Collections.Generic;

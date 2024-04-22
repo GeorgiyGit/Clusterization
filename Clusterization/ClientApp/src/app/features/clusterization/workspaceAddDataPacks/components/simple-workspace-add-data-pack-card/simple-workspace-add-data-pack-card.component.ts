@@ -35,11 +35,24 @@ export class SimpleWorkspaceAddDataPackCardComponent implements OnInit {
 
     this.updateActions();
   }
-
+  
   updateActions(){
-    this.actions=[];
+    this.actions=[{
+      name:$localize`Завантажити ембедингі`,
+      action: () => {
+        let userId = this.accountService.getUserId();
+        if (this.pack.workspaceChangingType === 'OnlyOwner' && (userId == null || userId != this.pack.owner.id)) {
+          this.toastr.error($localize`Цей пакет даних може змінювати тільки власник робочого простору`);
+          return;
+        }
+
+        this.router.navigate([{ outlets: { overflow: 'embeddings-loading/load-by-data-pack/' + this.pack.id } }]);
+      },
+      isForAuthorized: true
+
+    }];
     if(!this.pack.isDeleted){
-      this.actions.push(    {
+      this.actions.push({
         name: $localize`Видалити`,
         action: () => {
           let userId = this.accountService.getUserId();
