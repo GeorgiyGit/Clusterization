@@ -5,7 +5,7 @@ export interface ISimpleClusterizationProfile{
     id:number,
     dimensionCount:number,
     algorithmType:ISimpleAlgorithmType,
-    dimensionalityReductionTechnique:IDimensionalityReductionTechnique,
+    drTechnique:IDimensionalityReductionTechnique,
 
     fullTitle:string,
 

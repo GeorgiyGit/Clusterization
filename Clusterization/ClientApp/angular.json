@@ -85,10 +85,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Clusterization:build:production"
+              "buildTarget": "Clusterization:build:production"
             },
             "development": {
-              "browserTarget": "Clusterization:build:development",
+              "buildTarget": "Clusterization:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Clusterization:build"
+            "buildTarget": "Clusterization:build"
           }
         },
         "test": {

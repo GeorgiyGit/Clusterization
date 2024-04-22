@@ -11,9 +11,9 @@
                     <span i18n-matTooltip matTooltip="Кількість вимірів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
                     <p>{{profile?.dimensionCount}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.dimensionalityReductionTechnique.name,$event)">
+                <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.drTechnique.name,$event)">
                     <span i18n-matTooltip matTooltip="Тип алгоритму зменшення розмірності" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
-                    <p>{{profile?.dimensionalityReductionTechnique?.name}}</p>
+                    <p>{{profile?.drTechnique?.name}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(clustersCountStr,profile.clustersCount+'',$event)">
                     <span i18n-matTooltip matTooltip="Кількість кластерів" class="material-symbols-outlined icon" translate="no">workspaces</span>

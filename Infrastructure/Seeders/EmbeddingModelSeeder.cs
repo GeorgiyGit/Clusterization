@@ -29,7 +29,7 @@ namespace Infrastructure.Seeders
                 Id = EmbeddingModelList.text_embedding_3_small,
                 MaxInputCount = 4000,
                 Description = "Text embedding 3 small",
-                Name = "text-embedding-ada-002",
+                Name = "text_embedding_3_small",
                 QuotasPrice = 1,
                 DimensionTypeId = 1536
             };

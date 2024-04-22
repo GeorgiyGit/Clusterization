@@ -16,7 +16,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public int DimensionCount { get; set; }
         public string FullTitle { get; set; }
 
-        public DimensionalityReductionTechniqueDTO DimensionalityReductionTechnique { get; set; }
+        public DimensionalityReductionTechniqueDTO DRTechnique { get; set; }
         public SimpleAlgorithmTypeDTO AlgorithmType { get; set; }
 
         public bool IsElected { get; set; }

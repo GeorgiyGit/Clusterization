@@ -48,7 +48,7 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
               this.toastr.error(error.error.Message);
             });
             break;
-          case 'DBScan':
+          case 'DBSCAN':
             this.dbScanService.clusterData(this.profile.id).subscribe(res => {
             }, error => {
               this.toastr.error(error.error.Message);
@@ -90,7 +90,7 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
     this.isLoading = true;
     this.profilesService.getFullById(id).subscribe(res => {
       this.profile = res;
-
+      console.log(this.profile);
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

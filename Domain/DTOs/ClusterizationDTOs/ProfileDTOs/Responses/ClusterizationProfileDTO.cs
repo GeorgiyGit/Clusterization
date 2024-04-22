@@ -30,7 +30,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public int MinTileLevel { get; set; }
         public int MaxTileLevel { get; set; }
 
-        public DimensionalityReductionTechniqueDTO DimensionalityReductionTechnique { get; set; }
+        public DimensionalityReductionTechniqueDTO DRTechnique { get; set; }
         
         public bool IsElected { get; set; }
 

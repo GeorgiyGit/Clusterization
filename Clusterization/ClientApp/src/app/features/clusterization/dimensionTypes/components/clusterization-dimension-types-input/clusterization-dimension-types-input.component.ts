@@ -91,5 +91,6 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
       var id = parseInt(option.value);
       this.sendEvent.emit(id);
     }
+    else if(this.isNullAvailable)this.sendEvent.emit(undefined);
   }
 }
