@@ -6,7 +6,7 @@ export interface IFullWorkspaceAddDataPack{
     dataObjectsCount:number,
     owner:ISimpleCustomer,
 
-    embeddingLoadingStates:IEmbeddingLoadingState,
+    embeddingLoadingStates:IEmbeddingLoadingState[],
 
     creationTime:Date,
     isDeleted:boolean

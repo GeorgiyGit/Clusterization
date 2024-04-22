@@ -30,6 +30,7 @@ import { ModeratorGuard } from "../guard/moderator.guard";
 import { AddQuatasPackToCustomerPageComponent } from "src/app/features/admin-panel/quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component";
 import { FullTaskPageComponent } from "src/app/features/tasks/pages/full-task-page/full-task-page.component";
 import { WorkspaceAddDataPackListPageComponent } from "src/app/features/clusterization/workspaceAddDataPacks/pages/workspace-add-data-pack-list-page/workspace-add-data-pack-list-page.component";
+import { WorkspaceAddPackFullPageComponent } from "src/app/features/clusterization/workspaceAddDataPacks/pages/workspace-add-pack-full-page/workspace-add-pack-full-page.component";
 const routes: Route[] = [
   {
     path:'',
@@ -219,7 +220,12 @@ const routes: Route[] = [
     path:'tasks-details/:id',
     component:FullTaskPageComponent,
     outlet:'overflow'
-  }
+  },
+  {
+    path:'workspace-add-data-packs/full/:id',
+    component:WorkspaceAddPackFullPageComponent,
+    outlet:'overflow',
+  },
 ]
 
 @NgModule({

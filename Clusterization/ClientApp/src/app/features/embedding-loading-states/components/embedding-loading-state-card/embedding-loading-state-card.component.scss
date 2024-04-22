@@ -1,0 +1,25 @@
+@import '/src/app/core/styles/colors.scss';
+
+.cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px dashed $first-color-4;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .name{
+        color: $first-color-3;
+    }
+
+    .loaded{
+        color: $first-color-1;
+    }
+    .not-loaded{
+        color: $warn-1;
+    }
+}

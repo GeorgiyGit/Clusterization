@@ -1,0 +1,35 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Пакет даних</h1>
+        <div class="blocks-cont">
+            <div class="block" (click)="copyToClipboard(entitiesCountStr,pack.dataObjectsCount+'',$event)">
+                <span i18n-matTooltip matTooltip="Кількість об'єктів даних" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                <p>{{pack.dataObjectsCount}}</p>
+            </div>
+            <div class="block">
+                <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">schedule</span>
+                <span class="time-text">{{pack.creationTime | normalizedDateTime}}</span>
+            </div>
+            <div class="block">
+                <span i18n-matTooltip matTooltip="Власник" class="material-symbols-outlined icon" translate="no">person</span>
+                <p>{{pack.owner.userName}}</p>
+                <span class="material-symbols-outlined icon first-color-text" translate="no" i18n-matTooltip matTooltip="Цей пакет даних ваш" *ngIf="isYour">face</span>
+            </div>
+            <div class="block">
+                <span i18n-matTooltip matTooltip="Стан" class="material-symbols-outlined icon" translate="no">bloodtype</span>
+                <p *ngIf="pack.isDeleted" class="delete-icon" i18n>Видалено</p>
+                <p *ngIf="!pack.isDeleted" class="first-color-text" i18n>Активний</p>
+            </div>
+        </div>
+
+        <h2 i18n>Статуси ембедингів</h2>
+        <div class="states-cont">
+            @for (state of pack.embeddingLoadingStates; track $index) {
+                <app-embedding-loading-state-card [state]="state"></app-embedding-loading-state-card>
+            }
+        </div>
+    </div>
+</section>

@@ -111,6 +111,8 @@ import { EmbeddingModelsSelectComponent } from './features/embedding-models/comp
 import { SimpleWorkspaceAddDataPackCardComponent } from './features/clusterization/workspaceAddDataPacks/components/simple-workspace-add-data-pack-card/simple-workspace-add-data-pack-card.component';
 import { WorkspaceAddDataPackListComponent } from './features/clusterization/workspaceAddDataPacks/components/workspace-add-data-pack-list/workspace-add-data-pack-list.component';
 import { WorkspaceAddDataPackListPageComponent } from './features/clusterization/workspaceAddDataPacks/pages/workspace-add-data-pack-list-page/workspace-add-data-pack-list-page.component';
+import { WorkspaceAddPackFullPageComponent } from './features/clusterization/workspaceAddDataPacks/pages/workspace-add-pack-full-page/workspace-add-pack-full-page.component';
+import { EmbeddingLoadingStateCardComponent } from './features/embedding-loading-states/components/embedding-loading-state-card/embedding-loading-state-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -219,7 +221,10 @@ export function tokenGetter() {
 
     SimpleWorkspaceAddDataPackCardComponent,
     WorkspaceAddDataPackListComponent,
-    WorkspaceAddDataPackListPageComponent
+    WorkspaceAddDataPackListPageComponent,
+
+    WorkspaceAddPackFullPageComponent,
+    EmbeddingLoadingStateCardComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,0 +1,85 @@
+@import '/src/app/core/styles/base.scss';
+
+section {
+    opacity: 0;
+    transition: all 0.3s;
+
+    padding: 100px;
+
+    .main-cont {
+        background-color: $second-color-2;
+        padding: 30px;
+
+        width: 50%;
+
+        height: fit-content;
+        min-height: 70vh;
+
+        h1 {
+            color: $first-color-2;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .blocks-cont{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .block {
+                display: flex;
+                cursor: pointer;
+                gap: 5px;
+    
+                width: fit-content;
+                color: $first-color-2;
+
+                .icon {
+                    color: $first-color-2;
+                }
+
+                .first-color-text {
+                    color: $first-color-1;
+                }
+    
+                .delete-icon{
+                    color: $warn-1;
+                }
+    
+                p {
+                    height: fit-content;
+                }
+            }
+        }
+        .states-cont{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+h2{
+    color: $first-color-3;
+    font-size: 1em;
+    margin-top: 10px;
+    text-align: center;
+}
+.open {
+    opacity: 1;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
+.one-radio-conts {
+    margin-top: 10px;
+}
+
+.disabled-btn {
+    background-color: $warn-1;
+    cursor: no-drop;
+}

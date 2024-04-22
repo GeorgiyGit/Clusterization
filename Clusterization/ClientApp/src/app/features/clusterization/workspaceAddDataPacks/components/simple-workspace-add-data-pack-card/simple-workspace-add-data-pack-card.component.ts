@@ -83,7 +83,7 @@ export class SimpleWorkspaceAddDataPackCardComponent implements OnInit {
   }
 
   openFull() {
-    this.router.navigateByUrl('workspace-add-data-packs/full/' + this.pack.id);
+    this.router.navigate([{ outlets: { overflow: 'workspace-add-data-packs/full/' + this.pack.id } }]);
   }
 
   copyToClipboard(msg: string, text: string, event: MouseEvent) {

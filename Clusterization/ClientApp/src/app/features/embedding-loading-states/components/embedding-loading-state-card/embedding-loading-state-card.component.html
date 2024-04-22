@@ -1,0 +1,5 @@
+<div class="cont">
+    <p class="name">{{state.embeddingModel.name}}:</p>
+    <p *ngIf="state.isAllEmbeddingsLoaded" class="loaded">Завантажено</p>
+    <p *ngIf="!state.isAllEmbeddingsLoaded" class="not-loaded">Не завантажено</p>
+</div>
