@@ -1,0 +1,7 @@
+<div class="cont">
+    @for (pack of packs; track $index) {
+    <app-simple-workspace-add-data-pack-card [pack]="pack"></app-simple-workspace-add-data-pack-card>
+    }@empty {
+    <p i18n class="nothing-text" i18n>Пакетів даних не знайдено</p>
+    }
+</div>

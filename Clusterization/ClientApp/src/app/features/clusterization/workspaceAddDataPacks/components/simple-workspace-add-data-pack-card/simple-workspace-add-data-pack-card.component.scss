@@ -1,0 +1,83 @@
+@import '/src/app/core/styles/base.scss';
+
+.card-cont {
+    background-color: $second-color-1;
+    border-radius: 10px;
+
+    color: $first-color-3;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+
+    .icon {
+        color: $first-color-4;
+
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .top-cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .time-text {
+            color: $first-color-2;
+        }
+    }
+
+    .main-cont {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .block {
+            display: flex;
+            cursor: pointer;
+            gap: 5px;
+
+            width: fit-content;
+
+            .normal-color-text {
+                color: $first-color-2;
+            }
+
+            .first-color-text {
+                color: $first-color-1;
+            }
+
+            .icon {
+                color: $first-color-2;
+            }
+
+            .auth-icon{
+                color: $first-color-1;
+            }
+            .delete-icon{
+                color: $warn-1;
+            }
+
+            p {
+                height: fit-content;
+            }
+        }
+    }
+}
+.deleted{
+    box-shadow: 0 0 5px 0.5px rgba($warn-1,0.5);
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}

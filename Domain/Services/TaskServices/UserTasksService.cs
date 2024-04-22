@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Domain.DTOs;
 using Domain.DTOs.TaskDTOs;
-using Domain.Entities.Customers;
 using Domain.Entities.Tasks;
 using Domain.Exceptions;
 using Domain.Extensions;

@@ -52,7 +52,6 @@ export class WorkspaceFullPageComponent implements OnInit {
     this.isLoading = true;
     this.workspaceService.getFullById(id).subscribe(res => {
       this.workspace = res;
-
       this.actions = [
         {
           name: $localize`Додати профіль`,

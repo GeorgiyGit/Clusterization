@@ -12,10 +12,15 @@ namespace Domain.Mappers.ClusterizationProfiles.Workspaces
     {
         public WorkspaceAddPackProfile()
         {
-            CreateMap<WorkspaceDataObjectsAddPack, WorkspaceDataObjectsAddPackSimpleDTO>();
+            CreateMap<WorkspaceDataObjectsAddPack, WorkspaceDataObjectsAddPackSimpleDTO>()
+                .ForMember(dest => dest.WorkspaceChangingType,
+                           ost => ost.MapFrom(e => e.Workspace.ChangingType));
+
             CreateMap<WorkspaceDataObjectsAddPack, WorkspaceDataObjectsAddPackFullDTO>()
                 .ForMember(dest => dest.EmbeddingLoadingStates,
-                           ost => ost.Ignore());
+                           ost => ost.Ignore())
+                .ForMember(dest => dest.WorkspaceChangingType,
+                           ost => ost.MapFrom(e => e.Workspace.ChangingType));
         }
     }
 }

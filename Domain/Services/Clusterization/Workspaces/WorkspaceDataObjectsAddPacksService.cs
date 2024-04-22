@@ -10,6 +10,7 @@ using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
+using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.Extensions.Localization;
 using System.Net;
 
@@ -48,7 +49,7 @@ namespace Domain.Services.Clusterization.Workspaces
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             var packs = await _packsRepository.GetAsync(e => e.OwnerId == userId,
-                                            includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)}",
+                                            includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)},{nameof(WorkspaceDataObjectsAddPack.Workspace)}",
                                             orderBy: o => o.OrderByDescending(e => e.CreationTime),
                                             pageParameters: request.PageParameters);
 
@@ -70,7 +71,7 @@ namespace Domain.Services.Clusterization.Workspaces
             }
 
             var packs = await _packsRepository.GetAsync(e => e.WorkspaceId == request.WorkspaceId,
-                                                        includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)}",
+                                                        includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)},{nameof(WorkspaceDataObjectsAddPack.Workspace)}",
                                                         orderBy: o => o.OrderByDescending(e => e.CreationTime),
                                                         pageParameters: request.PageParameters);
 
@@ -79,7 +80,7 @@ namespace Domain.Services.Clusterization.Workspaces
 
         public async Task<WorkspaceDataObjectsAddPackFullDTO> GetFullPack(int id)
         {
-            var pack = (await _packsRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)},{nameof(WorkspaceDataObjectsAddPack.EmbeddingLoadingStates)}")).FirstOrDefault();
+            var pack = (await _packsRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)},{nameof(WorkspaceDataObjectsAddPack.EmbeddingLoadingStates)},{nameof(WorkspaceDataObjectsAddPack.Workspace)}")).FirstOrDefault();
 
             if (pack == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceDataObjectsAddPackNotFound], HttpStatusCode.NotFound);
 
@@ -117,6 +118,8 @@ namespace Domain.Services.Clusterization.Workspaces
             if (pack == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceDataObjectsAddPackNotFound], HttpStatusCode.NotFound);
 
 
+            if (pack.IsDeleted) return;
+
             var workspace = (await _workspacesRepository.GetAsync(e => e.Id == pack.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
 
             if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
@@ -146,6 +149,7 @@ namespace Domain.Services.Clusterization.Workspaces
 
             if (pack == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceDataObjectsAddPackNotFound], HttpStatusCode.NotFound);
 
+            if (!pack.IsDeleted) return;
 
             var workspace = (await _workspacesRepository.GetAsync(e => e.Id == pack.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
 

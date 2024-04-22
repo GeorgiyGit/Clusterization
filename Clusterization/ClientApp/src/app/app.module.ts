@@ -108,6 +108,9 @@ import { CustomerWorkspacesListPageComponent } from './features/customer-account
 import { CustomerProfilesListPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-list-page/customer-profiles-list-page.component';
 import { CustomerProfilesMainPageComponent } from './features/customer-account-details/children/profiles/pages/customer-profiles-main-page/customer-profiles-main-page.component';
 import { EmbeddingModelsSelectComponent } from './features/embedding-models/components/embedding-models-select/embedding-models-select.component';
+import { SimpleWorkspaceAddDataPackCardComponent } from './features/clusterization/workspaceAddDataPacks/components/simple-workspace-add-data-pack-card/simple-workspace-add-data-pack-card.component';
+import { WorkspaceAddDataPackListComponent } from './features/clusterization/workspaceAddDataPacks/components/workspace-add-data-pack-list/workspace-add-data-pack-list.component';
+import { WorkspaceAddDataPackListPageComponent } from './features/clusterization/workspaceAddDataPacks/pages/workspace-add-data-pack-list-page/workspace-add-data-pack-list-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -212,7 +215,11 @@ export function tokenGetter() {
     CustomerProfilesMainPageComponent,
     CustomerProfilesListPageComponent,
 
-    EmbeddingModelsSelectComponent
+    EmbeddingModelsSelectComponent,
+
+    SimpleWorkspaceAddDataPackCardComponent,
+    WorkspaceAddDataPackListComponent,
+    WorkspaceAddDataPackListPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

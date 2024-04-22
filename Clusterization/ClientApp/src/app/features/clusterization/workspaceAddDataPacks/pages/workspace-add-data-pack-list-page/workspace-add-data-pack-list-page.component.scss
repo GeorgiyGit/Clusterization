@@ -1,0 +1,64 @@
+@import '/src/app/core/styles/colors.scss';
+
+section{
+    padding-top: 20px;
+
+    h1{
+        margin: 0;
+        padding: 0;
+        margin-bottom: 50px;
+        text-align: center;
+        color: $first-color-2;
+    }
+
+    .mb-10{
+        margin-bottom: 10px;
+    }
+    
+    .centered{
+        display: flex;
+        justify-content: center;
+    }
+
+    .more-btn{
+        padding: 0;
+        margin: 0;
+        outline: 0;
+        padding: 10px 20px;
+        
+        background-color: $first-color-2;
+        color: $second-color-1;
+
+        font-weight: bold;
+
+        border: 0;
+
+        border-radius: 5px;
+
+        &:hover{
+            background-color: $first-color-3;
+        }
+        &:active{
+            background-color: $first-color-4;
+        }
+    }
+}
+
+
+.padding{
+    padding: 50px;
+    padding-top: 100px;
+}
+.disable{
+    display: none;
+}
+.mt-10{
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+    .padding{
+        padding: 20px;
+        padding-top: 100px;
+    }
+}

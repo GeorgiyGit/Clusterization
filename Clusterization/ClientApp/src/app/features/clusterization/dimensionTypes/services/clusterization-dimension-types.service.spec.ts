@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ClusterizationDimensionTypesService } from './clusterization-dimension-types.service';
 
 describe('ClusterizationDimensionTypesService', () => {

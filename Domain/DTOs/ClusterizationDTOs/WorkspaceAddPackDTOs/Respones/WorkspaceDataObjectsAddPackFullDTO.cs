@@ -15,5 +15,7 @@ namespace Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Respones
 
         public DateTime CreationTime { get; set; }
         public bool IsDeleted { get; set; }
+
+        public string WorkspaceChangingType { get; set; }
     }
 }

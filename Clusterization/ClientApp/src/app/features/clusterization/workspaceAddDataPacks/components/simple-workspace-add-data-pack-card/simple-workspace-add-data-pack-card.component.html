@@ -1,0 +1,18 @@
+<div class="card-cont" [class.deleted]="pack.isDeleted" (click)="openFull()">
+    <div class="top-cont">
+        <span i18n-matTooltip matTooltip="Дата створення пакета даних" class="time-text">{{pack.creationTime | normalizedDateTime}}</span>
+        <app-more-action-select [actions]="actions"></app-more-action-select>
+    </div>
+    <div class="main-cont">
+        <div class="block" (click)="copyToClipboard(entitiesCountStr,pack.dataObjectsCount+'',$event)">
+            <span i18n-matTooltip matTooltip="Кількість об'єктів даних" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+            <p>{{pack.dataObjectsCount}}</p>
+            <span i18n-matTooltip matTooltip="Пакет даних видалено" class="material-symbols-outlined icon delete-icon" *ngIf="pack.isDeleted" translate="no">scan_delete</span>
+        </div>
+        <div class="block">
+            <span i18n-matTooltip matTooltip="Власник" class="material-symbols-outlined icon" translate="no">person</span>
+            <p>{{pack.owner.userName}}</p>
+            <span class="material-symbols-outlined icon auth-icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних простір ваш" *ngIf="isYour">face</span>
+        </div>
+    </div>
+</div>
