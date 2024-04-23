@@ -153,6 +153,9 @@
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>Такий самий профіль уже завантажено</value>
   </data>
+  <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
+    <value>Цей профіль може змінювати тільки власник</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>Профіль не знайдено</value>
   </data>

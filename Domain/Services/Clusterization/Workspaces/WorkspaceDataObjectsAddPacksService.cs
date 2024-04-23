@@ -7,6 +7,7 @@ using Domain.Entities.Embeddings;
 using Domain.Exceptions;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
@@ -26,13 +27,15 @@ namespace Domain.Services.Clusterization.Workspaces
 
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
 
         public WorkspaceDataObjectsAddPacksService(IRepository<WorkspaceDataObjectsAddPack> packsRepository,
             IRepository<EmbeddingLoadingState> embeddingLoadingStatesRepository,
             IRepository<ClusterizationWorkspace> workspacesRepository,
             IStringLocalizer<ErrorMessages> localizer,
             IUserService userService,
-            IMapper mapper)
+            IMapper mapper,
+            IEmbeddingLoadingStatesService embeddingLoadingStatesService)
         {
             _packsRepository = packsRepository;
             _embeddingLoadingStatesRepository = embeddingLoadingStatesRepository;
@@ -40,6 +43,7 @@ namespace Domain.Services.Clusterization.Workspaces
             _localizer = localizer;
             _userService = userService;
             _mapper = mapper;
+            _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
         
 
@@ -137,6 +141,8 @@ namespace Domain.Services.Clusterization.Workspaces
             pack.LastDeleteTime = DateTime.UtcNow;
 
             await _packsRepository.SaveChangesAsync();
+
+            await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
         }
         public async Task RestorePack(int id)
         {
@@ -168,6 +174,8 @@ namespace Domain.Services.Clusterization.Workspaces
             pack.LastDeleteTime = DateTime.UtcNow;
 
             await _packsRepository.SaveChangesAsync();
+
+            await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
         }
     }
 }

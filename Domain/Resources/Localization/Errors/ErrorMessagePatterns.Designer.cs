@@ -169,6 +169,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ProfileChangingTypeIsOnlyOwner.
+        /// </summary>
+        public static string ProfileChangingTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("ProfileChangingTypeIsOnlyOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ProfileNotFound.
         /// </summary>
         public static string ProfileNotFound {

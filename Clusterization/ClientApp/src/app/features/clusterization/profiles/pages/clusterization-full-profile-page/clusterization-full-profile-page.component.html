@@ -21,15 +21,23 @@
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
-                    <p>{{profile.isCalculated}}</p>
+                    <p *ngIf="profile.isCalculated" class="first-color-text" i18n>Так</p>
+                    <p *ngIf="!profile.isCalculated" class="warn-text" i18n>Ні</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Чи завантажено ембедингі" class="material-symbols-outlined icon" translate="no">polyline</span>
+                    <p *ngIf="profile.isAllEmbeddingsLoaded" class="first-color-text" i18n>Так</p>
+                    <p *ngIf="!profile.isAllEmbeddingsLoaded" class="warn-text" i18n>Ні</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
-                    <p>{{profile.visibleType}}</p>
+                    <p *ngIf="profile.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="profile.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
-                    <p>{{profile.changingType}}</p>
+                    <p *ngIf="profile.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="profile.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Модель завантаження ембедингів" class="material-symbols-outlined icon" translate="no">token</span>

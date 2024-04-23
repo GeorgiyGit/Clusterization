@@ -153,6 +153,9 @@
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>ProfileAlreadyExist</value>
   </data>
+  <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
+    <value>ProfileChangingTypeIsOnlyOwner</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>ProfileNotFound</value>
   </data>

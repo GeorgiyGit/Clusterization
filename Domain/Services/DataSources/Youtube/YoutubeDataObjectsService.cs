@@ -164,6 +164,8 @@ namespace Domain.Services.DataSources.Youtube
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+
+                await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
             }
             catch (Exception ex)
             {
@@ -255,6 +257,8 @@ namespace Domain.Services.DataSources.Youtube
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+
+                await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
             }
             catch (Exception ex)
             {

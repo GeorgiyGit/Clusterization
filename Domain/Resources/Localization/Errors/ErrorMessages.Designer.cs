@@ -169,6 +169,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цей профіль може змінювати тільки власник.
+        /// </summary>
+        public static string ProfileChangingTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("ProfileChangingTypeIsOnlyOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Профіль не знайдено.
         /// </summary>
         public static string ProfileNotFound {

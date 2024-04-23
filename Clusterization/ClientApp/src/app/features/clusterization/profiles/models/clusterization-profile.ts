@@ -23,6 +23,6 @@ export interface IClusterizationProfile{
     visibleType:string,
     changingType:string,
     ownerId:string,
-
+    isAllEmbeddingsLoaded:boolean,
     embeddingModel:IEmbeddingModel
 }

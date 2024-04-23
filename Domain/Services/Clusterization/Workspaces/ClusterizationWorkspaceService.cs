@@ -24,20 +24,17 @@ namespace Domain.Services.Clusterization.Workspaces
         private readonly IMapper mapper;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
-        private readonly IRepository<MyDataObject> _dataObjectsRepository;
         public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
                                                IStringLocalizer<ErrorMessages> localizer,
                                                IMapper mapper,
                                                IUserService userService,
-                                               IQuotasControllerService quotasControllerService,
-                                               IRepository<MyDataObject> dataObjectsRepository)
+                                               IQuotasControllerService quotasControllerService)
         {
             this.repository = repository;
             this.localizer = localizer;
             this.mapper = mapper;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
-            _dataObjectsRepository = dataObjectsRepository;
         }
 
         #region add-update

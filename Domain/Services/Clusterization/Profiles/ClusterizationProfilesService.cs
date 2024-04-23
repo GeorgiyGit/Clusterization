@@ -16,23 +16,30 @@ using System.Net;
 using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Entities.Embeddings;
+using Domain.Interfaces.Embeddings;
 
 namespace Domain.Services.Clusterization.Profiles
 {
     public class ClusterizationProfilesService : IClusterizationProfilesService
     {
         private readonly IRepository<ClusterizationProfile> repository;
+        private readonly IRepository<EmbeddingLoadingState> _embeddingLoadingStatesRepository;
         private readonly IStringLocalizer<ErrorMessages> localizer;
+
         private readonly IMapper mapper;
         private readonly IGeneralClusterizationAlgorithmService generalAlgorithmService;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
+        private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
         public ClusterizationProfilesService(IRepository<ClusterizationProfile> repository,
                                              IStringLocalizer<ErrorMessages> localizer,
+                                             IRepository<EmbeddingLoadingState> embeddingLoadingStatesRepository,
                                              IMapper mapper,
                                              IGeneralClusterizationAlgorithmService generalAlgorithmService,
                                              IUserService userService,
-                                             IQuotasControllerService quotasControllerService)
+                                             IQuotasControllerService quotasControllerService,
+                                             IEmbeddingLoadingStatesService embeddingLoadingStatesService)
         {
             this.repository = repository;
             this.localizer = localizer;
@@ -40,6 +47,8 @@ namespace Domain.Services.Clusterization.Profiles
             this.generalAlgorithmService = generalAlgorithmService;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
+            _embeddingLoadingStatesRepository = embeddingLoadingStatesRepository;
+            _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
 
         public async Task Add(AddClusterizationProfileRequest model)
@@ -94,8 +103,19 @@ namespace Domain.Services.Clusterization.Profiles
                 OwnerId = userId
             };
 
+            var profileState = new EmbeddingLoadingState()
+            {
+                Profile = newProfile,
+                EmbeddingModelId = model.EmbeddingModelId,
+                IsAllEmbeddingsLoaded = false
+            };
+
+            await _embeddingLoadingStatesRepository.AddAsync(profileState);
+
             await repository.AddAsync(newProfile);
             await repository.SaveChangesAsync();
+
+            await _embeddingLoadingStatesService.ReviewStates(model.WorkspaceId);
         }
 
         public async Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequest request)

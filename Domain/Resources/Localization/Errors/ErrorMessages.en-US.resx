@@ -153,6 +153,9 @@
   <data name="ProfileAlreadyExist" xml:space="preserve">
     <value>The same profile is already loaded</value>
   </data>
+  <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
+    <value>This profile can only be changed by the owner</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>Profile not found</value>
   </data>

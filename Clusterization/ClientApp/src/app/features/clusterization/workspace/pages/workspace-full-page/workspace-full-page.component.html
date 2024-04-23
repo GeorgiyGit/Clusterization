@@ -23,11 +23,13 @@
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
-                    <p>{{workspace.visibleType}}</p>
+                    <p *ngIf="workspace.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="workspace.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
-                    <p>{{workspace.changingType}}</p>
+                    <p *ngIf="workspace.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="workspace.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
             </div>
         </div>

@@ -19,6 +19,7 @@ using Domain.Entities.EmbeddingModels;
 using Domain.Interfaces.Other;
 using OpenAI.ObjectModels.ResponseModels;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Interfaces.Embeddings;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -38,6 +39,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
         private readonly IQuotasControllerService _quotasControllerService;
         private readonly IOpenAIService _openAIService;
         private readonly IEmbeddingsService _embeddingsService;
+        private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
 
         public EmbeddingsLoadingService(IStringLocalizer<ErrorMessages> localizer,
                                      IBackgroundJobClient backgroundJobClient,
@@ -50,7 +52,8 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                                      IOpenAIService openAIService,
                                      IEmbeddingsService embeddingsService,
                                      IRepository<EmbeddingModel> embeddingModelsRepository,
-                                     IRepository<ClusterizationProfile> profilesRepository)
+                                     IRepository<ClusterizationProfile> profilesRepository,
+                                     IEmbeddingLoadingStatesService embeddingLoadingStatesService)
         {
             _localizer = localizer;
             _backgroundJobClient = backgroundJobClient;
@@ -64,6 +67,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             _embeddingsService = embeddingsService;
             _embeddingModelsRepository = embeddingModelsRepository;
             _profilesRepository = profilesRepository;
+            _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
         public async Task LoadEmbeddingsByProfile(int profileId)
         {
@@ -78,13 +82,24 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
         {
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
 
-            if (profile == null || (profile.ChangingType == ChangingTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
-
+            if (profile == null || (profile.ChangingType == ChangingTypes.OnlyOwner && profile.OwnerId != userId))
+            {
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.ProfileChangingTypeIsOnlyOwner]);
+            }
             var workspace = (await _workspacesRepository.GetAsync(c => c.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.WorkspaceDataObjectsAddPacks)}")).FirstOrDefault();
 
-            if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
-
-            if (profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded) return;
+            if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId))
+            {
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner]);
+            }
+            if (profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded)
+            {
+                await _tasksService.ChangeTaskPercent(taskId, 100f);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+                return;
+            }
 
             bool flag = false;
             var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted);
@@ -187,6 +202,8 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
 
                 packState.IsAllEmbeddingsLoaded = true;
                 await _embeddingModelsRepository.SaveChangesAsync();
+
+                await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
             }
             catch (Exception ex)
             {
