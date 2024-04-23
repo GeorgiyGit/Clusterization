@@ -132,9 +132,6 @@
   <data name="MDS" xml:space="preserve">
     <value>MDS</value>
   </data>
-  <data name="Original" xml:space="preserve">
-    <value>Original</value>
-  </data>
   <data name="PCA" xml:space="preserve">
     <value>PCA</value>
   </data>

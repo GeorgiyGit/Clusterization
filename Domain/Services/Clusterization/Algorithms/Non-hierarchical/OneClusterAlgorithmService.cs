@@ -142,7 +142,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 profile.Clusters.Add(cluster);
 
-                if (profile.DRTechniqueId != DimensionalityReductionTechniques.Original)
+                if (profile.DRTechniqueId != DimensionalityReductionTechniques.JSL)
                 {
                     await _dimensionalityReductionService.AddEmbeddingValues(profile.WorkspaceId, profile.DRTechniqueId, profile.EmbeddingModelId, profile.DimensionCount);
                 }

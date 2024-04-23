@@ -71,8 +71,7 @@ namespace Domain.Services.DimensionalityReduction
 
                 var embeddingObjectsGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DRTechniqueId && e.EmbeddingModelId == embeddingModelId && e.WorkspaceId == workspaceId && e.DataObjectId == dataObject.Id,includeProperties:$"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
 
-
-                var originalEmbeddingGroup = originalDataObject.EmbeddingObjectsGroups.Where(e => e.DRTechniqueId == DimensionalityReductionTechniques.Original && e.EmbeddingModelId == embeddingModelId).FirstOrDefault();
+                var originalEmbeddingGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DimensionalityReductionTechniques.JSL && e.WorkspaceId == workspaceId && e.EmbeddingModelId == embeddingModelId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
 
                 if (originalEmbeddingGroup == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
 
