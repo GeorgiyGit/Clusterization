@@ -84,7 +84,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
 
             if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
 
-            if (workspace.IsAllDataEmbedded) return;
+            if (profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded) return;
 
             bool flag = false;
             var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted);
@@ -133,8 +133,6 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                 
 
                 if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], System.Net.HttpStatusCode.NotFound);
-
-                if (workspace.IsAllDataEmbedded) return;
 
                 var embeddingModel = (await _embeddingModelsRepository.GetAsync(e => e.Id == embeddingModelId)).FirstOrDefault();
 

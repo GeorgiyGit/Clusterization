@@ -2,34 +2,38 @@
     <h1 i18n>Профіль</h1>
     <div class="all-cont">
         <div class="info-cont">
-            <div class="text-info-cont">
+            <div class="text-info-cont" *ngIf="profile!=null">
                 <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.algorithmType.name+'',$event)">
                     <span i18n-matTooltip matTooltip="Тип алгоритму" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
-                    <p>{{profile?.algorithmType?.name}}</p>
+                    <p>{{profile.algorithmType.name}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(dimensionCountStr,profile.dimensionCount+'',$event)">
                     <span i18n-matTooltip matTooltip="Кількість вимірів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
-                    <p>{{profile?.dimensionCount}}</p>
+                    <p>{{profile.dimensionCount}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.drTechnique.name,$event)">
                     <span i18n-matTooltip matTooltip="Тип алгоритму зменшення розмірності" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
-                    <p>{{profile?.drTechnique?.name}}</p>
+                    <p>{{profile.drTechnique.name}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(clustersCountStr,profile.clustersCount+'',$event)">
                     <span i18n-matTooltip matTooltip="Кількість кластерів" class="material-symbols-outlined icon" translate="no">workspaces</span>
-                    <p>{{profile?.clustersCount}}</p>
+                    <p>{{profile.clustersCount}}</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
-                    <p>{{profile?.isCalculated}}</p>
+                    <p>{{profile.isCalculated}}</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
-                    <p>{{profile?.visibleType}}</p>
+                    <p>{{profile.visibleType}}</p>
                 </div>
                 <div class="block">
                     <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
-                    <p>{{profile?.changingType}}</p>
+                    <p>{{profile.changingType}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Модель завантаження ембедингів" class="material-symbols-outlined icon" translate="no">token</span>
+                    <p>{{profile.embeddingModel.name}}</p>
                 </div>
             </div>
         </div>

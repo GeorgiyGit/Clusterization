@@ -16,8 +16,6 @@ namespace Domain.Entities.Clusterization.Workspaces
         public ClusterizationType Type { get; set; }
         public string TypeId { get; set; }
 
-        public bool IsAllDataEmbedded { get; set; }
-
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
 
         public int EntitiesCount { get; set; }

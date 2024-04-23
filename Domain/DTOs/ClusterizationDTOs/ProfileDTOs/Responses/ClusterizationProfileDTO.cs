@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using Domain.DTOs.DimensionalityReductionDTOs.TechniqueDTOs;
 using Domain.Resources.Types;
+using Domain.DTOs.EmbeddingModelDTOs.Responses;
 
 namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 {
@@ -38,7 +39,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
         public string ChangingType { get; set; }
         public string OwnerId { get; set; }
 
-        public string EmbeddingModelId { get; set; }
+        public EmbeddingModelDTO EmbeddingModel { get; set; }
         public bool IsAllEmbeddingsLoaded { get; set; }
     }
 }

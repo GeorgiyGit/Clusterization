@@ -1,5 +1,6 @@
 import { IDimensionalityReductionTechnique } from "src/app/features/dimensionalityReduction/dimensionalityReductionTechniques/models/dimensionalityReductionTechnique";
 import { ISimpleAlgorithmType } from "../../algorithms/algorithmType/models/simpleAlgorithmType";
+import { IEmbeddingModel } from "src/app/features/embedding-models/models/embedding-model";
 
 export interface IClusterizationProfile{
     id:number,
@@ -21,5 +22,7 @@ export interface IClusterizationProfile{
 
     visibleType:string,
     changingType:string,
-    ownerId:string
+    ownerId:string,
+
+    embeddingModel:IEmbeddingModel
 }

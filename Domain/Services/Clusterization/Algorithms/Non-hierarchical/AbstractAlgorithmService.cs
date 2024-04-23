@@ -90,7 +90,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         protected async Task WorkspaceVerification(int profileId)
         {
             var profile = (await _profilesRepository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
-            if (profile == null || !profile.Workspace.IsAllDataEmbedded) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
         }
         protected async Task<List<AddEmbeddingsWithDRHelpModel>> CreateHelpModels(ICollection<MyDataObject> dataObjects, string DRTechniqueId, string embeddingModelId, int workspaceId, int dimensionCount)
         {

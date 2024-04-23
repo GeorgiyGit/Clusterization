@@ -154,7 +154,7 @@ namespace Domain.Services.Clusterization.Profiles
                     fullAlgName = algorithm.NumberOfComponents + "";
                 }
 
-                mappedProfiles[i].FullTitle = type.Name + " (" + fullAlgName + ") " + mappedProfiles[i].DRTechnique.Id + " " + mappedProfiles[i].DimensionCount;
+                mappedProfiles[i].FullTitle = type.Name + " (" + fullAlgName + ") " + mappedProfiles[i].DRTechnique.Id + " " + mappedProfiles[i].DimensionCount + " " + mappedProfiles[i].EmbeddingModel.Name;
 
             }
 

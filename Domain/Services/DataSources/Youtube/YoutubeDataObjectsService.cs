@@ -159,7 +159,6 @@ namespace Domain.Services.DataSources.Youtube
                     if (comments.Count() < pageSize) break;
                     pageNumber++;
                 }
-                workspace.IsAllDataEmbedded = false;
                 pack.DataObjectsCount = addedElementsCount;
 
 
@@ -250,7 +249,6 @@ namespace Domain.Services.DataSources.Youtube
                     }
                 }
 
-                workspace.IsAllDataEmbedded = false;
                 pack.DataObjectsCount = addedElementsCount;
 
                 await _workspacesRepository.SaveChangesAsync();

@@ -7,7 +7,6 @@ export interface IClusterizationWorkspace{
     typeName:string,
     entitiesCount:number,
     profilesCount:number,
-    isAllDataEmbedded:boolean,
     visibleType:string,
     changingType:string,
     ownerId:string

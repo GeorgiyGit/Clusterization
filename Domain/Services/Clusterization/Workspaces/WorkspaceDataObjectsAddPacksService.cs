@@ -163,7 +163,6 @@ namespace Domain.Services.Clusterization.Workspaces
                 workspace.DataObjects.Add(dataObject);
                 workspace.EntitiesCount++;
             }
-            workspace.IsAllDataEmbedded = false;
 
             pack.IsDeleted = false;
             pack.LastDeleteTime = DateTime.UtcNow;
