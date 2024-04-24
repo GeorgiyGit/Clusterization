@@ -20,39 +20,41 @@ namespace Domain.Services.TaskServices
 {
     public class MyTasksService : IMyTasksService
     {
-        private readonly IRepository<MyTask> task_repository;
-        private readonly IRepository<MyTaskState> state_repository;
-        private readonly IUserService _userService;
+        private readonly IRepository<MyTask> _tasksRepository;
+        private readonly IRepository<MyTaskState> _statesRepository;
+
         private readonly IStringLocalizer<ErrorMessages> _localizer;
+
+        private readonly IUserService _userService;
 
         public MyTasksService(IRepository<MyTask> task_repository,
                              IRepository<MyTaskState> state_repository,
                              IUserService userService,
                              IStringLocalizer<ErrorMessages> localizer)
         {
-            this.task_repository = task_repository;
-            this.state_repository = state_repository;
+            _tasksRepository = task_repository;
+            _statesRepository = state_repository;
             _userService = userService;
             _localizer = localizer;
         }
 
         public async Task ChangeTaskPercent(int id, float newPercent)
         {
-            var task = (await task_repository.GetAsync(e=>e.Id==id,includeProperties:$"{nameof(MyTask.State)}")).FirstOrDefault();
+            var task = (await _tasksRepository.GetAsync(e=>e.Id==id,includeProperties:$"{nameof(MyTask.State)}")).FirstOrDefault();
 
             if (task == null) return;
 
             task.Percent = newPercent;
 
-            await task_repository.SaveChangesAsync();
+            await _tasksRepository.SaveChangesAsync();
         }
 
         public async Task ChangeTaskState(int id, string newStateId)
         {
-            var task = (await task_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)}")).FirstOrDefault();
+            var task = (await _tasksRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)}")).FirstOrDefault();
             if (task == null) return;
 
-            var taskState = await state_repository.FindAsync(newStateId);
+            var taskState = await _statesRepository.FindAsync(newStateId);
             if(taskState == null) return;
 
             if (newStateId == TaskStates.Completed) task.EndTime = DateTime.UtcNow;
@@ -60,7 +62,7 @@ namespace Domain.Services.TaskServices
             task.StateId = newStateId;
             task.State = taskState;
 
-            await task_repository.SaveChangesAsync(); 
+            await _tasksRepository.SaveChangesAsync(); 
         }
 
         public async Task<int> CreateTask(string name)
@@ -73,7 +75,7 @@ namespace Domain.Services.TaskServices
         }
         public async Task<int> CreateTaskWithUserId(string name, string userId)
         {
-            var state = await state_repository.FindAsync(TaskStates.Wait);
+            var state = await _statesRepository.FindAsync(TaskStates.Wait);
 
             var task = new MyTask()
             {
@@ -83,26 +85,26 @@ namespace Domain.Services.TaskServices
                 CustomerId = userId
             };
 
-            await task_repository.AddAsync(task);
-            await task_repository.SaveChangesAsync();
+            await _tasksRepository.AddAsync(task);
+            await _tasksRepository.SaveChangesAsync();
 
             return task.Id;
         }
 
         public async Task<string?> GetTaskStateId(int id)
         {
-            var task = (await task_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)}")).FirstOrDefault();
+            var task = (await _tasksRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)}")).FirstOrDefault();
 
             return task?.StateId;
         }
         public async Task ChangeTaskDescription(int id, string description)
         {
-            var task = (await task_repository.GetAsync(e => e.Id == id)).FirstOrDefault();
+            var task = (await _tasksRepository.GetAsync(e => e.Id == id)).FirstOrDefault();
             if (task == null) return;
 
             task.Description = description;
 
-            await task_repository.SaveChangesAsync();
+            await _tasksRepository.SaveChangesAsync();
         }
     }
 }

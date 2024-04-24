@@ -11,6 +11,7 @@ using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
+using Domain.Resources.Types.Clusterization;
 using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.Extensions.Localization;
 using System.Net;

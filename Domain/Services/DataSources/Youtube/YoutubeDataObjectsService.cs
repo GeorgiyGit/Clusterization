@@ -16,6 +16,8 @@ using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
 using Domain.Entities.DataSources.Youtube;
+using Domain.Resources.Types.Clusterization;
+using Domain.Resources.Types.DataSources;
 
 namespace Domain.Services.DataSources.Youtube
 {

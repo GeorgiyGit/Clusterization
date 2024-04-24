@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.DataObjects;
 using Domain.Entities.EmbeddingModels;
 using Domain.Resources.Types;
+using Domain.Resources.Types.DataSources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

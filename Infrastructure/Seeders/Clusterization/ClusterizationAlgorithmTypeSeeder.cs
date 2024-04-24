@@ -1,9 +1,10 @@
 ﻿using Domain.Entities.Clusterization.Algorithms;
 using Domain.Resources.Types;
+using Domain.Resources.Types.Clusterization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Seeders
+namespace Infrastructure.Seeders.Clusterization
 {
     internal class ClusterizationAlgorithmTypeSeeder : IEntityTypeConfiguration<ClusterizationAlgorithmType>
     {

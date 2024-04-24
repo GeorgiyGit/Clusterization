@@ -7,19 +7,18 @@ using Domain.Exceptions;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
-using Domain.Resources.Localization.Errors;
-using Microsoft.Extensions.Localization;
-using System.Net;
 
 namespace Domain.Services.Quotas
 {
     public class CustomerQuotasService : ICustomerQuotasService
     {
-        private readonly IUserService _userService;
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
         private readonly IRepository<QuotasPackItem> _packItemsRepositorty;
+        
         private IMapper _mapper;
+        private readonly IUserService _userService;
         private readonly IQuotasLogsService _quotasLogsService;
+
         public CustomerQuotasService(IUserService userService,
             IRepository<CustomerQuotas> customerQuotasRepository,
             IRepository<QuotasPackItem> packItemsRepositorty,

@@ -17,6 +17,7 @@ namespace Domain.Services.Clusterization.Dimensions
     {
         private readonly IRepository<DimensionType> _repository;
         private readonly IRepository<EmbeddingModel> _embeddingModelsRepository;
+
         private readonly IMapper _mapper;
         public ClusterizationDimensionTypesService(IRepository<DimensionType> repository,
                                                    IRepository<EmbeddingModel> embeddingModelsRepository,

@@ -20,18 +20,20 @@ using Domain.Interfaces.Other;
 using OpenAI.ObjectModels.ResponseModels;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Interfaces.Embeddings;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
     public class EmbeddingsLoadingService : IEmbeddingsLoadingService
     {
-        private readonly IStringLocalizer<ErrorMessages> _localizer;
-        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
 
         private readonly IRepository<WorkspaceDataObjectsAddPack> _dataPacksRepository;
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
         private readonly IRepository<EmbeddingModel> _embeddingModelsRepository;
         private readonly IRepository<ClusterizationProfile> _profilesRepository;
+
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+        private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
 
         private readonly IBackgroundJobClient _backgroundJobClient;
         private readonly IMyTasksService _tasksService;

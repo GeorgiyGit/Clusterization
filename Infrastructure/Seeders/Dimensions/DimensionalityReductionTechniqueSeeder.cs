@@ -3,7 +3,7 @@ using Domain.Resources.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Seeders
+namespace Infrastructure.Seeders.Dimensions
 {
     internal class DimensionalityReductionTechniqueSeeder : IEntityTypeConfiguration<DimensionalityReductionTechnique>
     {
@@ -47,8 +47,8 @@ namespace Infrastructure.Seeders
 
             builder.HasData(PCA,
                             tSNE,
-                            //MDS,
-                            //isomap,
+                             //MDS,
+                             //isomap,
                              //LLE,
                              JSL);
         }

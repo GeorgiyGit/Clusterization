@@ -27,6 +27,7 @@ using Domain.Entities.Embeddings;
 using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -148,7 +149,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
                 await _tasksService.ChangeTaskPercent(taskId, 50f);
 
-                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(dataObjects.Count());
+                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(dataObjects.Count);
 
                 foreach (var dataObject in dataObjects)
                 {

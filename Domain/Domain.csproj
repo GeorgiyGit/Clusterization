@@ -47,32 +47,32 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TaskTitlesPatterns.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\ChangingTypes.Designer.cs">
+    <Compile Update="Resources\Types\Clusterization\ChangingTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ChangingTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\ChannelFilterTypes.Designer.cs">
+    <Compile Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ChannelFilterTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\ClusterizationAlgorithmTypes.Designer.cs">
+    <Compile Update="Resources\Types\Clusterization\ClusterizationAlgorithmTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ClusterizationAlgorithmTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\ClusterizationTypes.Designer.cs">
+    <Compile Update="Resources\Types\Clusterization\ClusterizationTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ClusterizationTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\CommentFilterTypes.Designer.cs">
+    <Compile Update="Resources\Types\DataSources\Youtube\CommentFilterTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CommentFilterTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\DataObjectTypes.Designer.cs">
+    <Compile Update="Resources\Types\DataSources\DataObjectTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DataObjectTypes.resx</DependentUpon>
@@ -87,7 +87,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EmbeddingModelList.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\LoadFilterOptions.Designer.cs">
+    <Compile Update="Resources\Types\DataSources\Youtube\LoadFilterOptions.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LoadFilterOptions.resx</DependentUpon>
@@ -102,12 +102,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TaskStates.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\VideoFilterTypes.Designer.cs">
+    <Compile Update="Resources\Types\DataSources\Youtube\VideoFilterTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>VideoFilterTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\VisibleTypes.Designer.cs">
+    <Compile Update="Resources\Types\Clusterization\VisibleTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>VisibleTypes.resx</DependentUpon>
@@ -134,27 +134,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskTitlesPatterns.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\ChangingTypes.resx">
+    <EmbeddedResource Update="Resources\Types\Clusterization\ChangingTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChangingTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\ChannelFilterTypes.resx">
+    <EmbeddedResource Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChannelFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\ClusterizationAlgorithmTypes.resx">
+    <EmbeddedResource Update="Resources\Types\Clusterization\ClusterizationAlgorithmTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ClusterizationAlgorithmTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\ClusterizationTypes.resx">
+    <EmbeddedResource Update="Resources\Types\Clusterization\ClusterizationTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ClusterizationTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\CommentFilterTypes.resx">
+    <EmbeddedResource Update="Resources\Types\DataSources\Youtube\CommentFilterTypes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommentFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\DataObjectTypes.resx">
+    <EmbeddedResource Update="Resources\Types\DataSources\DataObjectTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DataObjectTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -166,7 +166,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EmbeddingModelList.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\LoadFilterOptions.resx">
+    <EmbeddedResource Update="Resources\Types\DataSources\Youtube\LoadFilterOptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LoadFilterOptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -178,11 +178,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskStates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\VideoFilterTypes.resx">
+    <EmbeddedResource Update="Resources\Types\DataSources\Youtube\VideoFilterTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>VideoFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\VisibleTypes.resx">
+    <EmbeddedResource Update="Resources\Types\Clusterization\VisibleTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>VisibleTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>

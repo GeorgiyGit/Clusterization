@@ -15,9 +15,11 @@ namespace Domain.Services.TaskServices
 {
     public class UserTasksService : IUserTasksService
     {
-        private readonly IRepository<MyTask> task_repository;
-        private readonly IMapper mapper;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IRepository<MyTask> _tasksRepository;
+
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
         public UserTasksService(IRepository<MyTask> task_repository,
@@ -25,9 +27,9 @@ namespace Domain.Services.TaskServices
                                 IStringLocalizer<ErrorMessages> localizer,
                                 IUserService userService)
         {
-            this.task_repository = task_repository;
-            this.mapper = mapper;
-            this.localizer = localizer;
+            _tasksRepository = task_repository;
+            _mapper = mapper;
+            _localizer = localizer;
             _userService = userService;
         }
         public async Task<ICollection<TaskDTO>> GetTasks(CustomerGetTasksRequest request)
@@ -41,21 +43,21 @@ namespace Domain.Services.TaskServices
                 filterCondition = filterCondition.And(e => e.StateId == request.TaskStateId);
             }
 
-            var tasks = await task_repository.GetAsync(filter: filterCondition,
+            var tasks = await _tasksRepository.GetAsync(filter: filterCondition,
                                                        orderBy: e => e.OrderByDescending(e => e.StartTime),
                                                        includeProperties: $"{nameof(MyTask.State)}",
                                                        pageParameters: request.PageParameters);
 
-            return mapper.Map<ICollection<TaskDTO>>(tasks);
+            return _mapper.Map<ICollection<TaskDTO>>(tasks);
         }
 
         public async Task<FullTaskDTO> GetFullTask(int id)
         {
-            var task = (await task_repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)},{nameof(MyTask.Customer)}")).FirstOrDefault();
+            var task = (await _tasksRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(MyTask.State)},{nameof(MyTask.Customer)}")).FirstOrDefault();
 
-            if (task == null) throw new HttpException(localizer[ErrorMessagePatterns.TaskNotFound], HttpStatusCode.NotFound);
+            if (task == null) throw new HttpException(_localizer[ErrorMessagePatterns.TaskNotFound], HttpStatusCode.NotFound);
 
-            return mapper.Map<FullTaskDTO>(task);
+            return _mapper.Map<FullTaskDTO>(task);
         }
     }
 }

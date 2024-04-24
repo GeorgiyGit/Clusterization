@@ -25,10 +25,11 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         protected readonly IRepository<EmbeddingObjectsGroup> _embeddingObjectsGroupsRepository;
         protected readonly IRepository<DimensionEmbeddingObject> _dimensionEmbeddingObjectsRepository;
 
+        protected readonly IStringLocalizer<ErrorMessages> _localizer;
+
         protected readonly IClusterizationTilesService _tilesService;
         protected readonly IMapper _mapper;
 
-        protected readonly IStringLocalizer<ErrorMessages> _localizer;
 
 
         private const int TILES_COUNT = 16;
@@ -54,14 +55,14 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         }
         protected virtual async Task RemoveClusters(ClusterizationProfile profile)
         {
-            for (int i = 0; i < profile.Clusters.Count(); i++)
+            for (int i = 0; i < profile.Clusters.Count; i++)
             {
                 var id = profile.Clusters.ElementAt(i).Id;
                 var clusterForDelete = (await _clustersRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(Cluster.DataObjects)},{nameof(Cluster.DisplayedPoints)},{nameof(Cluster.Profile)}")).FirstOrDefault();
 
                 _clustersRepository.Remove(clusterForDelete);
             }
-            for (int i = 0; i < profile.TilesLevels.Count(); i++)
+            for (int i = 0; i < profile.TilesLevels.Count; i++)
             {
                 var id = profile.TilesLevels.ElementAt(i).Id;
                 await _tilesService.FullRemoveTilesLevel(id);

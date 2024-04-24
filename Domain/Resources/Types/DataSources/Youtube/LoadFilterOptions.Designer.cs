@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.DataSources.Youtube {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace Domain.Resources.Types {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ChangingTypes {
+    internal class LoadFilterOptions {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ChangingTypes() {
+        internal LoadFilterOptions() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.ChangingTypes", typeof(ChangingTypes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.DataSources.Youtube.LoadFilterOptions", typeof(LoadFilterOptions).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Domain.Resources.Types {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,20 +61,20 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AllCustomers.
+        ///   Looks up a localized string similar to Date.
         /// </summary>
-        public static string AllCustomers {
+        internal static string Date {
             get {
-                return ResourceManager.GetString("AllCustomers", resourceCulture);
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlyOwner.
+        ///   Looks up a localized string similar to Rating.
         /// </summary>
-        public static string OnlyOwner {
+        internal static string Rating {
             get {
-                return ResourceManager.GetString("OnlyOwner", resourceCulture);
+                return ResourceManager.GetString("Rating", resourceCulture);
             }
         }
     }

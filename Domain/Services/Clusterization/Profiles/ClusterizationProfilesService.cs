@@ -18,17 +18,19 @@ using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.Embeddings;
 using Domain.Interfaces.Embeddings;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Profiles
 {
     public class ClusterizationProfilesService : IClusterizationProfilesService
     {
-        private readonly IRepository<ClusterizationProfile> repository;
+        private readonly IRepository<ClusterizationProfile> _repository;
         private readonly IRepository<EmbeddingLoadingState> _embeddingLoadingStatesRepository;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
 
-        private readonly IMapper mapper;
-        private readonly IGeneralClusterizationAlgorithmService generalAlgorithmService;
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
+        private readonly IMapper _mapper;
+        private readonly IGeneralClusterizationAlgorithmService _generalAlgorithmService;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
         private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
@@ -41,10 +43,10 @@ namespace Domain.Services.Clusterization.Profiles
                                              IQuotasControllerService quotasControllerService,
                                              IEmbeddingLoadingStatesService embeddingLoadingStatesService)
         {
-            this.repository = repository;
-            this.localizer = localizer;
-            this.mapper = mapper;
-            this.generalAlgorithmService = generalAlgorithmService;
+            _repository = repository;
+            _localizer = localizer;
+            _mapper = mapper;
+            _generalAlgorithmService = generalAlgorithmService;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
             _embeddingLoadingStatesRepository = embeddingLoadingStatesRepository;
@@ -54,7 +56,7 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task Add(AddClusterizationProfileRequest model)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
             Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.WorkspaceId == model.WorkspaceId && e.AlgorithmId == model.AlgorithmId && e.DimensionCount == model.DimensionCount && e.DRTechniqueId == model.DRTechniqueId && e.ChangingType == model.ChangingType && e.EmbeddingModelId == model.EmbeddingModelId;
 
@@ -67,9 +69,9 @@ namespace Domain.Services.Clusterization.Profiles
                 filterCondition = filterCondition.And(e => e.OwnerId == userId && e.VisibleType == VisibleTypes.AllCustomers);
             }
 
-            var oldProfile = (await repository.GetAsync(filter: filterCondition)).FirstOrDefault();
+            var oldProfile = (await _repository.GetAsync(filter: filterCondition)).FirstOrDefault();
 
-            if (oldProfile != null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileAlreadyExist], System.Net.HttpStatusCode.BadGateway);
+            if (oldProfile != null) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileAlreadyExist], System.Net.HttpStatusCode.BadGateway);
 
 
             string type = null;
@@ -87,7 +89,7 @@ namespace Domain.Services.Clusterization.Profiles
 
             if (!quotasResult)
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
             }
 
 
@@ -112,8 +114,8 @@ namespace Domain.Services.Clusterization.Profiles
 
             await _embeddingLoadingStatesRepository.AddAsync(profileState);
 
-            await repository.AddAsync(newProfile);
-            await repository.SaveChangesAsync();
+            await _repository.AddAsync(newProfile);
+            await _repository.SaveChangesAsync();
 
             await _embeddingLoadingStatesService.ReviewStates(model.WorkspaceId);
         }
@@ -137,14 +139,14 @@ namespace Domain.Services.Clusterization.Profiles
             }
 
             var pageParameters = request.PageParameters;
-            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
+            var profiles = (await _repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
                                             .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                             .Take(pageParameters.PageSize).ToList();
 
-            var mappedProfiles = mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
+            var mappedProfiles = _mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
             for (int i = 0; i < profiles.Count(); i++)
             {
-                var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
+                var type = await _generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
                 mappedProfiles[i].AlgorithmType = type;
 
                 string fullAlgName = "";
@@ -183,7 +185,7 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task<ICollection<SimpleClusterizationProfileDTO>> GetCustomerCollection(CustomerGetClusterizationProfilesRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.OwnerId == userId;
 
@@ -201,14 +203,14 @@ namespace Domain.Services.Clusterization.Profiles
             }
 
             var pageParameters = request.PageParameters;
-            var profiles = (await repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
+            var profiles = (await _repository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)}"))
                                             .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                             .Take(pageParameters.PageSize).ToList();
 
-            var mappedProfiles = mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
+            var mappedProfiles = _mapper.Map<ICollection<SimpleClusterizationProfileDTO>>(profiles).ToList();
             for (int i = 0; i < profiles.Count(); i++)
             {
-                var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
+                var type = await _generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profiles[i].AlgorithmId);
                 mappedProfiles[i].AlgorithmType = type;
 
                 string fullAlgName = "";
@@ -247,13 +249,13 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task<ClusterizationProfileDTO> GetFullById(int id)
         {
             var userId = await _userService.GetCurrentUserId();
-            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
+            var profile = (await _repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.Owner)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
 
-            if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+            if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
-            var mappedProfile = mapper.Map<ClusterizationProfileDTO>(profile);
+            var mappedProfile = _mapper.Map<ClusterizationProfileDTO>(profile);
 
-            var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profile.AlgorithmId);
+            var type = await _generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profile.AlgorithmId);
             mappedProfile.AlgorithmType = type;
 
             return mappedProfile;
@@ -262,13 +264,13 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task<SimpleClusterizationProfileDTO> GetSimpleById(int id)
         {
             var userId = await _userService.GetCurrentUserId();
-            var profile = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.EmbeddingModel)}")).FirstOrDefault();
+            var profile = (await _repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.EmbeddingModel)}")).FirstOrDefault();
 
-            if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+            if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
-            var mappedProfile = mapper.Map<SimpleClusterizationProfileDTO>(profile);
+            var mappedProfile = _mapper.Map<SimpleClusterizationProfileDTO>(profile);
 
-            var type = await generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profile.AlgorithmId);
+            var type = await _generalAlgorithmService.GetAlgorithmTypeByAlgorithmId(profile.AlgorithmId);
             mappedProfile.AlgorithmType = type;
 
             return mappedProfile;
@@ -277,33 +279,33 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task Elect(int id)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            var profile = (await repository.GetAsync(e => e.Id == id && e.OwnerId == userId, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
+            var profile = (await _repository.GetAsync(e => e.Id == id && e.OwnerId == userId, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
 
-            if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
             if (!profile.IsElected)
             {
                 profile.IsElected = true;
 
-                await repository.SaveChangesAsync();
+                await _repository.SaveChangesAsync();
             }
         }
         public async Task UnElect(int id)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            var profile = (await repository.GetAsync(e => e.Id == id && e.OwnerId==userId, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
+            var profile = (await _repository.GetAsync(e => e.Id == id && e.OwnerId==userId, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)}")).FirstOrDefault();
 
-            if (profile == null) throw new HttpException(localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
             if (profile.IsElected)
             {
                 profile.IsElected = false;
 
-                await repository.SaveChangesAsync();
+                await _repository.SaveChangesAsync();
             }
         }
     }

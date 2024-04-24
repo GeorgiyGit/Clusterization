@@ -18,13 +18,12 @@ using Domain.Interfaces.Customers;
 using Domain.Entities.Clusterization.Displaying;
 using Domain.Interfaces.Clusterization.Displaying;
 using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
-using Domain.Entities.DataObjects;
-using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Embeddings.DimensionEntities;
 using Domain.Entities.Embeddings;
 using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {

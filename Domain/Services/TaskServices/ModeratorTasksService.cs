@@ -18,18 +18,17 @@ namespace Domain.Services.TaskServices
 {
     public class ModeratorTasksService : IModeratorTasksService
     {
-        private readonly IRepository<MyTask> task_repository;
-        private readonly IMapper mapper;
+        private readonly IRepository<MyTask> _tasksRepository;
+        private readonly IMapper _mapper;
 
         public ModeratorTasksService(IRepository<MyTask> task_repository,
                                      IMapper mapper)
         {
-            this.task_repository = task_repository;
-            this.mapper = mapper;
+            _tasksRepository = task_repository;
+            _mapper = mapper;
         }
         public async Task<ICollection<TaskDTO>> GetTasks(ModeratorGetTasksRequest request)
         {
-
             Expression<Func<MyTask, bool>> filterCondition = e => true;
 
             if (request.TaskStateId != null)
@@ -42,12 +41,12 @@ namespace Domain.Services.TaskServices
                 filterCondition = filterCondition.And(e => e.CustomerId == request.CustomerId);
             }
 
-            var tasks = await task_repository.GetAsync(filter: filterCondition,
+            var tasks = await _tasksRepository.GetAsync(filter: filterCondition,
                                                        orderBy: e => e.OrderByDescending(e => e.StartTime),
                                                        includeProperties: $"{nameof(MyTask.State)}",
                                                        pageParameters: request.PageParameters);
 
-            return mapper.Map<ICollection<TaskDTO>>(tasks);
+            return _mapper.Map<ICollection<TaskDTO>>(tasks);
         }
     }
 }

@@ -26,22 +26,17 @@ namespace Domain.Services.Embeddings
         private readonly IRepository<ClusterizationProfile> _profilesRepository;
         private readonly IRepository<WorkspaceDataObjectsAddPack> _addPacksRepository;
 
-        private IStringLocalizer<ErrorMessages> _localizer;
-
         private IEmbeddingModelsService _embeddingModelsService;
         public EmbeddingLoadingStatesService(IRepository<EmbeddingLoadingState> embeddingLoadingStates,
             IRepository<EmbeddingModel> embeddingModelsRepository,
             IRepository<ClusterizationProfile> profilesRepository,
             IRepository<WorkspaceDataObjectsAddPack> addPacksRepository,
-            IStringLocalizer<ErrorMessages> localizer,
             IEmbeddingModelsService embeddingModelsService)
         {
             _embeddingLoadingStates = embeddingLoadingStates;
             _embeddingModelsRepository = embeddingModelsRepository;
             _profilesRepository = profilesRepository;
             _addPacksRepository = addPacksRepository;
-            
-            _localizer = localizer;
 
             _embeddingModelsService = embeddingModelsService;
         }

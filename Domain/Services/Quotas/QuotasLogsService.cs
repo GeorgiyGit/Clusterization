@@ -26,9 +26,11 @@ namespace Domain.Services.Quotas
         private readonly IRepository<QuotasLogs> _quotasLogsRepository;
         private readonly IRepository<QuotasPackLogs> _quotasPackLogsRepository;
         private readonly IRepository<QuotasPack> _packRepository;
+
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly IStringLocalizer<ErrorMessages> _localizer;
 
         public QuotasLogsService(IRepository<QuotasLogs> quotasLogsRepository,
                                  IRepository<QuotasPackLogs> quotasPackLogsRepository,

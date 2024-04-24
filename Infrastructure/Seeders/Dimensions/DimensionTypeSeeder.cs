@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Seeders
+namespace Infrastructure.Seeders.Dimensions
 {
     internal class DimensionTypeSeeder : IEntityTypeConfiguration<DimensionType>
     {

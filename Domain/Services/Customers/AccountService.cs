@@ -23,31 +23,33 @@ namespace Domain.Services.Customers
 {
     public class AccountService : IAccountService
     {
-        private readonly UserManager<Customer> userManager;
+        private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration configuration;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
+
+        private readonly IConfiguration _configuration;
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
         private readonly ICustomerQuotasService _quotasService;
         public AccountService(UserManager<Customer> userManager,
-                              RoleManager<IdentityRole> _roleManager,
+                              RoleManager<IdentityRole> roleManager,
                               IConfiguration configuration,
                               IStringLocalizer<ErrorMessages> localizer,
                               ICustomerQuotasService quotasService)
         {
-            this.userManager = userManager;
-            this._roleManager = _roleManager;
-            this.configuration = configuration;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _configuration = configuration;
             _quotasService = quotasService;
 
-            this.localizer = localizer;
+            _localizer = localizer;
         }
 
         public async Task<TokenDTO> LogIn(CustomerLogInRequest model)
         {
-            var user = await userManager.FindByEmailAsync(model.Email);
-            if (user == null) throw new HttpException(localizer[ErrorMessagePatterns.UserBadEmail], HttpStatusCode.NotFound);
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserBadEmail], HttpStatusCode.NotFound);
 
-            if (!await userManager.CheckPasswordAsync(user, model.Password)) throw new HttpException(localizer[ErrorMessagePatterns.UserBadPassword], HttpStatusCode.NotFound);
+            if (!await _userManager.CheckPasswordAsync(user, model.Password)) throw new HttpException(_localizer[ErrorMessagePatterns.UserBadPassword], HttpStatusCode.NotFound);
 
             return new TokenDTO()
             {
@@ -56,9 +58,9 @@ namespace Domain.Services.Customers
         }
         public async Task<TokenDTO> SignUp(CustomerSignUpRequest request)
         {
-            var userExists = await userManager.FindByEmailAsync(request.Email);
+            var userExists = await _userManager.FindByEmailAsync(request.Email);
             if (userExists != null)
-                throw new HttpException(localizer[ErrorMessagePatterns.UserAlreadyExists], HttpStatusCode.NotFound);
+                throw new HttpException(_localizer[ErrorMessagePatterns.UserAlreadyExists], HttpStatusCode.NotFound);
 
             await UserNameValidation(request.UserName);
 
@@ -69,16 +71,16 @@ namespace Domain.Services.Customers
                 UserName = request.UserName,
             };
 
-            var result = await userManager.CreateAsync(user, request.Password);
+            var result = await _userManager.CreateAsync(user, request.Password);
             if (!result.Succeeded)
-                throw new HttpException(localizer[ErrorMessagePatterns.UserCreationFailed], HttpStatusCode.InternalServerError);
+                throw new HttpException(_localizer[ErrorMessagePatterns.UserCreationFailed], HttpStatusCode.InternalServerError);
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
             if (await _roleManager.RoleExistsAsync(UserRoles.User))
             {
-                await userManager.AddToRoleAsync(user, UserRoles.User);
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
 
             await _quotasService.AddQuotasPackToCustomer(new DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests.AddQuotasToCustomerRequest()
@@ -102,7 +104,7 @@ namespace Domain.Services.Customers
         }
         private SigningCredentials GetSigningCredentials()
         {
-            var jwtConfig = configuration.GetSection("JwtOptions");
+            var jwtConfig = _configuration.GetSection("JwtOptions");
             var key = Encoding.UTF8.GetBytes(jwtConfig["Key"]);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
@@ -114,7 +116,7 @@ namespace Domain.Services.Customers
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim("userId",user.Id)
                 };
-            var roles = await userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
@@ -124,7 +126,7 @@ namespace Domain.Services.Customers
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = configuration.GetSection("JwtOptions");
+            var jwtSettings = _configuration.GetSection("JwtOptions");
             var tokenOptions = new JwtSecurityToken
             (
             issuer: jwtSettings["Issuer"],
@@ -141,7 +143,7 @@ namespace Domain.Services.Customers
             string allowedCharacters = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюяĆćČčĎďĐđŁłŃńŇňŐőŘřŚśŠšŤťŽžљњћџђњћџABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžǺǻǼǽǾǿȘșȚțəɐɑɒɓɔɕɖɗəɛɜɡɣɥɨɪɫɬɭɯɰɱɲɳɵɹɻɽɾʀʁʂʃʄʅʉʊʋʌʍʎʏʐʑʒʔμאבגдהוזחטיכלמנסעפצקרשתاآبتثجحخدذرزسشصضطظعغفقكلمنهوياأإآةىءصقفعظعظةلىكسمنتيكى_- ";
             foreach (var character in userName)
             {
-                if (!allowedCharacters.Contains(character)) throw new HttpException(localizer[ErrorMessagePatterns.UserNameNotValid], HttpStatusCode.BadRequest);
+                if (!allowedCharacters.Contains(character)) throw new HttpException(_localizer[ErrorMessagePatterns.UserNameNotValid], HttpStatusCode.BadRequest);
             }
         }
     }

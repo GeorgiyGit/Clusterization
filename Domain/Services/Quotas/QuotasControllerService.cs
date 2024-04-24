@@ -17,7 +17,9 @@ namespace Domain.Services.Quotas
     public class QuotasControllerService : IQuotasControllerService
     {
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
+
         private readonly IStringLocalizer<ErrorMessages> _localizer;
+
         private readonly IQuotasLogsService _quotasLogsService;
         public QuotasControllerService(IRepository<CustomerQuotas> customerQuotasRepository,
             IStringLocalizer<ErrorMessages> localizer,

@@ -11,17 +11,19 @@ using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
 using Domain.Entities.Clusterization.Workspaces;
-using Domain.Entities.DataObjects;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Other;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Workspaces
 {
     public class ClusterizationWorkspacesService : IClusterizationWorkspacesService
     {
-        private readonly IRepository<ClusterizationWorkspace> repository;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
-        private readonly IMapper mapper;
+        private readonly IRepository<ClusterizationWorkspace> _repository;
+
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
         public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
@@ -30,9 +32,9 @@ namespace Domain.Services.Clusterization.Workspaces
                                                IUserService userService,
                                                IQuotasControllerService quotasControllerService)
         {
-            this.repository = repository;
-            this.localizer = localizer;
-            this.mapper = mapper;
+            _repository = repository;
+            _localizer = localizer;
+            _mapper = mapper;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
         }
@@ -41,7 +43,7 @@ namespace Domain.Services.Clusterization.Workspaces
         public async Task Add(AddClusterizationWorkspaceRequest model)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             string type = null;
 
@@ -58,7 +60,7 @@ namespace Domain.Services.Clusterization.Workspaces
 
             if (!quotasResult)
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
             }
 
             var newWorkspace = new ClusterizationWorkspace()
@@ -71,24 +73,24 @@ namespace Domain.Services.Clusterization.Workspaces
                 OwnerId = userId
             };
 
-            await repository.AddAsync(newWorkspace);
-            await repository.SaveChangesAsync();
+            await _repository.AddAsync(newWorkspace);
+            await _repository.SaveChangesAsync();
         }
         public async Task Update(UpdateClusterizationWorkspaceRequest model)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var workspace = (await repository.GetAsync(c => c.Id == model.Id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
+            var workspace = (await _repository.GetAsync(c => c.Id == model.Id, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
-            if (workspace == null || workspace.OwnerId != userId) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+            if (workspace == null || workspace.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
 
             workspace.Title = model.Title;
             workspace.Description = model.Description;
             workspace.VisibleType = model.VisibleType;
             workspace.ChangingType = model.ChangingType;
 
-            await repository.SaveChangesAsync();
+            await _repository.SaveChangesAsync();
         }
         #endregion
 
@@ -97,21 +99,21 @@ namespace Domain.Services.Clusterization.Workspaces
         {
             var userId = await _userService.GetCurrentUserId();
 
-            var workspace = (await repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || userId != null && c.OwnerId == userId), includeProperties: $"{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
+            var workspace = (await _repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || userId != null && c.OwnerId == userId), includeProperties: $"{nameof(ClusterizationWorkspace.Profiles)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
 
-            return mapper.Map<ClusterizationWorkspaceDTO>(workspace);
+            return _mapper.Map<ClusterizationWorkspaceDTO>(workspace);
         }
         public async Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id)
         {
             var userId = await _userService.GetCurrentUserId();
 
-            var workspace = (await repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || userId != null && c.OwnerId == userId), includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
+            var workspace = (await _repository.GetAsync(c => c.Id == id && (c.VisibleType == VisibleTypes.AllCustomers || userId != null && c.OwnerId == userId), includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
 
-            if (workspace == null) throw new HttpException(localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
 
-            return mapper.Map<SimpleClusterizationWorkspaceDTO>(workspace);
+            return _mapper.Map<SimpleClusterizationWorkspaceDTO>(workspace);
         }
 
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request)
@@ -151,16 +153,16 @@ namespace Domain.Services.Clusterization.Workspaces
 
 
             var pageParameters = request.PageParameters;
-            var workspaces = (await repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
+            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
                                               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                               .Take(pageParameters.PageSize).ToList();
 
-            return mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+            return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
         }
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCustomerCollection(GetWorkspacesRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.OwnerId == userId;
 
@@ -195,18 +197,18 @@ namespace Domain.Services.Clusterization.Workspaces
 
 
             var pageParameters = request.PageParameters;
-            var workspaces = (await repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
+            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
                                               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                                               .Take(pageParameters.PageSize).ToList();
 
-            return mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+            return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
         }
 
         public async Task<ICollection<string>> GetAllDataObjectsInList(int id)
         {
             List<string> stringList = new List<string>();
 
-            var workspace = (await repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
+            var workspace = (await _repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
 
             stringList = workspace.DataObjects.Select(e => e.Text).ToList();
 

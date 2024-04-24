@@ -8,20 +8,20 @@ namespace Domain.Services.DimensionalityReduction
 {
     public class DimensionalityReductionTechniquesService : IDimensionalityReductionTechniquesService
     {
-        private readonly IRepository<DimensionalityReductionTechnique> drTechnique_repository;
-        private readonly IMapper mapper;
+        private readonly IRepository<DimensionalityReductionTechnique> _drTechniquesRepository;
+        private readonly IMapper _mapper;
         public DimensionalityReductionTechniquesService(IRepository<DimensionalityReductionTechnique> drTechnique_repository,
                                                         IMapper mapper)
         {
-            this.drTechnique_repository = drTechnique_repository;
-            this.mapper = mapper;
+            _drTechniquesRepository = drTechnique_repository;
+            _mapper = mapper;
         }
 
         public async Task<ICollection<DimensionalityReductionTechniqueDTO>> GetAll()
         {
-            var techniques = await drTechnique_repository.GetAsync();
+            var techniques = await _drTechniquesRepository.GetAsync();
 
-            return mapper.Map<ICollection<DimensionalityReductionTechniqueDTO>>(techniques);
+            return _mapper.Map<ICollection<DimensionalityReductionTechniqueDTO>>(techniques);
         }
     }
 }

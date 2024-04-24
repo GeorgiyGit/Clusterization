@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.DataSources.Youtube {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Domain.Resources.Types {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.CommentFilterTypes", typeof(CommentFilterTypes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.DataSources.Youtube.CommentFilterTypes", typeof(CommentFilterTypes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

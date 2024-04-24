@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.Clusterization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Domain.Resources.Types {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.ClusterizationTypes", typeof(ClusterizationTypes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.Clusterization.ClusterizationTypes", typeof(ClusterizationTypes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

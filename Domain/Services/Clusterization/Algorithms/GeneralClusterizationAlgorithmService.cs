@@ -13,20 +13,23 @@ using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
 using Domain.Interfaces.Other;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Algorithms
 {
     public class GeneralClusterizationAlgorithmService : IGeneralClusterizationAlgorithmService
     {
-        private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> kMeansService;
-        private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService;
-        private readonly IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService;
-        private readonly IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> spectralClusteringService;
-        private readonly IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService;
+        private readonly IRepository<ClusterizationAbstactAlgorithm> _abstractAlgorithmsRepository;
 
-        private readonly IStringLocalizer<ErrorMessages> localizer;
-        private readonly IRepository<ClusterizationAbstactAlgorithm> abstractRepository;
-        private readonly IMapper mapper;
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+
+        private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> _kMeansService;
+        private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> _oneClusterService;
+        private readonly IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> _dbSCANService;
+        private readonly IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> _spectralClusteringService;
+        private readonly IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> _gaussianMixtureService;
+
+        private readonly IMapper _mapper;
         public GeneralClusterizationAlgorithmService(IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> kMeansService,
                                                      IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService,
                                                      IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService,
@@ -36,52 +39,52 @@ namespace Domain.Services.Clusterization.Algorithms
                                                      IRepository<ClusterizationAbstactAlgorithm> abstractRepository,
                                                      IMapper mapper)
         {
-            this.kMeansService = kMeansService;
-            this.oneClusterService = oneClusterService;
-            this.dbSCANService = dbSCANService;
-            this.spectralClusteringService = spectralClusteringService;
-            this.gaussianMixtureService = gaussianMixtureService;
+            _kMeansService = kMeansService;
+            _oneClusterService = oneClusterService;
+            _dbSCANService = dbSCANService;
+            _spectralClusteringService = spectralClusteringService;
+            _gaussianMixtureService = gaussianMixtureService;
 
-            this.localizer = localizer;
-            this.abstractRepository = abstractRepository;
-            this.mapper = mapper;
+            _localizer = localizer;
+            _abstractAlgorithmsRepository = abstractRepository;
+            _mapper = mapper;
         }
 
         public async Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId)
         {
             if (typeId == ClusterizationAlgorithmTypes.KMeans)
             {
-                return (await kMeansService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+                return (await _kMeansService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else if (typeId == ClusterizationAlgorithmTypes.OneCluster)
             {
-                return (await oneClusterService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+                return (await _oneClusterService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else if (typeId == ClusterizationAlgorithmTypes.DBSCAN)
             {
-                return (await dbSCANService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+                return (await _dbSCANService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else if (typeId == ClusterizationAlgorithmTypes.SpectralClustering)
             {
-                return (await spectralClusteringService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+                return (await _spectralClusteringService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else if (typeId == ClusterizationAlgorithmTypes.GaussianMixture)
             {
-                return (await gaussianMixtureService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+                return (await _gaussianMixtureService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist], System.Net.HttpStatusCode.NotFound);
+                throw new HttpException(_localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist], System.Net.HttpStatusCode.NotFound);
             }
         }
 
         public async Task<SimpleAlgorithmTypeDTO?> GetAlgorithmTypeByAlgorithmId(int algorithmId)
         {
-            var algorithm = (await abstractRepository.GetAsync(c => c.Id == algorithmId, includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}")).FirstOrDefault();
+            var algorithm = (await _abstractAlgorithmsRepository.GetAsync(c => c.Id == algorithmId, includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}")).FirstOrDefault();
 
             if (algorithm == null) return null;
 
-            return mapper.Map<SimpleAlgorithmTypeDTO>(algorithm.Type);
+            return _mapper.Map<SimpleAlgorithmTypeDTO>(algorithm.Type);
         }
     }
 }

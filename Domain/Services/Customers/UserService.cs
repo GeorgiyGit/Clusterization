@@ -19,9 +19,10 @@ namespace Domain.Services.Customers
 {
     public class UserService : IUserService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<Customer> _userManager;
         private readonly IRepository<Customer> _repository;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
 
         public UserService(IHttpContextAccessor httpContextAccessor,

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.DataSources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Domain.Resources.Types {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class VideoFilterTypes {
+    public class DataObjectTypes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal VideoFilterTypes() {
+        internal DataObjectTypes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Domain.Resources.Types {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.VideoFilterTypes", typeof(VideoFilterTypes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.DataSources.DataObjectTypes", typeof(DataObjectTypes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,20 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ByCommentsDesc.
+        ///   Looks up a localized string similar to Comment.
         /// </summary>
-        public static string ByCommentsDesc {
+        public static string Comment {
             get {
-                return ResourceManager.GetString("ByCommentsDesc", resourceCulture);
+                return ResourceManager.GetString("Comment", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ByCommentsInc.
+        ///   Looks up a localized string similar to ExternalData.
         /// </summary>
-        public static string ByCommentsInc {
+        public static string ExternalData {
             get {
-                return ResourceManager.GetString("ByCommentsInc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ByTimeDesc.
-        /// </summary>
-        public static string ByTimeDesc {
-            get {
-                return ResourceManager.GetString("ByTimeDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ByTimeInc.
-        /// </summary>
-        public static string ByTimeInc {
-            get {
-                return ResourceManager.GetString("ByTimeInc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ByViewsDesc.
-        /// </summary>
-        public static string ByViewsDesc {
-            get {
-                return ResourceManager.GetString("ByViewsDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ByViewsInc.
-        /// </summary>
-        public static string ByViewsInc {
-            get {
-                return ResourceManager.GetString("ByViewsInc", resourceCulture);
+                return ResourceManager.GetString("ExternalData", resourceCulture);
             }
         }
     }

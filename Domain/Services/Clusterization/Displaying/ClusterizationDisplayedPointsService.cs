@@ -7,16 +7,16 @@ namespace Domain.Services.Clusterization.Displaying
 {
     public class ClusterizationDisplayedPointsService : IClusterizationDisplayedPointsService
     {
-        private readonly IRepository<DisplayedPoint> points_repository;
+        private readonly IRepository<DisplayedPoint> _pointsRepository;
 
         public ClusterizationDisplayedPointsService(IRepository<DisplayedPoint> points_repository)
         {
-            this.points_repository = points_repository;
+            _pointsRepository = points_repository;
         }
 
         public async Task<DisplayedPointValueDTO> GetDisplayedPointTextValue(int pointId)
         {
-            var point = (await points_repository.GetAsync(e => e.Id == pointId, includeProperties: $"{nameof(DisplayedPoint.DataObject)}")).FirstOrDefault();
+            var point = (await _pointsRepository.GetAsync(e => e.Id == pointId, includeProperties: $"{nameof(DisplayedPoint.DataObject)}")).FirstOrDefault();
 
             if (point == null) return null;
 

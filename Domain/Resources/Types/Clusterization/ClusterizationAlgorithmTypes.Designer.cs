@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.Clusterization {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Domain.Resources.Types {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ChannelFilterTypes {
+    public class ClusterizationAlgorithmTypes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ChannelFilterTypes() {
+        internal ClusterizationAlgorithmTypes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Domain.Resources.Types {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.ChannelFilterTypes", typeof(ChannelFilterTypes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.Clusterization.ClusterizationAlgorithmTypes", typeof(ClusterizationAlgorithmTypes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,47 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BySubscribersDesc.
+        ///   Looks up a localized string similar to DBSCAN.
         /// </summary>
-        public static string BySubscribersDesc {
+        public static string DBSCAN {
             get {
-                return ResourceManager.GetString("BySubscribersDesc", resourceCulture);
+                return ResourceManager.GetString("DBSCAN", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BySubscribersInc.
+        ///   Looks up a localized string similar to GaussianMixture.
         /// </summary>
-        public static string BySubscribersInc {
+        public static string GaussianMixture {
             get {
-                return ResourceManager.GetString("BySubscribersInc", resourceCulture);
+                return ResourceManager.GetString("GaussianMixture", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ByTimeDesc.
+        ///   Looks up a localized string similar to KMeans.
         /// </summary>
-        public static string ByTimeDesc {
+        public static string KMeans {
             get {
-                return ResourceManager.GetString("ByTimeDesc", resourceCulture);
+                return ResourceManager.GetString("KMeans", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ByTimeInc.
+        ///   Looks up a localized string similar to OneCluster.
         /// </summary>
-        public static string ByTimeInc {
+        public static string OneCluster {
             get {
-                return ResourceManager.GetString("ByTimeInc", resourceCulture);
+                return ResourceManager.GetString("OneCluster", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ByVideoCountDesc.
+        ///   Looks up a localized string similar to SpectralClustering.
         /// </summary>
-        public static string ByVideoCountDesc {
+        public static string SpectralClustering {
             get {
-                return ResourceManager.GetString("ByVideoCountDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ByVideoCountInc.
-        /// </summary>
-        public static string ByVideoCountInc {
-            get {
-                return ResourceManager.GetString("ByVideoCountInc", resourceCulture);
+                return ResourceManager.GetString("SpectralClustering", resourceCulture);
             }
         }
     }

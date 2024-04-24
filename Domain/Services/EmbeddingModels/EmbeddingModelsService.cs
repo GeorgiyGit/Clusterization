@@ -4,12 +4,6 @@ using Domain.DTOs.EmbeddingModelDTOs.Responses;
 using Domain.Entities.EmbeddingModels;
 using Domain.Interfaces.EmbeddingModels;
 using Domain.Interfaces.Other;
-using Domain.Resources.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services.EmbeddingModels
 {

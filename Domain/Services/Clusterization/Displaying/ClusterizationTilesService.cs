@@ -18,29 +18,27 @@ namespace Domain.Services.Clusterization.Displaying
 {
     public class ClusterizationTilesService : IClusterizationTilesService
     {
-        private readonly IRepository<DisplayedPoint> displayedPoints_repository;
-        private readonly IRepository<ClusterizationTile> tiles_repository;
-        private readonly IRepository<ClusterizationTilesLevel> tilesLevel_repository;
-        private readonly IRepository<MyDataObject> _dataObjectsRepository;
+        private readonly IRepository<DisplayedPoint> _displayedPointsRepository;
+        private readonly IRepository<ClusterizationTile> _tilesRepository;
+        private readonly IRepository<ClusterizationTilesLevel> _tilesLevelRepository;
         private readonly IRepository<EmbeddingObjectsGroup> _embeddingObjectsGroupsRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
         public ClusterizationTilesService(IRepository<DisplayedPoint> displayedPoints_repository,
                                           IRepository<ClusterizationTile> tiles_repository,
                                           IStringLocalizer<ErrorMessages> localizer,
                                           IMapper mapper,
                                           IRepository<ClusterizationTilesLevel> tilesLevel_repository,
-                                          IRepository<MyDataObject> dataObjectsRepository,
                                           IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository)
         {
-            this.displayedPoints_repository = displayedPoints_repository;
-            this.tiles_repository = tiles_repository;
+            _displayedPointsRepository = displayedPoints_repository;
+            _tilesRepository = tiles_repository;
             _localizer = localizer;
-            this.mapper = mapper;
-            this.tilesLevel_repository = tilesLevel_repository;
-            _dataObjectsRepository = dataObjectsRepository;
+            _tilesLevelRepository = tilesLevel_repository;
             _embeddingObjectsGroupsRepository = embeddingObjectsGroupsRepository;
+            
+            _mapper = mapper;
         }
         public async Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel, string DRTechniqueId, string embeddingModelId, int workspaceId)
         {
@@ -111,11 +109,11 @@ namespace Domain.Services.Clusterization.Displaying
                             Cluster = model.Cluster
                         };
 
-                        await displayedPoints_repository.AddAsync(point);
+                        await _displayedPointsRepository.AddAsync(point);
                         newTile.Points.Add(point);
                     }
 
-                    await tiles_repository.AddAsync(newTile);
+                    await _tilesRepository.AddAsync(newTile);
 
                     tiles.Add(newTile);
                 }
@@ -128,7 +126,7 @@ namespace Domain.Services.Clusterization.Displaying
         #region get_tiles
         public async Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z)
         {
-            var tile = (await tiles_repository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
+            var tile = (await _tilesRepository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
 
             if (tile == null) throw new HttpException(_localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
 
@@ -136,22 +134,22 @@ namespace Domain.Services.Clusterization.Displaying
         }
         public async Task<ClusterizationTileDTO> GetOneTile(int tileId)
         {
-            var tile = (await tiles_repository.GetAsync(c => c.Id == tileId)).FirstOrDefault();
+            var tile = (await _tilesRepository.GetAsync(c => c.Id == tileId)).FirstOrDefault();
 
             if (tile == null) throw new HttpException(_localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
 
-            var points = (await displayedPoints_repository.GetAsync(e => e.TileId == tileId, includeProperties: $"{nameof(DisplayedPoint.Cluster)}")).ToList();
+            var points = (await _displayedPointsRepository.GetAsync(e => e.TileId == tileId, includeProperties: $"{nameof(DisplayedPoint.Cluster)}")).ToList();
 
-            var mappedTile = mapper.Map<ClusterizationTileDTO>(tile);
+            var mappedTile = _mapper.Map<ClusterizationTileDTO>(tile);
 
-            mappedTile.Points = mapper.Map<ICollection<DisplayedPointDTO>>(points);
+            mappedTile.Points = _mapper.Map<ICollection<DisplayedPointDTO>>(points);
 
             return mappedTile;
         }
 
         public async Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points)
         {
-            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.Z == z, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
+            var tilesLevel = (await _tilesLevelRepository.GetAsync(e => e.ProfileId == profileId && e.Z == z, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
 
             if (tilesLevel == null) throw new HttpException(_localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
 
@@ -173,36 +171,36 @@ namespace Domain.Services.Clusterization.Displaying
 
         public async Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int z)
         {
-            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.ProfileId == profileId && e.Z == z)).FirstOrDefault();
+            var tilesLevel = (await _tilesLevelRepository.GetAsync(e => e.ProfileId == profileId && e.Z == z)).FirstOrDefault();
 
             if (tilesLevel == null) throw new HttpException(_localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
 
-            return mapper.Map<ClusterizationTilesLevelDTO>(tilesLevel);
+            return _mapper.Map<ClusterizationTilesLevelDTO>(tilesLevel);
         }
 
         public async Task FullRemoveTilesLevel(int tilesLevelId)
         {
-            var tilesLevel = (await tilesLevel_repository.GetAsync(e => e.Id == tilesLevelId, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
+            var tilesLevel = (await _tilesLevelRepository.GetAsync(e => e.Id == tilesLevelId, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
 
             if (tilesLevel == null) throw new HttpException(_localizer[ErrorMessagePatterns.TilesLevelNotFound], HttpStatusCode.NotFound);
 
             foreach (var tile in tilesLevel.Tiles)
             {
-                var fullTile = (await tiles_repository.GetAsync(e => e.Id == tile.Id, includeProperties: $"{nameof(ClusterizationTile.Parent)},{nameof(ClusterizationTile.ChildTiles)},{nameof(ClusterizationTile.Points)},{nameof(ClusterizationTile.TilesLevel)},{nameof(ClusterizationTile.Profile)}")).FirstOrDefault();
+                var fullTile = (await _tilesRepository.GetAsync(e => e.Id == tile.Id, includeProperties: $"{nameof(ClusterizationTile.Parent)},{nameof(ClusterizationTile.ChildTiles)},{nameof(ClusterizationTile.Points)},{nameof(ClusterizationTile.TilesLevel)},{nameof(ClusterizationTile.Profile)}")).FirstOrDefault();
 
                 if (fullTile != null)
                 {
-                    var points = await displayedPoints_repository.GetAsync(e => e.TileId == fullTile.Id, includeProperties: $"{nameof(DisplayedPoint.Tile)},{nameof(DisplayedPoint.Cluster)}");
+                    var points = await _displayedPointsRepository.GetAsync(e => e.TileId == fullTile.Id, includeProperties: $"{nameof(DisplayedPoint.Tile)},{nameof(DisplayedPoint.Cluster)}");
 
                     foreach (var point in points)
                     {
-                        displayedPoints_repository.Remove(point);
+                        _displayedPointsRepository.Remove(point);
                     }
-                    tiles_repository.Remove(fullTile);
+                    _tilesRepository.Remove(fullTile);
                 }
             }
-            tilesLevel_repository.Remove(tilesLevel);
-            await tilesLevel_repository.SaveChangesAsync();
+            _tilesLevelRepository.Remove(tilesLevel);
+            await _tilesLevelRepository.SaveChangesAsync();
         }
     }
 }

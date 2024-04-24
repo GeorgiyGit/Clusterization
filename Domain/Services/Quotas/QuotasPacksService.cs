@@ -11,6 +11,7 @@ namespace Domain.Services.Quotas
     {
         private readonly IRepository<QuotasPack> _packsRepository;
         private readonly IRepository<QuotasPackItem> _packItemsRepository;
+
         private readonly IMapper _mapper;
 
         public QuotasPacksService(IRepository<QuotasPack> packsRepository,

@@ -18,6 +18,7 @@ namespace Domain.Services.Customers
     {
         private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
         public RolesService(UserManager<Customer> userManager,

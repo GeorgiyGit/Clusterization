@@ -1,4 +1,5 @@
 ﻿using Domain.Resources.Types;
+using Domain.Resources.Types.Clusterization;
 using System;
 using System.Collections.Generic;
 using System.Linq;

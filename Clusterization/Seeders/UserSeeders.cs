@@ -13,7 +13,7 @@ namespace Clusterization.Seeders
                 if (await _userManager.FindByEmailAsync("admin@gmail.com") != null) return;
 
                 var newuser = new Customer { UserName = "Admin", Email = "admin@gmail.com" };
-                var result = await _userManager.CreateAsync(newuser, "");
+                var result = await _userManager.CreateAsync(newuser, "41924192Ge11$");
 
                 using (RoleManager<IdentityRole> _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>())
                 {

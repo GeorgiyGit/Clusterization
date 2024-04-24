@@ -6,14 +6,14 @@ namespace Domain.Services.DataSources.Youtube
 {
     public class PrivateYoutubeVideosService : IPrivateYoutubeVideosService
     {
-        private readonly IRepository<Video> repository;
+        private readonly IRepository<Video> _repository;
         public PrivateYoutubeVideosService(IRepository<Video> repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
         public async Task<Video?> GetById(string id)
         {
-            return (await repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Video.Channel)}", pageParameters: null)).FirstOrDefault();
+            return (await _repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Video.Channel)}", pageParameters: null)).FirstOrDefault();
         }
     }
 }

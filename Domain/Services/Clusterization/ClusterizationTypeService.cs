@@ -8,19 +8,19 @@ namespace Domain.Services.Clusterization
 {
     public class ClusterizationTypeService : IClusterizationTypesService
     {
-        private readonly IRepository<ClusterizationType> repository;
-        private readonly IMapper mapper;
+        private readonly IRepository<ClusterizationType> _repository;
+        private readonly IMapper _mapper;
         public ClusterizationTypeService(IRepository<ClusterizationType> repository,
                                          IMapper mapper)
         {
-            this.repository = repository;
-            this.mapper = mapper;
+            _repository = repository;
+            _mapper = mapper;
         }
         public async Task<ICollection<ClusterizationTypeDTO>> GetAll()
         {
-            var types = await repository.GetAsync();
+            var types = await _repository.GetAsync();
 
-            return mapper.Map<ICollection<ClusterizationTypeDTO>>(types);
+            return _mapper.Map<ICollection<ClusterizationTypeDTO>>(types);
         }
     }
 }

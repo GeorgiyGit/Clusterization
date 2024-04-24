@@ -18,23 +18,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
+using Domain.Resources.Types.DataSources.Youtube;
 
 namespace Domain.Services.DataSources.Youtube
 {
     public class YoutubeCommentsService : IYoutubeCommentsService
     {
-        private readonly IRepository<Entities.DataSources.Youtube.Comment> repository;
-        private readonly IRepository<Entities.DataSources.Youtube.Video> videos_repository;
+        private readonly IRepository<Entities.DataSources.Youtube.Comment> _repository;
+        private readonly IRepository<Entities.DataSources.Youtube.Video> _videosRepository;
 
-        private readonly YouTubeService youtubeService;
-        private readonly IPrivateYoutubeChannelsService privateChannelService;
-        private readonly IPrivateYoutubeVideosService privateVideoService;
-        private readonly IYoutubeVideoService videoService;
-        private readonly IMapper mapper;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
-        private readonly IMyTasksService taskService;
-        private readonly IBackgroundJobClient backgroundJobClient;
+        private readonly IBackgroundJobClient _backgroundJobClient;
+
+        private readonly YouTubeService _youtubeService;
+        private readonly IPrivateYoutubeChannelsService _privateChannelService;
+        private readonly IPrivateYoutubeVideosService _privateVideoService;
+        private readonly IYoutubeVideoService _videoService;
+        private readonly IMapper _mapper;
+        private readonly IMyTasksService _tasksService;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
         public YoutubeCommentsService(IRepository<Entities.DataSources.Youtube.Comment> repository,
@@ -44,28 +46,28 @@ namespace Domain.Services.DataSources.Youtube
                                       IYoutubeVideoService videoService,
                                       IMapper mapper,
                                       IStringLocalizer<ErrorMessages> localizer,
-                                      IMyTasksService taskService,
+                                      IMyTasksService tasksService,
                                       IBackgroundJobClient backgroundJobClient,
-                                      IRepository<Entities.DataSources.Youtube.Video> videos_repository,
+                                      IRepository<Entities.DataSources.Youtube.Video> videosRepository,
                                       IUserService userService,
                                       IStringLocalizer<TaskTitles> tasksLocalizer,
                                       IQuotasControllerService quotasControllerService)
         {
-            this.repository = repository;
-            this.privateChannelService = privateChannelService;
-            this.privateVideoService = privateVideoService;
-            this.videoService = videoService;
-            this.mapper = mapper;
-            this.localizer = localizer;
-            this.taskService = taskService;
-            this.backgroundJobClient = backgroundJobClient;
-            this.videos_repository = videos_repository;
+            _repository = repository;
+            _privateChannelService = privateChannelService;
+            _privateVideoService = privateVideoService;
+            _videoService = videoService;
+            _mapper = mapper;
+            _localizer = localizer;
+            _tasksService = tasksService;
+            _backgroundJobClient = backgroundJobClient;
+            _videosRepository = videosRepository;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
-            youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            _youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
                 ApiKey = youtubeOptions["ApiKey"],
                 ApplicationName = youtubeOptions["ApplicationName"]
@@ -77,26 +79,26 @@ namespace Domain.Services.DataSources.Youtube
         public async Task LoadFromVideo(LoadOptions options)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
+            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
 
-            backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options, userId, taskId));
+            _backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options, userId, taskId));
         }
         public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options, string userId, int taskId)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;
-            if (await privateVideoService.GetById(videoId) == null)
+            if (await _privateVideoService.GetById(videoId) == null)
             {
-                await videoService.LoadById(videoId);
+                await _videoService.LoadById(videoId);
                 isNewVideo = true;
             }
 
-            var stateId = await taskService.GetTaskStateId(taskId);
+            var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
 
-            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
             float percent = 0f;
 
@@ -106,11 +108,11 @@ namespace Domain.Services.DataSources.Youtube
                 var nextPageToken = "";
                 int newCommentCount = 0;
 
-                var video = await privateVideoService.GetById(videoId);
-                var channel = await privateChannelService.GetById(video.ChannelId);
+                var video = await _privateVideoService.GetById(videoId);
+                var channel = await _privateChannelService.GetById(video.ChannelId);
                 for (int i = 0; i < options.MaxLoad;)
                 {
-                    var searchRequest = youtubeService.CommentThreads.List("snippet");
+                    var searchRequest = _youtubeService.CommentThreads.List("snippet");
 
                     // Set the channelId to load videos from the specific channel
                     searchRequest.VideoId = videoId;
@@ -149,7 +151,7 @@ namespace Domain.Services.DataSources.Youtube
 
                         if (!isNewVideo)
                         {
-                            if (await repository.FindAsync(comment.Id) != null)
+                            if (await _repository.FindAsync(comment.Id) != null)
                             {
                                 continue;
                             }
@@ -159,8 +161,8 @@ namespace Domain.Services.DataSources.Youtube
 
                         if (!quotasResult)
                         {
-                            await taskService.ChangeTaskState(taskId, TaskStates.Error);
-                            await taskService.ChangeTaskDescription(taskId, localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                            await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                            await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotEnoughQuotas]);
                             return;
                         }
 
@@ -190,7 +192,7 @@ namespace Domain.Services.DataSources.Youtube
 
                         newComment.LoaderId = userId;
 
-                        await repository.AddAsync(newComment);
+                        await _repository.AddAsync(newComment);
                         i++;
 
                         float plusPercent = 100f / options.MaxLoad;
@@ -207,21 +209,21 @@ namespace Domain.Services.DataSources.Youtube
                             }
                         }
 
-                        await taskService.ChangeTaskPercent(taskId, percent);
+                        await _tasksService.ChangeTaskPercent(taskId, percent);
                     }
 
-                    await repository.SaveChangesAsync();
+                    await _repository.SaveChangesAsync();
 
                     if (nextPageToken == "" || nextPageToken == null) break;
                 }
 
-                await taskService.ChangeTaskPercent(taskId, 100f);
-                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(taskId, 100f);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
             }
             catch (Exception ex)
             {
-                await taskService.ChangeTaskState(taskId, TaskStates.Error);
-                await taskService.ChangeTaskDescription(taskId, ex.Message);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
 
@@ -229,21 +231,21 @@ namespace Domain.Services.DataSources.Youtube
         public async Task LoadFromChannel(LoadCommentsByChannelOptions options)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await taskService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
+            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
 
-            backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId, taskId));
+            _backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId, taskId));
         }
         public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options, string userId, int taskId)
         {
             string channelId = options.ParentId;
-            if (await privateChannelService.GetById(channelId) == null) return;
+            if (await _privateChannelService.GetById(channelId) == null) return;
 
-            var stateId = await taskService.GetTaskStateId(taskId);
+            var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
 
-            await taskService.ChangeTaskState(taskId, TaskStates.Process);
+            await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
             float percent = 0f;
 
@@ -259,7 +261,7 @@ namespace Domain.Services.DataSources.Youtube
                 }
                 Random random = new Random();
 
-                var videos = await videos_repository.GetAsync(filter: filterCondition, pageParameters: null);
+                var videos = await _videosRepository.GetAsync(filter: filterCondition, pageParameters: null);
                 List<Entities.DataSources.Youtube.Video> shuffledVideos = videos.OrderBy(x => random.Next()).ToList();
 
                 int loadedCount = 0;
@@ -270,7 +272,7 @@ namespace Domain.Services.DataSources.Youtube
                     while (true)
                     {
                         int newCommentCount = 0;
-                        var searchRequest = youtubeService.CommentThreads.List("snippet");
+                        var searchRequest = _youtubeService.CommentThreads.List("snippet");
 
                         // Set the channelId to load videos from the specific channel
                         searchRequest.VideoId = video.Id;
@@ -312,7 +314,7 @@ namespace Domain.Services.DataSources.Youtube
                                 }
                             }
 
-                            if (await repository.FindAsync(comment.Id) != null)
+                            if (await _repository.FindAsync(comment.Id) != null)
                             {
                                 continue;
                             }
@@ -321,8 +323,8 @@ namespace Domain.Services.DataSources.Youtube
 
                             if (!quotasResult)
                             {
-                                await taskService.ChangeTaskState(taskId, TaskStates.Error);
-                                await taskService.ChangeTaskDescription(taskId, localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotEnoughQuotas]);
                                 return;
                             }
 
@@ -359,26 +361,26 @@ namespace Domain.Services.DataSources.Youtube
                                 newComment.AuthorChannelId = "";
                             }
 
-                            await repository.AddAsync(newComment);
+                            await _repository.AddAsync(newComment);
                             loadedCount++;
                             loadedCountInOneVideo++;
 
                             float plusPercent = 100f / options.MaxLoad;
                             percent += plusPercent;
 
-                            await taskService.ChangeTaskPercent(taskId, percent);
+                            await _tasksService.ChangeTaskPercent(taskId, percent);
                             newCommentCount++;
                         }
 
                         video.LoadedCommentCount += newCommentCount;
 
-                        var channel = await privateChannelService.GetById(video.ChannelId);
+                        var channel = await _privateChannelService.GetById(video.ChannelId);
                         if (channel != null)
                         {
                             channel.LoadedCommentCount += newCommentCount;
                         }
 
-                        await repository.SaveChangesAsync();
+                        await _repository.SaveChangesAsync();
 
                         if (nextPageToken == "" || nextPageToken == null || loadedCount >= options.MaxLoad || loadedCountInOneVideo >= options.MaxLoadForOneVideo) break;
                     }
@@ -387,13 +389,13 @@ namespace Domain.Services.DataSources.Youtube
                     if (loadedCount >= options.MaxLoad) break;
                 }
 
-                await taskService.ChangeTaskPercent(taskId, 100f);
-                await taskService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(taskId, 100f);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
             }
             catch (Exception ex)
             {
-                await taskService.ChangeTaskState(taskId, TaskStates.Error);
-                await taskService.ChangeTaskDescription(taskId, ex.Message);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, ex.Message);
             }
         }
         #endregion
@@ -401,11 +403,11 @@ namespace Domain.Services.DataSources.Youtube
         #region get
         public async Task<CommentDTO> GetLoadedById(string commentId)
         {
-            var comment = (await repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.Channel)}", pageParameters: null)).FirstOrDefault();
+            var comment = (await _repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.Channel)}", pageParameters: null)).FirstOrDefault();
 
-            if (comment == null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeCommentNotFound], HttpStatusCode.NotFound);
+            if (comment == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeCommentNotFound], HttpStatusCode.NotFound);
 
-            return mapper.Map<CommentDTO>(comment);
+            return _mapper.Map<CommentDTO>(comment);
         }
         public async Task<ICollection<CommentDTO>> GetLoadedCollection(GetCommentsRequest request)
         {
@@ -451,12 +453,12 @@ namespace Domain.Services.DataSources.Youtube
 
             var pageParameters = request.PageParameters;
 
-            var comments = await repository.GetAsync(filter: filterCondition,
+            var comments = await _repository.GetAsync(filter: filterCondition,
                                                    includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.Channel)}",
                                                    orderBy: orderByExpression,
                                                    pageParameters: pageParameters);
 
-            return mapper.Map<ICollection<CommentDTO>>(comments);
+            return _mapper.Map<ICollection<CommentDTO>>(comments);
         }
         #endregion
     }

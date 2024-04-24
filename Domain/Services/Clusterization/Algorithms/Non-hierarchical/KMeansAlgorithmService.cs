@@ -26,6 +26,7 @@ using Domain.Entities.Embeddings.DimensionEntities;
 using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Resources.Types.Clusterization;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {

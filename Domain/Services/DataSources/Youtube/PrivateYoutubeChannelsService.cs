@@ -6,14 +6,14 @@ namespace Domain.Services.DataSources.Youtube
 {
     public class PrivateYoutubeChannelsService : IPrivateYoutubeChannelsService
     {
-        private readonly IRepository<Channel> repository;
+        private readonly IRepository<Channel> _repository;
         public PrivateYoutubeChannelsService(IRepository<Channel> repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
         public async Task<Channel?> GetById(string id)
         {
-            return await repository.FindAsync(id);
+            return await _repository.FindAsync(id);
         }
     }
 }

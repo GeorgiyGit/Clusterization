@@ -16,16 +16,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
+using Domain.Resources.Types.DataSources.Youtube;
 
 namespace Domain.Services.DataSources.Youtube
 {
     public class YoutubeChannelsService : IYoutubeChannelsService
     {
         private const int loadChannelQutasCount = 50;
-        private readonly IRepository<Entities.DataSources.Youtube.Channel> repository;
-        private readonly YouTubeService youtubeService;
-        private readonly IStringLocalizer<ErrorMessages> localizer;
-        private readonly IMapper mapper;
+
+        private readonly IRepository<Entities.DataSources.Youtube.Channel> _repository;
+
+        private readonly IStringLocalizer<ErrorMessages> _localizer;
+        
+        private readonly YouTubeService _youtubeService;
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
         public YoutubeChannelsService(IRepository<Entities.DataSources.Youtube.Channel> repository,
@@ -35,15 +39,15 @@ namespace Domain.Services.DataSources.Youtube
                                      IUserService userService,
                                      IQuotasControllerService quotasControllerService)
         {
-            this.repository = repository;
-            this.localizer = localizer;
-            this.mapper = mapper;
+            _repository = repository;
+            _localizer = localizer;
+            _mapper = mapper;
             _userService = userService;
             _quotasControllerService = quotasControllerService;
 
             var youtubeOptions = configuration.GetSection("YoutubeOptions");
 
-            youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            _youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
                 ApiKey = youtubeOptions["ApiKey"],
                 ApplicationName = youtubeOptions["ApplicationName"]
@@ -53,9 +57,9 @@ namespace Domain.Services.DataSources.Youtube
         #region load
         public async Task LoadById(string id)
         {
-            if (await repository.FindAsync(id) != null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelAlreadyLoaded], HttpStatusCode.Conflict);
+            if (await _repository.FindAsync(id) != null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelAlreadyLoaded], HttpStatusCode.Conflict);
 
-            var channelsRequest = youtubeService.Channels.List("snippet,statistics");
+            var channelsRequest = _youtubeService.Channels.List("snippet,statistics");
 
             // Set the channelId to load the specific channel
             channelsRequest.Id = id;
@@ -67,11 +71,11 @@ namespace Domain.Services.DataSources.Youtube
             }
             catch
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelLoadingError], HttpStatusCode.BadRequest);
+                throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelLoadingError], HttpStatusCode.BadRequest);
             }
 
 
-            if (response.Items == null || response.Items.Count() == 0) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelDoesNotExist], HttpStatusCode.NotFound);
+            if (response.Items == null || response.Items.Count() == 0) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelDoesNotExist], HttpStatusCode.NotFound);
 
             var channel = response.Items[0];
 
@@ -81,7 +85,7 @@ namespace Domain.Services.DataSources.Youtube
 
             if (!quotasResult)
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
             }
 
             try
@@ -103,7 +107,7 @@ namespace Domain.Services.DataSources.Youtube
                 };
 
                 var userId = await _userService.GetCurrentUserId();
-                if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+                if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
                 newChannel.LoaderId = userId;
 
                 try
@@ -118,24 +122,24 @@ namespace Domain.Services.DataSources.Youtube
                 }
                 catch { }
 
-                await repository.AddAsync(newChannel);
-                await repository.SaveChangesAsync();
+                await _repository.AddAsync(newChannel);
+                await _repository.SaveChangesAsync();
             }
             catch
             {
-                throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelAddingError], HttpStatusCode.BadRequest);
+                throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelAddingError], HttpStatusCode.BadRequest);
             }
         }
         public async Task LoadManyByIds(ICollection<string> ids)
         {
             var userId = await _userService.GetCurrentUserId();
-            if (userId == null) throw new HttpException(localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
             var logs = Guid.NewGuid().ToString();
             while (ids.Count() > 0)
             {
                 // Create the videos request to retrieve video statistics and tags
-                var chanelsRequest = youtubeService.Channels.List("snippet,statistics");
+                var chanelsRequest = _youtubeService.Channels.List("snippet,statistics");
 
                 chanelsRequest.MaxResults = 100;
                 // Set the video IDs to load statistics and tags for the specific videos
@@ -150,13 +154,13 @@ namespace Domain.Services.DataSources.Youtube
                 {
                     ids.Remove(channel.Id);
 
-                    if (await repository.FindAsync(channel.Id) != null) continue;
+                    if (await _repository.FindAsync(channel.Id) != null) continue;
 
                     var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Youtube, loadChannelQutasCount, logs);
 
                     if (!quotasResult)
                     {
-                        throw new HttpException(localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                        throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
                     }
 
                     var newChannel = new Entities.DataSources.Youtube.Channel()
@@ -189,10 +193,10 @@ namespace Domain.Services.DataSources.Youtube
                     }
                     catch { }
 
-                    await repository.AddAsync(newChannel);
+                    await _repository.AddAsync(newChannel);
                 }
 
-                await repository.SaveChangesAsync();
+                await _repository.SaveChangesAsync();
             }
         }
         #endregion
@@ -200,11 +204,11 @@ namespace Domain.Services.DataSources.Youtube
         #region get
         public async Task<SimpleChannelDTO> GetLoadedById(string id)
         {
-            var channel = (await repository.GetAsync(c => c.Id == id, pageParameters: null)).FirstOrDefault();
+            var channel = (await _repository.GetAsync(c => c.Id == id, pageParameters: null)).FirstOrDefault();
 
-            if (channel == null) throw new HttpException(localizer[ErrorMessagePatterns.YoutubeChannelNotFound], HttpStatusCode.NotFound);
+            if (channel == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelNotFound], HttpStatusCode.NotFound);
 
-            var mappedChannel = mapper.Map<SimpleChannelDTO>(channel);
+            var mappedChannel = _mapper.Map<SimpleChannelDTO>(channel);
             mappedChannel.IsLoaded = true;
 
             return mappedChannel;
@@ -259,12 +263,12 @@ namespace Domain.Services.DataSources.Youtube
 
             var pageParameters = request.PageParameters;
 
-            var channels = await repository.GetAsync(filter: filterCondition,
+            var channels = await _repository.GetAsync(filter: filterCondition,
                                                       orderBy: orderByExpression,
                                                       pageParameters: pageParameters);
 
 
-            var mappedChannels = mapper.Map<ICollection<SimpleChannelDTO>>(channels);
+            var mappedChannels = _mapper.Map<ICollection<SimpleChannelDTO>>(channels);
             foreach (var channel in mappedChannels)
             {
                 channel.IsLoaded = true;
@@ -276,7 +280,7 @@ namespace Domain.Services.DataSources.Youtube
         #region get-load
         public async Task<ChannelsWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string filterType)
         {
-            var searchListRequest = youtubeService.Search.List("snippet");
+            var searchListRequest = _youtubeService.Search.List("snippet");
             searchListRequest.Q = name;
             searchListRequest.Type = "channel";
             searchListRequest.MaxResults = 100;
@@ -320,7 +324,7 @@ namespace Domain.Services.DataSources.Youtube
             }
 
             // Create the videos request to retrieve video statistics and tags
-            var channelsRequest = youtubeService.Channels.List("snippet,statistics");
+            var channelsRequest = _youtubeService.Channels.List("snippet,statistics");
 
             channelsRequest.MaxResults = 100;
             // Set the video IDs to load statistics and tags for the specific videos
@@ -335,11 +339,11 @@ namespace Domain.Services.DataSources.Youtube
 
             foreach (var channel in channels)
             {
-                var origChannel = (await repository.GetAsync(c => c.Id == channel.Id, pageParameters: null)).FirstOrDefault();
+                var origChannel = (await _repository.GetAsync(c => c.Id == channel.Id, pageParameters: null)).FirstOrDefault();
 
                 if (origChannel != null)
                 {
-                    var mappedChannel = mapper.Map<SimpleChannelDTO>(origChannel);
+                    var mappedChannel = _mapper.Map<SimpleChannelDTO>(origChannel);
                     mappedChannel.IsLoaded = true;
 
                     mappedChannels.Add(mappedChannel);
@@ -373,7 +377,7 @@ namespace Domain.Services.DataSources.Youtube
                 }
                 catch { }
 
-                mappedChannels.Add(mapper.Map<SimpleChannelDTO>(newChannel));
+                mappedChannels.Add(_mapper.Map<SimpleChannelDTO>(newChannel));
             }
 
             if (filterType == LoadFilterOptions.Date)

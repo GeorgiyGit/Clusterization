@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Seeders
+namespace Infrastructure.Seeders.Quotas
 {
     internal class QuotasPackSeeder : IEntityTypeConfiguration<QuotasPack>
     {
