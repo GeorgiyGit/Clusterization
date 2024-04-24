@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IAddClusterizationWorkspace } from '../../models/addClusterizationWorkspace';
+import { IAddClusterizationWorkspace } from '../../models/requests/addClusterizationWorkspace';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Router } from '@angular/router';

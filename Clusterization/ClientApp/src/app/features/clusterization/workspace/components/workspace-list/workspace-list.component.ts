@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IWorkspaceFilter } from '../../models/workspaceFilter';
-import { ISimpleClusterizationWorkspace } from '../../models/simpleClusterizationWorkspace';
+import { ISimpleClusterizationWorkspace } from '../../models/responses/simpleClusterizationWorkspace';
 
 @Component({
   selector: 'app-workspace-list',

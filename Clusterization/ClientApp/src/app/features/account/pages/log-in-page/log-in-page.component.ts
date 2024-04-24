@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ILogIn } from '../../models/log-in';
 import { Router } from '@angular/router';
-import { ILoginResponse } from '../../models/login-response';
 import { AccountService } from '../../services/account.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ILogInRequest } from '../../models/requests/log-in-request';
+import { ILogInResponse } from '../../models/responses/login-response';
 
 @Component({
   selector: 'app-log-in-page',
@@ -32,7 +32,7 @@ export class LogInPageComponent implements OnInit{
   });
 
   get formValue() {
-    return this.logInForm.value as ILogIn;
+    return this.logInForm.value as ILogInRequest;
   }
 
   get email() { return this.logInForm.get('email')!; }
@@ -64,10 +64,10 @@ export class LogInPageComponent implements OnInit{
       return;
     }
 
-    const user: ILogIn = this.logInForm.value;
+    const user: ILogInRequest = this.logInForm.value;
 
     this.isLoading=true;
-    this.accountService.logIn(user).subscribe((result: ILoginResponse) => {
+    this.accountService.logIn(user).subscribe((result: ILogInResponse) => {
       this.isLoading=false;
       this.accountService.saveToken(result.token);
       this.close(null);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IGetClusterizationProfilesRequest } from '../../models/get-clusterization-profiles-request';
-import { ISimpleClusterizationProfile } from '../../models/simple-clusterization-profile';
+import { IGetClusterizationProfilesRequest } from '../../models/requests/get-clusterization-profiles-request';
+import { ISimpleClusterizationProfile } from '../../models/responses/simple-clusterization-profile';
 import { ClusterizationProfilesService } from '../../services/clusterization-profiles.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IProfileFilter } from '../../models/profile-filter';

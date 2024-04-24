@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClusterizationProfilesService } from '../../services/clusterization-profiles.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IAddClusterizationProfile } from '../../models/add-clusterization-profile';
+import { IAddClusterizationProfile } from '../../models/requests/add-clusterization-profile';
 
 @Component({
   selector: 'app-clusterization-profile-add-page',

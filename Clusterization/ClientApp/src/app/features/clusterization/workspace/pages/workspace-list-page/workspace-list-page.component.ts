@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IGetWorkspacesRequest } from '../../models/requests/getWorkspacesRequest';
-import { ISimpleClusterizationWorkspace } from '../../models/simpleClusterizationWorkspace';
+import { ISimpleClusterizationWorkspace } from '../../models/responses/simpleClusterizationWorkspace';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IWorkspaceFilter } from '../../models/workspaceFilter';

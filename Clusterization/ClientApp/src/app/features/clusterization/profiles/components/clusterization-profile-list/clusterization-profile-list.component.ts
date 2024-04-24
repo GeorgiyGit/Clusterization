@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ISimpleClusterizationProfile } from '../../models/simple-clusterization-profile';
+import { ISimpleClusterizationProfile } from '../../models/responses/simple-clusterization-profile';
 
 @Component({
   selector: 'app-clusterization-profile-list',

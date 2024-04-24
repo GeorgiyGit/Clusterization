@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IGetWorkspacesRequest } from 'src/app/features/clusterization/workspace/models/requests/getWorkspacesRequest';
-import { ISimpleClusterizationWorkspace } from 'src/app/features/clusterization/workspace/models/simpleClusterizationWorkspace';
+import { ISimpleClusterizationWorkspace } from 'src/app/features/clusterization/workspace/models/responses/simpleClusterizationWorkspace';
 import { IWorkspaceFilter } from 'src/app/features/clusterization/workspace/models/workspaceFilter';
 import { ClusterizationWorkspaceService } from 'src/app/features/clusterization/workspace/service/clusterization-workspace.service';
 

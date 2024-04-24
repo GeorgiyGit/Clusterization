@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IClusterizationWorkspace } from '../../models/clusterizationWorkspace';
+import { IClusterizationWorkspace } from '../../models/responses/clusterizationWorkspace';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';

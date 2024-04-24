@@ -5,41 +5,19 @@ import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {LayoutModule} from '@angular/cdk/layout';
 import { AppComponent } from './app.component';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { YoutubeChannelCardComponent } from './features/youtube/channels/components/youtube-channel-card/youtube-channel-card.component';
 import { ToastNoAnimation, ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { YoutubeVideoListComponent } from './features/youtube/videos/components/youtube-video-list/youtube-video-list.component';
-import { YoutubeVideoCardComponent } from './features/youtube/videos/components/youtube-video-card/youtube-video-card.component';
 import { HeaderComponent } from './core/components/header/header.component';
-import { YoutubeChannelListPageComponent } from './features/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component';
-import { YoutubeVideoListPageComponent } from './features/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component';
-import { YoutubeCommentCardComponent } from './features/youtube/comments/components/youtube-comment-card/youtube-comment-card.component';
-import { YoutubeCommentListComponent } from './features/youtube/comments/components/youtube-comment-list/youtube-comment-list.component';
-import { YoutubeCommentListPageComponent } from './features/youtube/comments/pages/youtube-comment-list-page/youtube-comment-list-page.component';
 import { AppRoutingModule } from './core/routing/app-routing.module';
-import { YoutubeLoadNewChannelPageComponent } from './features/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component';
-import { YoutubeChannelsSearchFilterComponent } from './features/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component';
 import { SearchInputComponent } from './core/components/search-input/search-input.component';
 import { CloseOutsideDirective } from './core/directives/close-outside.directive';
 import { SelectOptionInputComponent } from './core/components/select-option-input/select-option-input.component';
-import { YoutubeChannelListComponent } from './features/youtube/channels/components/youtube-channel-list/youtube-channel-list.component';
 import { LoaderComponent } from './core/components/loader/loader.component';
 import { NormalizedDateTimePipe } from './core/pipes/normalized-date-time.pipe';
-import { YoutubeLoadOneChannelComponent } from './features/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component';
-import { YoutubeLoadMultipleChannelsComponent } from './features/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component';
-import { YoutubeFullChannelPageComponent } from './features/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { YoutubeLoadNewVideoPageComponent } from './features/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component';
-import { YoutubeLoadOneVideoComponent } from './features/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component';
-import { YoutubeLoadMultipleVideosComponent } from './features/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component';
-import { YoutubeVideosSearchFilterComponent } from './features/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component';
 import { TaskCardComponent } from './features/tasks/components/task-card/task-card.component';
 import { TaskListComponent } from './features/tasks/components/task-list/task-list.component';
-import { YoutubeLoadAllVideosPageComponent } from './features/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component';
-import { YoutubeFullVideoPageComponent } from './features/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component';
-import { YoutubeLoadAllCommentsPageComponent } from './features/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component';
 import { ClusterizationTypesSelectComponent } from './features/clusterization/clusterizationTypes/components/clusterization-types-select/clusterization-types-select.component';
 import { ClusterizationDimensionTypesInputComponent } from './features/clusterization/dimensionTypes/components/clusterization-dimension-types-input/clusterization-dimension-types-input.component';
 import { AddWorkspacePageComponent } from './features/clusterization/workspace/pages/add-workspace-page/add-workspace-page.component';
@@ -49,7 +27,6 @@ import { WorkspaceListPageComponent } from './features/clusterization/workspace/
 import { WorkspaceSearchFilterComponent } from './features/clusterization/workspace/components/workspace-search-filter/workspace-search-filter.component';
 import { WorkspaceFullPageComponent } from './features/clusterization/workspace/pages/workspace-full-page/workspace-full-page.component';
 import { MoreActionSelectComponent } from './core/components/more-action-select/more-action-select.component';
-import { AddChannelCommentsToWorkspacePageComponent } from './features/clusterization/workspace/pages/add-channel-comments-to-workspace-page/add-channel-comments-to-workspace-page.component';
 import { ClusterizationAlgorithmTypesSelectComponent } from './features/clusterization/algorithms/algorithmType/components/clusterization-algorithm-types-select/clusterization-algorithm-types-select.component';
 import { AbstractAlgorithmAddPageComponent } from './features/clusterization/algorithms/abstractAlgorithm/pages/abstract-algorithm-add-page/abstract-algorithm-add-page.component';
 import { AddKMeansAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/k-means/components/add-k-means-algorithm/add-k-means-algorithm.component';
@@ -64,8 +41,6 @@ import { ClusterizationFullProfilePageComponent } from './features/clusterizatio
 import { PointsMapPlaneComponent } from './features/points-map/components/points-map-plane/points-map-plane.component';
 import { PointsMapPageComponent } from './features/points-map/pages/points-map-page/points-map-page.component';
 import { DimensionalityReductionTechniquesSelectComponent } from './features/dimensionalityReduction/dimensionalityReductionTechniques/components/dimensionality-reduction-techniques-select/dimensionality-reduction-techniques-select.component';
-import { YoutubeLoadCommentsByChannelPageComponent } from './features/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component';
-import { AddVideosCommentsToWorkspaceComponent } from './features/clusterization/workspace/pages/add-videos-comments-to-workspace/add-videos-comments-to-workspace.component';
 import { AddDbscanAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/dbscan/components/add-dbscan-algorithm/add-dbscan-algorithm.component';
 import { AddSpectralClusteringAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-spectral-clustering-algorithm/add-spectral-clustering-algorithm.component';
 import { AddGaussianMixtureAlgorithmComponent } from './features/clusterization/algorithms/non-hierarchical/gaussian-mixture/components/add-gaussian-mixture-algorithm/add-gaussian-mixture-algorithm.component';
@@ -114,6 +89,30 @@ import { WorkspaceAddDataPackListPageComponent } from './features/clusterization
 import { WorkspaceAddPackFullPageComponent } from './features/clusterization/workspaceAddDataPacks/pages/workspace-add-pack-full-page/workspace-add-pack-full-page.component';
 import { EmbeddingLoadingStateCardComponent } from './features/embedding-loading-states/components/embedding-loading-state-card/embedding-loading-state-card.component';
 import { LoadEmbeddingsByPackPageComponent } from './features/embeddings/pages/load-embeddings-by-pack-page/load-embeddings-by-pack-page.component';
+import { YoutubeChannelCardComponent } from './features/dataSources/youtube/channels/components/youtube-channel-card/youtube-channel-card.component';
+import { YoutubeChannelListComponent } from './features/dataSources/youtube/channels/components/youtube-channel-list/youtube-channel-list.component';
+import { YoutubeChannelsSearchFilterComponent } from './features/dataSources/youtube/channels/components/youtube-channels-search-filter/youtube-channels-search-filter.component';
+import { YoutubeLoadMultipleChannelsComponent } from './features/dataSources/youtube/channels/components/youtube-load-multiple-channels/youtube-load-multiple-channels.component';
+import { YoutubeLoadOneChannelComponent } from './features/dataSources/youtube/channels/components/youtube-load-one-channel/youtube-load-one-channel.component';
+import { YoutubeChannelListPageComponent } from './features/dataSources/youtube/channels/pages/youtube-channel-list-page/youtube-channel-list-page.component';
+import { YoutubeFullChannelPageComponent } from './features/dataSources/youtube/channels/pages/youtube-full-channel-page/youtube-full-channel-page.component';
+import { YoutubeLoadNewChannelPageComponent } from './features/dataSources/youtube/channels/pages/youtube-load-new-channel-page/youtube-load-new-channel-page.component';
+import { YoutubeCommentCardComponent } from './features/dataSources/youtube/comments/components/youtube-comment-card/youtube-comment-card.component';
+import { YoutubeCommentListComponent } from './features/dataSources/youtube/comments/components/youtube-comment-list/youtube-comment-list.component';
+import { YoutubeCommentListPageComponent } from './features/dataSources/youtube/comments/pages/youtube-comment-list-page/youtube-comment-list-page.component';
+import { YoutubeLoadAllCommentsPageComponent } from './features/dataSources/youtube/comments/pages/youtube-load-all-comments-page/youtube-load-all-comments-page.component';
+import { YoutubeLoadCommentsByChannelPageComponent } from './features/dataSources/youtube/comments/pages/youtube-load-comments-by-channel-page/youtube-load-comments-by-channel-page.component';
+import { YoutubeLoadMultipleVideosComponent } from './features/dataSources/youtube/videos/components/youtube-load-multiple-videos/youtube-load-multiple-videos.component';
+import { YoutubeLoadOneVideoComponent } from './features/dataSources/youtube/videos/components/youtube-load-one-video/youtube-load-one-video.component';
+import { YoutubeVideoCardComponent } from './features/dataSources/youtube/videos/components/youtube-video-card/youtube-video-card.component';
+import { YoutubeVideoListComponent } from './features/dataSources/youtube/videos/components/youtube-video-list/youtube-video-list.component';
+import { YoutubeVideosSearchFilterComponent } from './features/dataSources/youtube/videos/components/youtube-videos-search-filter/youtube-videos-search-filter.component';
+import { YoutubeFullVideoPageComponent } from './features/dataSources/youtube/videos/pages/youtube-full-video-page/youtube-full-video-page.component';
+import { YoutubeLoadAllVideosPageComponent } from './features/dataSources/youtube/videos/pages/youtube-load-all-videos-page/youtube-load-all-videos-page.component';
+import { YoutubeLoadNewVideoPageComponent } from './features/dataSources/youtube/videos/pages/youtube-load-new-video-page/youtube-load-new-video-page.component';
+import { YoutubeVideoListPageComponent } from './features/dataSources/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component';
+import { AddYoutubeVideosCommentsToWorkspaceComponent } from './features/dataSources/youtube/youtube-data-objects/pages/add-youtube-videos-comments-to-workspace/add-youtube-videos-comments-to-workspace.component';
+import { AddYoutubeChannelCommentsToWorkspacePageComponent } from './features/dataSources/youtube/youtube-data-objects/pages/add-youtube-channel-comments-to-workspace-page/add-youtube-channel-comments-to-workspace-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -159,7 +158,7 @@ export function tokenGetter() {
     WorkspaceSearchFilterComponent,
     WorkspaceFullPageComponent,
     MoreActionSelectComponent,
-    AddChannelCommentsToWorkspacePageComponent,
+    AddYoutubeChannelCommentsToWorkspacePageComponent,
     ClusterizationAlgorithmTypesSelectComponent,
     AbstractAlgorithmAddPageComponent,
     AddKMeansAlgorithmComponent,
@@ -175,7 +174,7 @@ export function tokenGetter() {
     PointsMapPageComponent,
     DimensionalityReductionTechniquesSelectComponent,
     YoutubeLoadCommentsByChannelPageComponent,
-    AddVideosCommentsToWorkspaceComponent,
+    AddYoutubeVideosCommentsToWorkspaceComponent,
     AddDbscanAlgorithmComponent,
     AddSpectralClusteringAlgorithmComponent,
     AddGaussianMixtureAlgorithmComponent,

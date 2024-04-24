@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IAddClusterizationWorkspace } from '../../workspace/models/addClusterizationWorkspace';
-import { IAddClusterizationProfile } from '../models/add-clusterization-profile';
-import { IClusterizationProfile } from '../models/clusterization-profile';
-import { IGetClusterizationProfilesRequest } from '../models/get-clusterization-profiles-request';
-import { ISimpleClusterizationProfile } from '../models/simple-clusterization-profile';
-import { ICustomerGetClusterizationProfilesRequest } from '../models/customer-get-profiles-request';
+import { IAddClusterizationWorkspace } from '../../workspace/models/requests/addClusterizationWorkspace';
+import { IAddClusterizationProfile } from '../models/requests/add-clusterization-profile';
+import { IClusterizationProfile } from '../models/responses/clusterization-profile';
+import { IGetClusterizationProfilesRequest } from '../models/requests/get-clusterization-profiles-request';
+import { ISimpleClusterizationProfile } from '../models/responses/simple-clusterization-profile';
+import { ICustomerGetClusterizationProfilesRequest } from '../models/requests/customer-get-profiles-request';
 
 @Injectable({
   providedIn: 'root'

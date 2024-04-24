@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { ICustomerGetClusterizationProfilesRequest } from 'src/app/features/clusterization/profiles/models/customer-get-profiles-request';
-import { IGetClusterizationProfilesRequest } from 'src/app/features/clusterization/profiles/models/get-clusterization-profiles-request';
+import { ICustomerGetClusterizationProfilesRequest } from 'src/app/features/clusterization/profiles/models/requests/customer-get-profiles-request';
+import { IGetClusterizationProfilesRequest } from 'src/app/features/clusterization/profiles/models/requests/get-clusterization-profiles-request';
 import { IProfileFilter } from 'src/app/features/clusterization/profiles/models/profile-filter';
-import { ISimpleClusterizationProfile } from 'src/app/features/clusterization/profiles/models/simple-clusterization-profile';
+import { ISimpleClusterizationProfile } from 'src/app/features/clusterization/profiles/models/responses/simple-clusterization-profile';
 import { ClusterizationProfilesService } from 'src/app/features/clusterization/profiles/services/clusterization-profiles.service';
 
 @Component({

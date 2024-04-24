@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { YoutubeVideoService } from 'src/app/features/youtube/videos/services/youtube-video.service';
 import { IGetCustomersRequest } from '../../models/requests/get-customers-request';
 import { ISimpleCustomer } from '../../models/responses/simple-customer';
 import { UsersService } from '../../services/users.service';
+import { YoutubeVideoService } from 'src/app/features/dataSources/youtube/videos/services/youtube-video.service';
 
 @Component({
   selector: 'app-customer-list-page',

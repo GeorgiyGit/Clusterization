@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IClusterizationProfile } from '../../models/clusterization-profile';
+import { IClusterizationProfile } from '../../models/responses/clusterization-profile';
 import { ClusterizationProfilesService } from '../../services/clusterization-profiles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ISelectAction } from 'src/app/core/models/select-action';

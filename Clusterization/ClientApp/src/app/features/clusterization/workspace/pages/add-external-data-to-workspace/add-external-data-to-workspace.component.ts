@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IAddCommentsToWorkspaceByChannelRequest } from '../../models/requests/addCommentsToWorkspaceByChannel';
+import { IAddCommentsToWorkspaceByChannelRequest } from '../../../../dataSources/youtube/youtube-data-objects/models/requests/addCommentsToWorkspaceByChannel';
 import { ClusterizationWorkspaceService } from '../../service/clusterization-workspace.service';
 import { IAddExternalData } from '../../models/external-data/add-external-data';
 

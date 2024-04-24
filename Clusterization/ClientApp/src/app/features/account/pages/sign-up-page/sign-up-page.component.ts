@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILogIn } from '../../models/log-in';
-import { ILoginResponse } from '../../models/login-response';
 import { AccountService } from '../../services/account.service';
-import { ISignUp } from '../../models/sign-up';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ISignUpRequest } from '../../models/requests/sign-up-request';
+import { ILogInResponse } from '../../models/responses/login-response';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -33,7 +32,7 @@ export class SignUpPageComponent implements OnInit{
   });
 
   get formValue() {
-    return this.signUpForm.value as ISignUp;
+    return this.signUpForm.value as ISignUpRequest;
   }
 
   get userName() { return this.signUpForm.get('userName')!; }
@@ -66,10 +65,10 @@ export class SignUpPageComponent implements OnInit{
       return;
     }
 
-    const request: ISignUp = this.signUpForm.value;
+    const request: ISignUpRequest = this.signUpForm.value;
 
     this.isLoading=true;
-    this.accountService.signUp(request).subscribe((result: ILoginResponse) => {
+    this.accountService.signUp(request).subscribe((result: ILogInResponse) => {
       this.isLoading=false;
       this.accountService.saveToken(result.token);
       this.close(null);

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMyTask } from '../../models/myTask';
+import { IMyTask } from '../../models/responses/myTask';
 import { Router } from '@angular/router';
 
 @Component({

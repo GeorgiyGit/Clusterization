@@ -3,11 +3,11 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { environment } from 'src/environments/environment';
-import { ILogIn } from '../models/log-in';
-import { ISignUp } from '../models/sign-up';
-import { ILoginResponse } from '../models/login-response';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ILogInResponse } from '../models/responses/login-response';
+import { ISignUpRequest } from '../models/requests/sign-up-request';
+import { ILogInRequest } from '../models/requests/log-in-request';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +27,11 @@ export class AccountService {
     this.controllerUrl = environment.apiUrl + "account/";
   }
 
-  logIn(model: ILogIn): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(this.controllerUrl + 'log_in', model);
+  logIn(model: ILogInRequest): Observable<ILogInResponse> {
+    return this.http.post<ILogInResponse>(this.controllerUrl + 'log_in', model);
   }
-  signUp(model: ISignUp): Observable<any> {
-    return this.http.post<ILoginResponse>(this.controllerUrl + 'sign_up', model);
+  signUp(model: ISignUpRequest): Observable<any> {
+    return this.http.post<ILogInResponse>(this.controllerUrl + 'sign_up', model);
   }
 
   logout(): void {

@@ -1,8 +1,8 @@
-import { ICustomerGetTasksRequest } from 'src/app/features/tasks/models/customer-get-tasks-request';
+import { ICustomerGetTasksRequest } from 'src/app/features/tasks/models/requests/customer-get-tasks-request';
 import { UserTasksService } from './../../../../../tasks/services/user-tasks.service';
 import { Component, OnInit } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IMyTask } from 'src/app/features/tasks/models/myTask';
+import { IMyTask } from 'src/app/features/tasks/models/responses/myTask';
 
 @Component({
   selector: 'app-customer-tasks-list',

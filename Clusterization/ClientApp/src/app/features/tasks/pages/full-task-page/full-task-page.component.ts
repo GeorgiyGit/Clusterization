@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IMyFullTask } from '../../models/my-full-task';
+import { IMyFullTask } from '../../models/responses/my-full-task';
 
 @Component({
   selector: 'app-full-task-page',

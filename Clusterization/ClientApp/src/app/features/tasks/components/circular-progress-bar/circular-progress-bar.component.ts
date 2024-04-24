@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMyFullTask } from '../../models/my-full-task';
+import { IMyFullTask } from '../../models/responses/my-full-task';
 
 @Component({
   selector: 'app-circular-progress-bar',

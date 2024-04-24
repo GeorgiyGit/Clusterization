@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ISimpleClusterizationProfile } from '../../models/simple-clusterization-profile';
+import { ISimpleClusterizationProfile } from '../../models/responses/simple-clusterization-profile';
 import { Router } from '@angular/router';
 import { ClusterizationProfilesService } from '../../services/clusterization-profiles.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';

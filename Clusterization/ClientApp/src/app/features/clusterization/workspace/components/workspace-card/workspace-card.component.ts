@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { ISimpleClusterizationWorkspace } from '../../models/simpleClusterizationWorkspace';
+import { ISimpleClusterizationWorkspace } from '../../models/responses/simpleClusterizationWorkspace';
 import { Router } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { AccountService } from 'src/app/features/account/services/account.service';
