@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IAddCommentsToWorkspaceByVideosRequest } from '../../models/requests/addCommentsToWorkspaceByVideos';
 import { YoutubeDataObjectsService } from '../../services/youtube-data-objects.service';
-import { ISimpleVideo } from '../../../videos/models/responses/simple-video';
+import { ISimpleYoutubeVideo } from '../../../videos/models/responses/simple-youtube-video';
+import { IAddYoutubeCommentsToWorkspaceByVideosRequest } from '../../models/requests/addYoutubeCommentsToWorkspaceByVideos';
 
 @Component({
   selector: 'app-add-youtube-videos-comments-to-workspace',
@@ -28,7 +28,7 @@ export class AddYoutubeVideosCommentsToWorkspaceComponent implements OnInit{
   animationState:string='in';
   channelId:string;
 
-  videos:ISimpleVideo[]=[];
+  videos:ISimpleYoutubeVideo[]=[];
 
   optionsForm: FormGroup = this.fb.group({
     dateFrom: [null],
@@ -37,7 +37,7 @@ export class AddYoutubeVideosCommentsToWorkspaceComponent implements OnInit{
   });
 
   get formValue() {
-    return this.optionsForm.value as IAddCommentsToWorkspaceByVideosRequest;
+    return this.optionsForm.value as IAddYoutubeCommentsToWorkspaceByVideosRequest;
   }
 
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }
@@ -107,10 +107,10 @@ export class AddYoutubeVideosCommentsToWorkspaceComponent implements OnInit{
     });
   }
 
-  selectVideo(video:ISimpleVideo){
+  selectVideo(video:ISimpleYoutubeVideo){
     this.videos.push(video);
   }
-  unselectVideo(video:ISimpleVideo){
+  unselectVideo(video:ISimpleYoutubeVideo){
     this.videos=this.videos.filter(e=>e!=video);
   }
 }

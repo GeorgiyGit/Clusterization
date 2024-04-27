@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
-import { ISimpleVideo } from '../../models/responses/simple-video';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ISelectAction } from 'src/app/core/models/select-action';
+import { ISimpleYoutubeVideo } from '../../models/responses/simple-youtube-video';
+
 @Component({
   selector: 'app-youtube-full-video-page',
   templateUrl: './youtube-full-video-page.component.html',
   styleUrls: ['./youtube-full-video-page.component.scss']
 })
 export class YoutubeFullVideoPageComponent implements OnInit {
-  video: ISimpleVideo;
+  video: ISimpleYoutubeVideo;
 
   dateStr: string = $localize`Дату`;
   countStr: string = $localize`Кількість`;

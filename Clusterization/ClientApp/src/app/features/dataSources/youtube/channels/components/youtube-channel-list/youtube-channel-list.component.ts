@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ISimpleChannel } from '../../models/responses/simple-channel';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
 
 @Component({
   selector: 'app-youtube-channel-list',
@@ -7,9 +7,9 @@ import { ISimpleChannel } from '../../models/responses/simple-channel';
   styleUrls: ['./youtube-channel-list.component.scss']
 })
 export class YoutubeChannelListComponent {
-  @Input() channels:ISimpleChannel[]=[];
-  @Output() selectChannelEvent=new EventEmitter<ISimpleChannel>();
-  @Output() unselectChannelEvent=new EventEmitter<ISimpleChannel>();
+  @Input() channels:ISimpleYoutubeChannel[]=[];
+  @Output() selectChannelEvent=new EventEmitter<ISimpleYoutubeChannel>();
+  @Output() unselectChannelEvent=new EventEmitter<ISimpleYoutubeChannel>();
 
   toggleSelection(value:boolean){
     this.channels.forEach(elem=>{
@@ -17,10 +17,10 @@ export class YoutubeChannelListComponent {
     });
   }
 
-  selectChannel(channel:ISimpleChannel){
+  selectChannel(channel:ISimpleYoutubeChannel){
     this.selectChannelEvent.emit(channel);
   }
-  unselectChannel(channel:ISimpleChannel){
+  unselectChannel(channel:ISimpleYoutubeChannel){
     this.unselectChannelEvent.emit(channel);
   }
 }

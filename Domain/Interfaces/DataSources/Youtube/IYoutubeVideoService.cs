@@ -10,9 +10,9 @@ namespace Domain.Interfaces.DataSources.Youtube
         public Task LoadFromChannel(LoadOptions options);
         public Task LoadManyByIds(ICollection<string> ids);
 
-        public Task<SimpleVideoDTO> GetLoadedById(string id);
-        public Task<ICollection<SimpleVideoDTO>> GetLoadedCollection(GetVideosRequest request);
+        public Task<SimpleYoutubeVideoDTO> GetLoadedById(string id);
+        public Task<ICollection<SimpleYoutubeVideoDTO>> GetLoadedCollection(GetYoutubeVideosRequest request);
 
-        public Task<VideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType);
+        public Task<YoutubeVideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType);
     }
 }

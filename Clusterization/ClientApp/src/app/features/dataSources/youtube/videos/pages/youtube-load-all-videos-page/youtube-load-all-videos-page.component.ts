@@ -2,7 +2,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IVideoLoadOptions } from '../../models/video-load-options';
+import { IYoutubeVideoLoadOptions } from '../../models/youtube-video-load-options';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 
@@ -35,7 +35,7 @@ export class YoutubeLoadAllVideosPageComponent implements OnInit{
   });
 
   get formValue() {
-    return this.optionsForm.value as IVideoLoadOptions;
+    return this.optionsForm.value as IYoutubeVideoLoadOptions;
   }
 
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ICommentLoadOptions } from '../../models/comment-load-options';
 import { YoutubeCommentsService } from '../../services/youtube-comments.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
+import { IYoutubeCommentLoadOptions } from '../../models/youtube-comment-load-options';
 
 @Component({
   selector: 'app-youtube-load-comments-by-channel-page',
@@ -35,7 +35,7 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
   });
 
   get formValue() {
-    return this.optionsForm.value as ICommentLoadOptions;
+    return this.optionsForm.value as IYoutubeCommentLoadOptions;
   }
 
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }

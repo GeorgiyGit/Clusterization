@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ICommentLoadOptions } from '../../models/comment-load-options';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { YoutubeCommentsService } from '../../services/youtube-comments.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
+import { IYoutubeCommentLoadOptions } from '../../models/youtube-comment-load-options';
 
 @Component({
   selector: 'app-youtube-load-all-comments-page',
@@ -21,7 +21,7 @@ export class YoutubeLoadAllCommentsPageComponent implements OnInit{
   });
 
   get formValue() {
-    return this.optionsForm.value as ICommentLoadOptions;
+    return this.optionsForm.value as IYoutubeCommentLoadOptions;
   }
 
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }

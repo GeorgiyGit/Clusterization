@@ -24,7 +24,7 @@ namespace Domain.Services.DataSources.Youtube
     {
         private const int loadChannelQutasCount = 50;
 
-        private readonly IRepository<Entities.DataSources.Youtube.Channel> _repository;
+        private readonly IRepository<Entities.DataSources.Youtube.YoutubeChannel> _repository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         
@@ -32,7 +32,7 @@ namespace Domain.Services.DataSources.Youtube
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
-        public YoutubeChannelsService(IRepository<Entities.DataSources.Youtube.Channel> repository,
+        public YoutubeChannelsService(IRepository<Entities.DataSources.Youtube.YoutubeChannel> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IMapper mapper,
@@ -90,7 +90,7 @@ namespace Domain.Services.DataSources.Youtube
 
             try
             {
-                var newChannel = new Entities.DataSources.Youtube.Channel()
+                var newChannel = new Entities.DataSources.Youtube.YoutubeChannel()
                 {
                     Id = channel.Id,
                     ETag = channel.ETag,
@@ -163,7 +163,7 @@ namespace Domain.Services.DataSources.Youtube
                         throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
                     }
 
-                    var newChannel = new Entities.DataSources.Youtube.Channel()
+                    var newChannel = new Entities.DataSources.Youtube.YoutubeChannel()
                     {
                         Id = channel.Id,
                         ETag = channel.ETag,
@@ -202,18 +202,18 @@ namespace Domain.Services.DataSources.Youtube
         #endregion
 
         #region get
-        public async Task<SimpleChannelDTO> GetLoadedById(string id)
+        public async Task<SimpleYoutubeChannelDTO> GetLoadedById(string id)
         {
             var channel = (await _repository.GetAsync(c => c.Id == id, pageParameters: null)).FirstOrDefault();
 
             if (channel == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeChannelNotFound], HttpStatusCode.NotFound);
 
-            var mappedChannel = _mapper.Map<SimpleChannelDTO>(channel);
+            var mappedChannel = _mapper.Map<SimpleYoutubeChannelDTO>(channel);
             mappedChannel.IsLoaded = true;
 
             return mappedChannel;
         }
-        public async Task<ICollection<SimpleChannelDTO>> GetLoadedCollection(GetChannelsRequest request)
+        public async Task<ICollection<SimpleYoutubeChannelDTO>> GetLoadedCollection(GetChannelsRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
@@ -221,13 +221,13 @@ namespace Domain.Services.DataSources.Youtube
                 {
                     var channel = await GetLoadedById(request.FilterStr);
 
-                    return new List<SimpleChannelDTO>() { channel };
+                    return new List<SimpleYoutubeChannelDTO>() { channel };
                 }
                 catch { }
             }
-            Expression<Func<Entities.DataSources.Youtube.Channel, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
+            Expression<Func<Entities.DataSources.Youtube.YoutubeChannel, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
 
-            Func<IQueryable<Entities.DataSources.Youtube.Channel>, IOrderedQueryable<Entities.DataSources.Youtube.Channel>> orderByExpression = q =>
+            Func<IQueryable<Entities.DataSources.Youtube.YoutubeChannel>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeChannel>> orderByExpression = q =>
                 q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
 
             if (request.FilterType == ChannelFilterTypes.ByTimeDesc)
@@ -268,7 +268,7 @@ namespace Domain.Services.DataSources.Youtube
                                                       pageParameters: pageParameters);
 
 
-            var mappedChannels = _mapper.Map<ICollection<SimpleChannelDTO>>(channels);
+            var mappedChannels = _mapper.Map<ICollection<SimpleYoutubeChannelDTO>>(channels);
             foreach (var channel in mappedChannels)
             {
                 channel.IsLoaded = true;
@@ -278,7 +278,7 @@ namespace Domain.Services.DataSources.Youtube
         #endregion
 
         #region get-load
-        public async Task<ChannelsWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string filterType)
+        public async Task<YoutubeChannelsWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string filterType)
         {
             var searchListRequest = _youtubeService.Search.List("snippet");
             searchListRequest.Q = name;
@@ -305,9 +305,9 @@ namespace Domain.Services.DataSources.Youtube
 
             if (searchListResponse.Items == null || searchListResponse.Items.Count() == 0)
             {
-                return new ChannelsWithoutLoadingResponse()
+                return new YoutubeChannelsWithoutLoadingResponse()
                 {
-                    Channels = new List<SimpleChannelDTO>(),
+                    Channels = new List<SimpleYoutubeChannelDTO>(),
                     NextPageToken = null
                 };
             }
@@ -316,9 +316,9 @@ namespace Domain.Services.DataSources.Youtube
 
             if (channelIds.Count() == 0)
             {
-                return new ChannelsWithoutLoadingResponse()
+                return new YoutubeChannelsWithoutLoadingResponse()
                 {
-                    Channels = new List<SimpleChannelDTO>(),
+                    Channels = new List<SimpleYoutubeChannelDTO>(),
                     NextPageToken = null
                 };
             }
@@ -335,7 +335,7 @@ namespace Domain.Services.DataSources.Youtube
 
             var channels = channelsResponse.Items;
 
-            List<SimpleChannelDTO> mappedChannels = new List<SimpleChannelDTO>(channelIds.Count());
+            List<SimpleYoutubeChannelDTO> mappedChannels = new List<SimpleYoutubeChannelDTO>(channelIds.Count());
 
             foreach (var channel in channels)
             {
@@ -343,14 +343,14 @@ namespace Domain.Services.DataSources.Youtube
 
                 if (origChannel != null)
                 {
-                    var mappedChannel = _mapper.Map<SimpleChannelDTO>(origChannel);
+                    var mappedChannel = _mapper.Map<SimpleYoutubeChannelDTO>(origChannel);
                     mappedChannel.IsLoaded = true;
 
                     mappedChannels.Add(mappedChannel);
                     continue;
                 }
 
-                var newChannel = new Entities.DataSources.Youtube.Channel()
+                var newChannel = new Entities.DataSources.Youtube.YoutubeChannel()
                 {
                     Id = channel.Id,
                     ETag = channel.ETag,
@@ -377,7 +377,7 @@ namespace Domain.Services.DataSources.Youtube
                 }
                 catch { }
 
-                mappedChannels.Add(_mapper.Map<SimpleChannelDTO>(newChannel));
+                mappedChannels.Add(_mapper.Map<SimpleYoutubeChannelDTO>(newChannel));
             }
 
             if (filterType == LoadFilterOptions.Date)
@@ -389,7 +389,7 @@ namespace Domain.Services.DataSources.Youtube
                 mappedChannels = mappedChannels.OrderBy(e => e.ViewCount).ToList();
             }
 
-            return new ChannelsWithoutLoadingResponse()
+            return new YoutubeChannelsWithoutLoadingResponse()
             {
                 Channels = mappedChannels,
                 NextPageToken = newNextPageToken

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ISimpleChannel } from '../../models/responses/simple-channel';
 import { YoutubeChannelService } from '../../services/youtube-channel.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
@@ -7,6 +6,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ISelectAction } from 'src/app/core/models/select-action';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { AccountService } from 'src/app/features/account/services/account.service';
+import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
 
 @Component({
   selector: 'app-youtube-full-channel-page',
@@ -14,7 +14,7 @@ import { AccountService } from 'src/app/features/account/services/account.servic
   styleUrls: ['./youtube-full-channel-page.component.scss']
 })
 export class YoutubeFullChannelPageComponent implements OnInit {
-  channel: ISimpleChannel;
+  channel: ISimpleYoutubeChannel;
 
   dateStr:string=$localize`Дату`;
   countStr:string=$localize`Кількість`;

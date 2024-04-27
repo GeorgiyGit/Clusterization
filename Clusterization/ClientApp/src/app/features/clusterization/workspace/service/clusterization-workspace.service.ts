@@ -4,12 +4,9 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { IAddClusterizationWorkspace } from '../models/requests/addClusterizationWorkspace';
 import { IUpdateClusterizationWorkspace } from '../models/requests/updateClusterizationWorkspace';
-import { IAddCommentsToWorkspaceByChannelRequest } from '../../../dataSources/youtube/youtube-data-objects/models/requests/addCommentsToWorkspaceByChannel';
-import { IAddCommentsToWorkspaceByVideosRequest } from '../../../dataSources/youtube/youtube-data-objects/models/requests/addCommentsToWorkspaceByVideos';
 import { IClusterizationWorkspace } from '../models/responses/clusterizationWorkspace';
 import { IGetWorkspacesRequest } from '../models/requests/getWorkspacesRequest';
 import { ISimpleClusterizationWorkspace } from '../models/responses/simpleClusterizationWorkspace';
-import { IAddExternalData } from '../models/external-data/add-external-data';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 
 @Injectable({

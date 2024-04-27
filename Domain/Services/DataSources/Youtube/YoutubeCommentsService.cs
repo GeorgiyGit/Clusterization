@@ -24,8 +24,8 @@ namespace Domain.Services.DataSources.Youtube
 {
     public class YoutubeCommentsService : IYoutubeCommentsService
     {
-        private readonly IRepository<Entities.DataSources.Youtube.Comment> _repository;
-        private readonly IRepository<Entities.DataSources.Youtube.Video> _videosRepository;
+        private readonly IRepository<Entities.DataSources.Youtube.YoutubeComment> _repository;
+        private readonly IRepository<Entities.DataSources.Youtube.YoutubeVideo> _videosRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
@@ -39,7 +39,7 @@ namespace Domain.Services.DataSources.Youtube
         private readonly IMyTasksService _tasksService;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
-        public YoutubeCommentsService(IRepository<Entities.DataSources.Youtube.Comment> repository,
+        public YoutubeCommentsService(IRepository<Entities.DataSources.Youtube.YoutubeComment> repository,
                                       IConfiguration configuration,
                                       IPrivateYoutubeChannelsService privateChannelService,
                                       IPrivateYoutubeVideosService privateVideoService,
@@ -48,7 +48,7 @@ namespace Domain.Services.DataSources.Youtube
                                       IStringLocalizer<ErrorMessages> localizer,
                                       IMyTasksService tasksService,
                                       IBackgroundJobClient backgroundJobClient,
-                                      IRepository<Entities.DataSources.Youtube.Video> videosRepository,
+                                      IRepository<Entities.DataSources.Youtube.YoutubeVideo> videosRepository,
                                       IUserService userService,
                                       IStringLocalizer<TaskTitles> tasksLocalizer,
                                       IQuotasControllerService quotasControllerService)
@@ -166,7 +166,7 @@ namespace Domain.Services.DataSources.Youtube
                             return;
                         }
 
-                        var newComment = new Entities.DataSources.Youtube.Comment()
+                        var newComment = new Entities.DataSources.Youtube.YoutubeComment()
                         {
                             Id = comment.Id,
                             ETag = comment.ETag,
@@ -228,7 +228,7 @@ namespace Domain.Services.DataSources.Youtube
         }
 
 
-        public async Task LoadFromChannel(LoadCommentsByChannelOptions options)
+        public async Task LoadFromChannel(LoadYoutubeCommentsByChannelOptions options)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -237,7 +237,7 @@ namespace Domain.Services.DataSources.Youtube
 
             _backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadCommentsFromChannelBackgroundJob(LoadCommentsByChannelOptions options, string userId, int taskId)
+        public async Task LoadCommentsFromChannelBackgroundJob(LoadYoutubeCommentsByChannelOptions options, string userId, int taskId)
         {
             string channelId = options.ParentId;
             if (await _privateChannelService.GetById(channelId) == null) return;
@@ -252,7 +252,7 @@ namespace Domain.Services.DataSources.Youtube
             var logsId = Guid.NewGuid().ToString();
             try
             {
-                Expression<Func<Entities.DataSources.Youtube.Video, bool>> filterCondition = e => true;
+                Expression<Func<Entities.DataSources.Youtube.YoutubeVideo, bool>> filterCondition = e => true;
 
                 if (options.IsVideoDateCount == true)
                 {
@@ -262,7 +262,7 @@ namespace Domain.Services.DataSources.Youtube
                 Random random = new Random();
 
                 var videos = await _videosRepository.GetAsync(filter: filterCondition, pageParameters: null);
-                List<Entities.DataSources.Youtube.Video> shuffledVideos = videos.OrderBy(x => random.Next()).ToList();
+                List<Entities.DataSources.Youtube.YoutubeVideo> shuffledVideos = videos.OrderBy(x => random.Next()).ToList();
 
                 int loadedCount = 0;
                 foreach (var video in shuffledVideos)
@@ -328,7 +328,7 @@ namespace Domain.Services.DataSources.Youtube
                                 return;
                             }
 
-                            var newComment = new Entities.DataSources.Youtube.Comment()
+                            var newComment = new Entities.DataSources.Youtube.YoutubeComment()
                             {
                                 Id = comment.Id,
                                 ETag = comment.ETag,
@@ -401,15 +401,15 @@ namespace Domain.Services.DataSources.Youtube
         #endregion
 
         #region get
-        public async Task<CommentDTO> GetLoadedById(string commentId)
+        public async Task<YoutubeCommentDTO> GetLoadedById(string commentId)
         {
-            var comment = (await _repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.Channel)}", pageParameters: null)).FirstOrDefault();
+            var comment = (await _repository.GetAsync(c => c.Id == commentId, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.Video)},{nameof(Entities.DataSources.Youtube.YoutubeComment.Channel)}", pageParameters: null)).FirstOrDefault();
 
             if (comment == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeCommentNotFound], HttpStatusCode.NotFound);
 
-            return _mapper.Map<CommentDTO>(comment);
+            return _mapper.Map<YoutubeCommentDTO>(comment);
         }
-        public async Task<ICollection<CommentDTO>> GetLoadedCollection(GetCommentsRequest request)
+        public async Task<ICollection<YoutubeCommentDTO>> GetLoadedCollection(GetYoutubeCommentsRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
@@ -417,11 +417,11 @@ namespace Domain.Services.DataSources.Youtube
                 {
                     var video = await GetLoadedById(request.FilterStr);
 
-                    return new List<CommentDTO>() { video };
+                    return new List<YoutubeCommentDTO>() { video };
                 }
                 catch { }
             }
-            Expression<Func<Entities.DataSources.Youtube.Comment, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.TextOriginal.Contains(request.FilterStr);
+            Expression<Func<Entities.DataSources.Youtube.YoutubeComment, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.TextOriginal.Contains(request.FilterStr);
             if (request.VideoId != null && request.VideoId != "")
             {
                 filterCondition = e => e.VideoId == request.VideoId;
@@ -432,7 +432,7 @@ namespace Domain.Services.DataSources.Youtube
             }
 
 
-            Func<IQueryable<Entities.DataSources.Youtube.Comment>, IOrderedQueryable<Entities.DataSources.Youtube.Comment>> orderByExpression = q =>
+            Func<IQueryable<Entities.DataSources.Youtube.YoutubeComment>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeComment>> orderByExpression = q =>
                 q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
 
             if (request.FilterType == CommentFilterTypes.Time)
@@ -454,11 +454,11 @@ namespace Domain.Services.DataSources.Youtube
             var pageParameters = request.PageParameters;
 
             var comments = await _repository.GetAsync(filter: filterCondition,
-                                                   includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.Channel)}",
+                                                   includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.Video)},{nameof(Entities.DataSources.Youtube.YoutubeComment.Channel)}",
                                                    orderBy: orderByExpression,
                                                    pageParameters: pageParameters);
 
-            return _mapper.Map<ICollection<CommentDTO>>(comments);
+            return _mapper.Map<ICollection<YoutubeCommentDTO>>(comments);
         }
         #endregion
     }

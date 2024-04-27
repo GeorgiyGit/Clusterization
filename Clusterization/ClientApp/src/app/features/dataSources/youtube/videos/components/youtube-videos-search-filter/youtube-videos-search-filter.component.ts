@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
-import { IVideoFilter } from '../../models/video-filter';
+import { IYoutubeVideoFilter } from '../../models/youtube-video-filter';
 
 @Component({
   selector: 'app-youtube-videos-search-filter',
@@ -9,12 +9,12 @@ import { IVideoFilter } from '../../models/video-filter';
 })
 export class YoutubeVideosSearchFilterComponent {
 
-  @Input() filter:IVideoFilter={
+  @Input() filter:IYoutubeVideoFilter={
     filterStr:"",
     filterType:"ByTimeDesc"
   };
 
-  @Output() sendEvent=new EventEmitter<IVideoFilter>();
+  @Output() sendEvent=new EventEmitter<IYoutubeVideoFilter>();
 
   options:IOptionForSelectInput[]=[
     {

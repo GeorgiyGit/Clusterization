@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { YoutubeChannelService } from '../../../channels/services/youtube-channel.service';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 
 @Component({

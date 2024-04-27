@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IChannelFilter } from '../../models/channel-filter';
-import { ISimpleChannel } from '../../models/responses/simple-channel';
-import { IGetChannelsRequest } from '../../models/requests/get-channels-request';
 import { YoutubeChannelService } from '../../services/youtube-channel.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
+import { IYoutubeChannelFilter } from '../../models/youtube-channel-filter';
+import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
+import { IGetYoutubeChannelsRequest } from '../../models/requests/get-youtube-channels-request';
 
 @Component({
   selector: 'app-youtube-channel-list-page',
@@ -11,7 +11,7 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
   styleUrls: ['./youtube-channel-list-page.component.scss']
 })
 export class YoutubeChannelListPageComponent implements OnInit{
-  request:IGetChannelsRequest={
+  request:IGetYoutubeChannelsRequest={
     filterStr:'',
     filterType:'ByTimeDesc',
     pageParameters:{
@@ -20,7 +20,7 @@ export class YoutubeChannelListPageComponent implements OnInit{
     }
   }
 
-  channels:ISimpleChannel[]=[];
+  channels:ISimpleYoutubeChannel[]=[];
 
   constructor(private channelService:YoutubeChannelService,
     private toastr:MyToastrService){}
@@ -29,7 +29,7 @@ export class YoutubeChannelListPageComponent implements OnInit{
   }
 
 
-  changeFilter(filter:IChannelFilter){
+  changeFilter(filter:IYoutubeChannelFilter){
     this.request.filterStr=filter.filterStr;
     this.request.filterType=filter.filterType;
 

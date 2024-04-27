@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IAddCommentsToWorkspaceByChannelRequest } from '../../models/requests/addCommentsToWorkspaceByChannel';
 import { YoutubeDataObjectsService } from '../../services/youtube-data-objects.service';
+import { IAddYoutubeCommentsToWorkspaceByChannelRequest } from '../../models/requests/addYoutubeCommentsToWorkspaceByChannel';
 
 @Component({
   selector: 'app-add-youtube-channel-comments-to-workspace-page',
@@ -34,7 +34,7 @@ export class AddYoutubeChannelCommentsToWorkspacePageComponent implements OnInit
   });
 
   get formValue() {
-    return this.optionsForm.value as IAddCommentsToWorkspaceByChannelRequest;
+    return this.optionsForm.value as IAddYoutubeCommentsToWorkspaceByChannelRequest;
   }
 
   get dateFrom() { return (this.optionsForm.get('dateFrom')!); }

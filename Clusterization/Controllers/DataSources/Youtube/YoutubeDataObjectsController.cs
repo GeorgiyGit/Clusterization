@@ -17,7 +17,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
 
         [HttpPost("add_comments_by_channel")]
         [Authorize]
-        public async Task<IActionResult> AddCommentsByChannel([FromBody] AddCommentsToWorkspaceByChannelRequest request)
+        public async Task<IActionResult> AddCommentsByChannel([FromBody] AddYoutubeCommentsToWorkspaceByChannelRequest request)
         {
             await this.service.LoadCommentsByChannel(request);
             return Ok();
@@ -25,7 +25,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
 
         [HttpPost("add_comments_by_videos")]
         [Authorize]
-        public async Task<IActionResult> AddCommentsByVideos([FromBody] AddCommentsToWorkspaceByVideosRequest request)
+        public async Task<IActionResult> AddCommentsByVideos([FromBody] AddYoutubeCommentsToWorkspaceByVideosRequest request)
         {
             await this.service.LoadCommentsByVideos(request);
             return Ok();

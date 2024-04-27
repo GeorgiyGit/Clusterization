@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ISimpleVideo } from '../../models/responses/simple-video';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YoutubeVideoListComponent } from '../youtube-video-list/youtube-video-list.component';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
+import { ISimpleYoutubeVideo } from '../../models/responses/simple-youtube-video';
 
 @Component({
   selector: 'app-youtube-load-multiple-videos',
@@ -17,8 +17,8 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
 
   channelId:string | undefined;
 
-  videos: ISimpleVideo[] = [];
-  selectedVideos: ISimpleVideo[] = [];
+  videos: ISimpleYoutubeVideo[] = [];
+  selectedVideos: ISimpleYoutubeVideo[] = [];
 
   filterType:string='Date';
   options:IOptionForSelectInput[]=[
@@ -90,10 +90,10 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
       });
   }
 
-  selectVideo(channel: ISimpleVideo) {
+  selectVideo(channel: ISimpleYoutubeVideo) {
     if (this.selectedVideos.find(c => c == channel) == null) this.selectedVideos.push(channel);
   }
-  unselectVideo(channel: ISimpleVideo) {
+  unselectVideo(channel: ISimpleYoutubeVideo) {
     this.selectedVideos = this.selectedVideos.filter(c => c != channel);
   }
 

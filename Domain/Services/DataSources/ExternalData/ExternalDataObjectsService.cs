@@ -18,7 +18,7 @@ namespace Domain.Services.DataSources.ExternalData
     public class ExternalDataObjectsService: IExternalDataObjectsService
     {
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
-        private readonly IRepository<Comment> _commentsRepository;
+        private readonly IRepository<YoutubeComment> _commentsRepository;
         private readonly IRepository<MyDataObject> _dataObjectsRepository;
         private readonly IRepository<WorkspaceDataObjectsAddPack> _addPacksRepository;
         private readonly IRepository<ExternalObject> _externalObjectsRepository;
@@ -32,7 +32,7 @@ namespace Domain.Services.DataSources.ExternalData
         private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
 
         public ExternalDataObjectsService(IRepository<ClusterizationWorkspace> workspacesRepository,
-            IRepository<Comment> commentsRepository,
+            IRepository<YoutubeComment> commentsRepository,
             IRepository<MyDataObject> dataObjectsRepository,
             IRepository<WorkspaceDataObjectsAddPack> addPacksRepository,
             IRepository<ExternalObject> externalObjectsRepository,

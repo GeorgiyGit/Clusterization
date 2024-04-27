@@ -27,7 +27,7 @@ namespace Domain.Services.DataSources.Youtube
     {
         private const int loadVideoQutasCount = 10;
 
-        private readonly IRepository<Entities.DataSources.Youtube.Video> _repository;
+        private readonly IRepository<Entities.DataSources.Youtube.YoutubeVideo> _repository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
@@ -40,7 +40,7 @@ namespace Domain.Services.DataSources.Youtube
         private readonly IMyTasksService _tasksService;
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
-        public YoutubeVideosService(IRepository<Entities.DataSources.Youtube.Video> repository,
+        public YoutubeVideosService(IRepository<Entities.DataSources.Youtube.YoutubeVideo> repository,
                                      IStringLocalizer<ErrorMessages> localizer,
                                      IConfiguration configuration,
                                      IPrivateYoutubeChannelsService privateChannelService,
@@ -185,7 +185,7 @@ namespace Domain.Services.DataSources.Youtube
                             return;
                         }
 
-                        var newVideo = new Entities.DataSources.Youtube.Video()
+                        var newVideo = new Entities.DataSources.Youtube.YoutubeVideo()
                         {
                             Id = video.Id,
                             ETag = video.ETag,
@@ -277,7 +277,7 @@ namespace Domain.Services.DataSources.Youtube
 
             try
             {
-                var newVideo = new Entities.DataSources.Youtube.Video()
+                var newVideo = new Entities.DataSources.Youtube.YoutubeVideo()
                 {
                     Id = video.Id,
                     ETag = video.ETag,
@@ -355,7 +355,7 @@ namespace Domain.Services.DataSources.Youtube
                         throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
                     }
 
-                    var newVideo = new Entities.DataSources.Youtube.Video()
+                    var newVideo = new Entities.DataSources.Youtube.YoutubeVideo()
                     {
                         Id = video.Id,
                         ETag = video.ETag,
@@ -401,18 +401,18 @@ namespace Domain.Services.DataSources.Youtube
         #endregion
 
         #region get
-        public async Task<SimpleVideoDTO> GetLoadedById(string id)
+        public async Task<SimpleYoutubeVideoDTO> GetLoadedById(string id)
         {
-            var video = (await _repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.DataSources.Youtube.Channel)}", pageParameters: null)).FirstOrDefault();
+            var video = (await _repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
 
             if (video == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeVideoNotFound], HttpStatusCode.NotFound);
 
-            var mappedVideo = _mapper.Map<SimpleVideoDTO>(video);
+            var mappedVideo = _mapper.Map<SimpleYoutubeVideoDTO>(video);
             mappedVideo.IsLoaded = true;
 
             return mappedVideo;
         }
-        public async Task<ICollection<SimpleVideoDTO>> GetLoadedCollection(GetVideosRequest request)
+        public async Task<ICollection<SimpleYoutubeVideoDTO>> GetLoadedCollection(GetYoutubeVideosRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {
@@ -420,11 +420,11 @@ namespace Domain.Services.DataSources.Youtube
                 {
                     var video = await GetLoadedById(request.FilterStr);
 
-                    return new List<SimpleVideoDTO>() { video };
+                    return new List<SimpleYoutubeVideoDTO>() { video };
                 }
                 catch { }
             }
-            Expression<Func<Entities.DataSources.Youtube.Video, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
+            Expression<Func<Entities.DataSources.Youtube.YoutubeVideo, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
             if (request.ChannelId != null && request.ChannelId != "")
             {
                 var channel = await _youtubeChannelService.GetLoadedById(request.ChannelId);
@@ -436,7 +436,7 @@ namespace Domain.Services.DataSources.Youtube
             }
 
 
-            Func<IQueryable<Entities.DataSources.Youtube.Video>, IOrderedQueryable<Entities.DataSources.Youtube.Video>> orderByExpression = q =>
+            Func<IQueryable<Entities.DataSources.Youtube.YoutubeVideo>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeVideo>> orderByExpression = q =>
                 q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
 
             if (request.FilterType == VideoFilterTypes.ByTimeDesc)
@@ -476,7 +476,7 @@ namespace Domain.Services.DataSources.Youtube
                                                    orderBy: orderByExpression,
                                                    pageParameters: pageParameters);
 
-            var mappedVideos = _mapper.Map<ICollection<SimpleVideoDTO>>(videos);
+            var mappedVideos = _mapper.Map<ICollection<SimpleYoutubeVideoDTO>>(videos);
             foreach (var video in mappedVideos)
             {
                 video.IsLoaded = true;
@@ -487,7 +487,7 @@ namespace Domain.Services.DataSources.Youtube
         #endregion
 
         #region get-load
-        public async Task<VideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType)
+        public async Task<YoutubeVideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType)
         {
             SearchResource.ListRequest.OrderEnum? orderType;
             if (filterType == LoadFilterOptions.Date)
@@ -538,9 +538,9 @@ namespace Domain.Services.DataSources.Youtube
 
             if (videoIds == null || videoIds.Count() == 0)
             {
-                return new VideosWithoutLoadingResponse()
+                return new YoutubeVideosWithoutLoadingResponse()
                 {
-                    Videos = new List<SimpleVideoDTO>(),
+                    Videos = new List<SimpleYoutubeVideoDTO>(),
                     NextPageToken = null
                 };
             }
@@ -559,15 +559,15 @@ namespace Domain.Services.DataSources.Youtube
 
             var videos = videosResponse.Items;
 
-            List<SimpleVideoDTO> mappedVideos = new List<SimpleVideoDTO>(videoIds.Count());
+            List<SimpleYoutubeVideoDTO> mappedVideos = new List<SimpleYoutubeVideoDTO>(videoIds.Count());
 
             foreach (var video in videos)
             {
-                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(Entities.DataSources.Youtube.Channel)}", pageParameters: null)).FirstOrDefault();
+                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
 
                 if (origVideo != null)
                 {
-                    var mappedVideo = _mapper.Map<SimpleVideoDTO>(origVideo);
+                    var mappedVideo = _mapper.Map<SimpleYoutubeVideoDTO>(origVideo);
                     mappedVideo.IsLoaded = true;
 
                     mappedVideos.Add(mappedVideo);
@@ -575,7 +575,7 @@ namespace Domain.Services.DataSources.Youtube
                 }
 
 
-                var newVideo = new Entities.DataSources.Youtube.Video()
+                var newVideo = new Entities.DataSources.Youtube.YoutubeVideo()
                 {
                     Id = video.Id,
                     ETag = video.ETag,
@@ -614,10 +614,10 @@ namespace Domain.Services.DataSources.Youtube
                 }
                 catch { }
 
-                mappedVideos.Add(_mapper.Map<SimpleVideoDTO>(newVideo));
+                mappedVideos.Add(_mapper.Map<SimpleYoutubeVideoDTO>(newVideo));
             }
 
-            return new VideosWithoutLoadingResponse()
+            return new YoutubeVideosWithoutLoadingResponse()
             {
                 Videos = mappedVideos,
                 NextPageToken = newNextPageToken

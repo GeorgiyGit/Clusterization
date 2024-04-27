@@ -4,6 +4,6 @@ namespace Domain.Interfaces.DataSources.Youtube
 {
     public interface IPrivateYoutubeChannelsService
     {
-        public Task<Channel?> GetById(string id);
+        public Task<YoutubeChannel?> GetById(string id);
     }
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { YoutubeChannelService } from '../../services/youtube-channel.service';
-import { ISimpleChannel } from '../../models/responses/simple-channel';
 import { Router } from '@angular/router';
 import { YoutubeChannelListComponent } from '../youtube-channel-list/youtube-channel-list.component';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
+import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
 
 @Component({
   selector: 'app-youtube-load-multiple-channels',
@@ -15,8 +15,8 @@ export class YoutubeLoadMultipleChannelsComponent {
   value: string = '';
   nextPageToken: string | undefined;
 
-  channels: ISimpleChannel[] = [];
-  selectedChannels: ISimpleChannel[] = [];
+  channels: ISimpleYoutubeChannel[] = [];
+  selectedChannels: ISimpleYoutubeChannel[] = [];
 
   filterType:string='Date';
 
@@ -92,10 +92,10 @@ export class YoutubeLoadMultipleChannelsComponent {
       });
   }
 
-  selectChannel(channel: ISimpleChannel) {
+  selectChannel(channel: ISimpleYoutubeChannel) {
     if (this.selectedChannels.find(c => c == channel) == null) this.selectedChannels.push(channel);
   }
-  unselectChannel(channel: ISimpleChannel) {
+  unselectChannel(channel: ISimpleYoutubeChannel) {
     this.selectedChannels = this.selectedChannels.filter(c => c != channel);
   }
 

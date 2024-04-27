@@ -4,7 +4,7 @@ namespace Domain.Interfaces.DataSources.Youtube
 {
     public interface IYoutubeDataObjectsService
     {
-        public Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request);
-        public Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request);
+        public Task LoadCommentsByChannel(AddYoutubeCommentsToWorkspaceByChannelRequest request);
+        public Task LoadCommentsByVideos(AddYoutubeCommentsToWorkspaceByVideosRequest request);
     }
 }

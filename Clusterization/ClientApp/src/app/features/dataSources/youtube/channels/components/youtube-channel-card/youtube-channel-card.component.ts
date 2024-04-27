@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {Clipboard} from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
-import { ISimpleChannel } from '../../models/responses/simple-channel';
 import { Router } from '@angular/router';
+import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
 
 @Component({
   selector: 'app-youtube-channel-card',
@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./youtube-channel-card.component.scss']
 })
 export class YoutubeChannelCardComponent {
-  @Input() channel:ISimpleChannel
-  @Output() selectChannelEvent = new EventEmitter<ISimpleChannel>();
-  @Output() unselectChannelEvent = new EventEmitter<ISimpleChannel>();
+  @Input() channel:ISimpleYoutubeChannel
+  @Output() selectChannelEvent = new EventEmitter<ISimpleYoutubeChannel>();
+  @Output() unselectChannelEvent = new EventEmitter<ISimpleYoutubeChannel>();
   
   @Input() isSelectOnlyLoaded=false;
   constructor(private clipboard: Clipboard,

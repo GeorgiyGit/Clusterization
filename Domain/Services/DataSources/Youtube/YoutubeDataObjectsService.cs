@@ -24,7 +24,7 @@ namespace Domain.Services.DataSources.Youtube
     public class YoutubeDataObjectsService:IYoutubeDataObjectsService
     {
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
-        private readonly IRepository<Comment> _commentsRepository;
+        private readonly IRepository<YoutubeComment> _commentsRepository;
         private readonly IRepository<MyDataObject> _dataObjectsRepository;
         private readonly IRepository<WorkspaceDataObjectsAddPack> _addPacksRepository;
 
@@ -37,7 +37,7 @@ namespace Domain.Services.DataSources.Youtube
         private readonly IEmbeddingLoadingStatesService _embeddingLoadingStatesService;
 
         public YoutubeDataObjectsService(IRepository<ClusterizationWorkspace> workspacesRepository,
-            IRepository<Comment> commentsRepository,
+            IRepository<YoutubeComment> commentsRepository,
             IRepository<MyDataObject> dataObjectsRepository,
             IRepository<WorkspaceDataObjectsAddPack> addPacksRepository,
             IStringLocalizer<ErrorMessages> localizer,
@@ -59,7 +59,7 @@ namespace Domain.Services.DataSources.Youtube
             _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
 
-        public async Task LoadCommentsByChannel(AddCommentsToWorkspaceByChannelRequest request)
+        public async Task LoadCommentsByChannel(AddYoutubeCommentsToWorkspaceByChannelRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -68,7 +68,7 @@ namespace Domain.Services.DataSources.Youtube
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByChannelBackgroundJob(AddCommentsToWorkspaceByChannelRequest request, string userId, int taskId)
+        public async Task LoadCommentsByChannelBackgroundJob(AddYoutubeCommentsToWorkspaceByChannelRequest request, string userId, int taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -81,7 +81,7 @@ namespace Domain.Services.DataSources.Youtube
 
                 if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
 
-                Expression<Func<Entities.DataSources.Youtube.Comment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
+                Expression<Func<Entities.DataSources.Youtube.YoutubeComment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
 
                 if (request.DateFrom != null || request.DateTo != null)
                 {
@@ -114,7 +114,7 @@ namespace Domain.Services.DataSources.Youtube
                 int pageSize = 1000;
                 while (true)
                 {
-                    var comments = await _commentsRepository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.DataObject)}", pageParameters: new DTOs.PageParameters()
+                    var comments = await _commentsRepository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.DataObject)}", pageParameters: new DTOs.PageParameters()
                     {
                         PageNumber = pageNumber,
                         PageSize = pageSize
@@ -176,7 +176,7 @@ namespace Domain.Services.DataSources.Youtube
             }
         }
 
-        public async Task LoadCommentsByVideos(AddCommentsToWorkspaceByVideosRequest request)
+        public async Task LoadCommentsByVideos(AddYoutubeCommentsToWorkspaceByVideosRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -185,7 +185,7 @@ namespace Domain.Services.DataSources.Youtube
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByVideosBackgroundJob(AddCommentsToWorkspaceByVideosRequest request, string userId, int taskId)
+        public async Task LoadCommentsByVideosBackgroundJob(AddYoutubeCommentsToWorkspaceByVideosRequest request, string userId, int taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -197,7 +197,7 @@ namespace Domain.Services.DataSources.Youtube
                 var workspace = (await _workspacesRepository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
 
                 if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
-                Expression<Func<Entities.DataSources.Youtube.Comment, bool>> filterCondition = e => true;
+                Expression<Func<Entities.DataSources.Youtube.YoutubeComment, bool>> filterCondition = e => true;
 
                 if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > request.DateFrom);
                 if (request.DateTo != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset < request.DateTo);
@@ -218,7 +218,7 @@ namespace Domain.Services.DataSources.Youtube
                 foreach (var id in request.VideoIds)
                 {
                     var newConditions = filterCondition.And(e => e.VideoId == id);
-                    var comments = (await _commentsRepository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Entities.DataSources.Youtube.Comment.Video)},{nameof(Entities.DataSources.Youtube.Comment.DataObject)}")).Take(request.MaxCountInVideo);
+                    var comments = (await _commentsRepository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.Video)},{nameof(Entities.DataSources.Youtube.YoutubeComment.DataObject)}")).Take(request.MaxCountInVideo);
 
                     foreach (var comment in comments)
                     {

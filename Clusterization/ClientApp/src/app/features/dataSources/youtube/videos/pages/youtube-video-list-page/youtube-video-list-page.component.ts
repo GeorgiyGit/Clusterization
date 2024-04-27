@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ISimpleVideo } from '../../models/responses/simple-video';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
-import { IVideoFilter } from '../../models/video-filter';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { IGetVideosRequest } from '../../models/requests/get-videos-request';
 import { ActivatedRoute } from '@angular/router';
+import { IGetYoutubeVideosRequest } from '../../models/requests/get-youtube-videos-request';
+import { ISimpleYoutubeVideo } from '../../models/responses/simple-youtube-video';
+import { IYoutubeVideoFilter } from '../../models/youtube-video-filter';
 
 @Component({
   selector: 'app-youtube-video-list-page',
@@ -14,10 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 export class YoutubeVideoListPageComponent implements OnInit{
   @Input() isSelectAvailable:boolean=false;
   @Input() isSelectOnlyLoaded:boolean=false;
-  @Output() selectVideoEvent=new EventEmitter<ISimpleVideo>();
-  @Output() unselectVideoEvent=new EventEmitter<ISimpleVideo>();
+  @Output() selectVideoEvent=new EventEmitter<ISimpleYoutubeVideo>();
+  @Output() unselectVideoEvent=new EventEmitter<ISimpleYoutubeVideo>();
 
-  request:IGetVideosRequest={
+  request:IGetYoutubeVideosRequest={
     filterStr:'',
     filterType:'ByTimeDesc',
     channelId:undefined,
@@ -27,7 +27,7 @@ export class YoutubeVideoListPageComponent implements OnInit{
     }
   }
   @Input() channelId:string;
-  videos:ISimpleVideo[]=[];
+  videos:ISimpleYoutubeVideo[]=[];
 
   isEmbedded:boolean;
 
@@ -48,7 +48,7 @@ export class YoutubeVideoListPageComponent implements OnInit{
   }
 
 
-  changeFilter(filter:IVideoFilter){
+  changeFilter(filter:IYoutubeVideoFilter){
     this.request.filterStr=filter.filterStr;
     this.request.filterType=filter.filterType;
 
@@ -107,10 +107,10 @@ export class YoutubeVideoListPageComponent implements OnInit{
     }
   }
 
-  selectVideo(video:ISimpleVideo){
+  selectVideo(video:ISimpleYoutubeVideo){
     this.selectVideoEvent.emit(video);
   }
-  unselectVideo(video:ISimpleVideo){
+  unselectVideo(video:ISimpleYoutubeVideo){
     this.unselectVideoEvent.emit(video);
   }
 }

@@ -25,9 +25,9 @@ namespace Infrastructure
         #region DataSources
 
         #region Youtube
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Video> Videos { get; set; }
-        public virtual DbSet<Channel> Channels { get; set; }
+        public virtual DbSet<YoutubeComment> YoutubeComments { get; set; }
+        public virtual DbSet<YoutubeVideo> YoutubeVideos { get; set; }
+        public virtual DbSet<YoutubeChannel> YoutubeChannels { get; set; }
         #endregion
 
         #region ExternalData

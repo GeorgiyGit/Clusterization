@@ -14,9 +14,9 @@ namespace Domain.Entities.Customers
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
 
 
-        public ICollection<Channel> Channels { get; set; } = new HashSet<Channel>();
-        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
-        public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
+        public ICollection<YoutubeChannel> Channels { get; set; } = new HashSet<YoutubeChannel>();
+        public ICollection<YoutubeComment> Comments { get; set; } = new HashSet<YoutubeComment>();
+        public ICollection<YoutubeVideo> Videos { get; set; } = new HashSet<YoutubeVideo>();
 
         public ICollection<CustomerQuotas> Quotas { get; set; } = new HashSet<CustomerQuotas>();
         public ICollection<QuotasLogs> QuotasLogsCollection { get; set; } = new HashSet<QuotasLogs>();

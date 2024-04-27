@@ -15,7 +15,7 @@ namespace Domain.Entities.DataObjects
         public MyDataObjectType Type { get; set; }
         public string TypeId { get; set; }
 
-        public Comment? Comment { get; set; }
+        public YoutubeComment? Comment { get; set; }
         public string? CommentId { get; set; }
 
         public ExternalObject? ExternalObject { get; set; }
