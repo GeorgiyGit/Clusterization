@@ -262,7 +262,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Channels",
+                name: "YoutubeChannels",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -285,9 +285,9 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Channels", x => x.Id);
+                    table.PrimaryKey("PK_YoutubeChannels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Channels_AspNetUsers_LoaderId",
+                        name: "FK_YoutubeChannels_AspNetUsers_LoaderId",
                         column: x => x.LoaderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -331,7 +331,6 @@ namespace Infrastructure.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsAllDataEmbedded = table.Column<bool>(type: "bit", nullable: false),
                     EntitiesCount = table.Column<int>(type: "int", nullable: false),
                     VisibleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChangingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -552,7 +551,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Videos",
+                name: "YoutubeVideos",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -578,17 +577,17 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Videos", x => x.Id);
+                    table.PrimaryKey("PK_YoutubeVideos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Videos_AspNetUsers_LoaderId",
+                        name: "FK_YoutubeVideos_AspNetUsers_LoaderId",
                         column: x => x.LoaderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Videos_Channels_ChannelId",
+                        name: "FK_YoutubeVideos_YoutubeChannels_ChannelId",
                         column: x => x.ChannelId,
-                        principalTable: "Channels",
+                        principalTable: "YoutubeChannels",
                         principalColumn: "Id");
                 });
 
@@ -598,6 +597,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DataObjectsCount = table.Column<int>(type: "int", nullable: false),
                     WorkspaceId = table.Column<int>(type: "int", nullable: false),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -766,7 +766,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "YoutubeComments",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -794,27 +794,27 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_YoutubeComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_LoaderId",
+                        name: "FK_YoutubeComments_AspNetUsers_LoaderId",
                         column: x => x.LoaderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Channels_ChannelId",
-                        column: x => x.ChannelId,
-                        principalTable: "Channels",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Comments_MyDataObject_DataObjectId",
+                        name: "FK_YoutubeComments_MyDataObject_DataObjectId",
                         column: x => x.DataObjectId,
                         principalTable: "MyDataObject",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Comments_Videos_VideoId",
+                        name: "FK_YoutubeComments_YoutubeChannels_ChannelId",
+                        column: x => x.ChannelId,
+                        principalTable: "YoutubeChannels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_YoutubeComments_YoutubeVideos_VideoId",
                         column: x => x.VideoId,
-                        principalTable: "Videos",
+                        principalTable: "YoutubeVideos",
                         principalColumn: "Id");
                 });
 
@@ -1090,6 +1090,15 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "MyDataObjectType",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "Comment", "Comment" },
+                    { "ExternalData", "External Data" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MyTaskStates",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -1130,7 +1139,7 @@ namespace Infrastructure.Migrations
                 values: new object[,]
                 {
                     { "text-embedding-3-large", "Text embedding 3 large", 3072, 4000, "text_embedding_3_large", 8 },
-                    { "text-embedding-3-small", "Text embedding 3 small", 1536, 4000, "text-embedding-ada-002", 1 },
+                    { "text-embedding-3-small", "Text embedding 3 small", 1536, 4000, "text_embedding_3_small", 1 },
                     { "text-embedding-ada-002", "Text embedding Ada 002", 1536, 4000, "text-embedding-ada-002", 5 }
                 });
 
@@ -1280,33 +1289,6 @@ namespace Infrastructure.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_DataObjectId",
-                table: "Comments",
-                column: "DataObjectId",
-                unique: true,
-                filter: "[DataObjectId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_ChannelId",
-                table: "Comments",
-                column: "ChannelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_LoaderId",
-                table: "Comments",
-                column: "LoaderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_PublishedAtDateTimeOffset",
-                table: "Comments",
-                column: "PublishedAtDateTimeOffset");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_VideoId",
-                table: "Comments",
-                column: "VideoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerQuotas_CustomerId",
                 table: "CustomerQuotas",
                 column: "CustomerId");
@@ -1390,16 +1372,6 @@ namespace Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Channels_LoaderId",
-                table: "Channels",
-                column: "LoaderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Channels_PublishedAtDateTimeOffset_VideoCount_SubscriberCount",
-                table: "Channels",
-                columns: new[] { "PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MyDataObject_TypeId",
                 table: "MyDataObject",
                 column: "TypeId");
@@ -1450,21 +1422,6 @@ namespace Infrastructure.Migrations
                 column: "PackId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Videos_ChannelId",
-                table: "Videos",
-                column: "ChannelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Videos_LoaderId",
-                table: "Videos",
-                column: "LoaderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Videos_PublishedAtDateTimeOffset_CommentCount_ViewCount",
-                table: "Videos",
-                columns: new[] { "PublishedAtDateTimeOffset", "CommentCount", "ViewCount" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_WorkspaceDataObjectsAddPacks_OwnerId",
                 table: "WorkspaceDataObjectsAddPacks",
                 column: "OwnerId");
@@ -1473,6 +1430,58 @@ namespace Infrastructure.Migrations
                 name: "IX_WorkspaceDataObjectsAddPacks_WorkspaceId",
                 table: "WorkspaceDataObjectsAddPacks",
                 column: "WorkspaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeComments_DataObjectId",
+                table: "YoutubeComments",
+                column: "DataObjectId",
+                unique: true,
+                filter: "[DataObjectId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeComments_ChannelId",
+                table: "YoutubeComments",
+                column: "ChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeComments_LoaderId",
+                table: "YoutubeComments",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeComments_PublishedAtDateTimeOffset",
+                table: "YoutubeComments",
+                column: "PublishedAtDateTimeOffset");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeComments_VideoId",
+                table: "YoutubeComments",
+                column: "VideoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeChannels_LoaderId",
+                table: "YoutubeChannels",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeChannels_PublishedAtDateTimeOffset_VideoCount_SubscriberCount",
+                table: "YoutubeChannels",
+                columns: new[] { "PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeVideos_ChannelId",
+                table: "YoutubeVideos",
+                column: "ChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeVideos_LoaderId",
+                table: "YoutubeVideos",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YoutubeVideos_PublishedAtDateTimeOffset_CommentCount_ViewCount",
+                table: "YoutubeVideos",
+                columns: new[] { "PublishedAtDateTimeOffset", "CommentCount", "ViewCount" });
         }
 
         /// <inheritdoc />
@@ -1498,9 +1507,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClusterMyDataObject");
-
-            migrationBuilder.DropTable(
-                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "CustomerQuotas");
@@ -1533,10 +1539,10 @@ namespace Infrastructure.Migrations
                 name: "QuotasPackLogs");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "YoutubeComments");
 
             migrationBuilder.DropTable(
-                name: "Videos");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "EmbeddingObjectsGroups");
@@ -1560,13 +1566,16 @@ namespace Infrastructure.Migrations
                 name: "QuotasPacks");
 
             migrationBuilder.DropTable(
-                name: "Channels");
+                name: "YoutubeVideos");
 
             migrationBuilder.DropTable(
                 name: "MyDataObject");
 
             migrationBuilder.DropTable(
                 name: "ClusterizationTilesLevels");
+
+            migrationBuilder.DropTable(
+                name: "YoutubeChannels");
 
             migrationBuilder.DropTable(
                 name: "MyDataObjectType");

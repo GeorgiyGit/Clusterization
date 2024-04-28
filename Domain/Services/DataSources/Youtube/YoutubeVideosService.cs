@@ -47,7 +47,7 @@ namespace Domain.Services.DataSources.Youtube
                                      IPrivateYoutubeChannelsService privateChannelService,
                                      IYoutubeChannelsService youtubeChannelService,
                                      IMapper mapper,
-                                     IMyTasksService _tasksService,
+                                     IMyTasksService tasksService,
                                      IBackgroundJobClient backgroundJobClient,
                                      IUserService userService,
                                      IStringLocalizer<TaskTitles> tasksLocalizer,
@@ -58,7 +58,7 @@ namespace Domain.Services.DataSources.Youtube
             _privateChannelService = privateChannelService;
             _youtubeChannelService = youtubeChannelService;
             _mapper = mapper;
-            _tasksService = _tasksService;
+            _tasksService = tasksService;
             _userService = userService;
             _tasksLocalizer = tasksLocalizer;
             _quotasControllerService = quotasControllerService;
@@ -404,7 +404,7 @@ namespace Domain.Services.DataSources.Youtube
         #region get
         public async Task<SimpleYoutubeVideoDTO> GetLoadedById(string id)
         {
-            var video = (await _repository.GetAsync(c => c.Id == id, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
+            var video = (await _repository.GetAsync(c => c.Id == id)).FirstOrDefault();
 
             if (video == null) throw new HttpException(_localizer[ErrorMessagePatterns.YoutubeVideoNotFound], HttpStatusCode.NotFound);
 
@@ -564,7 +564,7 @@ namespace Domain.Services.DataSources.Youtube
 
             foreach (var video in videos)
             {
-                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
+                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id)).FirstOrDefault();
 
                 if (origVideo != null)
                 {

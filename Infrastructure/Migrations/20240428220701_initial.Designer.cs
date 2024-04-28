@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    [Migration("20240422174153_change-embedding-model-name")]
-    partial class changeembeddingmodelname
+    [Migration("20240428220701_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -393,9 +393,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("EntitiesCount")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAllDataEmbedded")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -637,7 +634,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("ExternalObjects");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -703,10 +700,10 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PublishedAtDateTimeOffset", "VideoCount", "SubscriberCount");
 
-                    b.ToTable("Channels");
+                    b.ToTable("YoutubeChannels");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Comment", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeComment", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -800,10 +797,10 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("VideoId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("YoutubeComments");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeVideo", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -883,7 +880,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PublishedAtDateTimeOffset", "CommentCount", "ViewCount");
 
-                    b.ToTable("Videos");
+                    b.ToTable("YoutubeVideos");
                 });
 
             modelBuilder.Entity("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", b =>
@@ -1954,7 +1951,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("DataObject");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>
                 {
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
                         .WithMany("Channels")
@@ -1965,9 +1962,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("Loader");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Comment", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeComment", b =>
                 {
-                    b.HasOne("Domain.Entities.DataSources.Youtube.Channel", "Channel")
+                    b.HasOne("Domain.Entities.DataSources.Youtube.YoutubeChannel", "Channel")
                         .WithMany("Comments")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1975,7 +1972,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
                         .WithOne("Comment")
-                        .HasForeignKey("Domain.Entities.DataSources.Youtube.Comment", "DataObjectId");
+                        .HasForeignKey("Domain.Entities.DataSources.Youtube.YoutubeComment", "DataObjectId");
 
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
                         .WithMany("Comments")
@@ -1983,7 +1980,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.DataSources.Youtube.Video", "Video")
+                    b.HasOne("Domain.Entities.DataSources.Youtube.YoutubeVideo", "Video")
                         .WithMany("Comments")
                         .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1998,9 +1995,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("Video");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeVideo", b =>
                 {
-                    b.HasOne("Domain.Entities.DataSources.Youtube.Channel", "Channel")
+                    b.HasOne("Domain.Entities.DataSources.Youtube.YoutubeChannel", "Channel")
                         .WithMany("Videos")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -2365,14 +2362,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("DataObjects");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Channel", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Videos");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.Video", b =>
+            modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeVideo", b =>
                 {
                     b.Navigation("Comments");
                 });

@@ -3,7 +3,7 @@
         <input type="text" [value]="value" (input)="changeValue($event)" i18n-placeholder placeholder="Введіть id каналу...">
         <span class="material-symbols-outlined icon" translate="no">policy</span>
     </div>
-    <p class="quotas-text" *ngIf="value!=''"><span i18n>Кількість квот які використаються за завантаження одного каналу: </span>{{quotasCount}}</p>
+    <p class="quotas-text" *ngIf="!isLoading && value!=''"><span i18n>Кількість квот які будуть використані за завантаження одного каналу: </span>{{quotasCount}}</p>
     <div class="centered">
         <app-loader *ngIf="isLoading"></app-loader>
         <button class="standard-btn" (click)="load()" *ngIf="!isLoading" i18n>Завантажити</button>

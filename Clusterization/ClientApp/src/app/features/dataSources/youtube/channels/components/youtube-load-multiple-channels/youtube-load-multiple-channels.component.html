@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <p class="quotas-text" *ngIf="selectedChannels!=null && selectedChannels.length>0"><span i18n>Розрахована кількість використаних квот при завантаженні: </span>{{quotasCount*selectedChannels.length}}</p>
+    <p class="quotas-text" *ngIf="!isLoading && selectedChannels!=null && selectedChannels.length>0"><span i18n>Розрахована кількість використаних квот при завантаженні: </span>{{quotasCount*selectedChannels.length}}</p>
     <div class="centered">
         <button class="standard-btn" (click)="load()" *ngIf="!isLoading && selectedChannels!=null && selectedChannels.length>0">Завантажити на сервер</button>
     </div>

@@ -29,6 +29,8 @@ export class YoutubeVideoCardComponent {
   }
 
   openFull(){
+    if (!this.video.isLoaded) return;
+
     this.router.navigateByUrl('video-full-info/'+this.video.id);
   }
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import {Clipboard} from '@angular/cdk/clipboard';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
@@ -11,16 +11,16 @@ import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-cha
   styleUrls: ['./youtube-channel-card.component.scss']
 })
 export class YoutubeChannelCardComponent {
-  @Input() channel:ISimpleYoutubeChannel
+  @Input() channel: ISimpleYoutubeChannel
   @Output() selectChannelEvent = new EventEmitter<ISimpleYoutubeChannel>();
   @Output() unselectChannelEvent = new EventEmitter<ISimpleYoutubeChannel>();
-  
-  @Input() isSelectOnlyLoaded=false;
-  constructor(private clipboard: Clipboard,
-    private toastr:ToastrService,
-    private router:Router) {}
 
-  copyToClipboard(text: string, event:MouseEvent) {
+  @Input() isSelectOnlyLoaded = false;
+  constructor(private clipboard: Clipboard,
+    private toastr: ToastrService,
+    private router: Router) { }
+
+  copyToClipboard(text: string, event: MouseEvent) {
     event.stopPropagation();
 
     this.clipboard.copy(text);
@@ -28,17 +28,19 @@ export class YoutubeChannelCardComponent {
     this.toastr.success($localize`Скопійовано!!!`);
   }
 
-  openFull(){
-    this.router.navigateByUrl('channel-full-info/'+this.channel.id+'/list/'+this.channel.id);
+  openFull() {
+    if (!this.channel.isLoaded) return;
+
+    this.router.navigateByUrl('channel-full-info/' + this.channel.id + '/list/' + this.channel.id);
   }
 
-  toggleSelection(){
-    if((this.isSelectOnlyLoaded && !this.channel.isLoaded) ||
-      (!this.isSelectOnlyLoaded && this.channel.isLoaded))return;
+  toggleSelection() {
+    if ((this.isSelectOnlyLoaded && !this.channel.isLoaded) ||
+      (!this.isSelectOnlyLoaded && this.channel.isLoaded)) return;
 
-    this.channel.isSelected=!this.channel.isSelected;
-  
-    if(this.channel.isSelected==true){
+    this.channel.isSelected = !this.channel.isSelected;
+
+    if (this.channel.isSelected == true) {
       this.selectChannelEvent.emit(this.channel);
     }
     else this.unselectChannelEvent.emit(this.channel);
