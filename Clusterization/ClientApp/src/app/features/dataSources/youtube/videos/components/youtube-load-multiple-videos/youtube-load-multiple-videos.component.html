@@ -22,7 +22,7 @@
                 *ngIf="!isLoading && !isLoading2 && nextPageToken!=undefined" i18n>Завантажити більше</button>
         </div>
     </div>
-
+    <p class="quotas-text" *ngIf="selectedVideos!=null && selectedVideos.length>0"><span i18n>Кількість квот які використаються за завантаження вибраних відео: </span>{{quotasCount*selectedVideos.length}}</p>
     <div class="centered">
         <button class="standard-btn" (click)="load()"
             *ngIf="!isLoading && !isLoading2 && selectedVideos!=null && selectedVideos.length>0" i18n>Завантажити на сервер</button>

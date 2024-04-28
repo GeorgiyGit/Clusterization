@@ -1,6 +1,6 @@
 <div class="cont">
     <div class="input-cont">
-        <input type="text" [value]="value" (change)="changeValue($event)" i18n-placeholder placeholder="Введіть id каналу...">
+        <input type="text" [value]="value" (input)="changeValue($event)" i18n-placeholder placeholder="Введіть id каналу...">
         <span class="material-symbols-outlined icon" translate="no">policy</span>
     </div>
     <div class="centered">

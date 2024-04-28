@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { YoutubeChannelListComponent } from '../youtube-channel-list/youtube-channel-list.component';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
 import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
+import { QuotasCalculationList } from 'src/app/features/quotas/static/quotas-calculation-list';
 
 @Component({
   selector: 'app-youtube-load-multiple-channels',
@@ -31,9 +32,13 @@ export class YoutubeLoadMultipleChannelsComponent {
     }
   ]
 
+  quotasCount:number;
+
   constructor(private toastrService: MyToastrService,
     private channelService: YoutubeChannelService,
-    private router: Router) { }
+    private router: Router) { 
+      this.quotasCount=QuotasCalculationList.youtubeChannel;
+    }
 
 
   @ViewChild(YoutubeChannelListComponent) filterChild: YoutubeChannelListComponent;

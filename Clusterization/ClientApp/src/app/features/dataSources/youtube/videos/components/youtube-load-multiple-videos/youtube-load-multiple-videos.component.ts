@@ -5,6 +5,7 @@ import { YoutubeVideoListComponent } from '../youtube-video-list/youtube-video-l
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
 import { ISimpleYoutubeVideo } from '../../models/responses/simple-youtube-video';
+import { QuotasCalculationList } from 'src/app/features/quotas/static/quotas-calculation-list';
 
 @Component({
   selector: 'app-youtube-load-multiple-videos',
@@ -32,6 +33,7 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
     }
   ]
   
+  quotasCount:number;
   constructor(private toastrService: MyToastrService,
     private videoService: YoutubeVideoService,
     private router: Router,
@@ -39,6 +41,8 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
   ngOnInit(): void {
     this.channelId = this.route.snapshot.params['id'];
 
+    this.quotasCount = QuotasCalculationList.youtubeVideo;
+    
     if(this.channelId!=null)this.loadFirst();
   }
 

@@ -21,7 +21,7 @@ namespace Infrastructure.Seeders.Quotas
                 Count = 1000
             };
 
-            //embedding - 1
+            //depending on the context
             var basicPackEmbeddings = new QuotasPackItem()
             {
                 Id = 2,

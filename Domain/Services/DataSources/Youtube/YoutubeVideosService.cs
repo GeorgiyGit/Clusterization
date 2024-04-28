@@ -20,6 +20,7 @@ using System.Net;
 using Domain.Interfaces.DataSources.Youtube;
 using Domain.Interfaces.Other;
 using Domain.Resources.Types.DataSources.Youtube;
+using Domain.Entities.DataSources.Youtube;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -563,7 +564,7 @@ namespace Domain.Services.DataSources.Youtube
 
             foreach (var video in videos)
             {
-                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
+                var origVideo = (await _repository.GetAsync(c => c.Id == video.Id, includeProperties: $"{nameof(YoutubeChannel)}", pageParameters: null)).FirstOrDefault();
 
                 if (origVideo != null)
                 {

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IYoutubeCommentLoadOptions } from '../../models/youtube-comment-load-options';
+import { QuotasCalculationList } from 'src/app/features/quotas/static/quotas-calculation-list';
 
 @Component({
   selector: 'app-youtube-load-comments-by-channel-page',
@@ -43,6 +44,7 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
   get maxLoad() { return this.optionsForm.get('maxLoad')!; }
   get maxLoadForOneVideo() { return this.optionsForm.get('maxLoadForOneVideo')!; }
 
+  quotasCount:number;
   constructor(private router:Router,
     private fb: FormBuilder,
     private route:ActivatedRoute,
@@ -52,6 +54,8 @@ export class YoutubeLoadCommentsByChannelPageComponent implements OnInit{
     this.animationState='in';
 
     this.channelId=this.route.snapshot.params['channelId'];
+
+    this.quotasCount = QuotasCalculationList.youtubComment;
   }
 
   closeOverflow(){

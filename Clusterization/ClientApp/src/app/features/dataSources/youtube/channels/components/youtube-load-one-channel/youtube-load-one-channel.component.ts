@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { YoutubeChannelService } from '../../services/youtube-channel.service';
 import { Router } from '@angular/router';
+import { QuotasCalculationList } from 'src/app/features/quotas/static/quotas-calculation-list';
 
 @Component({
   selector: 'app-youtube-load-one-channel',
@@ -11,9 +12,12 @@ import { Router } from '@angular/router';
 export class YoutubeLoadOneChannelComponent {
   value: string = '';
 
+  quotasCount:number;
   constructor(private toastrService: MyToastrService,
     private channelService: YoutubeChannelService,
-    private router: Router) { }
+    private router: Router) {
+      this.quotasCount=QuotasCalculationList.youtubeChannel;
+    }
   changeValue(event: any) {
     this.value = event.target.value;
   }

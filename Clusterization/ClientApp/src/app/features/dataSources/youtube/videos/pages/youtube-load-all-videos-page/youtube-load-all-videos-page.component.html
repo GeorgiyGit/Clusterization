@@ -21,6 +21,7 @@
             <div class="input-cont">
                 <input id="minViewCount" type="number" min="0" step="1" i18n-placeholder placeholder="Мінімальна кількість переглядів" formControlName="minViewCount">
             </div>
+            <p class="quotas-text"><span i18n>Кількість квот які використаються за завантаження одного відео: </span>{{quotasCount}}</p>
             <div class="centered">
                 <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Завантажити</button>
             </div>
