@@ -40,6 +40,8 @@ export class WorkspaceListPageComponent implements OnInit{
 
   isLoading:boolean;
   loadFirst(){
+    if(this.isLoading)return;
+
     this.request.pageParameters.pageNumber=0;
 
     this.isLoading=true;
@@ -54,11 +56,14 @@ export class WorkspaceListPageComponent implements OnInit{
       this.toastr.error(error.error.Message);
     });
   }
+
+  isLoading2:boolean;
   loadMore(){
-    this.isLoading=true;
+    if(this.isLoading2)return;
+    this.isLoading2=true;
     this.workspacesService.getWorkspaces(this.request).subscribe(res=>{
       this.workspaces=this.workspaces.concat(res);
-      this.isLoading=false;
+      this.isLoading2=false;
 
       if(res.length<this.request.pageParameters.pageSize)this.isLoadMoreAvailable=false;
       else this.isLoadMoreAvailable=true;

@@ -53,17 +53,19 @@ export class YoutubeChannelListPageComponent implements OnInit{
       this.toastr.error(error.error.Message);
     });
   }
+
+  isLoading2:boolean;
   loadMore(){
-    if(this.isLoading)return;
-    this.isLoading=true;
+    if(this.isLoading2)return;
+    this.isLoading2=true;
     this.channelService.getMany(this.request).subscribe(res=>{
       this.channels=this.channels.concat(res);
-      this.isLoading=false;
+      this.isLoading2=false;
 
       if(res.length<this.request.pageParameters.pageSize)this.isLoadMoreAvailable=false;
       else this.isLoadMoreAvailable=true;
     },error=>{
-      this.isLoading=false;
+      this.isLoading2=false;
       this.toastr.error(error.error.Message);
     });
   }

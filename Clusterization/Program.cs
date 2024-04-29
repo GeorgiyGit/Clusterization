@@ -63,7 +63,7 @@ internal class Program
 
         // Add services to the container.
 
-        var connectionString = builder.Configuration.GetConnectionString("LocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'HostClusterizationDbContextConnection' not found.");
+        var connectionString = builder.Configuration.GetConnectionString("HostClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'HostClusterizationDbContextConnection' not found.");
 
         //var vectorConnectionString = builder.Configuration.GetConnectionString("VectorLocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'VectorLocalClusterizationDbContextConnection' not found.");
 
@@ -74,14 +74,12 @@ internal class Program
             builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
         }));
 
-        //builder.Services.AddDbContext<VectorDbContext>(x => x.UseSqlite(vectorConnectionString));
-
 
         builder.Services.AddHangfire(configuration => configuration
                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
                .UseSimpleAssemblyNameTypeSerializer()
                .UseRecommendedSerializerSettings()
-               .UseSqlServerStorage(builder.Configuration.GetConnectionString("LocalClusterizationDbContextConnection"), new SqlServerStorageOptions
+               .UseSqlServerStorage(builder.Configuration.GetConnectionString("HostClusterizationDbContextConnection"), new SqlServerStorageOptions
                {
                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),

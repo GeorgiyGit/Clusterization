@@ -28,6 +28,8 @@ export class CustomerQuotasLogsPageComponent implements OnInit {
   isLoadMoreAvailable: boolean;
   isLoading: boolean;
   loadFirst() {
+    if(this.isLoading)return;
+
     this.request.pageParameters.pageNumber=1;
 
     this.isLoading = true;
@@ -45,6 +47,7 @@ export class CustomerQuotasLogsPageComponent implements OnInit {
 
   isLoading2: boolean;
   loadMore() {
+    if(this.isLoading2)return;
     this.request.pageParameters.pageNumber++;
 
     this.isLoading2 = true;

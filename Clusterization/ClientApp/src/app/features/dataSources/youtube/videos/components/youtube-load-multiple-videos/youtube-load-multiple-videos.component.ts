@@ -55,6 +55,8 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
 
   isLoading: boolean = false;
   loadFirst() {
+    if(this.isLoading)return;
+
     this.nextPageToken=undefined;
     this.isLoading = true;
     this.videoService.getWithoutLoading(this.value, this.nextPageToken,this.channelId,this.filterType).subscribe(res => {
@@ -76,6 +78,7 @@ export class YoutubeLoadMultipleVideosComponent implements OnInit{
 
   isLoading2:boolean;
   loadMore() {
+    if(this.isLoading2)return;
     if (this.nextPageToken == undefined) return;
 
     this.isLoading2 = true;

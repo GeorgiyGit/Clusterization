@@ -57,6 +57,8 @@ export class YoutubeVideoListPageComponent implements OnInit{
 
   isLoading:boolean;
   loadFirst(){
+    if(this.isLoading)return;
+
     this.request.pageParameters.pageNumber=1;
 
     this.isLoading=true;
@@ -80,6 +82,7 @@ export class YoutubeVideoListPageComponent implements OnInit{
 
   isLoading2:boolean;
   loadMore(){
+    if(this.isLoading2)return;
     this.isLoading2=true;
     this.videoService.getMany(this.request).subscribe(res=>{
       if(this.isSelectAvailable){
