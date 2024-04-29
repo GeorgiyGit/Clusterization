@@ -17,7 +17,9 @@ namespace Domain.Interfaces.Clusterization.Profiles
 
         public Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequest request);
         public Task<ICollection<SimpleClusterizationProfileDTO>> GetCustomerCollection(CustomerGetClusterizationProfilesRequest request);
-        
+
+        public Task<int> CalculateQuotasCount(int profileId);
+
         public Task Elect(int id);
         public Task UnElect(int id);
     }

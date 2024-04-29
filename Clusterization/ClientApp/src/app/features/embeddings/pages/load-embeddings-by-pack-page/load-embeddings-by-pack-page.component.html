@@ -6,7 +6,8 @@
         <h1 i18n>Завантажити ембедингі</h1>
         <app-embedding-models-select [isNullAvailable]="false"
             (sendEvent)="selectEmbeddingModelId($event)"></app-embedding-models-select>
-        <div class="centered mt-10">
+        <p class="quotas-text mt-10" *ngIf="!isLoading && this.embeddingModelId!=null"><span i18n>Розрахована кількість використаних квот: </span>{{quotasCount}}</p>
+        <div class="centered ">
             <app-loader *ngIf="isLoading"></app-loader>
             <button class="standard-btn" type="submit" *ngIf="!isLoading" (click)="submit()" i18n>Почати</button>
         </div>

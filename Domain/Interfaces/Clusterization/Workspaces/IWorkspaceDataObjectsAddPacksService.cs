@@ -5,6 +5,7 @@ namespace Domain.Interfaces.Clusterization.Workspaces
 {
     public interface IWorkspaceDataObjectsAddPacksService
     {
+        public Task<WorkspaceDataObjectsAddPackSimpleDTO> GetSimplePackById(int id);
         public Task<ICollection<WorkspaceDataObjectsAddPackSimpleDTO>> GetSimplePacks(GetWorkspaceDataObjectsAddPacksRequest request);
         public Task<WorkspaceDataObjectsAddPackFullDTO> GetFullPack(int id);
 

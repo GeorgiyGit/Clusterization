@@ -19,6 +19,7 @@ using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.Embeddings;
 using Domain.Interfaces.Embeddings;
 using Domain.Resources.Types.Clusterization;
+using Domain.Entities.Clusterization.Workspaces;
 
 namespace Domain.Services.Clusterization.Profiles
 {
@@ -26,6 +27,7 @@ namespace Domain.Services.Clusterization.Profiles
     {
         private readonly IRepository<ClusterizationProfile> _repository;
         private readonly IRepository<EmbeddingLoadingState> _embeddingLoadingStatesRepository;
+        private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -37,6 +39,7 @@ namespace Domain.Services.Clusterization.Profiles
         public ClusterizationProfilesService(IRepository<ClusterizationProfile> repository,
                                              IStringLocalizer<ErrorMessages> localizer,
                                              IRepository<EmbeddingLoadingState> embeddingLoadingStatesRepository,
+                                             IRepository<ClusterizationWorkspace> workspacesRepositor,
                                              IMapper mapper,
                                              IGeneralClusterizationAlgorithmService generalAlgorithmService,
                                              IUserService userService,
@@ -44,6 +47,7 @@ namespace Domain.Services.Clusterization.Profiles
                                              IEmbeddingLoadingStatesService embeddingLoadingStatesService)
         {
             _repository = repository;
+            _workspacesRepository = workspacesRepositor;
             _localizer = localizer;
             _mapper = mapper;
             _generalAlgorithmService = generalAlgorithmService;
@@ -264,8 +268,8 @@ namespace Domain.Services.Clusterization.Profiles
         public async Task<SimpleClusterizationProfileDTO> GetSimpleById(int id)
         {
             var userId = await _userService.GetCurrentUserId();
-            var profile = (await _repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.EmbeddingModel)}")).FirstOrDefault();
 
+            var profile = (await _repository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(ClusterizationProfile.DimensionType)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.EmbeddingModel)}")).FirstOrDefault();
             if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
             var mappedProfile = _mapper.Map<SimpleClusterizationProfileDTO>(profile);
@@ -274,6 +278,25 @@ namespace Domain.Services.Clusterization.Profiles
             mappedProfile.AlgorithmType = type;
 
             return mappedProfile;
+        }
+
+        public async Task<int> CalculateQuotasCount(int profileId)
+        {
+            var profile = (await _repository.GetAsync(e => e.Id == profileId, includeProperties:$"{nameof(ClusterizationProfile.EmbeddingModel)}")).FirstOrDefault();
+
+            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+            if (profile.VisibleType == VisibleTypes.OnlyOwner)
+            {
+                var userId = await _userService.GetCurrentUserId();
+                if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+                if (profile.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceVisibleTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+            }
+
+            var workspace = (await _workspacesRepository.GetAsync(e => e.Id == profile.WorkspaceId)).FirstOrDefault();
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+
+            return workspace.EntitiesCount * profile.EmbeddingModel.QuotasPrice;
         }
 
         public async Task Elect(int id)

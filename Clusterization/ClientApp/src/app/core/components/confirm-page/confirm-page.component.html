@@ -1,0 +1,17 @@
+<section class="overflow-cont">
+    <div class="main-cont">
+        <div class="top-cont">
+            <div>
+                <span class="material-symbols-outlined icon warn-icon" translate="no">warning</span>
+            </div>
+            <div>
+                <h2>{{mainText}}</h2>
+                <p>{{text}}</p>
+            </div>
+        </div>
+        <div class="buttons-cont">
+            <button class="inverted-btn" type="submit" (click)="this.confirmEvent.emit(false)" i18n>Відхілити</button>
+            <button class="standard-btn" type="submit" (click)="this.confirmEvent.emit(true)" i18n>Продовжити</button>
+        </div>
+    </div>
+</section>

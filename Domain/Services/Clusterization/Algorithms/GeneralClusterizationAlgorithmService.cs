@@ -14,12 +14,17 @@ using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
 using Domain.Interfaces.Other;
 using Domain.Resources.Types.Clusterization;
+using System;
+using System.Net;
+using Domain.Entities.Clusterization.Workspaces;
+using Domain.Interfaces.Customers;
 
 namespace Domain.Services.Clusterization.Algorithms
 {
     public class GeneralClusterizationAlgorithmService : IGeneralClusterizationAlgorithmService
     {
         private readonly IRepository<ClusterizationAbstactAlgorithm> _abstractAlgorithmsRepository;
+        private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -30,6 +35,7 @@ namespace Domain.Services.Clusterization.Algorithms
         private readonly IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> _gaussianMixtureService;
 
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
         public GeneralClusterizationAlgorithmService(IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> kMeansService,
                                                      IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService,
                                                      IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService,
@@ -37,7 +43,9 @@ namespace Domain.Services.Clusterization.Algorithms
                                                      IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService,
                                                      IStringLocalizer<ErrorMessages> localizer,
                                                      IRepository<ClusterizationAbstactAlgorithm> abstractRepository,
-                                                     IMapper mapper)
+                                                     IRepository<ClusterizationWorkspace> workspacesRepository,
+                                                     IMapper mapper,
+                                                     IUserService userService)
         {
             _kMeansService = kMeansService;
             _oneClusterService = oneClusterService;
@@ -48,6 +56,9 @@ namespace Domain.Services.Clusterization.Algorithms
             _localizer = localizer;
             _abstractAlgorithmsRepository = abstractRepository;
             _mapper = mapper;
+            _userService = userService;
+
+            _workspacesRepository = workspacesRepository;
         }
 
         public async Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId)
@@ -85,6 +96,50 @@ namespace Domain.Services.Clusterization.Algorithms
             if (algorithm == null) return null;
 
             return _mapper.Map<SimpleAlgorithmTypeDTO>(algorithm.Type);
+        }
+
+        public async Task<int> CalculateQuotasCountByWorkspace(string algorithmTypeId, int workspaceId, int dimensionCount)
+        {
+            var workspace = (await _workspacesRepository.GetAsync(e => e.Id == workspaceId)).FirstOrDefault();
+
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+
+            if (workspace.ChangingType == ChangingTypes.OnlyOwner)
+            {
+                var userId = await _userService.GetCurrentUserId();
+                if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+                if (workspace.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceVisibleTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+            }
+
+            return await CalculateQuotasCount(algorithmTypeId, workspace.EntitiesCount, dimensionCount);
+        }
+        public async Task<int> CalculateQuotasCount(string algorithmTypeId, int dataObjectsCount, int dimensionCount)
+        {
+            if (algorithmTypeId == ClusterizationAlgorithmTypes.KMeans)
+            {
+                return await _kMeansService.CalculateQuotasCount(dataObjectsCount, dimensionCount);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.OneCluster)
+            {
+                return await _oneClusterService.CalculateQuotasCount(dataObjectsCount, dimensionCount);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.DBSCAN)
+            {
+                return await _dbSCANService.CalculateQuotasCount(dataObjectsCount, dimensionCount);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.SpectralClustering)
+            {
+                return await _spectralClusteringService.CalculateQuotasCount(dataObjectsCount, dimensionCount);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.GaussianMixture)
+            {
+                return await _gaussianMixtureService.CalculateQuotasCount(dataObjectsCount, dimensionCount);
+            }
+            else
+            {
+                throw new HttpException(_localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist], System.Net.HttpStatusCode.NotFound);
+            }
         }
     }
 }

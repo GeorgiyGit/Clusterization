@@ -12,5 +12,8 @@ namespace Domain.Interfaces.Clusterization.Algorithms
     {
         public Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId);
         public Task<SimpleAlgorithmTypeDTO?> GetAlgorithmTypeByAlgorithmId(int algorithmId);
+
+        public Task<int> CalculateQuotasCount(string algorithmTypeId,int dataObjectsCount, int dimensionCount);
+        public Task<int> CalculateQuotasCountByWorkspace(string algorithmTypeId, int workspaceId, int dimensionCount);
     }
 }

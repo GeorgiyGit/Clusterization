@@ -11,7 +11,7 @@ namespace Domain.Interfaces.Clusterization.Algorithms
     {
         public Task AddAlgorithm(AddDTO model);
         public Task<ICollection<GetDTO>> GetAllAlgorithms();
-
+        public Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount);
         public Task ClusterData(int profileId);
     }
 }

@@ -21,6 +21,12 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
             return Ok(await service.GetSimplePacks(request));
         }
 
+        [HttpGet("get_simple_by_id/{id}")]
+        public async Task<IActionResult> GetSimplePackById([FromRoute] int id)
+        {
+            return Ok(await service.GetSimplePackById(id));
+        }
+
         [HttpPost("get_customer_simple_list")]
         [Authorize]
         public async Task<IActionResult> GetCustomerSimplePacks([FromBody] GetCustomerWorkspaceDataObjectsAddPacksRequest request)

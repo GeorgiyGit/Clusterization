@@ -17,6 +17,10 @@ export class WorkspaceDataObjectsAddPacksService {
     this.controllerUrl = environment.apiUrl + "WorkspaceDataObjectsAddPacks/";
   }
 
+  getSimplePackById(id:number): Observable<ISimpleWorkspaceAddDataPack> {
+    return this.http.get<ISimpleWorkspaceAddDataPack>(this.controllerUrl + "get_simple_by_id/"+id);
+  }
+  
   getSimplePacks(request: IGetWorkspaceAddDataPacksRequest): Observable<ISimpleWorkspaceAddDataPack[]> {
     return this.http.post<ISimpleWorkspaceAddDataPack[]>(this.controllerUrl + "get_simple_list", request);
   }

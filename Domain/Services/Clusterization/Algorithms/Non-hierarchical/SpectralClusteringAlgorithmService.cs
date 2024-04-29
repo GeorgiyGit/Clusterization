@@ -25,6 +25,7 @@ using Domain.Interfaces.Other;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Resources.Types.Clusterization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -90,7 +91,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             await _algorithmsRepository.AddAsync(newAlg);
             await _algorithmsRepository.SaveChangesAsync();
         }
-
+        public async Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount)
+        {
+            return (int)((double)dataObjectsCount * (double)dimensionCount * 1000);
+        }
         public async Task ClusterData(int profileId)
         {
             await WorkspaceVerification(profileId);
@@ -118,7 +122,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 var clusterAlgorithm = (await _algorithmsRepository.GetAsync(e => e.Id == profile.AlgorithmId)).FirstOrDefault();
 
-                double quotasCount = (double)profile.Workspace.EntitiesCount * (double)profile.DimensionCount * 1000;
+                double quotasCount = await CalculateQuotasCount(profile.Workspace.EntitiesCount, profile.DimensionCount);
 
                 var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount, Guid.NewGuid().ToString());
 

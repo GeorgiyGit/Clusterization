@@ -19,28 +19,32 @@ export class ClusterizationProfilesService {
     this.controllerUrl = environment.apiUrl + "clusterizationProfiles/";
   }
 
-  add(model:IAddClusterizationProfile): Observable<any> {
-    return this.http.post(this.controllerUrl + "add",model);
+  add(model: IAddClusterizationProfile): Observable<any> {
+    return this.http.post(this.controllerUrl + "add", model);
   }
 
-  getFullById(id:number): Observable<IClusterizationProfile> {
-    return this.http.get<IClusterizationProfile>(this.controllerUrl + "get_full_by_id/"+id);
+  getFullById(id: number): Observable<IClusterizationProfile> {
+    return this.http.get<IClusterizationProfile>(this.controllerUrl + "get_full_by_id/" + id);
   }
-  getSimpleById(id:number): Observable<ISimpleClusterizationProfile> {
-    return this.http.get<ISimpleClusterizationProfile>(this.controllerUrl + "get_simple_by_id/"+id);
-  }
-
-  getCollection(request:IGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
-    return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_collection",request);
-  }
-  getCustomerCollection(request:ICustomerGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
-    return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_customer_collection",request);
+  getSimpleById(id: number): Observable<ISimpleClusterizationProfile> {
+    return this.http.get<ISimpleClusterizationProfile>(this.controllerUrl + "get_simple_by_id/" + id);
   }
 
-  elect(id:number): Observable<any> {
-    return this.http.post(this.controllerUrl + "elect/"+id,null);
+  getCollection(request: IGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
+    return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_collection", request);
   }
-  unElect(id:number): Observable<any> {
-    return this.http.post(this.controllerUrl + "unelect/"+id,null);
+  getCustomerCollection(request: ICustomerGetClusterizationProfilesRequest): Observable<ISimpleClusterizationProfile[]> {
+    return this.http.post<ISimpleClusterizationProfile[]>(this.controllerUrl + "get_customer_collection", request);
+  }
+
+  calculateQuotasCount(id: number): Observable<number> {
+    return this.http.get<number>(this.controllerUrl + "calculate_quotas_count/" + id);
+  }
+
+  elect(id: number): Observable<any> {
+    return this.http.post(this.controllerUrl + "elect/" + id, null);
+  }
+  unElect(id: number): Observable<any> {
+    return this.http.post(this.controllerUrl + "unelect/" + id, null);
   }
 }

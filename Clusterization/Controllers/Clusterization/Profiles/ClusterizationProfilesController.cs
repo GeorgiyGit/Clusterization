@@ -50,6 +50,12 @@ namespace Clusterization.Controllers.Clusterization.Profiles
             return Ok(await service.GetCustomerCollection(request));
         }
 
+        
+        [HttpGet("calculate_quotas_count/{id}")]
+        public async Task<IActionResult> CalculateQuotasCount([FromRoute] int id)
+        {
+            return Ok(await service.CalculateQuotasCount(id));
+        }
 
         [HttpPost("elect/{id}")]
         [Authorize]

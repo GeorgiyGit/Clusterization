@@ -46,8 +46,27 @@ namespace Domain.Services.Clusterization.Workspaces
             _mapper = mapper;
             _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
-        
 
+        public async Task<WorkspaceDataObjectsAddPackSimpleDTO> GetSimplePackById(int id)
+        {
+            var pack = (await _packsRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Owner)},{nameof(WorkspaceDataObjectsAddPack.Workspace)}")).FirstOrDefault();
+
+            var workspace = (await _workspacesRepository.GetAsync(e => e.Id == pack.WorkspaceId)).FirstOrDefault();
+
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+
+            if (workspace.ChangingType == ChangingTypes.OnlyOwner)
+            {
+                var userId = await _userService.GetCurrentUserId();
+                if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+                if (workspace.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceVisibleTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+            }
+
+
+
+            return _mapper.Map<WorkspaceDataObjectsAddPackSimpleDTO>(pack);
+        }
         public async Task<ICollection<WorkspaceDataObjectsAddPackSimpleDTO>> GetCustomerSimplePacks(GetCustomerWorkspaceDataObjectsAddPacksRequest request)
         {
             var userId = await _userService.GetCurrentUserId();

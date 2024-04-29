@@ -4,43 +4,52 @@
         <div class="info-cont">
             <div class="text-info-cont" *ngIf="profile!=null">
                 <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.algorithmType.name+'',$event)">
-                    <span i18n-matTooltip matTooltip="Тип алгоритму" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
+                    <span i18n-matTooltip matTooltip="Тип алгоритму" class="material-symbols-outlined icon"
+                        translate="no">sort_by_alpha</span>
                     <p>{{profile.algorithmType.name}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(dimensionCountStr,profile.dimensionCount+'',$event)">
-                    <span i18n-matTooltip matTooltip="Кількість вимірів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                    <span i18n-matTooltip matTooltip="Кількість вимірів" class="material-symbols-outlined icon"
+                        translate="no">view_in_ar</span>
                     <p>{{profile.dimensionCount}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(algorithmTypeStr,profile.drTechnique.name,$event)">
-                    <span i18n-matTooltip matTooltip="Тип алгоритму зменшення розмірності" class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
+                    <span i18n-matTooltip matTooltip="Тип алгоритму зменшення розмірності"
+                        class="material-symbols-outlined icon" translate="no">sort_by_alpha</span>
                     <p>{{profile.drTechnique.name}}</p>
                 </div>
                 <div class="block" (click)="copyToClipboard(clustersCountStr,profile.clustersCount+'',$event)">
-                    <span i18n-matTooltip matTooltip="Кількість кластерів" class="material-symbols-outlined icon" translate="no">workspaces</span>
+                    <span i18n-matTooltip matTooltip="Кількість кластерів" class="material-symbols-outlined icon"
+                        translate="no">workspaces</span>
                     <p>{{profile.clustersCount}}</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon" translate="no">polyline</span>
+                    <span i18n-matTooltip matTooltip="Чи проведена кластеризація" class="material-symbols-outlined icon"
+                        translate="no">polyline</span>
                     <p *ngIf="profile.isCalculated" class="first-color-text" i18n>Так</p>
                     <p *ngIf="!profile.isCalculated" class="warn-text" i18n>Ні</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Чи завантажено ембедингі" class="material-symbols-outlined icon" translate="no">polyline</span>
+                    <span i18n-matTooltip matTooltip="Чи завантажено ембедингі" class="material-symbols-outlined icon"
+                        translate="no">polyline</span>
                     <p *ngIf="profile.isAllEmbeddingsLoaded" class="first-color-text" i18n>Так</p>
                     <p *ngIf="!profile.isAllEmbeddingsLoaded" class="warn-text" i18n>Ні</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon"
+                        translate="no">visibility</span>
                     <p *ngIf="profile.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
                     <p *ngIf="profile.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon"
+                        translate="no">change_circle</span>
                     <p *ngIf="profile.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
                     <p *ngIf="profile.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Модель завантаження ембедингів" class="material-symbols-outlined icon" translate="no">token</span>
+                    <span i18n-matTooltip matTooltip="Модель завантаження ембедингів"
+                        class="material-symbols-outlined icon" translate="no">token</span>
                     <p>{{profile.embeddingModel.name}}</p>
                 </div>
             </div>
@@ -57,3 +66,11 @@
         </div>
     </div>
 </section>
+<app-confirm-page *ngIf="isEmbeddingConfirmOpen"
+    [mainText]="quotasCountMainText"
+    [text]="embeddingsQuotasCountText+' '+embeddingQuotasCount"
+    (confirmEvent)="embeddingsConfirm($event)"></app-confirm-page>
+<app-confirm-page *ngIf="isClusterizationConfirmOpen"
+    [mainText]="quotasCountMainText"
+    [text]="clusterizationQuotasCountText+' '+embeddingQuotasCount"
+    (confirmEvent)="clusterizationConfirm($event)"></app-confirm-page>

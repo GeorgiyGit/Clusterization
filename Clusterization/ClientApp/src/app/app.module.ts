@@ -113,6 +113,7 @@ import { YoutubeLoadNewVideoPageComponent } from './features/dataSources/youtube
 import { YoutubeVideoListPageComponent } from './features/dataSources/youtube/videos/pages/youtube-video-list-page/youtube-video-list-page.component';
 import { AddYoutubeVideosCommentsToWorkspaceComponent } from './features/dataSources/youtube/youtube-data-objects/pages/add-youtube-videos-comments-to-workspace/add-youtube-videos-comments-to-workspace.component';
 import { AddYoutubeChannelCommentsToWorkspacePageComponent } from './features/dataSources/youtube/youtube-data-objects/pages/add-youtube-channel-comments-to-workspace-page/add-youtube-channel-comments-to-workspace-page.component';
+import { ConfirmPageComponent } from './core/components/confirm-page/confirm-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -225,7 +226,9 @@ export function tokenGetter() {
 
     WorkspaceAddPackFullPageComponent,
     EmbeddingLoadingStateCardComponent,
-    LoadEmbeddingsByPackPageComponent
+    LoadEmbeddingsByPackPageComponent,
+
+    ConfirmPageComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
