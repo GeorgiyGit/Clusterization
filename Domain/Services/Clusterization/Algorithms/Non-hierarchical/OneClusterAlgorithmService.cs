@@ -60,7 +60,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IUserService userService,
                                       IRepository<ClusterizationWorkspace> workspaceRepository,
                                       IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
-                                      IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository) : base(clustersRepository,
+                                      IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
+                                      IRepository<DisplayedPoint> displayedPointsRepository) : base(clustersRepository,
                                                                                                                         tilesService,
                                                                                                                         tilesLevelRepository,
                                                                                                                         algorithmsRepository,
@@ -68,7 +69,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                                                                                                         localizer,
                                                                                                                         profilesRepository,
                                                                                                                         embeddingObjectsGroupsRepository,
-                                                                                                                        dimensionEmbeddingObjectsRepository)
+                                                                                                                        dimensionEmbeddingObjectsRepository,
+                                                                                                                        displayedPointsRepository)
         {
             _backgroundJobClient = backgroundJobClient;
             _tasksService = tasksService;

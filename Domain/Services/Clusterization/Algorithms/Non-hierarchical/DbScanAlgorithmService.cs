@@ -56,7 +56,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IUserService userService,
                                       IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
                                       IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
-                                      IRepository<ClusterizationWorkspace> workspaceRepository) : base(clustersRepository,
+                                      IRepository<ClusterizationWorkspace> workspaceRepository,
+                                      IRepository<DisplayedPoint> displayedPointsRepository) : base(clustersRepository,
                                                                                                        tilesService,
                                                                                                        tilesLevelRepository,
                                                                                                        algorithmsRepository,
@@ -64,7 +65,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                                                                                        localizer,
                                                                                                        profilesRepository,
                                                                                                        embeddingObjectsGroupsRepository,
-                                                                                                       dimensionEmbeddingObjectsRepository)
+                                                                                                       dimensionEmbeddingObjectsRepository,
+                                                                                                       displayedPointsRepository)
         {
             _backgroundJobClient = backgroundJobClient;
             _tasksService = tasksService;

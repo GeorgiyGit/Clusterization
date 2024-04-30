@@ -24,6 +24,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         protected readonly IRepository<ClusterizationProfile> _profilesRepository;
         protected readonly IRepository<EmbeddingObjectsGroup> _embeddingObjectsGroupsRepository;
         protected readonly IRepository<DimensionEmbeddingObject> _dimensionEmbeddingObjectsRepository;
+        protected readonly IRepository<DisplayedPoint> _displayedPointsRepository;
 
         protected readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -41,12 +42,14 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             IStringLocalizer<ErrorMessages> localizer,
             IRepository<ClusterizationProfile> profilesRepository,
             IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
-            IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository)
+            IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
+            IRepository<DisplayedPoint> displayedPointsRepository)
         {
             _clustersRepository = clustersRepository;
             _tilesService = tilesService;
             _tilesLevelRepository = tilesLevelRepository;
             _algorithmsRepository = algorithmsRepository;
+            _displayedPointsRepository = displayedPointsRepository;
             _mapper = mapper;
             _localizer = localizer;
             _profilesRepository = profilesRepository;
@@ -60,6 +63,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 var id = profile.Clusters.ElementAt(i).Id;
                 var clusterForDelete = (await _clustersRepository.GetAsync(e => e.Id == id, includeProperties: $"{nameof(Cluster.DataObjects)},{nameof(Cluster.DisplayedPoints)},{nameof(Cluster.Profile)}")).FirstOrDefault();
 
+                for(int j = 0; j < clusterForDelete.DisplayedPoints.Count; j++)
+                {
+                    _displayedPointsRepository.Remove(clusterForDelete.DisplayedPoints.ElementAt(j));
+                }
                 _clustersRepository.Remove(clusterForDelete);
             }
             for (int i = 0; i < profile.TilesLevels.Count; i++)
@@ -70,6 +77,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
             profile.Clusters.Clear();
             profile.TilesLevels.Clear();
+
+            await _profilesRepository.SaveChangesAsync();
         }
         protected virtual async Task AddTiles(ClusterizationProfile profile, List<TileGeneratingHelpModel> helpModels)
         {
