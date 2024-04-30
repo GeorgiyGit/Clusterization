@@ -1,16 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocYoutubeMainPageComponent } from './children/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component';
-import { DocYoutubeChannelsMainPageComponent } from './children/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component';
-import { DocYoutubeChannelsLoadingByIdPageComponent } from './children/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component';
-import { DocYoutubeChannelsLoadingByNamePageComponent } from './children/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component';
-import { DocYoutubeChannelsDisplayingPageComponent } from './children/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component';
-import { DocYoutubeVideosMainPageComponent } from './children/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component';
-import { DocYoutubeVideosLoadingManyPageComponent } from './children/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component';
-import { DocYoutubeVideosDisplayingPageComponent } from './children/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component';
-import { DocYoutubeCommentsMainPageComponent } from './children/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component';
-import { DocYoutubeCommentsLoadFromVideoPageComponent } from './children/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component';
-import { DocYoutubeCommentsLoadFromChannelPageComponent } from './children/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component';
 import { DocAlgorithmsMainPageComponent } from './children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component';
 import { DocAlgorithmsOneClusterPageComponent } from './children/algorithms/pages/doc-algorithms-one-cluster-page/doc-algorithms-one-cluster-page.component';
 import { DocAlgorithmsKMeansPageComponent } from './children/algorithms/pages/doc-algorithms-k-means-page/doc-algorithms-k-means-page.component';
@@ -31,7 +20,18 @@ import { DocPointsMapDynamicLoadingPageComponent } from './children/points-map/p
 import { DocEmbeddingsMainPageComponent } from './children/embeddings/pages/doc-embeddings-main-page/doc-embeddings-main-page.component';
 import { DocInfoMainPageComponent } from './children/pages/doc-info-main-page/doc-info-main-page.component';
 import { DocNavigationPageComponent } from './pages/doc-navigation-page/doc-navigation-page.component';
-import { DocYoutubeVideosLoadingByIdsPageComponent } from './children/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component';
+import { DocYoutubeChannelsDisplayingPageComponent } from './children/dataSources/youtube/channels/pages/doc-youtube-channels-displaying-page/doc-youtube-channels-displaying-page.component';
+import { DocYoutubeChannelsLoadingByIdPageComponent } from './children/dataSources/youtube/channels/pages/doc-youtube-channels-loading-by-id-page/doc-youtube-channels-loading-by-id-page.component';
+import { DocYoutubeChannelsLoadingByNamePageComponent } from './children/dataSources/youtube/channels/pages/doc-youtube-channels-loading-by-name-page/doc-youtube-channels-loading-by-name-page.component';
+import { DocYoutubeChannelsMainPageComponent } from './children/dataSources/youtube/channels/pages/doc-youtube-channels-main-page/doc-youtube-channels-main-page.component';
+import { DocYoutubeCommentsLoadFromChannelPageComponent } from './children/dataSources/youtube/comments/pages/doc-youtube-comments-load-from-channel-page/doc-youtube-comments-load-from-channel-page.component';
+import { DocYoutubeCommentsLoadFromVideoPageComponent } from './children/dataSources/youtube/comments/pages/doc-youtube-comments-load-from-video-page/doc-youtube-comments-load-from-video-page.component';
+import { DocYoutubeCommentsMainPageComponent } from './children/dataSources/youtube/comments/pages/doc-youtube-comments-main-page/doc-youtube-comments-main-page.component';
+import { DocYoutubeMainPageComponent } from './children/dataSources/youtube/pages/doc-youtube-main-page/doc-youtube-main-page.component';
+import { DocYoutubeVideosDisplayingPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-displaying-page/doc-youtube-videos-displaying-page.component';
+import { DocYoutubeVideosLoadingByIdsPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component';
+import { DocYoutubeVideosLoadingManyPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component';
+import { DocYoutubeVideosMainPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component';
 
 const routes: Routes = [
   {

@@ -34,11 +34,11 @@ export class YoutubeVideosSearchFilterComponent {
       description:$localize`Спочатку менше коментарів`
     },
     {
-      value:'ByViewDesc',
+      value:'ByViewsDesc',
       description:$localize`Спочатку більше переглядів`
     },
     {
-      value:'ByViewInc',
+      value:'ByViewsInc',
       description:$localize`Спочатку менше переглядів`
     },
   ]
