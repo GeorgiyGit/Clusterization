@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { IOptionForSelectInput } from '../../models/option-for-select-input';
 import { Router } from '@angular/router';
 import { ISelectAction } from '../../models/select-action';
-import { AccountService } from 'src/app/features/account/services/account.service';
 import { MyToastrService } from '../../services/my-toastr.service';
+import { AccountService } from 'src/app/features/shared-module/account/services/account.service';
 
 @Component({
   selector: 'app-more-action-select',

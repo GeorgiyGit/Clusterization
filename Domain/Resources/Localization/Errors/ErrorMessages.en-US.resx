@@ -156,6 +156,9 @@
   <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
     <value>This profile can only be changed by the owner</value>
   </data>
+  <data name="ProfileIsInCalculation" xml:space="preserve">
+    <value>The profile is currently being processed. Wait for the end of calculations</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>Profile not found</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Workspace not found</value>
+  </data>
+  <data name="WorkspaceProfilesInCalculation" xml:space="preserve">
+    <value>One or more profiles are currently being processed. For this action, wait until the end of calculations</value>
   </data>
   <data name="WorkspaceVisibleTypeIsOnlyOwner" xml:space="preserve">
     <value>This workspace can only be viewed by the owner</value>

@@ -124,7 +124,13 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
 
                 if (!profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
-                
+
+                var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
+
+                profile.IsInCalculation = true;
+                workspace.IsProfilesInCalculation = true;
+                await _workspaceRepository.SaveChangesAsync();
+
                 double quotasCount = await CalculateQuotasCount(profile.Workspace.EntitiesCount, profile.DimensionCount);
 
                 var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Clustering, (int)quotasCount, Guid.NewGuid().ToString());
@@ -137,7 +143,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 await RemoveClusters(profile);
 
-                var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
                 var dataObjects = workspace.DataObjects;
 
                 var cluster = new Cluster()
@@ -168,6 +173,10 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
 
                 await AddTiles(profile, helpModels);
+
+                profile.IsInCalculation = false;
+                await _profilesRepository.SaveChangesAsync();
+                workspace.IsProfilesInCalculation = await ReviewWorkspaceIsProfilesInCalculation(workspace.Id);
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);

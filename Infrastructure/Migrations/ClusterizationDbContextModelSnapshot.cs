@@ -334,6 +334,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsElected")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsInCalculation")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MaxTileLevel")
                         .HasColumnType("int");
 
@@ -394,6 +397,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProfilesInCalculation")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastDeleteTime")

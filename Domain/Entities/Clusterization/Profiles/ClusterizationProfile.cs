@@ -30,6 +30,7 @@ namespace Domain.Entities.Clusterization.Profiles
         public ClusterizationWorkspace Workspace { get; set; }
         public int WorkspaceId { get; set; }
 
+        public bool IsInCalculation { get; set; }
         public bool IsCalculated { get; set; }
 
         public int MinTileLevel { get; set; }

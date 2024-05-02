@@ -1,20 +1,6 @@
-@import '/src/app/core/styles/colors.scss';
-
 .cont {
-    background-color: $second-color-2;
-
     display: flex;
     flex-direction: column;
     padding: 0;
     max-width: 100vw;
-
-    main {
-        padding: 0;
-        margin: 0;
-        padding: 10px;
-        padding-top: 54px;
-        flex: 1;
-
-        min-height: 100vh;
-    }
 }

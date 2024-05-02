@@ -18,6 +18,7 @@ using System;
 using System.Net;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
+using Domain.Entities.Clusterization.Profiles;
 
 namespace Domain.Services.Clusterization.Algorithms
 {
@@ -25,6 +26,7 @@ namespace Domain.Services.Clusterization.Algorithms
     {
         private readonly IRepository<ClusterizationAbstactAlgorithm> _abstractAlgorithmsRepository;
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
+        private readonly IRepository<ClusterizationProfile> _profilesRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -44,6 +46,7 @@ namespace Domain.Services.Clusterization.Algorithms
                                                      IStringLocalizer<ErrorMessages> localizer,
                                                      IRepository<ClusterizationAbstactAlgorithm> abstractRepository,
                                                      IRepository<ClusterizationWorkspace> workspacesRepository,
+                                                     IRepository<ClusterizationProfile> profilesRepository,
                                                      IMapper mapper,
                                                      IUserService userService)
         {
@@ -59,6 +62,7 @@ namespace Domain.Services.Clusterization.Algorithms
             _userService = userService;
 
             _workspacesRepository = workspacesRepository;
+            _profilesRepository = profilesRepository;
         }
 
         public async Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId)

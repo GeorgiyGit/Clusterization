@@ -156,6 +156,9 @@
   <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
     <value>ProfileChangingTypeIsOnlyOwner</value>
   </data>
+  <data name="ProfileIsInCalculation" xml:space="preserve">
+    <value>ProfileIsInCalculation</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>ProfileNotFound</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>WorkspaceNotFound</value>
+  </data>
+  <data name="WorkspaceProfilesInCalculation" xml:space="preserve">
+    <value>WorkspaceProfilesInCalculation</value>
   </data>
   <data name="WorkspaceVisibleTypeIsOnlyOwner" xml:space="preserve">
     <value>WorkspaceVisibleTypeIsOnlyOwner</value>

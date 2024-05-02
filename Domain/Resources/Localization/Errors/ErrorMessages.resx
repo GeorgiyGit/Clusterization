@@ -156,6 +156,9 @@
   <data name="ProfileChangingTypeIsOnlyOwner" xml:space="preserve">
     <value>Цей профіль може змінювати тільки власник</value>
   </data>
+  <data name="ProfileIsInCalculation" xml:space="preserve">
+    <value>В даний момент профіль вже обробляється. Дочекайтесь кінця обрахунків</value>
+  </data>
   <data name="ProfileNotFound" xml:space="preserve">
     <value>Профіль не знайдено</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="WorkspaceNotFound" xml:space="preserve">
     <value>Робоча область не знайдена</value>
+  </data>
+  <data name="WorkspaceProfilesInCalculation" xml:space="preserve">
+    <value>В даний момент один або кілька профілів обробляються. Для цієї дії дочекайтесь кінця обрахунків</value>
   </data>
   <data name="WorkspaceVisibleTypeIsOnlyOwner" xml:space="preserve">
     <value>Цей робочий простір може переглядати тільки власник</value>

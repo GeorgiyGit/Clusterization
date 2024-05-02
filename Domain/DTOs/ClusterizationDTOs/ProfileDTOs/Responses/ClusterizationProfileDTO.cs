@@ -41,5 +41,7 @@ namespace Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs
 
         public EmbeddingModelDTO EmbeddingModel { get; set; }
         public bool IsAllEmbeddingsLoaded { get; set; }
+
+        public bool IsInCalculation { get; set; }
     }
 }

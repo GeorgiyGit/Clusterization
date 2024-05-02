@@ -1,0 +1,11 @@
+@import '/src/app/core/styles/base.scss';
+
+.nothing-text{
+    color: $first-color-1;
+    text-align: center;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

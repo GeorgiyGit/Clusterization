@@ -26,6 +26,8 @@ namespace Domain.Entities.Clusterization.Workspaces
         public Customer Owner { get; set; }
         public string OwnerId { get; set; }
 
+        public bool IsProfilesInCalculation { get; set; }
+
         public ICollection<EmbeddingObjectsGroup> EmbeddingObjectsGroups { get; set; } = new HashSet<EmbeddingObjectsGroup>();
 
         public ICollection<MyDataObject> DataObjects { get; set; } = new HashSet<MyDataObject>();

@@ -100,7 +100,12 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         protected async Task WorkspaceVerification(int profileId)
         {
             var profile = (await _profilesRepository.GetAsync(e => e.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
-            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+            if (profile == null) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
+
+            if (profile.IsInCalculation)
+            {
+                throw new HttpException(_localizer[ErrorMessagePatterns.ProfileIsInCalculation], HttpStatusCode.BadRequest);
+            }
         }
         protected async Task<List<AddEmbeddingsWithDRHelpModel>> CreateHelpModels(ICollection<MyDataObject> dataObjects, string DRTechniqueId, string embeddingModelId, int workspaceId, int dimensionCount)
         {
@@ -134,6 +139,11 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             var algorithms = await _algorithmsRepository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}");
 
             return _mapper.Map<ICollection<AlgorithmDTO>>(algorithms);
+        }
+
+        public async Task<bool> ReviewWorkspaceIsProfilesInCalculation(int workspaceId)
+        {
+            return (await _profilesRepository.GetAsync(e => e.WorkspaceId == workspaceId && e.IsInCalculation)).Any();
         }
     }
 }

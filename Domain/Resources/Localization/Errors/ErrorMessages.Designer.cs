@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to В даний момент профіль вже обробляється. Дочекайтесь кінця обрахунків.
+        /// </summary>
+        public static string ProfileIsInCalculation {
+            get {
+                return ResourceManager.GetString("ProfileIsInCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Профіль не знайдено.
         /// </summary>
         public static string ProfileNotFound {
@@ -318,6 +327,15 @@ namespace Domain.Resources.Localization.Errors {
         public static string WorkspaceNotFound {
             get {
                 return ResourceManager.GetString("WorkspaceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В даний момент один або кілька профілів обробляються. Для цієї дії дочекайтесь кінця обрахунків.
+        /// </summary>
+        public static string WorkspaceProfilesInCalculation {
+            get {
+                return ResourceManager.GetString("WorkspaceProfilesInCalculation", resourceCulture);
             }
         }
         

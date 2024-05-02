@@ -7,7 +7,7 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AccountService } from 'src/app/features/account/services/account.service';
+import { AccountService } from 'src/app/features/shared-module/account/services/account.service';
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {

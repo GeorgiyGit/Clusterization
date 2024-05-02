@@ -78,8 +78,9 @@ namespace Domain.Services.DataSources.Youtube
             try
             {
                 var workspace = (await _workspacesRepository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
-
-                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+                
+                if (workspace.IsProfilesInCalculation) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceProfilesInCalculation], HttpStatusCode.BadRequest);
 
                 Expression<Func<Entities.DataSources.Youtube.YoutubeComment, bool>> filterCondition = e => e.ChannelId == request.ChannelId;
 
@@ -195,8 +196,10 @@ namespace Domain.Services.DataSources.Youtube
             try
             {
                 var workspace = (await _workspacesRepository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
 
-                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+                if (workspace.IsProfilesInCalculation) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceProfilesInCalculation], HttpStatusCode.BadRequest);
+
                 Expression<Func<Entities.DataSources.Youtube.YoutubeComment, bool>> filterCondition = e => true;
 
                 if (request.DateFrom != null) filterCondition = filterCondition.And(e => e.PublishedAtDateTimeOffset > request.DateFrom);

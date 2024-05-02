@@ -19,5 +19,7 @@ namespace Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs
         public string VisibleType { get; set; }
         public string ChangingType { get; set; }
         public string OwnerId { get; set; }
+
+        public bool IsProfilesInCalculation { get; set; }
     }
 }
