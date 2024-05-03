@@ -21,6 +21,10 @@ import { YoutubeLoadAllVideosPageComponent } from "src/app/features/dataSources-
 import { AddYoutubeChannelCommentsToWorkspacePageComponent } from "src/app/features/dataSources-modules/youtube/youtube-data-objects/pages/add-youtube-channel-comments-to-workspace-page/add-youtube-channel-comments-to-workspace-page.component";
 import { AddYoutubeVideosCommentsToWorkspaceComponent } from "src/app/features/dataSources-modules/youtube/youtube-data-objects/pages/add-youtube-videos-comments-to-workspace/add-youtube-videos-comments-to-workspace.component";
 import { YoutubeLayoutComponent } from "../components/layouts/youtube-layout/youtube-layout.component";
+import { TelegramLayoutComponent } from "../components/layouts/telegram-layout/telegram-layout.component";
+import { TelegramLoadNewChannelsPageComponent } from "src/app/features/dataSources-modules/telegram/channels/pages/telegram-load-new-channels-page/telegram-load-new-channels-page.component";
+import { TelegramLoadOneChannelComponent } from "src/app/features/dataSources-modules/telegram/channels/components/telegram-load-one-channel/telegram-load-one-channel.component";
+import { TelegramLoadMultipleChannelsComponent } from "src/app/features/dataSources-modules/telegram/channels/components/telegram-load-multiple-channels/telegram-load-multiple-channels.component";
 const routes: Route[] = [
   {
     path: '',
@@ -76,6 +80,32 @@ const routes: Route[] = [
       {
         path: 'dataSources/youtube',
         loadChildren: () => import('../../features/dataSources-modules/youtube/youtube.module').then(m => m.YoutubeModule)
+      },
+    ]
+  },
+  {
+    path: 'telegram-layout',
+    component: TelegramLayoutComponent,
+    children: [
+      {
+        path: 'admin-panel',
+        loadChildren: () => import('../../features/admin-panel-module/admin-panel.module').then(m => m.AdminPanelModule),
+        canActivate: [ModeratorGuard],
+        canActivateChild: [ModeratorGuard],
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('../../features/customer-account-details-module/customer-account-details.module').then(m => m.CustomerAccountDetailsModule),
+        canActivate: [CustomerGuard],
+        canActivateChild: [CustomerGuard],
+      },
+      {
+        path: 'documentation',
+        loadChildren: () => import('../../features/documentation-module/documentation.module').then(m => m.DocumentationModule)
+      },
+      {
+        path: 'dataSources/telegram',
+        loadChildren: () => import('../../features/dataSources-modules/telegram/telegram.module').then(m => m.TelegramModule)
       },
     ]
   },
@@ -193,6 +223,28 @@ const routes: Route[] = [
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],
   },*/
+  {
+    path:'dataSources/telegram/channels/load',
+    component:TelegramLoadNewChannelsPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+    children:[
+      {
+        path:'',
+        redirectTo:'by-username',
+        pathMatch:'full'
+      },
+      {
+        path:'by-username',
+        component:TelegramLoadOneChannelComponent
+      },
+      {
+        path:'by-name',
+        component:TelegramLoadMultipleChannelsComponent
+      },
+    ]
+  },
 ]
 
 @NgModule({

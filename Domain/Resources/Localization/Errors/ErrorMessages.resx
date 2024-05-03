@@ -144,6 +144,9 @@
   <data name="JobIsAlreadyInQueue" xml:space="preserve">
     <value>Схожа задача вже в черзі</value>
   </data>
+  <data name="LoadedObjectNotTelegramChannel" xml:space="preserve">
+    <value>Завантажений об'єкт не є каналом</value>
+  </data>
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Не всі дані вбудовані</value>
   </data>
@@ -170,6 +173,18 @@
   </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>Завдання не знайдено</value>
+  </data>
+  <data name="TelegramChannelAlreadyLoaded" xml:space="preserve">
+    <value>Телеграм канал вже завантажено</value>
+  </data>
+  <data name="TelegramChannelNotFound" xml:space="preserve">
+    <value>Телеграм канал не знайдено</value>
+  </data>
+  <data name="TelegramChannelUsernameNotValid" xml:space="preserve">
+    <value>"Username" каналу Telegram недійсний</value>
+  </data>
+  <data name="TelegramMessageNotFound" xml:space="preserve">
+    <value>Телеграм повідомлення не знайдено</value>
   </data>
   <data name="TileNotFound" xml:space="preserve">
     <value>Тайл не знайдено</value>

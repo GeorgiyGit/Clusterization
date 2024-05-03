@@ -16,6 +16,13 @@ namespace Infrastructure.Seeders.Quotas
                 Description = "Loading data from Youtube"
             };
 
+            var telegram = new QuotasType()
+            {
+                Id = QuotasTypes.Telegram,
+                Name = "Telegram",
+                Description = "Loading data from Telegram"
+            };
+
             var embeddings = new QuotasType()
             {
                 Id = QuotasTypes.Embeddings,
@@ -57,6 +64,7 @@ namespace Infrastructure.Seeders.Quotas
             };
 
             builder.HasData(youtube,
+                telegram,
                 embeddings,
                 clustering,
                 publicWorkspaces,

@@ -637,6 +637,196 @@ namespace Infrastructure.Migrations
                     b.ToTable("ExternalObjects");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("About")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("ParticipantsCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PhotoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelegramID")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TelegramMessagesCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TelegramRepliesCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoaderId");
+
+                    b.ToTable("TelegramChannels");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramMessage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Flags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flags2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Forwards")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TelegramChannelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelegramID")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TelegramRepliesCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoaderId");
+
+                    b.HasIndex("TelegramChannelId");
+
+                    b.ToTable("TelegramMessages");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReaction", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Emotion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("TelegramMessageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TelegramReplyId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TelegramMessageId");
+
+                    b.HasIndex("TelegramReplyId");
+
+                    b.ToTable("TelegramReactions");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReply", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("GroupedId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LoadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TelegramChannelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelegramID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelegramMessageId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoaderId");
+
+                    b.HasIndex("TelegramChannelId");
+
+                    b.HasIndex("TelegramMessageId");
+
+                    b.ToTable("TelegramReplies");
+                });
+
             modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>
                 {
                     b.Property<string>("Id")
@@ -1237,90 +1427,104 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
+                            Count = 1000,
+                            PackId = 1,
+                            TypeId = "Telegram"
+                        },
+                        new
+                        {
+                            Id = 3,
                             Count = 2000,
                             PackId = 1,
                             TypeId = "Embeddings"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 4,
                             Count = 10000,
                             PackId = 1,
                             TypeId = "Clustering"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 5,
                             Count = 5,
                             PackId = 1,
                             TypeId = "PublicWorkspaces"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 6,
                             Count = 20,
                             PackId = 1,
                             TypeId = "PrivateWorkspaces"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 7,
                             Count = 20,
                             PackId = 1,
                             TypeId = "PublicProfiles"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 8,
                             Count = 50,
                             PackId = 1,
                             TypeId = "PrivateProfiles"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 9,
                             Count = 1000000000,
                             PackId = 2,
                             TypeId = "Youtube"
                         },
                         new
                         {
-                            Id = 9,
-                            Count = 1000000000,
-                            PackId = 2,
-                            TypeId = "Embeddings"
-                        },
-                        new
-                        {
                             Id = 10,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "Clustering"
+                            TypeId = "Telegram"
                         },
                         new
                         {
                             Id = 11,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PublicWorkspaces"
+                            TypeId = "Embeddings"
                         },
                         new
                         {
                             Id = 12,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PrivateWorkspaces"
+                            TypeId = "Clustering"
                         },
                         new
                         {
                             Id = 13,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PublicProfiles"
+                            TypeId = "PublicWorkspaces"
                         },
                         new
                         {
                             Id = 14,
+                            Count = 1000000000,
+                            PackId = 2,
+                            TypeId = "PrivateWorkspaces"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Count = 1000000000,
+                            PackId = 2,
+                            TypeId = "PublicProfiles"
+                        },
+                        new
+                        {
+                            Id = 16,
                             Count = 1000000000,
                             PackId = 2,
                             TypeId = "PrivateProfiles"
@@ -1389,6 +1593,12 @@ namespace Infrastructure.Migrations
                             Id = "Youtube",
                             Description = "Loading data from Youtube",
                             Name = "Youtube"
+                        },
+                        new
+                        {
+                            Id = "Telegram",
+                            Description = "Loading data from Telegram",
+                            Name = "Telegram"
                         },
                         new
                         {
@@ -1954,10 +2164,82 @@ namespace Infrastructure.Migrations
                     b.Navigation("DataObject");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
+                {
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("LoadedTelegramChannels")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loader");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramMessage", b =>
+                {
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("LoadedTelegramMessages")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramChannel", "TelegramChannel")
+                        .WithMany("TelegramMessages")
+                        .HasForeignKey("TelegramChannelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Loader");
+
+                    b.Navigation("TelegramChannel");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReaction", b =>
+                {
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramMessage", "TelegramMessage")
+                        .WithMany("Reactions")
+                        .HasForeignKey("TelegramMessageId");
+
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramReply", "TelegramReply")
+                        .WithMany("Reactions")
+                        .HasForeignKey("TelegramReplyId");
+
+                    b.Navigation("TelegramMessage");
+
+                    b.Navigation("TelegramReply");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReply", b =>
+                {
+                    b.HasOne("Domain.Entities.Customers.Customer", "Loader")
+                        .WithMany("LoadedTelegramReplies")
+                        .HasForeignKey("LoaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramChannel", "TelegramChannel")
+                        .WithMany("TelegramReplies")
+                        .HasForeignKey("TelegramChannelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramMessage", "TelegramMessage")
+                        .WithMany("TelegramReplies")
+                        .HasForeignKey("TelegramMessageId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Loader");
+
+                    b.Navigation("TelegramChannel");
+
+                    b.Navigation("TelegramMessage");
+                });
+
             modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>
                 {
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Channels")
+                        .WithMany("LoadedYoutubeChannels")
                         .HasForeignKey("LoaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1978,7 +2260,7 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("Domain.Entities.DataSources.Youtube.YoutubeComment", "DataObjectId");
 
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Comments")
+                        .WithMany("LoadedYoutubeComments")
                         .HasForeignKey("LoaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2007,7 +2289,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
-                        .WithMany("Videos")
+                        .WithMany("LoadedYoutubeVideos")
                         .HasForeignKey("LoaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2328,9 +2610,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Customers.Customer", b =>
                 {
-                    b.Navigation("Channels");
+                    b.Navigation("LoadedTelegramChannels");
 
-                    b.Navigation("Comments");
+                    b.Navigation("LoadedTelegramMessages");
+
+                    b.Navigation("LoadedTelegramReplies");
+
+                    b.Navigation("LoadedYoutubeChannels");
+
+                    b.Navigation("LoadedYoutubeComments");
+
+                    b.Navigation("LoadedYoutubeVideos");
 
                     b.Navigation("Profiles");
 
@@ -2341,8 +2631,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("QuotasPackLogsCollection");
 
                     b.Navigation("Tasks");
-
-                    b.Navigation("Videos");
 
                     b.Navigation("WorkspaceDataObjectsAddPacks");
 
@@ -2363,6 +2651,25 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObjectType", b =>
                 {
                     b.Navigation("DataObjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
+                {
+                    b.Navigation("TelegramMessages");
+
+                    b.Navigation("TelegramReplies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramMessage", b =>
+                {
+                    b.Navigation("Reactions");
+
+                    b.Navigation("TelegramReplies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReply", b =>
+                {
+                    b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeChannel", b =>

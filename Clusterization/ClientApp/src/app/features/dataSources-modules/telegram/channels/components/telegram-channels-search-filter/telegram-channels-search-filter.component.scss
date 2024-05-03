@@ -1,0 +1,17 @@
+.cont{
+    display: flex;
+    gap: 10px;
+    
+    app-search-input{
+        flex: 3;
+    }
+    app-select-option-input{
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .cont{
+        flex-direction: column;
+    }
+}

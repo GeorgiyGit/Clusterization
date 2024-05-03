@@ -1,0 +1,18 @@
+@import '/src/app/core/styles/base.scss';
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.centered{
+    display: flex;
+    justify-content: center;
+}
+.quotas-text{
+    color: $first-color-1;
+    text-align: center;
+    margin: 0;
+}

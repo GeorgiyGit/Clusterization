@@ -23,15 +23,28 @@ namespace Infrastructure.Builders.Customers
                    .WithOne(e => e.Owner)
                    .HasForeignKey(e => e.OwnerId);
 
-            builder.HasMany(e => e.Channels)
+            builder.HasMany(e => e.LoadedYoutubeChannels)
                    .WithOne(e => e.Loader)
                    .HasForeignKey(e => e.LoaderId);
 
-            builder.HasMany(e => e.Comments)
+            builder.HasMany(e => e.LoadedYoutubeComments)
                    .WithOne(e => e.Loader)
                    .HasForeignKey(e => e.LoaderId);
 
-            builder.HasMany(e => e.Videos)
+            builder.HasMany(e => e.LoadedYoutubeVideos)
+                   .WithOne(e => e.Loader)
+                   .HasForeignKey(e => e.LoaderId);
+
+
+            builder.HasMany(e => e.LoadedTelegramChannels)
+                   .WithOne(e => e.Loader)
+                   .HasForeignKey(e => e.LoaderId);
+
+            builder.HasMany(e => e.LoadedTelegramMessages)
+                   .WithOne(e => e.Loader)
+                   .HasForeignKey(e => e.LoaderId);
+
+            builder.HasMany(e => e.LoadedTelegramReplies)
                    .WithOne(e => e.Loader)
                    .HasForeignKey(e => e.LoaderId);
 

@@ -144,6 +144,9 @@
   <data name="JobIsAlreadyInQueue" xml:space="preserve">
     <value>Similar job is already in queue</value>
   </data>
+  <data name="LoadedObjectNotTelegramChannel" xml:space="preserve">
+    <value>Loaded object is not a channel</value>
+  </data>
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Not All Data Embedded</value>
   </data>
@@ -170,6 +173,18 @@
   </data>
   <data name="TaskNotFound" xml:space="preserve">
     <value>Task not found</value>
+  </data>
+  <data name="TelegramChannelAlreadyLoaded" xml:space="preserve">
+    <value>The Telegram channel is already loaded</value>
+  </data>
+  <data name="TelegramChannelNotFound" xml:space="preserve">
+    <value>Telegram channel not found</value>
+  </data>
+  <data name="TelegramChannelUsernameNotValid" xml:space="preserve">
+    <value>Telegram channel username is not valid</value>
+  </data>
+  <data name="TelegramMessageNotFound" xml:space="preserve">
+    <value>Telegram message not found</value>
   </data>
   <data name="TileNotFound" xml:space="preserve">
     <value>Tile not found</value>

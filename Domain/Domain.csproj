@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.1" />
+    <PackageReference Include="WTelegramClient" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ChangingTypes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Types\DataSources\Telegram\TelegramChannelFilterTypes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TelegramChannelFilterTypes.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -137,6 +143,10 @@
     <EmbeddedResource Update="Resources\Types\Clusterization\ChangingTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChangingTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\DataSources\Telegram\TelegramChannelFilterTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TelegramChannelFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

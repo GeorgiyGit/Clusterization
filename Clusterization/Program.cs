@@ -14,6 +14,7 @@ using Domain.Interfaces.Clusterization.Profiles;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.DataSources.ExternalData;
+using Domain.Interfaces.DataSources.Telegram;
 using Domain.Interfaces.DataSources.Youtube;
 using Domain.Interfaces.DimensionalityReduction;
 using Domain.Interfaces.EmbeddingModels;
@@ -31,6 +32,7 @@ using Domain.Services.Clusterization.Profiles;
 using Domain.Services.Clusterization.Workspaces;
 using Domain.Services.Customers;
 using Domain.Services.DataSources.ExternalData;
+using Domain.Services.DataSources.Telegram;
 using Domain.Services.DataSources.Youtube;
 using Domain.Services.DimensionalityReduction;
 using Domain.Services.EmbeddingModels;
@@ -44,6 +46,7 @@ using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
 using Infrastructure;
+using MathNet.Numerics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -54,6 +57,7 @@ using OpenAI.Extensions;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using TL;
 
 internal class Program
 {
@@ -96,6 +100,9 @@ internal class Program
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+        builder.Services.AddSingleton<WTelegramService>();
+        builder.Services.AddHostedService(provider => provider.GetService<WTelegramService>());
+
         builder.Services.AddLocalization();
         builder.Services.AddControllers();
 
@@ -130,6 +137,8 @@ internal class Program
         builder.Services.AddScoped<IYoutubeVideoService, YoutubeVideosService>();
         builder.Services.AddScoped<IYoutubeCommentsService, YoutubeCommentsService>();
         builder.Services.AddScoped<IYoutubeDataObjectsService, YoutubeDataObjectsService>();
+
+        builder.Services.AddScoped<ITelegramChannelsService, TelegramChannelsService>();
 
         builder.Services.AddScoped<IExternalDataObjectsService, ExternalDataObjectsService>();
 

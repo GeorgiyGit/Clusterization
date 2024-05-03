@@ -1,0 +1,48 @@
+<section>
+    <h1 i18n>Ютуб канал</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="image-cont">
+                <!--<img *ngIf="channel!=null" [src]="channel.channelImageUrl" alt="channel image url">!-->
+            </div>
+            <div class="text-info-cont" *ngIf="channel!=null">
+                <h4 class="title-text">{{channel.title}}</h4>
+                <div class="block" (click)="copyToClipboard(dateStr,channel.date+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon"
+                        translate="no">add_circle</span>
+                    <p *ngIf="channel!=null">{{channel.date | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(dateStr,channel.loadedDate+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження" class="material-symbols-outlined icon"
+                        translate="no">download_for_offline</span>
+                    <p *ngIf="channel!=null">{{channel.loadedDate | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(countStr,channel.participantsCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість учасникыв" class="material-symbols-outlined icon"
+                        translate="no">groups</span>
+                    <p>{{channel.participantsCount}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість завантажених повідомлень" class="material-symbols-outlined icon"
+                        translate="no">sticky_note_2</span>
+                    <p class="first-color-text">{{channel.telegramMessagesCount}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість завантажених коментарів" class="material-symbols-outlined icon"
+                        translate="no">speaker_notes</span>
+                    <p class="first-color-text">{{channel.telegramRepliesCount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <div class="nav-cont">
+                <ul class="ul-list-navigation" *ngIf="channel!=null">
+                    <li routerLinkActive="active" [routerLink]="'list/'+channel.id" i18n>Завантажені відео</li>
+                    <li routerLinkActive="active" [routerLink]="'add-many/'+channel.id" (click)="openFindNewVideos($event)" i18n>Шукати нове відео</li>
+                </ul>
+                <app-more-action-select [actions]="actions"></app-more-action-select>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

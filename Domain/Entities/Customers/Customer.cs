@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.DataSources.Youtube;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Entities.DataSources.Telegram;
 
 namespace Domain.Entities.Customers
 {
@@ -14,9 +15,13 @@ namespace Domain.Entities.Customers
         public ICollection<ClusterizationProfile> Profiles { get; set; } = new HashSet<ClusterizationProfile>();
 
 
-        public ICollection<YoutubeChannel> Channels { get; set; } = new HashSet<YoutubeChannel>();
-        public ICollection<YoutubeComment> Comments { get; set; } = new HashSet<YoutubeComment>();
-        public ICollection<YoutubeVideo> Videos { get; set; } = new HashSet<YoutubeVideo>();
+        public ICollection<YoutubeChannel> LoadedYoutubeChannels { get; set; } = new HashSet<YoutubeChannel>();
+        public ICollection<YoutubeComment> LoadedYoutubeComments { get; set; } = new HashSet<YoutubeComment>();
+        public ICollection<YoutubeVideo> LoadedYoutubeVideos { get; set; } = new HashSet<YoutubeVideo>();
+
+        public ICollection<TelegramChannel> LoadedTelegramChannels { get; set; } = new HashSet<TelegramChannel>();
+        public ICollection<TelegramMessage> LoadedTelegramMessages { get; set; } = new HashSet<TelegramMessage>();
+        public ICollection<TelegramReply> LoadedTelegramReplies { get; set; } = new HashSet<TelegramReply>();
 
         public ICollection<CustomerQuotas> Quotas { get; set; } = new HashSet<CustomerQuotas>();
         public ICollection<QuotasLogs> QuotasLogsCollection { get; set; } = new HashSet<QuotasLogs>();

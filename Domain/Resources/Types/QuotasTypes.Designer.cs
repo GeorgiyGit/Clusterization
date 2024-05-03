@@ -115,6 +115,15 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telegram.
+        /// </summary>
+        public static string Telegram {
+            get {
+                return ResourceManager.GetString("Telegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Youtube.
         /// </summary>
         public static string Youtube {

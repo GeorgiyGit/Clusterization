@@ -3,6 +3,10 @@ export class QuotasCalculationList {
     static youtubeVideo: number = 10;
     static youtubComment: number = 1;
 
+    static telegramChannel:number=50;
+    static telegramMessage:number=5;
+    static telegramComment:number=1;
+
     static publicWorkspace: number = 1;
     static privateWorkspace: number = 1;
 

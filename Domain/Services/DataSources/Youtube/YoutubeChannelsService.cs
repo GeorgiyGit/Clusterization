@@ -213,7 +213,7 @@ namespace Domain.Services.DataSources.Youtube
 
             return mappedChannel;
         }
-        public async Task<ICollection<SimpleYoutubeChannelDTO>> GetLoadedCollection(GetChannelsRequest request)
+        public async Task<ICollection<SimpleYoutubeChannelDTO>> GetLoadedCollection(GetYoutubeChannelsRequest request)
         {
             if (request.FilterStr != null && request.FilterStr != "")
             {

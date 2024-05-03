@@ -38,7 +38,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
         }
 
         [HttpPost("get_loaded_collection")]
-        public async Task<IActionResult> GetLoadedCollection([FromBody] GetChannelsRequest request)
+        public async Task<IActionResult> GetLoadedCollection([FromBody] GetYoutubeChannelsRequest request)
         {
             return Ok(await service.GetLoadedCollection(request));
         }

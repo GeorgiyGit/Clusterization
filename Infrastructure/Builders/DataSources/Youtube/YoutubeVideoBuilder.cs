@@ -20,7 +20,7 @@ namespace Infrastructure.Builders.DataSources.Youtube
                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.Loader)
-                   .WithMany(e => e.Videos)
+                   .WithMany(e => e.LoadedYoutubeVideos)
                    .HasForeignKey(e => e.LoaderId);
         }
     }

@@ -135,6 +135,9 @@
   <data name="PublicWorkspaces" xml:space="preserve">
     <value>PublicWorkspaces</value>
   </data>
+  <data name="Telegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
   <data name="Youtube" xml:space="preserve">
     <value>Youtube</value>
   </data>

@@ -142,6 +142,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LoadedObjectNotTelegramChannel.
+        /// </summary>
+        public static string LoadedObjectNotTelegramChannel {
+            get {
+                return ResourceManager.GetString("LoadedObjectNotTelegramChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NotAllDataEmbedded.
         /// </summary>
         public static string NotAllDataEmbedded {
@@ -219,6 +228,42 @@ namespace Domain.Resources.Localization.Errors {
         public static string TaskNotFound {
             get {
                 return ResourceManager.GetString("TaskNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramChannelAlreadyLoaded.
+        /// </summary>
+        public static string TelegramChannelAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("TelegramChannelAlreadyLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramChannelNotFound.
+        /// </summary>
+        public static string TelegramChannelNotFound {
+            get {
+                return ResourceManager.GetString("TelegramChannelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramChannelUsernameNotValid.
+        /// </summary>
+        public static string TelegramChannelUsernameNotValid {
+            get {
+                return ResourceManager.GetString("TelegramChannelUsernameNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramMessageNotFound.
+        /// </summary>
+        public static string TelegramMessageNotFound {
+            get {
+                return ResourceManager.GetString("TelegramMessageNotFound", resourceCulture);
             }
         }
         

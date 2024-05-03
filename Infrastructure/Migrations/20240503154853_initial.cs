@@ -262,6 +262,36 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TelegramChannels",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TelegramID = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoId = table.Column<long>(type: "bigint", nullable: false),
+                    ParticipantsCount = table.Column<long>(type: "bigint", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelegramMessagesCount = table.Column<int>(type: "int", nullable: false),
+                    TelegramRepliesCount = table.Column<int>(type: "int", nullable: false),
+                    LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramChannels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TelegramChannels_AspNetUsers_LoaderId",
+                        column: x => x.LoaderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "YoutubeChannels",
                 columns: table => new
                 {
@@ -335,6 +365,7 @@ namespace Infrastructure.Migrations
                     VisibleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChangingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsProfilesInCalculation = table.Column<bool>(type: "bit", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -551,6 +582,41 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TelegramMessages",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TelegramID = table.Column<long>(type: "bigint", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Flags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Flags2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Forwards = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
+                    LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TelegramChannelId = table.Column<long>(type: "bigint", nullable: false),
+                    TelegramRepliesCount = table.Column<int>(type: "int", nullable: false),
+                    LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TelegramMessages_AspNetUsers_LoaderId",
+                        column: x => x.LoaderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TelegramMessages_TelegramChannels_TelegramChannelId",
+                        column: x => x.TelegramChannelId,
+                        principalTable: "TelegramChannels",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "YoutubeVideos",
                 columns: table => new
                 {
@@ -632,6 +698,7 @@ namespace Infrastructure.Migrations
                     DimensionCount = table.Column<int>(type: "int", nullable: false),
                     DRTechniqueId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     WorkspaceId = table.Column<int>(type: "int", nullable: false),
+                    IsInCalculation = table.Column<bool>(type: "bit", nullable: false),
                     IsCalculated = table.Column<bool>(type: "bit", nullable: false),
                     MinTileLevel = table.Column<int>(type: "int", nullable: false),
                     MaxTileLevel = table.Column<int>(type: "int", nullable: false),
@@ -762,6 +829,43 @@ namespace Infrastructure.Migrations
                         name: "FK_ExternalObjects_MyDataObject_DataObjectId",
                         column: x => x.DataObjectId,
                         principalTable: "MyDataObject",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TelegramReplies",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TelegramID = table.Column<long>(type: "bigint", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GroupedId = table.Column<long>(type: "bigint", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelegramMessageId = table.Column<long>(type: "bigint", nullable: false),
+                    TelegramChannelId = table.Column<long>(type: "bigint", nullable: false),
+                    LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramReplies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TelegramReplies_AspNetUsers_LoaderId",
+                        column: x => x.LoaderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TelegramReplies_TelegramChannels_TelegramChannelId",
+                        column: x => x.TelegramChannelId,
+                        principalTable: "TelegramChannels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TelegramReplies_TelegramMessages_TelegramMessageId",
+                        column: x => x.TelegramMessageId,
+                        principalTable: "TelegramMessages",
                         principalColumn: "Id");
                 });
 
@@ -953,6 +1057,32 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TelegramReactions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    Emotion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelegramMessageId = table.Column<long>(type: "bigint", nullable: true),
+                    TelegramReplyId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramReactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TelegramReactions_TelegramMessages_TelegramMessageId",
+                        column: x => x.TelegramMessageId,
+                        principalTable: "TelegramMessages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TelegramReactions_TelegramReplies_TelegramReplyId",
+                        column: x => x.TelegramReplyId,
+                        principalTable: "TelegramReplies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClusterizationTiles",
                 columns: table => new
                 {
@@ -1130,6 +1260,7 @@ namespace Infrastructure.Migrations
                     { "PrivateWorkspaces", "Creating private workspaces", "Private workspaces" },
                     { "PublicProfiles", "Creating public profiles", "Public profiles" },
                     { "PublicWorkspaces", "Creating public workspaces", "Public workspaces" },
+                    { "Telegram", "Loading data from Telegram", "Telegram" },
                     { "Youtube", "Loading data from Youtube", "Youtube" }
                 });
 
@@ -1149,19 +1280,21 @@ namespace Infrastructure.Migrations
                 values: new object[,]
                 {
                     { 1, 1000, 1, "Youtube" },
-                    { 2, 2000, 1, "Embeddings" },
-                    { 3, 10000, 1, "Clustering" },
-                    { 4, 5, 1, "PublicWorkspaces" },
-                    { 5, 20, 1, "PrivateWorkspaces" },
-                    { 6, 20, 1, "PublicProfiles" },
-                    { 7, 50, 1, "PrivateProfiles" },
-                    { 8, 1000000000, 2, "Youtube" },
-                    { 9, 1000000000, 2, "Embeddings" },
-                    { 10, 1000000000, 2, "Clustering" },
-                    { 11, 1000000000, 2, "PublicWorkspaces" },
-                    { 12, 1000000000, 2, "PrivateWorkspaces" },
-                    { 13, 1000000000, 2, "PublicProfiles" },
-                    { 14, 1000000000, 2, "PrivateProfiles" }
+                    { 2, 1000, 1, "Telegram" },
+                    { 3, 2000, 1, "Embeddings" },
+                    { 4, 10000, 1, "Clustering" },
+                    { 5, 5, 1, "PublicWorkspaces" },
+                    { 6, 20, 1, "PrivateWorkspaces" },
+                    { 7, 20, 1, "PublicProfiles" },
+                    { 8, 50, 1, "PrivateProfiles" },
+                    { 9, 1000000000, 2, "Youtube" },
+                    { 10, 1000000000, 2, "Telegram" },
+                    { 11, 1000000000, 2, "Embeddings" },
+                    { 12, 1000000000, 2, "Clustering" },
+                    { 13, 1000000000, 2, "PublicWorkspaces" },
+                    { 14, 1000000000, 2, "PrivateWorkspaces" },
+                    { 15, 1000000000, 2, "PublicProfiles" },
+                    { 16, 1000000000, 2, "PrivateProfiles" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1422,6 +1555,46 @@ namespace Infrastructure.Migrations
                 column: "PackId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TelegramChannels_LoaderId",
+                table: "TelegramChannels",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramMessages_LoaderId",
+                table: "TelegramMessages",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramMessages_TelegramChannelId",
+                table: "TelegramMessages",
+                column: "TelegramChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReactions_TelegramMessageId",
+                table: "TelegramReactions",
+                column: "TelegramMessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReactions_TelegramReplyId",
+                table: "TelegramReactions",
+                column: "TelegramReplyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReplies_LoaderId",
+                table: "TelegramReplies",
+                column: "LoaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReplies_TelegramChannelId",
+                table: "TelegramReplies",
+                column: "TelegramChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReplies_TelegramMessageId",
+                table: "TelegramReplies",
+                column: "TelegramMessageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkspaceDataObjectsAddPacks_OwnerId",
                 table: "WorkspaceDataObjectsAddPacks",
                 column: "OwnerId");
@@ -1539,6 +1712,9 @@ namespace Infrastructure.Migrations
                 name: "QuotasPackLogs");
 
             migrationBuilder.DropTable(
+                name: "TelegramReactions");
+
+            migrationBuilder.DropTable(
                 name: "YoutubeComments");
 
             migrationBuilder.DropTable(
@@ -1566,6 +1742,9 @@ namespace Infrastructure.Migrations
                 name: "QuotasPacks");
 
             migrationBuilder.DropTable(
+                name: "TelegramReplies");
+
+            migrationBuilder.DropTable(
                 name: "YoutubeVideos");
 
             migrationBuilder.DropTable(
@@ -1575,6 +1754,9 @@ namespace Infrastructure.Migrations
                 name: "ClusterizationTilesLevels");
 
             migrationBuilder.DropTable(
+                name: "TelegramMessages");
+
+            migrationBuilder.DropTable(
                 name: "YoutubeChannels");
 
             migrationBuilder.DropTable(
@@ -1582,6 +1764,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClusterizationProfiles");
+
+            migrationBuilder.DropTable(
+                name: "TelegramChannels");
 
             migrationBuilder.DropTable(
                 name: "ClusterizationAbstractAlgorithms");

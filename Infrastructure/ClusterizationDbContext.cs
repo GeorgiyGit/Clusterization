@@ -17,6 +17,7 @@ using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Embeddings.DimensionEntities;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.Entities.DataSources.Telegram;
 
 namespace Infrastructure
 {
@@ -28,6 +29,13 @@ namespace Infrastructure
         public virtual DbSet<YoutubeComment> YoutubeComments { get; set; }
         public virtual DbSet<YoutubeVideo> YoutubeVideos { get; set; }
         public virtual DbSet<YoutubeChannel> YoutubeChannels { get; set; }
+        #endregion
+
+        #region Telegram
+        public virtual DbSet<TelegramChannel> TelegramChannels { get; set; }
+        public virtual DbSet<TelegramMessage> TelegramMessages { get; set; }
+        public virtual DbSet<TelegramReaction> TelegramReactions { get; set; }
+        public virtual DbSet<TelegramReply> TelegramReplies { get; set; }
         #endregion
 
         #region ExternalData

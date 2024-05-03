@@ -27,7 +27,7 @@ namespace Infrastructure.Builders.DataSources.Youtube
 
 
             builder.HasOne(e => e.Loader)
-                   .WithMany(e => e.Comments)
+                   .WithMany(e => e.LoadedYoutubeComments)
                    .HasForeignKey(e => e.LoaderId);
         }
     }

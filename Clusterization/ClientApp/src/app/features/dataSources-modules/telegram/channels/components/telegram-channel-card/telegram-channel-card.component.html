@@ -1,0 +1,49 @@
+<div class="component-cont">
+    <div class="select-cont" [class.display]="channel.isSelectAvailable">
+        <div class="radio-cont" (click)="toggleSelection()" [class.disable-radio-cont]="(this.isSelectOnlyLoaded && !this.channel.isLoaded) ||
+                                                                                        (!this.isSelectOnlyLoaded && this.channel.isLoaded)">
+            <div [class.selected]="this.channel.isSelected" class="unselected">
+                <span class="material-symbols-outlined icon" translate="no">done</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-cont" (click)="openFull()">
+        <div class="img-cont">
+            <!--<img [src]="channel.channelImageUrl"
+                alt="channel profile image">!-->
+        </div>
+        <div class="main-cont">
+            <div class="top-cont">
+                <div class="title-cont">
+                    <p class="title" *ngIf="!channel.isLoaded">{{channel.title}}</p>
+                    <p class="title warn" i18n-matTooltip matTooltip="Канал вже завантажено" *ngIf="channel.isLoaded">{{channel.title}}</p>
+                    <span class="material-symbols-outlined icon" translate="no"
+                        (click)="copyToClipboard(channel.id+'',$event)">file_copy</span>
+                </div>
+                <div class="my-tooltip">
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження каналу" *ngIf="channel.isLoaded" class="time-text">{{channel.loadedDate | normalizedDateTime}}</span>
+                    <span i18n-matTooltip matTooltip="Дата створення каналу" *ngIf="!channel.isLoaded && channel.date!=null" class="time-text">{{channel.date | normalizedDateTime}}</span>
+                </div>
+            </div>
+            <div class="middle-cont">
+                <div class="block" (click)="copyToClipboard(channel.participantsCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість учасників" class="material-symbols-outlined icon" translate="no">groups</span>
+                    <p>{{channel.participantsCount}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(channel.username+'',$event)">
+                    <span i18n-matTooltip matTooltip="Username" class="material-symbols-outlined icon" translate="no">id_card</span>
+                    <p>&#64;{{channel.username}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Стан" class="material-symbols-outlined icon" translate="no">motion_sensor_active</span>
+                    <p *ngIf="channel.isActive" i18n>Активний</p>
+                    <p *ngIf="!channel.isActive" i18n>Неактивний</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість завантажених повідомлень в систему" class="material-symbols-outlined icon" translate="no">sticky_note_2</span>
+                    <p class="first-color-text">{{channel.telegramMessagesCount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
