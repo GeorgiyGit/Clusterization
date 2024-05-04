@@ -106,11 +106,11 @@ namespace Domain.Services.DataSources.Telegram
                     Messages_MessagesBase res;
                     if (options.DateTo != null)
                     {
-                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.Id, resolveRes.Channel.access_hash), offset_date: (DateTime)options.DateTo, limit: 100, add_offset: i);
+                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), offset_date: (DateTime)options.DateTo, limit: 100, add_offset: i);
                     }
                     else
                     {
-                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.Id, resolveRes.Channel.access_hash), limit: 100, add_offset: i);
+                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), limit: 100, add_offset: i);
                     }
 
                     var messages = res.Messages;
@@ -132,7 +132,7 @@ namespace Domain.Services.DataSources.Telegram
                             return;
                         }
 
-                        await AddMessageToDb(msg, userId, channel.TelegramID);
+                        await AddMessageToDb(msg, userId, channel.Id);
                         i++;
 
                         channel.TelegramMessagesCount++;
@@ -390,7 +390,7 @@ namespace Domain.Services.DataSources.Telegram
             if (resolveRes == null) throw new HttpException(_localizer[ErrorMessagePatterns.TelegramChannelUsernameNotValid], HttpStatusCode.NotFound);
 
             var skip = (request.PageParameters.PageNumber - 1) * request.PageParameters.PageSize;
-            Messages_MessagesBase res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.Id, resolveRes.Channel.access_hash),
+            Messages_MessagesBase res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash),
                                                                                            limit: request.PageParameters.PageSize,
                                                                                            add_offset: skip);
 
@@ -414,6 +414,7 @@ namespace Domain.Services.DataSources.Telegram
 
                 var newMsg = new TelegramMessage()
                 {
+                    Id=origMsg.ID,
                     Date = origMsg.Date,
                     EditDate = origMsg.edit_date,
                     TelegramID = origMsg.ID,
@@ -423,7 +424,9 @@ namespace Domain.Services.DataSources.Telegram
                     PostAuthor = origMsg.post_author,
                 };
 
-                mappedMsgs.Add(_mapper.Map<SimpleTelegramMessageDTO>(newMsg));
+                var mappedMsg2 = _mapper.Map<SimpleTelegramMessageDTO>(newMsg);
+                mappedMsg2.IsLoaded = false;
+                mappedMsgs.Add(mappedMsg2);
             }
 
             return mappedMsgs;

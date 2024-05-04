@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ITelegramMessagesFilter } from '../../models/telegram-messages-filter';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
-import { IYoutubeVideoFilter } from '../../models/youtube-video-filter';
 
 @Component({
-  selector: 'app-youtube-videos-search-filter',
-  templateUrl: './youtube-videos-search-filter.component.html',
-  styleUrls: ['./youtube-videos-search-filter.component.scss']
+  selector: 'app-telegram-messages-search-filter',
+  templateUrl: './telegram-messages-search-filter.component.html',
+  styleUrl: './telegram-messages-search-filter.component.scss'
 })
-export class YoutubeVideosSearchFilterComponent {
-  @Input() filter:IYoutubeVideoFilter={
+export class TelegramMessagesSearchFilterComponent {
+  @Input() filter:ITelegramMessagesFilter={
     filterStr:"",
     filterType:"ByTimeDesc"
   };
 
-  @Output() sendEvent=new EventEmitter<IYoutubeVideoFilter>();
+  @Output() sendEvent=new EventEmitter<ITelegramMessagesFilter>();
 
   options:IOptionForSelectInput[]=[
     {
@@ -25,12 +25,12 @@ export class YoutubeVideosSearchFilterComponent {
       description:$localize`Спочатку старіші`
     },
     {
-      value:'ByCommentsDesc',
-      description:$localize`Спочатку більше коментарів`
+      value:'ByRepliesDesc',
+      description:$localize`Спочатку більше відповідей`
     },
     {
-      value:'ByCommentsInc',
-      description:$localize`Спочатку менше коментарів`
+      value:'ByRepliesInc',
+      description:$localize`Спочатку менше відповідей`
     },
     {
       value:'ByViewsDesc',

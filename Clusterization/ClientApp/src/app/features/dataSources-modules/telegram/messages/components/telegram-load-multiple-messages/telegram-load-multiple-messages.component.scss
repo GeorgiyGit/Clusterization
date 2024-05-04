@@ -1,0 +1,45 @@
+@import '/src/app/core/styles/base.scss';
+
+.disable{
+    display: none;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    padding-top: 20px;
+
+    .inputs-cont{
+        display: flex;
+        gap: 10px;
+
+        .search{
+            flex: 3;
+        }
+        .options{
+            flex: 1;
+        }
+    }
+    .scroll-cont{
+        overflow-y: scroll;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+.centered{
+    display: flex;
+    justify-content: center;
+}
+.quotas-text{
+    color: $first-color-1;
+    text-align: center;
+    margin: 0;
+}
+@media screen and (max-width: 700px) {
+    .inputs-cont{
+        flex-direction:column;
+    }
+}

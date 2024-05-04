@@ -1,0 +1,46 @@
+<section>
+    <h1 i18n>Телеграм повідомлення</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="image-cont">
+                <!--<img *ngIf="message!=null" [src]="message.videoImageUrl" alt="video image url">!-->
+            </div>
+            <div class="text-info-cont" *ngIf="message!=null">
+                <h4 class="title-text">{{cutString(message.message,50)}}</h4>
+                <div class="block" (click)="copyToClipboard(dateStr,message.date+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                    <p *ngIf="message!=null">{{message.date}}</p>
+                </div>
+                <div *ngIf="message!=null" class="block" (click)="copyToClipboard(dateStr,message.editDate+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата змінення" class="material-symbols-outlined icon" translate="no">edit</span>
+                    <p>{{message.editDate}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(dateStr,message.loadedDate+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження" class="material-symbols-outlined icon" translate="no">download_for_offline</span>
+                    <p *ngIf="message!=null">{{message.loadedDate | normalizedDateTime}}</p>
+                </div>
+                <div *ngIf="message.postAuthor!=null && message.postAuthor!=''" class="block" (click)="copyToClipboardWithoutDescription(message.postAuthor+'',$event)">
+                    <span i18n-matTooltip matTooltip="Автор" class="material-symbols-outlined icon" translate="no">account_circle</span>
+                    <p>{{message.postAuthor}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboardWithoutDescription(message.views+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <p>{{message.views}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість завантажених відповідей в систему" class="material-symbols-outlined icon" translate="no">chat</span>
+                    <p class="first-color-text">{{message.telegramRepliesCount}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <div class="nav-cont">
+                <ul class="ul-list-navigation">
+                    <li routerLinkActive="active" i18n>Статистика</li>
+                </ul>
+                <app-more-action-select [actions]="actions"></app-more-action-select>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

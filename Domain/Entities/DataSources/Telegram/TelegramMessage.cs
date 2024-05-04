@@ -16,7 +16,7 @@ namespace Domain.Entities.DataSources.Telegram
         public DateTime? EditDate { get; set; }
 
         public string Message { get; set; }
-        public string PostAuthor { get; set; }
+        public string? PostAuthor { get; set; }
         public int Views { get; set; }
 
         public DateTime LoadedDate { get; set; } = DateTime.UtcNow;

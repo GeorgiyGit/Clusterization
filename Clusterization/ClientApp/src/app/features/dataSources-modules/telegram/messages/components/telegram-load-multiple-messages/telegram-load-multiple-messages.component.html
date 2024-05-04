@@ -1,0 +1,21 @@
+<div class="cont">
+    <div class="scroll-cont">
+        <div class="centered" *ngIf="isLoading">
+            <app-loader></app-loader>
+        </div>
+        <app-telegram-message-list [class.disable]="isLoading" [messages]="messages" (selectMessageEvent)="selectMessage($event)"
+            (unselectMessageEvent)="unselectMessage($event)"></app-telegram-message-list>
+        <div class="centered" *ngIf="isLoading2">
+            <app-loader></app-loader>
+        </div>
+        <div class="centered">
+            <button class="standard-btn" (click)="loadMore()"
+                *ngIf="!isLoading && !isLoading2" i18n>Завантажити більше</button>
+        </div>
+    </div>
+    <p class="quotas-text" *ngIf="!isLoading && !isLoading2 && selectedMessages!=null && selectedMessages.length>0"><span i18n>Кількість квот які будуть використані за завантаження вибраних повідомлень: </span>{{quotasCount*selectedMessages.length}}</p>
+    <div class="centered">
+        <button class="standard-btn" (click)="load()"
+            *ngIf="!isLoading && !isLoading2 && selectedMessages!=null && selectedMessages.length>0" i18n>Завантажити на сервер</button>
+    </div>
+</div>

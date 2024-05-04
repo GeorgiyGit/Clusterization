@@ -13,6 +13,13 @@ import { TelegramLoadOneChannelComponent } from './channels/components/telegram-
 import { TelegramChannelListPageComponent } from './channels/pages/telegram-channel-list-page/telegram-channel-list-page.component';
 import { TelegramFullChannelPageComponent } from './channels/pages/telegram-full-channel-page/telegram-full-channel-page.component';
 import { TelegramLoadNewChannelsPageComponent } from './channels/pages/telegram-load-new-channels-page/telegram-load-new-channels-page.component';
+import { TelegramLoadMultipleMessagesComponent } from './messages/components/telegram-load-multiple-messages/telegram-load-multiple-messages.component';
+import { TelegramMessageCardComponent } from './messages/components/telegram-message-card/telegram-message-card.component';
+import { TelegramMessageListComponent } from './messages/components/telegram-message-list/telegram-message-list.component';
+import { TelegramFullMessagePageComponent } from './messages/pages/telegram-full-message-page/telegram-full-message-page.component';
+import { TelegramLoadGroupMessagesPageComponent } from './messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component';
+import { TelegramMessageListPageComponent } from './messages/pages/telegram-message-list-page/telegram-message-list-page.component';
+import { TelegramMessagesSearchFilterComponent } from './messages/components/telegram-messages-search-filter/telegram-messages-search-filter.component';
 
 
 @NgModule({
@@ -24,7 +31,16 @@ import { TelegramLoadNewChannelsPageComponent } from './channels/pages/telegram-
     TelegramChannelsSearchFilterComponent,
     TelegramLoadOneChannelComponent,
     TelegramLoadMultipleChannelsComponent,
-    TelegramFullChannelPageComponent,],
+    TelegramFullChannelPageComponent,
+  
+    TelegramLoadMultipleMessagesComponent,
+    TelegramMessageCardComponent,
+    TelegramMessageListComponent,
+    TelegramMessagesSearchFilterComponent,
+    TelegramFullMessagePageComponent,
+    TelegramLoadGroupMessagesPageComponent,
+    TelegramMessageListPageComponent
+  ],
   imports: [
     CommonModule,
     TelegramRoutingModule,

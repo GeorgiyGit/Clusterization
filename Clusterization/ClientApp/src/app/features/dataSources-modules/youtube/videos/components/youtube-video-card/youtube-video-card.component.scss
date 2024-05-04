@@ -99,7 +99,8 @@
                     display: flex;
                     gap: 5px;
                     align-items: center;
-    
+                    width: fit-content;
+                    
                     &:hover {
                         .icon {
                             color: $first-color-1;
@@ -109,7 +110,6 @@
                     .title {
                         color: $first-color-4;
                         font-size: 1.4rem;
-                        max-width: 70%;
                         width: fit-content;
                     }
                     .warn{

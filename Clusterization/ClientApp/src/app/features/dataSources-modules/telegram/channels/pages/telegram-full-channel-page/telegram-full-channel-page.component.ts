@@ -23,19 +23,19 @@ export class TelegramFullChannelPageComponent implements OnInit {
     {
       name: $localize`Завантажити багато повідомлень`,
       action: () => {
-        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/videos/load-many-by-channel/' + this.channel.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/messages/load-many-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
     {
-      name: $localize`Завантажити багато коментарів`,
+      name: $localize`Завантажити багато відповідей`,
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/comments/load-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
     {
-      name: $localize`Додати коментарі до робочого простору`,
+      name: $localize`Додати відповіді до робочого простору`,
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();
 
@@ -48,7 +48,7 @@ export class TelegramFullChannelPageComponent implements OnInit {
       isForAuthorized: true
     },
     {
-      name: $localize`Додати коментарі у повідомленях до робочого простору`,
+      name: $localize`Додати відповіді у повідомленях до робочого простору`,
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();
 

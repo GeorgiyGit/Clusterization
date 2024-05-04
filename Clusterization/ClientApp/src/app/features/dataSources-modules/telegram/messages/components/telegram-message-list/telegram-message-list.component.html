@@ -1,0 +1,9 @@
+<section>
+    <div *ngFor="let message of messages; let i = index">
+        <app-telegram-message-card [message]="message"
+        (selectMessageEvent)="selectMessage($event)"
+        (unselectMessageEvent)="unselectMessage($event)"
+        [isSelectOnlyLoaded]="isSelectOnlyLoaded">
+        </app-telegram-message-card>
+    </div>
+</section>

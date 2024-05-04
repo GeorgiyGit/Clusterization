@@ -25,6 +25,7 @@ import { TelegramLayoutComponent } from "../components/layouts/telegram-layout/t
 import { TelegramLoadNewChannelsPageComponent } from "src/app/features/dataSources-modules/telegram/channels/pages/telegram-load-new-channels-page/telegram-load-new-channels-page.component";
 import { TelegramLoadOneChannelComponent } from "src/app/features/dataSources-modules/telegram/channels/components/telegram-load-one-channel/telegram-load-one-channel.component";
 import { TelegramLoadMultipleChannelsComponent } from "src/app/features/dataSources-modules/telegram/channels/components/telegram-load-multiple-channels/telegram-load-multiple-channels.component";
+import { TelegramLoadGroupMessagesPageComponent } from "src/app/features/dataSources-modules/telegram/messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component";
 const routes: Route[] = [
   {
     path: '',
@@ -244,6 +245,13 @@ const routes: Route[] = [
         component:TelegramLoadMultipleChannelsComponent
       },
     ]
+  },
+  {
+    path:'dataSources/telegram/messages/load-many-by-channel/:channelId',
+    component:TelegramLoadGroupMessagesPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
 ]
 

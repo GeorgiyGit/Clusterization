@@ -1,5 +1,5 @@
 <section>
-    <h1 i18n>Ютуб канал</h1>
+    <h1 i18n>Телеграм канал</h1>
     <div class="all-cont">
         <div class="info-cont">
             <div class="image-cont">
@@ -17,8 +17,12 @@
                         translate="no">download_for_offline</span>
                     <p *ngIf="channel!=null">{{channel.loadedDate | normalizedDateTime}}</p>
                 </div>
+                <div *ngIf="channel.username!=null"  class="block">
+                    <span i18n-matTooltip matTooltip="Username" class="material-symbols-outlined icon" translate="no">id_card</span>
+                    <p>&#64;{{channel.username}}</p>
+                </div>
                 <div class="block" (click)="copyToClipboard(countStr,channel.participantsCount+'',$event)">
-                    <span i18n-matTooltip matTooltip="Кількість учасникыв" class="material-symbols-outlined icon"
+                    <span i18n-matTooltip matTooltip="Кількість учасників" class="material-symbols-outlined icon"
                         translate="no">groups</span>
                     <p>{{channel.participantsCount}}</p>
                 </div>
@@ -28,7 +32,7 @@
                     <p class="first-color-text">{{channel.telegramMessagesCount}}</p>
                 </div>
                 <div class="block">
-                    <span i18n-matTooltip matTooltip="Кількість завантажених коментарів" class="material-symbols-outlined icon"
+                    <span i18n-matTooltip matTooltip="Кількість завантажених відповідей" class="material-symbols-outlined icon"
                         translate="no">speaker_notes</span>
                     <p class="first-color-text">{{channel.telegramRepliesCount}}</p>
                 </div>

@@ -30,7 +30,7 @@
                     <span i18n-matTooltip matTooltip="Кількість учасників" class="material-symbols-outlined icon" translate="no">groups</span>
                     <p>{{channel.participantsCount}}</p>
                 </div>
-                <div class="block" (click)="copyToClipboard(channel.username+'',$event)">
+                <div *ngIf="channel.username!=null"  class="block" (click)="copyToClipboard(channel.username+'',$event)">
                     <span i18n-matTooltip matTooltip="Username" class="material-symbols-outlined icon" translate="no">id_card</span>
                     <p>&#64;{{channel.username}}</p>
                 </div>

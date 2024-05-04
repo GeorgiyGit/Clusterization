@@ -1,0 +1,44 @@
+<div class="component-cont">
+    <div class="select-cont" [class.display]="message.isSelectAvailable">
+        <div class="radio-cont" (click)="toggleSelection()" [class.disable-radio-cont]="(this.isSelectOnlyLoaded && !this.message.isLoaded) ||
+                                                                                        (!this.isSelectOnlyLoaded && this.message.isLoaded)">
+            <div [class.selected]="this.message.isSelected" class="unselected">
+                <span class="material-symbols-outlined icon" translate="no">done</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-cont" (click)="openFull()">
+        <div class="img-cont">
+            <!--<img [src]="message.videoImageUrl"
+                alt="channel profile image">!-->
+        </div>
+        <div class="main-cont">
+            <div class="top-cont">
+                <div class="title-cont">
+                    <p class="title" *ngIf="!message.isLoaded">{{cutString(message.message,20)}}...</p>
+                    <p class="title warn" i18n-matTooltip matTooltip="Повідомлення вже завантажено" *ngIf="message.isLoaded">{{cutString(message.message,20)}}...</p>
+                    <span class="material-symbols-outlined icon" translate="no"
+                        (click)="copyToClipboard(message.id+'',$event)">file_copy</span>
+                </div>
+                <div class="my-tooltip">
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження" *ngIf="message.isLoaded" class="time-text">{{message.loadedDate | normalizedDateTime}}</span>
+                    <span i18n-matTooltip matTooltip="Дата створення" *ngIf="!message.isLoaded && message.date!=null" class="time-text">{{message.date | normalizedDateTime}}</span>
+                </div>
+            </div>
+            <div class="middle-cont">
+                <div *ngIf="message.postAuthor!=null && message.postAuthor!=''" class="block" (click)="copyToClipboard(message.postAuthor+'',$event)">
+                    <span i18n-matTooltip matTooltip="Автор" class="material-symbols-outlined icon" translate="no">account_circle</span>
+                    <p>{{message.postAuthor}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(message.views+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість переглядів" class="material-symbols-outlined icon" translate="no">preview</span>
+                    <p>{{message.views}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість завантажених відповідей в систему" class="material-symbols-outlined icon" translate="no">chat</span>
+                    <p class="first-color-text">{{message.telegramRepliesCount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

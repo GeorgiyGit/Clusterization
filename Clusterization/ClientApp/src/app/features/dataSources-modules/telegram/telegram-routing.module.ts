@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { TelegramFullChannelPageComponent } from './channels/pages/telegram-full-channel-page/telegram-full-channel-page.component';
 import { TelegramChannelListPageComponent } from './channels/pages/telegram-channel-list-page/telegram-channel-list-page.component';
 import { CustomerGuard } from 'src/app/core/guard/customer.guard';
+import { TelegramMessageListPageComponent } from './messages/pages/telegram-message-list-page/telegram-message-list-page.component';
+import { TelegramFullMessagePageComponent } from './messages/pages/telegram-full-message-page/telegram-full-message-page.component';
+import { TelegramLoadGroupMessagesPageComponent } from './messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component';
+import { TelegramLoadMultipleMessagesComponent } from './messages/components/telegram-load-multiple-messages/telegram-load-multiple-messages.component';
 
 const routes: Routes = [
   {
@@ -33,18 +37,37 @@ const routes: Routes = [
           },
           {
             path: 'list/:id',
-            component: TelegramChannelListPageComponent
+            component: TelegramMessageListPageComponent
           },
           {
             path: 'add-many/:id',
-            component: TelegramChannelListPageComponent,
+            component: TelegramLoadMultipleMessagesComponent,
             canActivate: [CustomerGuard],
             canActivateChild: [CustomerGuard],
           }
         ]
       }
     ]
-  },];
+  },
+  {
+    path:'messages',
+    children:[
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: TelegramMessageListPageComponent
+      },
+      {
+        path: 'full/:id',
+        component: TelegramFullMessagePageComponent
+      }
+    ]
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
