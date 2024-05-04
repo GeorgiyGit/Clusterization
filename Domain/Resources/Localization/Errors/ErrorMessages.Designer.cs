@@ -259,6 +259,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Це повідомлення з платформи Telegram вже завантажено.
+        /// </summary>
+        public static string TelegramMessageAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("TelegramMessageAlreadyLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Щось пішло не так при завантаженні телеграм повідомлення.
+        /// </summary>
+        public static string TelegramMessageLoadingError {
+            get {
+                return ResourceManager.GetString("TelegramMessageLoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Телеграм повідомлення не знайдено.
         /// </summary>
         public static string TelegramMessageNotFound {
@@ -448,7 +466,7 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Щось пішло не так при додаванні відео.
+        ///   Looks up a localized string similar to Щось пішло не так при додаванні ютуб відео.
         /// </summary>
         public static string YoutubeVideoAddingError {
             get {
@@ -475,7 +493,7 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Щось пішло не так при завантаженні відео.
+        ///   Looks up a localized string similar to Щось пішло не так при завантаженні ютуб відео.
         /// </summary>
         public static string YoutubeVideolLoadingError {
             get {

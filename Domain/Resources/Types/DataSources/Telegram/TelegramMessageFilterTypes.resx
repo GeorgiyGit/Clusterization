@@ -117,46 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingCommentsToWorkspace" xml:space="preserve">
-    <value>Додавання коментарів до робочого простору</value>
+  <data name="ByRepliesDesc" xml:space="preserve">
+    <value>ByRepliesDesc</value>
   </data>
-  <data name="AddingExternalDataToWorkspace" xml:space="preserve">
-    <value>Додавання зовнішніх даних до робочого простору</value>
+  <data name="ByRepliesInc" xml:space="preserve">
+    <value>ByRepliesInc</value>
   </data>
-  <data name="ClusterizationDBSCAN" xml:space="preserve">
-    <value>Кластеризація (DBSCAN)</value>
+  <data name="ByTimeDesc" xml:space="preserve">
+    <value>ByTimeDesc</value>
   </data>
-  <data name="ClusterizationGaussianMixture" xml:space="preserve">
-    <value>Кластеризація (Gaussian Mixture)</value>
+  <data name="ByTimeInc" xml:space="preserve">
+    <value>ByTimeInc</value>
   </data>
-  <data name="ClusterizationKMeans" xml:space="preserve">
-    <value>Кластеризація (k-Means)</value>
+  <data name="ByViewsDesc" xml:space="preserve">
+    <value>ByViewsDesc</value>
   </data>
-  <data name="ClusterizationOneCluser" xml:space="preserve">
-    <value>Кластеризація (Один кластер)</value>
-  </data>
-  <data name="ClusterizationSpectralClustering" xml:space="preserve">
-    <value>Кластеризація (Spectral Clustering)</value>
-  </data>
-  <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
-    <value>Завантаження всіх ембедингів з робочого простору</value>
-  </data>
-  <data name="LoadingChannelsFromYoutube" xml:space="preserve">
-    <value>Завантаження каналів з платформи Youtube</value>
-  </data>
-  <data name="LoadingCommentsFromYoutube" xml:space="preserve">
-    <value>Завантаження коментарів з платформи Youtube</value>
-  </data>
-  <data name="LoadingEmbeddingsPack" xml:space="preserve">
-    <value>Завантаження ембедингів з паку</value>
-  </data>
-  <data name="LoadingMessagesFromTelegram" xml:space="preserve">
-    <value>Завантаження повідомлень з платформи Telegram</value>
-  </data>
-  <data name="LoadingRepliesFromTelegram" xml:space="preserve">
-    <value>Завантаження відповідей з платформи Telegram</value>
-  </data>
-  <data name="LoadingVideosFromYoutube" xml:space="preserve">
-    <value>Заватаження відео з платформи Youtube</value>
+  <data name="ByViewsInc" xml:space="preserve">
+    <value>ByViewsInc</value>
   </data>
 </root>

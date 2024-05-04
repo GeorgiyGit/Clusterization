@@ -150,6 +150,12 @@
   <data name="LoadingEmbeddingsPack" xml:space="preserve">
     <value>Loading embeddings pack</value>
   </data>
+  <data name="LoadingMessagesFromTelegram" xml:space="preserve">
+    <value>Loading messages from Telegram</value>
+  </data>
+  <data name="LoadingRepliesFromTelegram" xml:space="preserve">
+    <value>Loading replies from telegram</value>
+  </data>
   <data name="LoadingVideosFromYoutube" xml:space="preserve">
     <value>Loading videos from Youtube</value>
   </data>

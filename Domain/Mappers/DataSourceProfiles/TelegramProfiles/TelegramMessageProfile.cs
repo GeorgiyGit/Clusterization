@@ -1,4 +1,4 @@
-﻿using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.ChannelDTOs.Responses;
+﻿using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.MessageDTOs.Responses;
 using Domain.Entities.DataSources.Telegram;
 using System;
 using System.Collections.Generic;
@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Mappers.DataSourceProfiles.TelegramProfiles
 {
-    public class TelegramChannelProfile : AutoMapper.Profile
+    public class TelegramMessageProfile:AutoMapper.Profile
     {
-        public TelegramChannelProfile()
+        public TelegramMessageProfile()
         {
-            CreateMap<TelegramChannel, SimpleTelegramChannelDTO>()
+            CreateMap<TelegramMessage, SimpleTelegramMessageDTO>()
                     .ForMember(dest => dest.IsLoaded,
                                ost => ost.Ignore());
 
-            CreateMap<TelegramChannel, FullTelegramChannelDTO>();
+            CreateMap<TelegramMessage, FullTelegramMessageDTO>();
         }
     }
 }

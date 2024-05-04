@@ -160,6 +160,24 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Завантаження повідомлень з платформи Telegram.
+        /// </summary>
+        public static string LoadingMessagesFromTelegram {
+            get {
+                return ResourceManager.GetString("LoadingMessagesFromTelegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Завантаження відповідей з платформи Telegram.
+        /// </summary>
+        public static string LoadingRepliesFromTelegram {
+            get {
+                return ResourceManager.GetString("LoadingRepliesFromTelegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Заватаження відео з платформи Youtube.
         /// </summary>
         public static string LoadingVideosFromYoutube {

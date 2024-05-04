@@ -11,7 +11,11 @@ namespace Domain.Entities.DataSources.Telegram
     {
         public long Id { get; set; }
         public int Count { get; set; }
-        public string Emotion { get; set; }
+
+        public string? Emotion { get; set; }
+        public long? DocumentId { get; set; }
+
+        public bool IsCustom { get; set; }
 
         public TelegramMessage? TelegramMessage { get; set; }
         public long? TelegramMessageId { get; set; }

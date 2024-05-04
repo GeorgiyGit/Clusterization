@@ -183,6 +183,12 @@
   <data name="TelegramChannelUsernameNotValid" xml:space="preserve">
     <value>TelegramChannelUsernameNotValid</value>
   </data>
+  <data name="TelegramMessageAlreadyLoaded" xml:space="preserve">
+    <value>TelegramMessageAlreadyLoaded</value>
+  </data>
+  <data name="TelegramMessageLoadingError" xml:space="preserve">
+    <value>TelegramMessageLoadingError</value>
+  </data>
   <data name="TelegramMessageNotFound" xml:space="preserve">
     <value>TelegramMessageNotFound</value>
   </data>

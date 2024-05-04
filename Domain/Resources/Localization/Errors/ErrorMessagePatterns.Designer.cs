@@ -259,6 +259,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TelegramMessageAlreadyLoaded.
+        /// </summary>
+        public static string TelegramMessageAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("TelegramMessageAlreadyLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramMessageLoadingError.
+        /// </summary>
+        public static string TelegramMessageLoadingError {
+            get {
+                return ResourceManager.GetString("TelegramMessageLoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TelegramMessageNotFound.
         /// </summary>
         public static string TelegramMessageNotFound {

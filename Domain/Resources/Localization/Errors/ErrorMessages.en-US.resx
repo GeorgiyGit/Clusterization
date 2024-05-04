@@ -183,6 +183,12 @@
   <data name="TelegramChannelUsernameNotValid" xml:space="preserve">
     <value>Telegram channel username is not valid</value>
   </data>
+  <data name="TelegramMessageAlreadyLoaded" xml:space="preserve">
+    <value>This Telegram message already loaded</value>
+  </data>
+  <data name="TelegramMessageLoadingError" xml:space="preserve">
+    <value>Something went wrong while loading the Telegram message</value>
+  </data>
   <data name="TelegramMessageNotFound" xml:space="preserve">
     <value>Telegram message not found</value>
   </data>

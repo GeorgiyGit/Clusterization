@@ -7,7 +7,7 @@ namespace Domain.Interfaces.DataSources.Youtube
     public interface IYoutubeVideoService
     {
         public Task LoadById(string id);
-        public Task LoadFromChannel(LoadOptions options);
+        public Task LoadFromChannel(YoutubeLoadOptions options);
         public Task LoadManyByIds(ICollection<string> ids);
 
         public Task<SimpleYoutubeVideoDTO> GetLoadedById(string id);

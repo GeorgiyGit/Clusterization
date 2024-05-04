@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TelegramChannelFilterTypes.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Types\DataSources\Telegram\TelegramMessageFilterTypes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TelegramMessageFilterTypes.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -147,6 +152,10 @@
     <EmbeddedResource Update="Resources\Types\DataSources\Telegram\TelegramChannelFilterTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TelegramChannelFilterTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Types\DataSources\Telegram\TelegramMessageFilterTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TelegramMessageFilterTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\DataSources\Youtube\ChannelFilterTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

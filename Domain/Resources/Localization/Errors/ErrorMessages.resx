@@ -183,6 +183,12 @@
   <data name="TelegramChannelUsernameNotValid" xml:space="preserve">
     <value>"Username" каналу Telegram недійсний</value>
   </data>
+  <data name="TelegramMessageAlreadyLoaded" xml:space="preserve">
+    <value>Це повідомлення з платформи Telegram вже завантажено</value>
+  </data>
+  <data name="TelegramMessageLoadingError" xml:space="preserve">
+    <value>Щось пішло не так при завантаженні телеграм повідомлення</value>
+  </data>
   <data name="TelegramMessageNotFound" xml:space="preserve">
     <value>Телеграм повідомлення не знайдено</value>
   </data>
@@ -247,7 +253,7 @@
     <value>Ютуб коментар не знайдено</value>
   </data>
   <data name="YoutubeVideoAddingError" xml:space="preserve">
-    <value>Щось пішло не так при додаванні відео</value>
+    <value>Щось пішло не так при додаванні ютуб відео</value>
   </data>
   <data name="YoutubeVideoAlreadyLoaded" xml:space="preserve">
     <value>Ютуб відео вже завантажено</value>
@@ -256,7 +262,7 @@
     <value>Ютуб відео не існує</value>
   </data>
   <data name="YoutubeVideolLoadingError" xml:space="preserve">
-    <value>Щось пішло не так при завантаженні відео</value>
+    <value>Щось пішло не так при завантаженні ютуб відео</value>
   </data>
   <data name="YoutubeVideoNotFound" xml:space="preserve">
     <value>Ютуб відео не знайдено</value>

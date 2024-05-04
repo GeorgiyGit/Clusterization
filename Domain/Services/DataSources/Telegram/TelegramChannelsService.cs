@@ -89,6 +89,7 @@ namespace Domain.Services.DataSources.Telegram
                     About = channel.About,
                     Username = username,
                     ParticipantsCount = channel.ParticipantsCount,
+                    LoaderId= customerId
                 };
 
                 if (channel.ChatPhoto != null)

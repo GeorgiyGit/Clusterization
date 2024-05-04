@@ -139,6 +139,7 @@ internal class Program
         builder.Services.AddScoped<IYoutubeDataObjectsService, YoutubeDataObjectsService>();
 
         builder.Services.AddScoped<ITelegramChannelsService, TelegramChannelsService>();
+        builder.Services.AddScoped<ITelegramMessagesService, TelegramMessagesService>();
 
         builder.Services.AddScoped<IExternalDataObjectsService, ExternalDataObjectsService>();
 

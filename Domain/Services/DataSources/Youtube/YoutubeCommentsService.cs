@@ -76,7 +76,7 @@ namespace Domain.Services.DataSources.Youtube
         }
 
         #region load
-        public async Task LoadFromVideo(LoadOptions options)
+        public async Task LoadFromVideo(YoutubeLoadOptions options)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -85,7 +85,7 @@ namespace Domain.Services.DataSources.Youtube
 
             _backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadCommentsFromVideoBackgroundJob(LoadOptions options, string userId, int taskId)
+        public async Task LoadCommentsFromVideoBackgroundJob(YoutubeLoadOptions options, string userId, int taskId)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;

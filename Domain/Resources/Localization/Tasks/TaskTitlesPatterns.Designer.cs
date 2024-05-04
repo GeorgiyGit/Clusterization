@@ -160,6 +160,24 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LoadingMessagesFromTelegram.
+        /// </summary>
+        internal static string LoadingMessagesFromTelegram {
+            get {
+                return ResourceManager.GetString("LoadingMessagesFromTelegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LoadingRepliesFromTelegram.
+        /// </summary>
+        internal static string LoadingRepliesFromTelegram {
+            get {
+                return ResourceManager.GetString("LoadingRepliesFromTelegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LoadingVideosFromYoutube.
         /// </summary>
         internal static string LoadingVideosFromYoutube {

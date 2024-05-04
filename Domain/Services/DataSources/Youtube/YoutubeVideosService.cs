@@ -74,7 +74,7 @@ namespace Domain.Services.DataSources.Youtube
         }
 
         #region load
-        public async Task LoadFromChannel(LoadOptions options)
+        public async Task LoadFromChannel(YoutubeLoadOptions options)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -83,7 +83,7 @@ namespace Domain.Services.DataSources.Youtube
 
             _backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadFromChannelBackgroundJob(LoadOptions options, string userId, int taskId)
+        public async Task LoadFromChannelBackgroundJob(YoutubeLoadOptions options, string userId, int taskId)
         {
             string channelId = options.ParentId;
 

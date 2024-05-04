@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DTOs.YoutubeDTOs.Requests
 {
-    public class LoadOptions
+    public class YoutubeLoadOptions
     {
         public string? ParentId { get; set; }
         public DateTime? DateFrom { get; set; } //Load from that date

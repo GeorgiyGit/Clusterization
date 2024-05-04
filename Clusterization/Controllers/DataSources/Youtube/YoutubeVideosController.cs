@@ -26,7 +26,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
 
         [HttpPost("load_from_channel")]
         [Authorize]
-        public async Task<IActionResult> LoadFromChannel([FromBody] LoadOptions options)
+        public async Task<IActionResult> LoadFromChannel([FromBody] YoutubeLoadOptions options)
         {
             await service.LoadFromChannel(options);
             return Ok();
