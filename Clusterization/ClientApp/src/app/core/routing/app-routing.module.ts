@@ -28,6 +28,7 @@ import { TelegramLoadMultipleChannelsComponent } from "src/app/features/dataSour
 import { TelegramLoadGroupMessagesPageComponent } from "src/app/features/dataSources-modules/telegram/messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component";
 import { TelegramLoadGroupRepliesPageComponent } from "src/app/features/dataSources-modules/telegram/replies/pages/telegram-load-group-replies-page/telegram-load-group-replies-page.component";
 import { TelegramLoadRepliesByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/replies/pages/telegram-load-replies-by-channel-page/telegram-load-replies-by-channel-page.component";
+import { AddTGMsgsToWorkspaceByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/messages-data-objects/pages/add-tgmsgs-to-workspace-by-channel-page/add-tgmsgs-to-workspace-by-channel-page.component";
 const routes: Route[] = [
   {
     path: '',
@@ -265,6 +266,13 @@ const routes: Route[] = [
   {
     path:'dataSources/telegram/replies/load-by-message/:messageId',
     component:TelegramLoadGroupRepliesPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'dataSources/telegram/add-data-objects/add-messages-by-channel/:channelId',
+    component:AddTGMsgsToWorkspaceByChannelPageComponent,
     outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],

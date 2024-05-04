@@ -2,6 +2,7 @@
 using Domain.Entities.Clusterization.Displaying;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.DataSources.ExternalData;
+using Domain.Entities.DataSources.Telegram;
 using Domain.Entities.DataSources.Youtube;
 using Domain.Entities.Embeddings;
 
@@ -15,11 +16,17 @@ namespace Domain.Entities.DataObjects
         public MyDataObjectType Type { get; set; }
         public string TypeId { get; set; }
 
-        public YoutubeComment? Comment { get; set; }
-        public string? CommentId { get; set; }
+        public YoutubeComment? YoutubeComment { get; set; }
+        public string? YoutubeCommentId { get; set; }
 
         public ExternalObject? ExternalObject { get; set; }
         public string? ExternalObjectId { get; set; }
+
+        public TelegramMessage? TelegramMessage { get; set; }
+        public long? TelegramMessageId { get; set; }
+
+        public TelegramReply? TelegramReply { get; set; }
+        public long? TelegramReplyId { get; set; }
 
         public ICollection<EmbeddingObjectsGroup> EmbeddingObjectsGroups { get; set; } = new HashSet<EmbeddingObjectsGroup>();
         

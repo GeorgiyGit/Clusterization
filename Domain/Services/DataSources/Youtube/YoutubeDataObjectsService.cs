@@ -64,7 +64,7 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingCommentsToWorkspace]);
+            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace]);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId, taskId));
         }
@@ -78,7 +78,7 @@ namespace Domain.Services.DataSources.Youtube
             try
             {
                 var workspace = (await _workspacesRepository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)},{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}")).FirstOrDefault();
-                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.YoutubeComments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
                 
                 if (workspace.IsProfilesInCalculation) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceProfilesInCalculation], HttpStatusCode.BadRequest);
 
@@ -129,8 +129,8 @@ namespace Domain.Services.DataSources.Youtube
                         {
                             dataObject = new MyDataObject()
                             {
-                                Comment = comment,
-                                TypeId = DataObjectTypes.Comment,
+                                YoutubeComment = comment,
+                                TypeId = DataObjectTypes.YoutubeComment,
                                 Text = comment.TextOriginal,
                             };
 
@@ -182,7 +182,7 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingCommentsToWorkspace]);
+            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace]);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request, userId, taskId));
         }
@@ -196,7 +196,7 @@ namespace Domain.Services.DataSources.Youtube
             try
             {
                 var workspace = (await _workspacesRepository.GetAsync(c => c.Id == request.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)},{nameof(ClusterizationWorkspace.Type)}")).FirstOrDefault();
-                if (workspace == null || workspace.TypeId != ClusterizationTypes.Comments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
+                if (workspace == null || workspace.TypeId != ClusterizationTypes.YoutubeComments || workspace.ChangingType == ChangingTypes.OnlyOwner && (userId == null || userId != workspace.OwnerId)) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner], HttpStatusCode.BadRequest);
 
                 if (workspace.IsProfilesInCalculation) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceProfilesInCalculation], HttpStatusCode.BadRequest);
 
@@ -230,8 +230,8 @@ namespace Domain.Services.DataSources.Youtube
                         {
                             dataObject = new MyDataObject()
                             {
-                                Comment = comment,
-                                TypeId = DataObjectTypes.Comment,
+                                YoutubeComment = comment,
+                                TypeId = DataObjectTypes.YoutubeComment,
                                 Text = comment.TextOriginal,
                             };
 

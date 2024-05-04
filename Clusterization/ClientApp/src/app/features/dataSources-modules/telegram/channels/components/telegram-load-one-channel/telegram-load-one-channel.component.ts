@@ -28,7 +28,7 @@ export class TelegramLoadOneChannelComponent {
       this.toastrService.error($localize`Поле для Username пусте!!!`);
       return;
     }
-    if (this.value[0] != '@') this.value = '@' + this.value;
+    this.value = this.value.replace('@','');
 
     this.isLoading = true;
     this.channelService.loadByUsername(this.value).subscribe(res => {

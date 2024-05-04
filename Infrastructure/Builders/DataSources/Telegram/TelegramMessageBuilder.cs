@@ -31,6 +31,11 @@ namespace Infrastructure.Builders.DataSources.Telegram
             builder.HasOne(e => e.TelegramChannel)
                    .WithMany(e => e.TelegramMessages)
                    .HasForeignKey(e => e.TelegramChannelId);
+
+            builder.HasOne(e => e.DataObject)
+                   .WithOne(e => e.TelegramMessage)
+                   .HasForeignKey<TelegramMessage>(e => e.DataObjectId)
+                   .IsRequired(false);
         }
     }
 }

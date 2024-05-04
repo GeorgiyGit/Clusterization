@@ -61,20 +61,38 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Додавання коментарів до робочого простору.
-        /// </summary>
-        public static string AddingCommentsToWorkspace {
-            get {
-                return ResourceManager.GetString("AddingCommentsToWorkspace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Додавання зовнішніх даних до робочого простору.
         /// </summary>
         public static string AddingExternalDataToWorkspace {
             get {
                 return ResourceManager.GetString("AddingExternalDataToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Додавання відповідей з платформи Telegram до робочого простору.
+        /// </summary>
+        public static string AddingTelegramMessagesToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingTelegramMessagesToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Додавання повідомлень з платформи Telegram до робочого простору.
+        /// </summary>
+        public static string AddingTelegramRepliesToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingTelegramRepliesToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Додавання коментарів з платформи Youtube до робочого простору.
+        /// </summary>
+        public static string AddingYoutubeCommentsToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingYoutubeCommentsToWorkspace", resourceCulture);
             }
         }
         

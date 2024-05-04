@@ -178,7 +178,5 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
       this.toastr.error($localize`Цей профіль не був кластеризований!`);
       return;
     }
-
-    this.router.navigateByUrl('profiles/full/' + this.profile.id + '/profile-points-map/' + this.profile.id);
   }
 }

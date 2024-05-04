@@ -35,6 +35,20 @@ export class TelegramFullChannelPageComponent implements OnInit {
       isForAuthorized: true
     },
     {
+      name: $localize`Додати повідомлення до робочого простору`,
+      action: () => {
+        let workspaceId = this.storageService.getSelectedWorkspace();
+
+        if (workspaceId == null) {
+          this.toastr.error($localize`Робочий простір не вибрано`);
+          return;
+        }
+        
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-messages-by-channel/' + this.channel.id } }]);
+      },
+      isForAuthorized: true
+    },
+    {
       name: $localize`Додати відповіді до робочого простору`,
       action: () => {
         let workspaceId = this.storageService.getSelectedWorkspace();
@@ -43,7 +57,7 @@ export class TelegramFullChannelPageComponent implements OnInit {
           this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
-        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-comments-by-channel/' + this.channel.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-replies-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },
@@ -56,7 +70,7 @@ export class TelegramFullChannelPageComponent implements OnInit {
           this.toastr.error($localize`Робочий простір не вибрано`);
           return;
         }
-        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-comments-by-videos/' + this.channel.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-replies-by-messages/' + this.channel.id } }]);
       },
       isForAuthorized: true
     }

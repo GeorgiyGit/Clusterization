@@ -61,20 +61,38 @@ namespace Domain.Resources.Types.Clusterization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comments.
-        /// </summary>
-        public static string Comments {
-            get {
-                return ResourceManager.GetString("Comments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to External.
         /// </summary>
         public static string External {
             get {
                 return ResourceManager.GetString("External", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramMessages.
+        /// </summary>
+        public static string TelegramMessages {
+            get {
+                return ResourceManager.GetString("TelegramMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramReplies.
+        /// </summary>
+        public static string TelegramReplies {
+            get {
+                return ResourceManager.GetString("TelegramReplies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YoutubeComments.
+        /// </summary>
+        public static string YoutubeComments {
+            get {
+                return ResourceManager.GetString("YoutubeComments", resourceCulture);
             }
         }
     }

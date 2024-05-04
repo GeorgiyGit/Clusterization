@@ -10,21 +10,33 @@ namespace Infrastructure.Seeders.Clusterization
     {
         public void Configure(EntityTypeBuilder<ClusterizationType> builder)
         {
-            var type1 = new ClusterizationType()
+            var youtubeComments = new ClusterizationType()
             {
-                Id = ClusterizationTypes.Comments,
-                Name = "Comments"//"Коментарі"
+                Id = ClusterizationTypes.YoutubeComments,
+                Name = "Youtube Comments"//"Коментарі"
             };
+
+            var telegramMessages = new ClusterizationType()
+            {
+                Id = ClusterizationTypes.TelegramMessages,
+                Name = "Telegram Messages"
+            };
+            var telegramReplies = new ClusterizationType()
+            {
+                Id = ClusterizationTypes.TelegramReplies,
+                Name = "Telegram Replies"
+            };
+
             var external = new ClusterizationType()
             {
                 Id = ClusterizationTypes.External,
                 Name = "From file"//"З файлу"
             };
 
-            builder.HasData(
-                type1,
-                external
-                );
+            builder.HasData(youtubeComments,
+                telegramMessages,
+                telegramReplies,
+                external);
         }
     }
 }

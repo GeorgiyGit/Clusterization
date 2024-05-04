@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Customers;
+using Domain.Entities.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +32,8 @@ namespace Domain.Entities.DataSources.Telegram
 
         public Customer Loader { get; set; }
         public string LoaderId { get; set; }
+
+        public MyDataObject? DataObject { get; set; }
+        public long? DataObjectId { get; set; }
     }
 }

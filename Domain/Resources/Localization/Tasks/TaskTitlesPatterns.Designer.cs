@@ -61,20 +61,38 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AddingCommentsToWorkspace.
-        /// </summary>
-        internal static string AddingCommentsToWorkspace {
-            get {
-                return ResourceManager.GetString("AddingCommentsToWorkspace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adding external data to workspace.
         /// </summary>
         internal static string AddingExternalDataToWorkspace {
             get {
                 return ResourceManager.GetString("AddingExternalDataToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddingTelegramMessagesToWorkspace.
+        /// </summary>
+        internal static string AddingTelegramMessagesToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingTelegramMessagesToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddingTelegramRepliesToWorkspace.
+        /// </summary>
+        internal static string AddingTelegramRepliesToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingTelegramRepliesToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddingYoutubeCommentsToWorkspace.
+        /// </summary>
+        internal static string AddingYoutubeCommentsToWorkspace {
+            get {
+                return ResourceManager.GetString("AddingYoutubeCommentsToWorkspace", resourceCulture);
             }
         }
         

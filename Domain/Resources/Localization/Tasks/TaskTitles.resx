@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingCommentsToWorkspace" xml:space="preserve">
-    <value>Додавання коментарів до робочого простору</value>
-  </data>
   <data name="AddingExternalDataToWorkspace" xml:space="preserve">
     <value>Додавання зовнішніх даних до робочого простору</value>
+  </data>
+  <data name="AddingTelegramMessagesToWorkspace" xml:space="preserve">
+    <value>Додавання відповідей з платформи Telegram до робочого простору</value>
+  </data>
+  <data name="AddingTelegramRepliesToWorkspace" xml:space="preserve">
+    <value>Додавання повідомлень з платформи Telegram до робочого простору</value>
+  </data>
+  <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
+    <value>Додавання коментарів з платформи Youtube до робочого простору</value>
   </data>
   <data name="ClusterizationDBSCAN" xml:space="preserve">
     <value>Кластеризація (DBSCAN)</value>

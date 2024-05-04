@@ -57,7 +57,7 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" (click)="openMap($event)" i18n>Карта точок</li>
+                    <li routerLinkActive="active" [routerLink]="'profile-points-map/' + this.profile.id" i18n>Карта точок</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

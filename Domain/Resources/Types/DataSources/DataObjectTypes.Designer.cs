@@ -61,20 +61,38 @@ namespace Domain.Resources.Types.DataSources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment.
-        /// </summary>
-        public static string Comment {
-            get {
-                return ResourceManager.GetString("Comment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ExternalData.
         /// </summary>
         public static string ExternalData {
             get {
                 return ResourceManager.GetString("ExternalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramMessage.
+        /// </summary>
+        public static string TelegramMessage {
+            get {
+                return ResourceManager.GetString("TelegramMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TelegramReply.
+        /// </summary>
+        public static string TelegramReply {
+            get {
+                return ResourceManager.GetString("TelegramReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YoutubeComment.
+        /// </summary>
+        public static string YoutubeComment {
+            get {
+                return ResourceManager.GetString("YoutubeComment", resourceCulture);
             }
         }
     }

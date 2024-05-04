@@ -21,7 +21,7 @@ namespace Infrastructure.Builders.DataSources.Youtube
                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.DataObject)
-                   .WithOne(e => e.Comment)
+                   .WithOne(e => e.YoutubeComment)
                    .HasForeignKey<YoutubeComment>(e => e.DataObjectId)
                    .IsRequired(false);
 

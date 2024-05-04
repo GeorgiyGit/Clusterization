@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Customers;
+using Domain.Entities.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +31,8 @@ namespace Domain.Entities.DataSources.Telegram
         public ICollection<TelegramReaction> Reactions { get; set; } = new HashSet<TelegramReaction>();
 
         public DateTime LoadedDate { get; set; } = DateTime.UtcNow;
+
+        public MyDataObject? DataObject { get; set; }
+        public long? DataObjectId { get; set; }
     }
 }

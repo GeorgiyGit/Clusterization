@@ -125,6 +125,9 @@ namespace Domain.Services.DataSources.Telegram
 
                         if (!(msg is TL.Message)) continue;
 
+                        var origMsg = msg as TL.Message;
+                        if (origMsg.message == null || origMsg.message == "") continue;
+
                         var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Telegram, loadMsgQutasCount, logs);
 
                         if (!quotasResult)

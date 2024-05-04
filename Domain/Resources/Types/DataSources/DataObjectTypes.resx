@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
-  </data>
   <data name="ExternalData" xml:space="preserve">
     <value>ExternalData</value>
+  </data>
+  <data name="TelegramMessage" xml:space="preserve">
+    <value>TelegramMessage</value>
+  </data>
+  <data name="TelegramReply" xml:space="preserve">
+    <value>TelegramReply</value>
+  </data>
+  <data name="YoutubeComment" xml:space="preserve">
+    <value>YoutubeComment</value>
   </data>
 </root>

@@ -16,18 +16,30 @@ namespace Infrastructure.Seeders
     {
         public void Configure(EntityTypeBuilder<MyDataObjectType> builder)
         {
-            var comments = new MyDataObjectType()
+            var youtubeComments = new MyDataObjectType()
             {
-                Id = DataObjectTypes.Comment,
-                Name = "Comment"
+                Id = DataObjectTypes.YoutubeComment,
+                Name = "Youtube Comment"
             };
+
+            var telegramMessages = new MyDataObjectType()
+            {
+                Id = DataObjectTypes.TelegramMessage,
+                Name = "Telegram Message"
+            };
+            var telegramReplies = new MyDataObjectType()
+            {
+                Id = DataObjectTypes.TelegramReply,
+                Name = "Telegram Reply"
+            };
+
             var externalData = new MyDataObjectType()
             {
                 Id = DataObjectTypes.ExternalData,
                 Name = "External Data"
             };
 
-            builder.HasData(comments, externalData);
+            builder.HasData(youtubeComments,telegramMessages,telegramReplies, externalData);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace Infrastructure.Builders.DataObjects
                    .WithMany(e => e.DataObjects)
                    .HasForeignKey(e => e.TypeId);
 
-            builder.HasOne(e => e.Comment)
+            builder.HasOne(e => e.YoutubeComment)
                    .WithOne(e => e.DataObject)
-                   .HasForeignKey<MyDataObject>(e => e.CommentId)
+                   .HasForeignKey<MyDataObject>(e => e.YoutubeCommentId)
                    .IsRequired(false);
 
             builder.HasOne(e => e.ExternalObject)
@@ -43,6 +43,16 @@ namespace Infrastructure.Builders.DataObjects
             builder.HasMany(e => e.DisplayedPoints)
                    .WithOne(e => e.DataObject)
                    .HasForeignKey(e => e.DataObjectId);
+
+            builder.HasOne(e => e.TelegramMessage)
+                   .WithOne(e => e.DataObject)
+                   .HasForeignKey<MyDataObject>(e => e.TelegramMessageId)
+                   .IsRequired(false);
+
+            builder.HasOne(e => e.TelegramReply)
+                   .WithOne(e => e.DataObject)
+                   .HasForeignKey<MyDataObject>(e => e.TelegramReplyId)
+                   .IsRequired(false);
         }
     }
 }

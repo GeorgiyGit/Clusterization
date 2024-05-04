@@ -30,6 +30,11 @@ namespace Infrastructure.Builders.DataSources.Telegram
                    .WithOne(e => e.TelegramReply)
                    .HasForeignKey(e => e.TelegramReplyId)
                    .IsRequired(false);
+
+            builder.HasOne(e => e.DataObject)
+                   .WithOne(e => e.TelegramReply)
+                   .HasForeignKey<TelegramReply>(e => e.DataObjectId)
+                   .IsRequired(false);
         }
     }
 }

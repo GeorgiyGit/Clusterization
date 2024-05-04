@@ -173,8 +173,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "Comments",
-                            Name = "Comments"
+                            Id = "YoutubeComments",
+                            Name = "Youtube Comments"
+                        },
+                        new
+                        {
+                            Id = "TelegramMessages",
+                            Name = "Telegram Messages"
+                        },
+                        new
+                        {
+                            Id = "TelegramReplies",
+                            Name = "Telegram Replies"
                         },
                         new
                         {
@@ -563,11 +573,14 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("CommentId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ExternalObjectId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("TelegramMessageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TelegramReplyId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -576,6 +589,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("TypeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("YoutubeCommentId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -600,8 +616,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "Comment",
-                            Name = "Comment"
+                            Id = "YoutubeComment",
+                            Name = "Youtube Comment"
+                        },
+                        new
+                        {
+                            Id = "TelegramMessage",
+                            Name = "Telegram Message"
+                        },
+                        new
+                        {
+                            Id = "TelegramReply",
+                            Name = "Telegram Reply"
                         },
                         new
                         {
@@ -700,6 +726,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("DataObjectId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -733,6 +762,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DataObjectId")
+                        .IsUnique()
+                        .HasFilter("[DataObjectId] IS NOT NULL");
 
                     b.HasIndex("LoaderId");
 
@@ -784,6 +817,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("DataObjectId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -814,6 +850,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DataObjectId")
+                        .IsUnique()
+                        .HasFilter("[DataObjectId] IS NOT NULL");
 
                     b.HasIndex("LoaderId");
 
@@ -2174,6 +2214,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramMessage", b =>
                 {
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithOne("TelegramMessage")
+                        .HasForeignKey("Domain.Entities.DataSources.Telegram.TelegramMessage", "DataObjectId");
+
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
                         .WithMany("LoadedTelegramMessages")
                         .HasForeignKey("LoaderId")
@@ -2185,6 +2229,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TelegramChannelId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("DataObject");
 
                     b.Navigation("Loader");
 
@@ -2208,6 +2254,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramReply", b =>
                 {
+                    b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
+                        .WithOne("TelegramReply")
+                        .HasForeignKey("Domain.Entities.DataSources.Telegram.TelegramReply", "DataObjectId");
+
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
                         .WithMany("LoadedTelegramReplies")
                         .HasForeignKey("LoaderId")
@@ -2225,6 +2275,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TelegramMessageId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("DataObject");
 
                     b.Navigation("Loader");
 
@@ -2253,7 +2305,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.DataObjects.MyDataObject", "DataObject")
-                        .WithOne("Comment")
+                        .WithOne("YoutubeComment")
                         .HasForeignKey("Domain.Entities.DataSources.Youtube.YoutubeComment", "DataObjectId");
 
                     b.HasOne("Domain.Entities.Customers.Customer", "Loader")
@@ -2636,13 +2688,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObject", b =>
                 {
-                    b.Navigation("Comment");
-
                     b.Navigation("DisplayedPoints");
 
                     b.Navigation("EmbeddingObjectsGroups");
 
                     b.Navigation("ExternalObject");
+
+                    b.Navigation("TelegramMessage");
+
+                    b.Navigation("TelegramReply");
+
+                    b.Navigation("YoutubeComment");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObjectType", b =>
