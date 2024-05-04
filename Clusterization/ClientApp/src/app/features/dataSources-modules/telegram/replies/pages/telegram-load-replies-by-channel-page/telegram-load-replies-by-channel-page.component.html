@@ -1,0 +1,27 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Завантажити відповіді з каналу</h1>
+
+        <form [formGroup]="optionsForm" (ngSubmit)="load()" class="options-cont">
+            <div class="input-cont">
+                <input id="dateFrom" type="date" i18n-matTooltip matTooltip="Дата від" matTooltipPosition="above" formControlName="dateFrom">
+            </div>
+            <div class="input-cont">
+                <input id="dateTo" type="date" i18n-matTooltip matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
+            </div>
+            <div class="input-cont">
+                <input id="maxLoad" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість*" formControlName="maxLoad">
+            </div>
+            <div class="input-cont">
+                <input id="maxLoadForOneMessage" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість в одному повідомлення*" formControlName="maxLoadForOneMessage">
+            </div>
+            <p class="quotas-text"><span i18n>Кількість квот які будуть використані за завантаження однієї відповіді: </span>{{quotasCount}}</p>
+            <div class="centered">
+                <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Завантажити</button>
+            </div>
+        </form>
+        </div>
+</section>

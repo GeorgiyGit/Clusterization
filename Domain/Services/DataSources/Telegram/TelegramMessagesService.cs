@@ -101,16 +101,17 @@ namespace Domain.Services.DataSources.Telegram
                 var resolveRes = await _wTelegramService.Client.Contacts_ResolveUsername(channel.Username);
                 if (resolveRes == null) throw new HttpException(_localizer[ErrorMessagePatterns.TelegramChannelUsernameNotValid], HttpStatusCode.NotFound);
 
+                int skipCount = 0;
                 for (int i = 0; i < options.MaxLoad;)
                 {
                     Messages_MessagesBase res;
                     if (options.DateTo != null)
                     {
-                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), offset_date: (DateTime)options.DateTo, limit: 100, add_offset: i);
+                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), offset_date: (DateTime)options.DateTo, limit: 100, add_offset: skipCount);
                     }
                     else
                     {
-                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), limit: 100, add_offset: i);
+                        res = await _wTelegramService.Client.Messages_GetHistory(new InputPeerChannel(channel.TelegramID, resolveRes.Channel.access_hash), limit: 100, add_offset: skipCount);
                     }
 
                     var messages = res.Messages;
@@ -119,6 +120,7 @@ namespace Domain.Services.DataSources.Telegram
 
                     foreach (var msg in messages)
                     {
+                        skipCount++;
                         if (i >= options.MaxLoad) break;
 
                         if (!(msg is TL.Message)) continue;
@@ -143,6 +145,8 @@ namespace Domain.Services.DataSources.Telegram
                         await _tasksService.ChangeTaskPercent(taskId, percent);
                     }
                     await _repository.SaveChangesAsync();
+
+                    if (i >= options.MaxLoad) break;
                 }
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
@@ -247,6 +251,7 @@ namespace Domain.Services.DataSources.Telegram
             {
                 await AddMessageToDb(msg, userId, channel.Id);
                 channel.TelegramMessagesCount++;
+                await _channelsRepository.SaveChangesAsync();
             }
             catch
             {
@@ -303,6 +308,7 @@ namespace Domain.Services.DataSources.Telegram
                 {
                     await AddMessageToDb(msg, userId, channel.Id);
                     channel.TelegramMessagesCount++;
+                    await _channelsRepository.SaveChangesAsync();
                 }
                 catch
                 {

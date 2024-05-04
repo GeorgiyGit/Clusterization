@@ -66,7 +66,7 @@ const routes: Routes = [
         component: TelegramFullMessagePageComponent
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

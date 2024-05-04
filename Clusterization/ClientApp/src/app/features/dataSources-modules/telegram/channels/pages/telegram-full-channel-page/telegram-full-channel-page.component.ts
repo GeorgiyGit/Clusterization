@@ -30,7 +30,7 @@ export class TelegramFullChannelPageComponent implements OnInit {
     {
       name: $localize`Завантажити багато відповідей`,
       action: () => {
-        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/comments/load-by-channel/' + this.channel.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/replies/load-by-channel/' + this.channel.id } }]);
       },
       isForAuthorized: true
     },

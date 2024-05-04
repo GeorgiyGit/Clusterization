@@ -5,7 +5,7 @@ export class QuotasCalculationList {
 
     static telegramChannel:number=50;
     static telegramMessage:number=5;
-    static telegramComment:number=1;
+    static telegramReply:number=1;
 
     static publicWorkspace: number = 1;
     static privateWorkspace: number = 1;

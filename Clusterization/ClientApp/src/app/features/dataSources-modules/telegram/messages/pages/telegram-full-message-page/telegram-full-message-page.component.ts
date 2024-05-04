@@ -21,7 +21,7 @@ export class TelegramFullMessagePageComponent implements OnInit {
     {
       name: $localize`Завантажити відповіді`,
       action: () => {
-        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/comments/load-by-message/' + this.message.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/replies/load-by-message/' + this.message.id } }]);
       },
       isForAuthorized: true
     }

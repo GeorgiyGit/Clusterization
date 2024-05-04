@@ -20,6 +20,8 @@ import { TelegramFullMessagePageComponent } from './messages/pages/telegram-full
 import { TelegramLoadGroupMessagesPageComponent } from './messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component';
 import { TelegramMessageListPageComponent } from './messages/pages/telegram-message-list-page/telegram-message-list-page.component';
 import { TelegramMessagesSearchFilterComponent } from './messages/components/telegram-messages-search-filter/telegram-messages-search-filter.component';
+import { TelegramLoadGroupRepliesPageComponent } from './replies/pages/telegram-load-group-replies-page/telegram-load-group-replies-page.component';
+import { TelegramLoadRepliesByChannelPageComponent } from './replies/pages/telegram-load-replies-by-channel-page/telegram-load-replies-by-channel-page.component';
 
 
 @NgModule({
@@ -39,7 +41,10 @@ import { TelegramMessagesSearchFilterComponent } from './messages/components/tel
     TelegramMessagesSearchFilterComponent,
     TelegramFullMessagePageComponent,
     TelegramLoadGroupMessagesPageComponent,
-    TelegramMessageListPageComponent
+    TelegramMessageListPageComponent,
+
+    TelegramLoadRepliesByChannelPageComponent,
+    TelegramLoadGroupRepliesPageComponent
   ],
   imports: [
     CommonModule,
