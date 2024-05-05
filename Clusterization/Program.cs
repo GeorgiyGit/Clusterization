@@ -142,6 +142,7 @@ internal class Program
         builder.Services.AddScoped<ITelegramMessagesService, TelegramMessagesService>();
         builder.Services.AddScoped<ITelegramRepliesService, TelegramRepliesService>();
         builder.Services.AddScoped<ITelegramMessagesDataObjectsService, TelegramMessagesDataObjectsService>();
+        builder.Services.AddScoped<ITelegramRepliesDataObjectsService, TelegramRepliesDataObjectsService>();
 
         builder.Services.AddScoped<IExternalDataObjectsService, ExternalDataObjectsService>();
 

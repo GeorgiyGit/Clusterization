@@ -23,6 +23,8 @@ import { TelegramMessagesSearchFilterComponent } from './messages/components/tel
 import { TelegramLoadGroupRepliesPageComponent } from './replies/pages/telegram-load-group-replies-page/telegram-load-group-replies-page.component';
 import { TelegramLoadRepliesByChannelPageComponent } from './replies/pages/telegram-load-replies-by-channel-page/telegram-load-replies-by-channel-page.component';
 import { AddTGMsgsToWorkspaceByChannelPageComponent } from './messages-data-objects/pages/add-tgmsgs-to-workspace-by-channel-page/add-tgmsgs-to-workspace-by-channel-page.component';
+import { AddTelegramMessageRepliesToWorkspaceComponent } from './replies-data-objects/pages/add-telegram-message-replies-to-workspace/add-telegram-message-replies-to-workspace.component';
+import { AddTelegramChannelRepliesToWorkspacePageComponent } from './replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { AddTGMsgsToWorkspaceByChannelPageComponent } from './messages-data-obje
     TelegramLoadRepliesByChannelPageComponent,
     TelegramLoadGroupRepliesPageComponent,
 
-    AddTGMsgsToWorkspaceByChannelPageComponent
+    AddTGMsgsToWorkspaceByChannelPageComponent,
+    AddTelegramChannelRepliesToWorkspacePageComponent,
+    AddTelegramMessageRepliesToWorkspaceComponent
   ],
   imports: [
     CommonModule,

@@ -25,6 +25,6 @@ export class WorkspaceCardComponent implements OnInit{
   }
 
   openFull(){
-    this.router.navigateByUrl('main-layout/clusterization/workspaces/full/'+this.workspace.id+'/list');
+    this.router.navigateByUrl('main-layout/clusterization/workspaces/full/'+this.workspace.id+'/profiles-list/'+this.workspace.id);
   }
 }

@@ -1,3 +1,4 @@
+import { AddTelegramMessageRepliesToWorkspaceComponent } from './../../features/dataSources-modules/telegram/replies-data-objects/pages/add-telegram-message-replies-to-workspace/add-telegram-message-replies-to-workspace.component';
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
 import { CustomerGuard } from "../guard/customer.guard";
@@ -29,6 +30,7 @@ import { TelegramLoadGroupMessagesPageComponent } from "src/app/features/dataSou
 import { TelegramLoadGroupRepliesPageComponent } from "src/app/features/dataSources-modules/telegram/replies/pages/telegram-load-group-replies-page/telegram-load-group-replies-page.component";
 import { TelegramLoadRepliesByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/replies/pages/telegram-load-replies-by-channel-page/telegram-load-replies-by-channel-page.component";
 import { AddTGMsgsToWorkspaceByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/messages-data-objects/pages/add-tgmsgs-to-workspace-by-channel-page/add-tgmsgs-to-workspace-by-channel-page.component";
+import { AddTelegramChannelRepliesToWorkspacePageComponent } from 'src/app/features/dataSources-modules/telegram/replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
 const routes: Route[] = [
   {
     path: '',
@@ -273,6 +275,20 @@ const routes: Route[] = [
   {
     path:'dataSources/telegram/add-data-objects/add-messages-by-channel/:channelId',
     component:AddTGMsgsToWorkspaceByChannelPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'dataSources/telegram/add-data-objects/add-replies-by-channel/:channelId',
+    component:AddTelegramChannelRepliesToWorkspacePageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'dataSources/telegram/add-data-objects/add-replies-by-messages/:channelId',
+    component:AddTelegramMessageRepliesToWorkspaceComponent,
     outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],

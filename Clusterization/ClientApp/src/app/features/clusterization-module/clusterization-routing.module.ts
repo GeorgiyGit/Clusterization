@@ -25,7 +25,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'list',
+            redirectTo: 'profiles-list',
             pathMatch: 'full'
           },
           {

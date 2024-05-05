@@ -3,7 +3,7 @@
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
-        <h1 i18n>Додати повідомлення до робочого простору</h1>
+        <h1 i18n>Додати відповіді до робочого простору</h1>
 
         <form [formGroup]="optionsForm" (ngSubmit)="load()" class="options-cont">
             <div class="input-cont">
@@ -13,7 +13,15 @@
                 <input id="dateTo" type="date" i18n-matTooltip matTooltip="Дата до" matTooltipPosition="above" formControlName="dateTo">
             </div>
             <div class="input-cont">
-                <input id="maxCount" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість*" formControlName="maxCount">
+                <input id="maxCountInMessage" type="number" min="0" step="1" i18n-placeholder placeholder="Максимальна кількість (у повідомлені)*" formControlName="maxCountInMessage">
+            </div>
+            <div class="videos-list-cont">
+                <app-telegram-message-list-page
+                    [channelId]="channelId"
+                    [isSelectAvailable]="true"
+                    (selectMessageEvent)="selectMessage($event)"
+                    (unselectMessageEvent)="unselectMessage($event)"
+                    [isSelectOnlyLoaded]="true"></app-telegram-message-list-page>
             </div>
             <div class="centered">
                 <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>

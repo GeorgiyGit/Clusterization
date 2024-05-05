@@ -10,7 +10,7 @@ namespace Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs
     {
         public int WorkspaceId { get; set; }
 
-        public int MaxCountInVideo { get; set; }
+        public int MaxCountInMessage { get; set; }
 
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }

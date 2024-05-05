@@ -149,6 +149,9 @@ namespace Domain.Services.DataSources.Telegram
 
                         if (!(reply is TL.Message)) continue;
 
+                        var origReply = reply as TL.Message;
+                        if (origReply.message == null || origReply.message == "") continue;
+
                         var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Telegram, 1, logsId);
 
                         if (!quotasResult)
@@ -326,6 +329,9 @@ namespace Domain.Services.DataSources.Telegram
                                 if (loadedCountInOneMessage >= options.MaxLoadForOneMessage) break;
 
                                 if (!(reply is TL.Message)) continue;
+
+                                var origReply = reply as TL.Message;
+                                if (origReply.message == null || origReply.message == "") continue;
 
                                 var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Telegram, 1, logsId);
 
