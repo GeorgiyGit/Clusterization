@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminPanelNavigationPageComponent } from './pages/admin-panel-navigation-page/admin-panel-navigation-page.component';
 import { CustomerListPageComponent } from './users/pages/customer-list-page/customer-list-page.component';
 import { AddQuatasPackToCustomerPageComponent } from './quotas/page/add-quatas-pack-to-customer-page/add-quatas-pack-to-customer-page.component';
+import { WTelegramAdminPageComponent } from './telegram/pages/w-telegram-admin-page/w-telegram-admin-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'customers',
         component: CustomerListPageComponent
+      },
+      {
+        path: 'telegram',
+        component: WTelegramAdminPageComponent
       }
     ]
   }

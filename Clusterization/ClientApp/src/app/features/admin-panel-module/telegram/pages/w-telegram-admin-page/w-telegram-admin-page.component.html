@@ -1,0 +1,19 @@
+<section>
+    <h1 i18n>Панель управління WTelegramClient</h1>
+    <div class="status-cont">
+        <p i18n>Статус:</p>
+        <p *ngIf="status!=null">{{status}}</p>
+        <p *ngIf="status==null" class="first-color-text" i18n>Впорядку</p>
+    </div>
+
+    <div class="confirm-code-cont" *ngIf="status!=null">
+        <div class="input-cont">
+            <input type="text" [value]="code" (input)="codeChanges($event)" i18n-placeholder placeholder="Введіть код підтвердження...">
+            <span class="material-symbols-outlined icon" translate="no">policy</span>
+        </div>
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" (click)="setCode()" *ngIf="!isLoading" i18n>Підтвердити</button>
+        </div>
+    </div>
+</section>

@@ -10,6 +10,7 @@ import { AddQuatasPackToCustomerPageComponent } from './quotas/page/add-quatas-p
 import { SharedModule } from '../shared-module/shared.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { WTelegramAdminPageComponent } from './telegram/pages/w-telegram-admin-page/w-telegram-admin-page.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CustomerListPageComponent,
     AdminPanelNavigationPageComponent,
     AddQuatasPackToCustomerPageComponent,
+    WTelegramAdminPageComponent
   ],
   imports: [
     CommonModule,

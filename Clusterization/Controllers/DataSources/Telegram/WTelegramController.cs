@@ -16,6 +16,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
             this.service = service;
         }
         [HttpGet("status")]
+        [Authorize(Roles = UserRoles.Moderator)]
         public async Task<IActionResult> Status()
         {
             return Ok(service.ConfigNeeded);

@@ -1,0 +1,66 @@
+@import '/src/app/core/styles/base.scss';
+
+section{
+    padding-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h1{
+        margin: 0;
+        padding: 0;
+        margin-bottom: 50px;
+        text-align: center;
+        color: $first-color-2;
+    }
+    h2{
+        margin: 0;
+        padding: 0;
+        font-size: 1em;
+        color: $first-color-1;
+    }
+
+    .mb-10{
+        margin-bottom: 10px;
+    }
+    
+    .centered{
+        display: flex;
+        justify-content: center;
+    }
+
+    .status-cont{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed $first-color-4;
+    }
+    .confirm-code-cont{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .first-color-text{
+        color: $first-color-1;
+    }
+}
+
+p{
+    margin: 0;
+    padding: 0;
+    color: $first-color-3;
+}
+.padding{
+    padding: 50px;
+    padding-top: 100px;
+}
+.mt-10{
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+    .padding{
+        padding: 20px;
+        padding-top: 100px;
+    }
+}
