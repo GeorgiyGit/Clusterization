@@ -122,6 +122,7 @@ namespace Domain.Services.DataSources.Telegram
                     {
                         skipCount++;
                         if (i >= options.MaxLoad) break;
+                        if ((await _repository.GetAsync(e => e.TelegramID == msg.ID)).Any()) continue;
 
                         if (!(msg is TL.Message)) continue;
 
@@ -299,6 +300,8 @@ namespace Domain.Services.DataSources.Telegram
 
             foreach(var msg in response.Messages)
             {
+                if ((await _repository.GetAsync(e => e.TelegramID == msg.ID)).Any()) continue;
+
                 if ((await _repository.GetAsync(e => e.TelegramChannelId == channel.Id && e.TelegramID == msg.ID)).Any()) continue;
                 var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Telegram, loadMsgQutasCount, logs);
 

@@ -37,7 +37,7 @@ namespace Infrastructure.Builders.DataSources.Telegram
                    .HasForeignKey<TelegramMessage>(e => e.DataObjectId)
                    .IsRequired(false);
 
-            builder.HasIndex(e => new { e.Date, e.TelegramRepliesCount, e.Views });
+            builder.HasIndex(e => new { e.Date, e.TelegramRepliesCount, e.Views, e.TelegramID });
         }
     }
 }

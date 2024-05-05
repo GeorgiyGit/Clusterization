@@ -715,7 +715,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("LoaderId");
 
-                    b.HasIndex("Date", "TelegramMessagesCount", "ParticipantsCount");
+                    b.HasIndex("Date", "TelegramMessagesCount", "ParticipantsCount", "TelegramID");
 
                     b.ToTable("TelegramChannels");
                 });
@@ -773,7 +773,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TelegramChannelId");
 
-                    b.HasIndex("Date", "TelegramRepliesCount", "Views");
+                    b.HasIndex("Date", "TelegramRepliesCount", "Views", "TelegramID");
 
                     b.ToTable("TelegramMessages");
                 });
@@ -859,13 +859,13 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[DataObjectId] IS NOT NULL");
 
-                    b.HasIndex("Date");
-
                     b.HasIndex("LoaderId");
 
                     b.HasIndex("TelegramChannelId");
 
                     b.HasIndex("TelegramMessageId");
+
+                    b.HasIndex("Date", "TelegramID");
 
                     b.ToTable("TelegramReplies");
                 });

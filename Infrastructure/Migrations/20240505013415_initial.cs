@@ -1573,6 +1573,11 @@ namespace Infrastructure.Migrations
                 column: "PackId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TelegramChannels_Date_TelegramMessagesCount_ParticipantsCount_TelegramID",
+                table: "TelegramChannels",
+                columns: new[] { "Date", "TelegramMessagesCount", "ParticipantsCount", "TelegramID" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TelegramChannels_LoaderId",
                 table: "TelegramChannels",
                 column: "LoaderId");
@@ -1583,6 +1588,11 @@ namespace Infrastructure.Migrations
                 column: "DataObjectId",
                 unique: true,
                 filter: "[DataObjectId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramMessages_Date_TelegramRepliesCount_Views_TelegramID",
+                table: "TelegramMessages",
+                columns: new[] { "Date", "TelegramRepliesCount", "Views", "TelegramID" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TelegramMessages_LoaderId",
@@ -1610,6 +1620,11 @@ namespace Infrastructure.Migrations
                 column: "DataObjectId",
                 unique: true,
                 filter: "[DataObjectId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramReplies_Date_TelegramID",
+                table: "TelegramReplies",
+                columns: new[] { "Date", "TelegramID" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TelegramReplies_LoaderId",

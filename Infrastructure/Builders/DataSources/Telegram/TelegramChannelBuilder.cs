@@ -28,7 +28,7 @@ namespace Infrastructure.Builders.DataSources.Telegram
                    .WithMany(e => e.LoadedTelegramChannels)
                    .HasForeignKey(e => e.LoaderId);
 
-            builder.HasIndex(e => new { e.Date, e.TelegramMessagesCount, e.ParticipantsCount });
+            builder.HasIndex(e => new { e.Date, e.TelegramMessagesCount, e.ParticipantsCount, e.TelegramID });
         }
     }
 }

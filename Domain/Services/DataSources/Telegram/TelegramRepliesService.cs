@@ -147,6 +147,8 @@ namespace Domain.Services.DataSources.Telegram
                         skipCount++;
                         if (i >= options.MaxLoad) break;
 
+                        if ((await _repository.GetAsync(e => e.TelegramID == reply.ID)).Any()) continue;
+
                         if (!(reply is TL.Message)) continue;
 
                         var origReply = reply as TL.Message;
@@ -328,6 +330,8 @@ namespace Domain.Services.DataSources.Telegram
                                 if (loadedCount >= options.MaxLoad) break;
                                 if (loadedCountInOneMessage >= options.MaxLoadForOneMessage) break;
 
+                                if ((await _repository.GetAsync(e => e.TelegramID == reply.ID)).Any()) continue;
+                                
                                 if (!(reply is TL.Message)) continue;
 
                                 var origReply = reply as TL.Message;
