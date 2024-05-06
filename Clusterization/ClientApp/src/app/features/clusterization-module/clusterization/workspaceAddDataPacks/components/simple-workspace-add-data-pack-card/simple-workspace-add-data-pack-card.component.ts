@@ -48,8 +48,8 @@ export class SimpleWorkspaceAddDataPackCardComponent implements OnInit {
 
         this.router.navigate([{ outlets: { overflow: 'clusterization/embeddings-loading/load-by-data-pack/' + this.pack.id } }]);
       },
-      isForAuthorized: true
-
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }];
     if(!this.pack.isDeleted){
       this.actions.push({
@@ -69,7 +69,8 @@ export class SimpleWorkspaceAddDataPackCardComponent implements OnInit {
             this.toastr.error(error.error.Message);
           });
         },
-        isForAuthorized: true
+        isForAuthorized: true,
+        isOnlyForUsers:true
       });
     }
     else{
@@ -90,7 +91,8 @@ export class SimpleWorkspaceAddDataPackCardComponent implements OnInit {
             this.toastr.error(error.error.Message);
           });
         },
-        isForAuthorized: true
+        isForAuthorized: true,
+        isOnlyForUsers:true
       })
     }
   }

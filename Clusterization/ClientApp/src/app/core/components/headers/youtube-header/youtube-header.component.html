@@ -11,7 +11,7 @@
                 <li routerLink="/youtube-layout/dataSources/youtube/videos/list" i18n>Відео</li>
                 <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
 
-                <li routerLink="/youtube-layout/admin-panel" i18n *ngIf="accountService.isAuthenticated() && accountService.isUserModerator()">Панель адміністратора</li>
+                <li routerLink="/youtube-layout/admin-panel" i18n *ngIf="accountService.isUserModerator()">Панель адміністратора</li>
             </ul>
         </div>
         <div>

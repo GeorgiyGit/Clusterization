@@ -23,7 +23,8 @@ export class YoutubeFullVideoPageComponent implements OnInit {
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/youtube/comments/load-by-video/' + this.video.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 

@@ -1,4 +1,6 @@
 ﻿using Domain.Interfaces.Clusterization.Algorithms;
+using Domain.Resources.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clusterization.Controllers.Clusterization.Algorithms
@@ -13,6 +15,7 @@ namespace Clusterization.Controllers.Clusterization.Algorithms
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> AddAlgorithm([FromBody] AddDTO model)
         {
             await service.AddAlgorithm(model);
@@ -21,6 +24,7 @@ namespace Clusterization.Controllers.Clusterization.Algorithms
 
         [HttpPost]
         [Route("cluster_data/{profileId}")]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> ClusterData([FromRoute] int profileId)
         {
             await service.ClusterData(profileId);

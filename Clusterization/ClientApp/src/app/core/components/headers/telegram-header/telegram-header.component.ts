@@ -101,11 +101,17 @@ export class TelegramHeaderComponent implements OnInit {
   }
 
   notAuthorizedErrorStr=$localize`Ви не авторизовані!`;
+  visitorError = $localize`Недостатній рівень доступу. Для цієї дії необхідно підтвердити email!`;
   openLoadChannel(event:MouseEvent){
     event.stopPropagation();
 
     if(!this.accountService.isAuthenticated()){
       this.toaster.error(this.notAuthorizedErrorStr);
+      return;
+    }
+    if (!this.accountService.isUserUser()) {
+      this.toaster.error(this.visitorError);
+      return;
     }
 
     this.closeDisplayPhoneMenu();

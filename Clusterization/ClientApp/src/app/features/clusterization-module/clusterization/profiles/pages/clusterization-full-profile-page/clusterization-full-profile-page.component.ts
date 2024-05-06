@@ -38,7 +38,8 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
 
         this.isEmbeddingConfirmOpen=true;
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Кластеризувати`,
@@ -56,7 +57,8 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
 
         this.isClusterizationConfirmOpen=true;
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 

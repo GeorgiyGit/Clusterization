@@ -48,6 +48,8 @@ export class EmailVerificationPageComponent implements OnInit{
     this.accountService.confirmEmail(this.token,this.email).subscribe(res=>{
       this.isSuccess=true;
       this.isLoading=false;
+
+      this.accountService.saveToken(res.token);
     },error=>{
       this.isLoading=false;
       this.toaster.error(error.error.Message);

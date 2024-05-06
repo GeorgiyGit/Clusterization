@@ -25,14 +25,16 @@ export class YoutubeFullChannelPageComponent implements OnInit {
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/youtube/videos/load-many-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Завантажити багато коментарів`,
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/youtube/comments/load-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Додати коментарі до робочого простору`,
@@ -45,7 +47,8 @@ export class YoutubeFullChannelPageComponent implements OnInit {
         }
         this.router.navigate([{ outlets: { overflow: 'dataSources/youtube/add-data-objects/add-comments-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Додати коментарі у відео до робочого простору`,
@@ -58,7 +61,8 @@ export class YoutubeFullChannelPageComponent implements OnInit {
         }
         this.router.navigate([{ outlets: { overflow: 'dataSources/youtube/add-data-objects/add-comments-by-videos/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 
@@ -95,9 +99,15 @@ export class YoutubeFullChannelPageComponent implements OnInit {
     this.toastr.success(msg + ' ' + $localize`скопійовано!!!`);
   }
 
+  visitorError = $localize`Недостатній рівень доступу. Для цієї дії необхідно підтвердити email!`;
   openFindNewVideos(event: MouseEvent) {
     if (!this.accountService.isAuthenticated()) {
       this.toastr.error($localize`Ви не авторизовані!`);
+      return;
+    }
+    if (!this.accountService.isUserUser()) {
+      this.toastr.error(this.visitorError);
+      return;
     }
   }
 }

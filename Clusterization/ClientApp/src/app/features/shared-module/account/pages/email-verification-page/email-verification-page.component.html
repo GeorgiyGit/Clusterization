@@ -7,8 +7,8 @@
         </div>
         <app-loader *ngIf="isLoading"></app-loader>
         <span *ngIf="!isLoading && isSuccess" class="material-symbols-outlined icon confirm-icon" translate="no">check_circle</span>
-        <p *ngIf="!isLoading && isSuccess" class="center">Ви успішно підтвердили електронну пошту</p>
+        <p *ngIf="!isLoading && isSuccess" class="center" i18n>Ви успішно підтвердили електронну пошту</p>
         <span *ngIf="!isLoading && !isSuccess" class="material-symbols-outlined icon error-icon" translate="no">error</span>
-        <p *ngIf="!isLoading && !isSuccess" class="center">Підтвердження почти не вдалося</p>
+        <p *ngIf="!isLoading && !isSuccess" class="center" i18n>Підтвердження почти не вдалося</p>
     </div>
 </section>

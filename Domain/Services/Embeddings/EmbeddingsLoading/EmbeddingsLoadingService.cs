@@ -175,7 +175,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                 }
 
                 var dataObjects = pack.DataObjects.ToList();
-                var dataObjectStrings = pack.DataObjects.Select(e => e.Text).ToList();
+                var dataObjectStrings = pack.DataObjects.Select(e => e.Text.Length > embeddingModel.MaxInputCount ? e.Text.Substring(0, embeddingModel.MaxInputCount) : e.Text).ToList();
 
                 var result = await LoadEmbeddings(embeddingModelId, dataObjectStrings);
 

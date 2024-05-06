@@ -83,10 +83,18 @@ export class WorkspaceListPageComponent implements OnInit {
     }
   }
 
+  notAuthorizedErrorStr = $localize`Ви не авторизовані!`;
+  visitorError = $localize`Недостатній рівень доступу. Для цієї дії необхідно підтвердити email!`;
   openAddWorkspace(event: MouseEvent) {
     if (!this.accountService.isAuthenticated()) {
-
+      this.toastr.error(this.notAuthorizedErrorStr);
+      return;
     }
+    if (!this.accountService.isUserUser()) {
+      this.toastr.error(this.visitorError);
+      return;
+    }
+    
     this.router.navigate([{ outlets: { overflow: 'clusterization/workspaces/add' } }]);
   }
 }

@@ -64,7 +64,8 @@ export class WorkspaceFullPageComponent implements OnInit {
 
             this.router.navigate([{ outlets: { overflow: 'clusterization/profiles/add/' + this.workspace.id } }]);
           },
-          isForAuthorized: true
+          isForAuthorized: true,
+          isOnlyForUsers:true
         },
         {
           name: $localize`Завантажити файл з текстовими даними`,
@@ -81,7 +82,8 @@ export class WorkspaceFullPageComponent implements OnInit {
               }
             });
           },
-          isForAuthorized: true
+          isForAuthorized: true,
+          isOnlyForUsers:true
         }
       ];
 
@@ -98,7 +100,8 @@ export class WorkspaceFullPageComponent implements OnInit {
             }
             this.myLocalStorage.setSelectedWorkspace(this.workspace.id);
           },
-          isForAuthorized: true
+          isForAuthorized: true,
+          isOnlyForUsers:true
         });
       }
       if (this.workspace.typeId == 'External') {
@@ -112,7 +115,8 @@ export class WorkspaceFullPageComponent implements OnInit {
             }
             this.router.navigate([{ outlets: { overflow: 'workspace/add-external-data/' + this.workspace.id } }]);
           },
-          isForAuthorized: true
+          isForAuthorized: true,
+          isOnlyForUsers:true
         });
       }
     }, error => {

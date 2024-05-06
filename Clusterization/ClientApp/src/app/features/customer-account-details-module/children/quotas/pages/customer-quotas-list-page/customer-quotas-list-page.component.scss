@@ -1,5 +1,28 @@
+@import '/src/app/core/styles/base.scss';
+
 section{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    .list{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .center{
+        align-items: center;
+    }
+}
+.confirm-icon,
+.error-icon{
+    font-size: 200px;
+    text-align: center;
+    user-select: none;
+    cursor:auto;
+}
+.confirm-icon{
+    color: $first-color-1;
+}
+.error-icon{
+    color: $warn-1;
 }

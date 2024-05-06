@@ -11,28 +11,28 @@ export class ModeratorGuard implements CanActivate, CanActivateChild, CanDeactiv
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.accountService.isAuthenticated() && this.accountService.isUserModerator();
+    return this.accountService.isUserModerator();
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.accountService.isAuthenticated() && this.accountService.isUserModerator();
+    return this.accountService.isUserModerator();
   }
   canDeactivate(
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.accountService.isAuthenticated() && this.accountService.isUserModerator();
+    return this.accountService.isUserModerator();
   }
   canMatch(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.accountService.isAuthenticated() && this.accountService.isUserModerator();
+    return this.accountService.isUserModerator();
   }
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.accountService.isAuthenticated() && this.accountService.isUserModerator();
+    return this.accountService.isUserModerator();
   }
 }

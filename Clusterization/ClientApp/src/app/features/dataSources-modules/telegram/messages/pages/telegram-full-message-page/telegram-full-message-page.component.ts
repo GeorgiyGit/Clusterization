@@ -23,7 +23,8 @@ export class TelegramFullMessagePageComponent implements OnInit {
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/replies/load-by-message/' + this.message.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 

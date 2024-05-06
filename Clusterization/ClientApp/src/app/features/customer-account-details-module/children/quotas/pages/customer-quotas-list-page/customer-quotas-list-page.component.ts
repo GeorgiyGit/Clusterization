@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
+import { AccountService } from 'src/app/features/shared-module/account/services/account.service';
 import { ICustomerQuotas } from 'src/app/features/shared-module/quotas/models/responses/customer-quotas';
 import { CustomerQuotasService } from 'src/app/features/shared-module/quotas/services/customer-quotas.service';
 
@@ -12,7 +13,8 @@ export class CustomerQuotasListPageComponent implements OnInit{
   quotas:ICustomerQuotas[]=[];
 
   constructor(private customerQuotasService:CustomerQuotasService,
-    private toastr:MyToastrService){}
+    private toastr:MyToastrService,
+    public accountService:AccountService){}
   ngOnInit(): void {
     this.load();
   }

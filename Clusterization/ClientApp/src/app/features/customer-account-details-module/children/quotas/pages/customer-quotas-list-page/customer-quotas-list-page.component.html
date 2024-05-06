@@ -1,5 +1,11 @@
 <section>
-    @for (item of quotas; track $index) {
-        <app-customer-quotas-item-card [item]="item"></app-customer-quotas-item-card>
-    }
+    <div *ngIf="!accountService.isUserUser()" class="list center">
+        <span class="material-symbols-outlined icon error-icon" translate="no">mark_email_unread</span>
+        <p i18n>Квоти будуть доступні після підтвердження електронної пошти<p>
+    </div>
+    <div *ngIf="accountService.isUserUser()" class="list">
+        @for (item of quotas; track $index) {
+            <app-customer-quotas-item-card [item]="item"></app-customer-quotas-item-card>
+        }
+    </div>
 </section>

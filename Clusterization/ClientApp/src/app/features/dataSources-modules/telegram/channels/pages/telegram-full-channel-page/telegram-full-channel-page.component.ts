@@ -25,14 +25,16 @@ export class TelegramFullChannelPageComponent implements OnInit {
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/messages/load-many-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Завантажити багато відповідей`,
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/replies/load-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Додати повідомлення до робочого простору`,
@@ -46,7 +48,8 @@ export class TelegramFullChannelPageComponent implements OnInit {
         
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-messages-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Додати відповіді до робочого простору`,
@@ -59,7 +62,8 @@ export class TelegramFullChannelPageComponent implements OnInit {
         }
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-replies-by-channel/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     },
     {
       name: $localize`Додати відповіді у повідомленях до робочого простору`,
@@ -72,7 +76,8 @@ export class TelegramFullChannelPageComponent implements OnInit {
         }
         this.router.navigate([{ outlets: { overflow: 'dataSources/telegram/add-data-objects/add-replies-by-messages/' + this.channel.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 
@@ -110,6 +115,7 @@ export class TelegramFullChannelPageComponent implements OnInit {
   openFindNewVideos(event: MouseEvent) {
     if (!this.accountService.isAuthenticated()) {
       this.toastr.error($localize`Ви не авторизовані!`);
+      return;
     }
   }
 }

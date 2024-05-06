@@ -41,7 +41,8 @@ export class CustomerCardComponent implements OnInit {
             this.toastr.error(error.error.Message);
           });
         },
-        isForAuthorized: true
+        isForAuthorized: true,
+        isOnlyForUsers:true
       });
     }
     else {
@@ -57,7 +58,8 @@ export class CustomerCardComponent implements OnInit {
             this.toastr.error(error.error.Message);
           });
         },
-        isForAuthorized: true
+        isForAuthorized: true,
+        isOnlyForUsers:true
       });
     }
     this.actions.push({
@@ -65,7 +67,8 @@ export class CustomerCardComponent implements OnInit {
       action: () => {
         this.router.navigate([{ outlets: { overflow: 'admin-panel/add-quotas-pack/'+this.customer.id } }]);
       },
-      isForAuthorized: true
+      isForAuthorized: true,
+      isOnlyForUsers:true
     });
   }
 

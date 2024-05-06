@@ -1,5 +1,6 @@
 export interface ISelectAction{
     name:string,
     action:Function,
-    isForAuthorized:boolean
+    isForAuthorized:boolean,
+    isOnlyForUsers:boolean
 }

@@ -11,7 +11,7 @@
                 <li routerLink="/telegram-layout/dataSources/telegram/messages/list" i18n>Повідомлення</li>
                 <li (click)="openLoadChannel($event)" i18n>Завантажити канали</li>
 
-                <li routerLink="/telegram-layout/admin-panel" i18n *ngIf="accountService.isAuthenticated() && accountService.isUserModerator()">Панель адміністратора</li>
+                <li routerLink="/telegram-layout/admin-panel" i18n *ngIf="accountService.isUserModerator()">Панель адміністратора</li>
             </ul>
         </div>
         <div>

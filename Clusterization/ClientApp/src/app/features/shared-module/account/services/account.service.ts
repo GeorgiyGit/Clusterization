@@ -21,7 +21,7 @@ export class AccountService {
 
   constructor(private http: HttpClient,
     private jwtHelper: JwtHelperService,
-    private myLocalStorage:MyLocalStorageService,
+    private myLocalStorage: MyLocalStorageService,
     private toastr: MyToastrService) {
 
     this.controllerUrl = environment.apiUrl + "account/";
@@ -34,14 +34,14 @@ export class AccountService {
     return this.http.post<ILogInResponse>(this.controllerUrl + 'sign_up', model);
   }
 
-  confirmEmail(token:string, email:string): Observable<ILogInResponse> {
+  confirmEmail(token: string, email: string): Observable<ILogInResponse> {
     return this.http.post<ILogInResponse>(this.controllerUrl + 'confirm_email', {
-      token:token,
-      email:email
+      token: token,
+      email: email
     });
   }
   sendConfirmationEmail(): Observable<any> {
-    return this.http.post(this.controllerUrl + 'send_email_confirmation',null);
+    return this.http.post(this.controllerUrl + 'send_email_confirmation', null);
   }
   checkEmailConfirmation(): Observable<boolean> {
     return this.http.get<boolean>(this.controllerUrl + 'check_email_confirmation');
@@ -57,7 +57,8 @@ export class AccountService {
   // getCurrentUserEmail(): string | null {
   //   return localStorage.getItem(this.userKey);
   // }
-  getToken(): string | null {;
+  getToken(): string | null {
+    ;
     return this.myLocalStorage.getUserToken();
   }
   getHttpOptions(): any {
@@ -86,7 +87,7 @@ export class AccountService {
     const decodedToken = this.jwtHelper.decodeToken(token);
     return decodedToken['userId']
   }
-  public getName():string{
+  public getName(): string {
     const token = this.getToken();
     if (token == null) return '';
 
@@ -95,9 +96,15 @@ export class AccountService {
   }
 
   isUserAdmin(): boolean {
+    if (!this.isAuthenticated()) return false;
     return this.getRoles().includes('Admin');
   }
+  isUserUser(): boolean {
+    if (!this.isAuthenticated()) return false;
+    return this.getRoles().includes('User');
+  }
   isUserModerator(): boolean {
+    if (!this.isAuthenticated()) return false;
     return this.getRoles().includes('Moderator');
   }
 }

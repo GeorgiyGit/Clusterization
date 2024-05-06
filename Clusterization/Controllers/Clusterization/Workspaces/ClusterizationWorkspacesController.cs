@@ -76,6 +76,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpGet("get_entities/{id}"), DisableRequestSizeLimit]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetEntities([FromRoute] int id)
         {
             var list = await service.GetAllDataObjectsInList(id);
