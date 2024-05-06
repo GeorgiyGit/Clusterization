@@ -1,5 +1,33 @@
 <section>
-    <div *ngIf="!isEmailConfirmed">
-        <button class="standard-btn" (click)="sendEmail()">Надіслати лист підтвердження</button>
+    <div class="info-cont">
+        <div class="block">
+            <p i18n>Email</p>
+            <p>{{ personalInfo.email }}</p>
+        </div>
+        <div class="block">
+            <p i18n>Ім'я</p>
+            <p>{{ personalInfo.userName }}</p>
+        </div>
+        <div class="block">
+            <p i18n>Права:</p>
+            <p *ngIf="personalInfo.isModerator" class="warn-text" i18n>Модератор</p>
+            <p *ngIf="!personalInfo.isModerator && personalInfo.isUser" class="first-color-text" i18n>
+                Користувач
+            </p>
+            <p *ngIf="!personalInfo.isModerator && !personalInfo.isUser" i18n>
+                Відвідувач
+            </p>
+        </div>
+        <div class="block">
+            <p i18n>Чи підтверджено електронну пошту</p>
+            <p *ngIf="personalInfo.isEmailConfirmed" i18n>Так</p>
+            <p *ngIf="!personalInfo.isEmailConfirmed" i18n>Ні</p>
+        </div>
+        <div *ngIf="personalInfo != null && !personalInfo.isEmailConfirmed" class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button *ngIf="!isLoading" class="standard-btn" (click)="sendEmail()">
+                Надіслати лист підтвердження
+            </button>
+        </div>
     </div>
 </section>

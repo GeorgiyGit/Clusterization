@@ -27,10 +27,27 @@ section {
             color: $first-color-2;
             text-align: center;
         }
+        
+        .confirm-icon,
+        .error-icon{
+            font-size: 200px;
+            text-align: center;
+            user-select: none;
+            cursor:auto;
+        }
+        .confirm-icon{
+            color: $first-color-1;
+        }
+        .error-icon{
+            color: $warn-1;
+        }
     }
 }
 .open{
     opacity: 1;
+}
+.center{
+    text-align: center;
 }
 
 @media screen and (max-width: 700px) {

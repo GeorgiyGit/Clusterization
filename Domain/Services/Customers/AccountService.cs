@@ -220,7 +220,7 @@ namespace Domain.Services.Customers
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var link = _configuration["SiteLink"] + "#/main-layout/clusterization/workspaces/list(overflow:confirm-email)?token=" + HttpUtility.UrlEncode(token) + "&" + "email=" + HttpUtility.UrlEncode(user.Email);
+            var link = _configuration["SiteLink"] + "#/main-layout/clusterization/workspaces/list(overflow:confirm-email)?token=" + HttpUtility.UrlEncode(token) + "&amp;" + "email=" + HttpUtility.UrlEncode(user.Email);
             var body = PopulateBody(link);
             await _emailSender.SendEmail("Email Confirmation", body, user.UserName, user.Email);
 
@@ -229,7 +229,7 @@ namespace Domain.Services.Customers
         }
         private string PopulateBody(string link)
         {
-            string body = "<!DOCTYPE html><html><head> <title>Email confirmation</title> <style> .body { margin: 0; padding: 100px 200px; font-family: Roboto, \"Helvetica Neue\", sans-serif; display: flex; flex-direction: column; gap: 10px; background-color: #f5f6f8; } .main-cont { width: 100%; background-color: white; border-radius: 8px; padding: 20px; } .main-cont>h1 { color: #414a5f; text-align: center; } .main-cont>p { color: #676f81; } .main-cont>a>strong { color: #414a5f; } .main-cont>a>strong:hover { color: #e64221; } .main-cont>a { text-decoration: none; } .main-cont>link { text-decoration: underline; } </style></head><body> <div class=\"body\"> <div></div> <div class=\"main-cont\"> <h1>Confirm Your Evoclust Account</h1> <p>Thanks for signing up for an account on Evoclust! To start watching, please confirm your email address below so we know you're you...</p> <a href=\"{link}\"><strong>CONFIRM EMAIL ADDRESS</strong></a> <p>You can also copy and paste the following link into your browser to confirm your email: <a href=\"{link}\">{link}</a></p> <p>If you did not sign up for an account on Evoclust and believe someone registered this email by mistake, please contact us so we can resolve this issue.</p> </div> </div></body></html>";
+            string body = "<!DOCTYPE html><html><head> <title>Email confirmation</title> </head><body> <div class=\"body\" style=\"margin: 0;padding: 100px 200px;font-family: Roboto, &quot;Helvetica Neue&quot;, sans-serif;display: flex;flex-direction: column;gap: 10px;background-color: #f5f6f8;\"> <div></div> <div class=\"main-cont\" style=\"width: 100%;background-color: white;border-radius: 8px;padding: 20px;\"> <h1 style=\"color: #414a5f;text-align: center;\">Confirm Your Evoclust Account</h1> <p style=\"color: #676f81;\">Thanks for signing up for an account on Evoclust! To start watching, please confirm your email address below so we know you're you...</p> <a href=\"{link}\" style=\"text-decoration: none;\"><strong style=\"color: #414a5f;\">CONFIRM EMAIL ADDRESS</strong></a> <p style=\"color: #676f81;\">You can also copy and paste the following link into your browser to confirm your email: <a href=\"{link}\">{link}</a></p> <p style=\"color: #676f81;\">If you did not sign up for an account on Evoclust and believe someone registered this email by mistake, please contact us so we can resolve this issue.</p> </div> </div></body></html>";
             body = body.Replace("{link}", link);
             return body;
         }

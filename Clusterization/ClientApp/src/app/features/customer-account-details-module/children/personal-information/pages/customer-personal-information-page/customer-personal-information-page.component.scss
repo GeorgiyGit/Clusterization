@@ -4,4 +4,32 @@ section{
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    .info-cont{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .block{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px dashed $first-color-4;
+
+            p{
+                color: $first-color-3;
+            }
+            .want-text{
+                color: $warn-1;
+            }
+            .first-color-text{
+                color: $first-color-1;
+            }
+        }
+    }
+}
+.centered{
+    display: flex;
+    justify-content: center;
 }

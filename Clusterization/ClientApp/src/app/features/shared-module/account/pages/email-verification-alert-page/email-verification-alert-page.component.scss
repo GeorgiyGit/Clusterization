@@ -23,6 +23,16 @@ section {
 
 
         color: $first-color-3;
+
+        .confirm-icon{
+            font-size: 200px;
+            text-align: center;
+            user-select: none;
+            cursor:auto;
+        }
+        .confirm-icon{
+            color: $first-color-1;
+        }
     }
 }
 .open{

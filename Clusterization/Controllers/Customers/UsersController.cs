@@ -22,5 +22,12 @@ namespace Clusterization.Controllers.Customers
         {
             return Ok(await service.GetCustomers(request));
         }
+
+        [HttpGet("customer_get_personal_info")]
+        [Authorize]
+        public async Task<IActionResult> GetCustomers()
+        {
+            return Ok(await service.GetPersonalInfo());
+        }
     }
 }
