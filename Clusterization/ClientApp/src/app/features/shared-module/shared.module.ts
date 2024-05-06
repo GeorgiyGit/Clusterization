@@ -14,6 +14,8 @@ import { FullTaskPageComponent } from './tasks/pages/full-task-page/full-task-pa
 import { CoreModule } from 'src/app/core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EmailVerificationPageComponent } from './account/pages/email-verification-page/email-verification-page.component';
+import { EmailVerificationAlertPageComponent } from './account/pages/email-verification-alert-page/email-verification-alert-page.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
     LogInPageComponent,
     SignUpPageComponent,
+    EmailVerificationPageComponent,
+    EmailVerificationAlertPageComponent
   ],
   exports:[
     QuotasPackListComponent,

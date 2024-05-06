@@ -11,5 +11,6 @@ namespace Domain.Resources.Types
         public const string Moderator = "Moderator";
 
         public const string User = "User";
+        public const string Visitor = "Visitor";
     }
 }

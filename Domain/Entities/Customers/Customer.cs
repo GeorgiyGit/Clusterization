@@ -38,6 +38,8 @@ namespace Domain.Entities.Customers
         public bool IsDeleted { get; set; }
         public bool IsEdited { get; set; }
 
+        public DateTime? LastEmailConfirmationSend { get; set; }
+
         public ICollection<WorkspaceDataObjectsAddPack> WorkspaceDataObjectsAddPacks { get; set; } = new HashSet<WorkspaceDataObjectsAddPack>();
     }
 }

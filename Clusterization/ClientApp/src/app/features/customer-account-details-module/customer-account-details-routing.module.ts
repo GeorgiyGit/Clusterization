@@ -11,6 +11,8 @@ import { CustomerTasksListPageComponent } from './children/tasks/pages/customer-
 import { CustomerWorkspacesListPageComponent } from './children/workspaces/pages/customer-workspaces-list-page/customer-workspaces-list-page.component';
 import { CustomerWorkspacesMainPageComponent } from './children/workspaces/pages/customer-workspaces-main-page/customer-workspaces-main-page.component';
 import { CustomerAccountDetailsNavPageComponent } from './pages/customer-account-details-nav-page/customer-account-details-nav-page.component';
+import { CustomerPersonalInformationMainPageComponent } from './children/personal-information/pages/customer-personal-information-main-page/customer-personal-information-main-page.component';
+import { CustomerPersonalInformationPageComponent } from './children/personal-information/pages/customer-personal-information-page/customer-personal-information-page.component';
 
 const routes: Routes = [
   {
@@ -19,8 +21,23 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'quotas',
+        redirectTo: 'personal-info',
         pathMatch: 'full'
+      },
+      {
+        path: 'personal-info',
+        component: CustomerPersonalInformationMainPageComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'main',
+            pathMatch: 'full'
+          },
+          {
+            path: 'main',
+            component: CustomerPersonalInformationPageComponent
+          }
+        ]
       },
       {
         path: 'quotas',
@@ -89,7 +106,7 @@ const routes: Routes = [
             component: CustomerProfilesListPageComponent
           }
         ]
-      }
+      },
     ]
   },
 ];

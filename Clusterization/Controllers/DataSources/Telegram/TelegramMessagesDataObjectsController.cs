@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs;
 using Domain.Interfaces.DataSources.Telegram;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("add_messages_by_channel")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> AddMessagesByChannel([FromBody] AddTelegramMessagesToWorkspaceByChannelRequest request)
         {
             await service.LoadMessagesByChannel(request);

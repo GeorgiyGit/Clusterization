@@ -106,6 +106,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Щось пішло не так при підтвердженні електронної пошти.
+        /// </summary>
+        public static string EmailConfirmationError {
+            get {
+                return ResourceManager.GetString("EmailConfirmationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви хочете надсилати імейли занадто швидко.
+        /// </summary>
+        public static string EmailSendingToFast {
+            get {
+                return ResourceManager.GetString("EmailSendingToFast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сталася помилка при завантажені ембедінгів.
         /// </summary>
         public static string EmbeddingsLoadingError {

@@ -3,9 +3,12 @@ using Domain.DTOs.CustomerDTOs.Responses;
 using Domain.Entities.Customers;
 using Domain.Exceptions;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
+using Domain.Templates;
+using Hangfire.Dashboard;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
@@ -15,9 +18,13 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using TL;
+using static OpenAI.ObjectModels.SharedModels.IOpenAiModels;
 
 namespace Domain.Services.Customers
 {
@@ -25,23 +32,32 @@ namespace Domain.Services.Customers
     {
         private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IRepository<Customer> _customersRepository;
 
         private readonly IConfiguration _configuration;
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
         private readonly ICustomerQuotasService _quotasService;
+        private readonly IMyEmailSender _emailSender;
+        private readonly IUserService _userService;
         public AccountService(UserManager<Customer> userManager,
                               RoleManager<IdentityRole> roleManager,
                               IConfiguration configuration,
                               IStringLocalizer<ErrorMessages> localizer,
-                              ICustomerQuotasService quotasService)
+                              ICustomerQuotasService quotasService,
+                              IMyEmailSender emailSender,
+                              IUserService userService,
+                              IRepository<Customer> customersRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _quotasService = quotasService;
+            _emailSender = emailSender;
+            _userService = userService;
 
             _localizer = localizer;
+            _customersRepository = customersRepository;
         }
 
         public async Task<TokenDTO> LogIn(CustomerLogInRequest model)
@@ -75,6 +91,34 @@ namespace Domain.Services.Customers
             if (!result.Succeeded)
                 throw new HttpException(_localizer[ErrorMessagePatterns.UserCreationFailed], HttpStatusCode.InternalServerError);
 
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Visitor))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Visitor));
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.Visitor))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Visitor);
+            }
+
+            await SendEmailConfirmation(user);
+
+            return await LogIn(new CustomerLogInRequest()
+            {
+                Email = request.Email,
+                Password = request.Password
+            });
+        }
+        public async Task<TokenDTO> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotFound], HttpStatusCode.NotFound);
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (!result.Succeeded)
+            {
+                throw new HttpException(_localizer[ErrorMessagePatterns.EmailConfirmationError], HttpStatusCode.BadRequest);
+            }
+
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
@@ -89,11 +133,10 @@ namespace Domain.Services.Customers
                 PackId = 1
             });
 
-            return await LogIn(new CustomerLogInRequest()
+            return new TokenDTO()
             {
-                Email = request.Email,
-                Password = request.Password
-            });
+                Token = await CreateTokenAsync(user)
+            };
         }
         public async Task<string> CreateTokenAsync(Customer user)
         {
@@ -145,6 +188,50 @@ namespace Domain.Services.Customers
             {
                 if (!allowedCharacters.Contains(character)) throw new HttpException(_localizer[ErrorMessagePatterns.UserNameNotValid], HttpStatusCode.BadRequest);
             }
+        }
+
+        public async Task<bool> CheckEmailConfirmation()
+        {
+            var id = await _userService.GetCurrentUserId();
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotFound], HttpStatusCode.NotFound);
+
+            return user.EmailConfirmed;
+        }
+        public async Task SendEmailConfirmation()
+        {
+            var id = await _userService.GetCurrentUserId();
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotFound], HttpStatusCode.NotFound);
+
+            await SendEmailConfirmation(user);
+        }
+        private async Task SendEmailConfirmation(Customer user)
+        {
+            if (user.LastEmailConfirmationSend != null)
+            {
+                TimeSpan difference = DateTime.UtcNow-(DateTime)user.LastEmailConfirmationSend;
+
+                if (difference.TotalMinutes < 1)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.EmailSendingToFast], HttpStatusCode.BadRequest);
+                }
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var link = _configuration["SiteLink"] + "#/main-layout/clusterization/workspaces/list(overflow:confirm-email)?token=" + HttpUtility.UrlEncode(token) + "&" + "email=" + HttpUtility.UrlEncode(user.Email);
+            var body = PopulateBody(link);
+            await _emailSender.SendEmail("Email Confirmation", body, user.UserName, user.Email);
+
+            user.LastEmailConfirmationSend = DateTime.UtcNow;
+            await _customersRepository.SaveChangesAsync();
+        }
+        private string PopulateBody(string link)
+        {
+            string body = "<!DOCTYPE html><html><head> <title>Email confirmation</title> <style> .body { margin: 0; padding: 100px 200px; font-family: Roboto, \"Helvetica Neue\", sans-serif; display: flex; flex-direction: column; gap: 10px; background-color: #f5f6f8; } .main-cont { width: 100%; background-color: white; border-radius: 8px; padding: 20px; } .main-cont>h1 { color: #414a5f; text-align: center; } .main-cont>p { color: #676f81; } .main-cont>a>strong { color: #414a5f; } .main-cont>a>strong:hover { color: #e64221; } .main-cont>a { text-decoration: none; } .main-cont>link { text-decoration: underline; } </style></head><body> <div class=\"body\"> <div></div> <div class=\"main-cont\"> <h1>Confirm Your Evoclust Account</h1> <p>Thanks for signing up for an account on Evoclust! To start watching, please confirm your email address below so we know you're you...</p> <a href=\"{link}\"><strong>CONFIRM EMAIL ADDRESS</strong></a> <p>You can also copy and paste the following link into your browser to confirm your email: <a href=\"{link}\">{link}</a></p> <p>If you did not sign up for an account on Evoclust and believe someone registered this email by mistake, please contact us so we can resolve this issue.</p> </div> </div></body></html>";
+            body = body.Replace("{link}", link);
+            return body;
         }
     }
 }

@@ -1,0 +1,7 @@
+@import '/src/app/core/styles/base.scss';
+
+section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

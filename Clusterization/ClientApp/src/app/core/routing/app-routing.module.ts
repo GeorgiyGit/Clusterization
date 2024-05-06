@@ -31,6 +31,8 @@ import { TelegramLoadGroupRepliesPageComponent } from "src/app/features/dataSour
 import { TelegramLoadRepliesByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/replies/pages/telegram-load-replies-by-channel-page/telegram-load-replies-by-channel-page.component";
 import { AddTGMsgsToWorkspaceByChannelPageComponent } from "src/app/features/dataSources-modules/telegram/messages-data-objects/pages/add-tgmsgs-to-workspace-by-channel-page/add-tgmsgs-to-workspace-by-channel-page.component";
 import { AddTelegramChannelRepliesToWorkspacePageComponent } from 'src/app/features/dataSources-modules/telegram/replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
+import { EmailVerificationPageComponent } from 'src/app/features/shared-module/account/pages/email-verification-page/email-verification-page.component';
+import { EmailVerificationAlertPageComponent } from 'src/app/features/shared-module/account/pages/email-verification-alert-page/email-verification-alert-page.component';
 const routes: Route[] = [
   {
     path: '',
@@ -292,6 +294,16 @@ const routes: Route[] = [
     outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'confirm-email',
+    component:EmailVerificationPageComponent,
+    outlet:'overflow'
+  },
+  {
+    path:'confirm-email-alert',
+    component:EmailVerificationAlertPageComponent,
+    outlet:'overflow'
   },
 ]
 

@@ -71,7 +71,8 @@ export class SignUpPageComponent implements OnInit{
     this.accountService.signUp(request).subscribe((result: ILogInResponse) => {
       this.isLoading=false;
       this.accountService.saveToken(result.token);
-      this.close(null);
+
+      this.router.navigate([{ outlets: { overflow: 'confirm-email-alert' } }]);
     },error => {
       this.isLoading=false;
       this.errorMsg=error.error.Message;

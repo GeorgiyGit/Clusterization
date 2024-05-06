@@ -2,6 +2,7 @@
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.RequestDTOs;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Profiles;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace Clusterization.Controllers.Clusterization.Profiles
             this.service = service;
         }
         [HttpPost("add")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> Add([FromBody] AddClusterizationProfileRequest model)
         {
             await service.Add(model);
@@ -44,7 +45,7 @@ namespace Clusterization.Controllers.Clusterization.Profiles
         }
 
         [HttpPost("get_customer_collection")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetCustomerCollection([FromBody] CustomerGetClusterizationProfilesRequest request)
         {
             return Ok(await service.GetCustomerCollection(request));
@@ -58,7 +59,7 @@ namespace Clusterization.Controllers.Clusterization.Profiles
         }
 
         [HttpPost("elect/{id}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> Elect([FromRoute] int id)
         {
             await service.Elect(id);
@@ -66,7 +67,7 @@ namespace Clusterization.Controllers.Clusterization.Profiles
         }
 
         [HttpPost("unelect/{id}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> Unelect([FromRoute] int id)
         {
             await service.UnElect(id);

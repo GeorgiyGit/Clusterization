@@ -132,6 +132,12 @@
   <data name="DRValueNotFound" xml:space="preserve">
     <value>DRValueNotFound</value>
   </data>
+  <data name="EmailConfirmationError" xml:space="preserve">
+    <value>EmailConfirmationError</value>
+  </data>
+  <data name="EmailSendingToFast" xml:space="preserve">
+    <value>EmailSendingToFast</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>EmbeddingsLoadingError</value>
   </data>

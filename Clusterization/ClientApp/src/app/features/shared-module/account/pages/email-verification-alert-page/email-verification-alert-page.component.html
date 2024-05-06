@@ -1,0 +1,10 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div appDynamicWidth [@popUpAnimation]="animationState" class="main-cont">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="close($event)">close</span>
+        </div>
+        <p>На вашу електронну пошту було надісланий лист із підтвердженням. Для подальних дій з веб-додатком необхідно
+            підтвердити пошту
+        <p>
+    </div>
+</section>

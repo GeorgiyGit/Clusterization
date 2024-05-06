@@ -106,6 +106,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EmailConfirmationError.
+        /// </summary>
+        public static string EmailConfirmationError {
+            get {
+                return ResourceManager.GetString("EmailConfirmationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EmailSendingToFast.
+        /// </summary>
+        public static string EmailSendingToFast {
+            get {
+                return ResourceManager.GetString("EmailSendingToFast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EmbeddingsLoadingError.
         /// </summary>
         public static string EmbeddingsLoadingError {

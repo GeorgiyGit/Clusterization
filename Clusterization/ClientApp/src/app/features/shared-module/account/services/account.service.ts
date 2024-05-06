@@ -30,8 +30,21 @@ export class AccountService {
   logIn(model: ILogInRequest): Observable<ILogInResponse> {
     return this.http.post<ILogInResponse>(this.controllerUrl + 'log_in', model);
   }
-  signUp(model: ISignUpRequest): Observable<any> {
+  signUp(model: ISignUpRequest): Observable<ILogInResponse> {
     return this.http.post<ILogInResponse>(this.controllerUrl + 'sign_up', model);
+  }
+
+  confirmEmail(token:string, email:string): Observable<ILogInResponse> {
+    return this.http.post<ILogInResponse>(this.controllerUrl + 'confirm_email', {
+      token:token,
+      email:email
+    });
+  }
+  sendConfirmationEmail(): Observable<any> {
+    return this.http.post(this.controllerUrl + 'send_email_confirmation',null);
+  }
+  checkEmailConfirmation(): Observable<boolean> {
+    return this.http.get<boolean>(this.controllerUrl + 'check_email_confirmation');
   }
 
   logout(): void {

@@ -132,6 +132,12 @@
   <data name="DRValueNotFound" xml:space="preserve">
     <value>Значення зменшення розмірності не знайдено</value>
   </data>
+  <data name="EmailConfirmationError" xml:space="preserve">
+    <value>Щось пішло не так при підтвердженні електронної пошти</value>
+  </data>
+  <data name="EmailSendingToFast" xml:space="preserve">
+    <value>Ви хочете надсилати імейли занадто швидко</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>

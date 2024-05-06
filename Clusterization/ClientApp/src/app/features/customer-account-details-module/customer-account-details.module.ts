@@ -17,6 +17,8 @@ import { CustomerAccountDetailsNavPageComponent } from './pages/customer-account
 import { CoreModule } from 'src/app/core/core.module';
 import { ClusterizationModule } from '../clusterization-module/clusterization.module';
 import { SharedModule } from '../shared-module/shared.module';
+import { CustomerPersonalInformationMainPageComponent } from './children/personal-information/pages/customer-personal-information-main-page/customer-personal-information-main-page.component';
+import { CustomerPersonalInformationPageComponent } from './children/personal-information/pages/customer-personal-information-page/customer-personal-information-page.component';
 
 
 @NgModule({
@@ -35,6 +37,9 @@ import { SharedModule } from '../shared-module/shared.module';
 
     CustomerProfilesMainPageComponent,
     CustomerProfilesListPageComponent,
+
+    CustomerPersonalInformationMainPageComponent,
+    CustomerPersonalInformationPageComponent,
   ],
   imports: [
     CommonModule,

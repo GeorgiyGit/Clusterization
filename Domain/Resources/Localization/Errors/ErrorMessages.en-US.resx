@@ -132,6 +132,12 @@
   <data name="DRValueNotFound" xml:space="preserve">
     <value>Dimensionality reduction value not found</value>
   </data>
+  <data name="EmailConfirmationError" xml:space="preserve">
+    <value>Something went wrong while verifying your email</value>
+  </data>
+  <data name="EmailSendingToFast" xml:space="preserve">
+    <value>You want to send email to fast</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>An error occurred while loading embeddings</value>
   </data>

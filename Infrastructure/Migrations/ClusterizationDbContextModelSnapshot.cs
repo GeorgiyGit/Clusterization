@@ -519,6 +519,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("LastEditTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("LastEmailConfirmationSend")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 

@@ -41,6 +41,7 @@ using Domain.Services.Embeddings.EmbeddingsLoading;
 using Domain.Services.Quotas;
 using Domain.Services.TaskServices;
 using Domain.Validators.Clusterization.Workspaces;
+using EmailService;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hangfire;
@@ -99,6 +100,7 @@ internal class Program
 
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.AddScoped<IMyEmailSender, EmailSender>();
 
         builder.Services.AddSingleton<WTelegramService>();
         builder.Services.AddHostedService(provider => provider.GetService<WTelegramService>());

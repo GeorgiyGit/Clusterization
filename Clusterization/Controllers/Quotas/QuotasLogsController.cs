@@ -18,14 +18,14 @@ namespace Clusterization.Controllers.Quotas
         }
 
         [HttpPost("get_quotas_logs")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetQuotasLogs([FromBody] GetQuotasLogsRequest request)
         {
             return Ok(await service.GetQuotasLogs(request));
         }
 
         [HttpPost("get_quotas_pack_logs")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetQuotasPackLogs([FromBody] GetQuotasPackLogsRequest request)
         {
             return Ok(await service.GetQuotasPackLogs(request));

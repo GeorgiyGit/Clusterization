@@ -1,0 +1,12 @@
+<section class="overflow-cont" [class.open]="animationState=='in'">
+    <div appDynamicWidth
+         [@popUpAnimation]="animationState"
+         class="main-cont">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="close($event)">close</span>
+        </div>
+        <app-loader *ngIf="isLoading"></app-loader>
+        <p *ngIf="!isLoading && isSuccess">Ви успішно підтвердили електронну пошту</p>
+        <p *ngIf="!isLoading && !isSuccess">Підтвердження почти не вдалося</p>
+    </div>
+</section>

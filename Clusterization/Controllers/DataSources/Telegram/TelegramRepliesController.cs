@@ -3,6 +3,7 @@ using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Interfaces.DataSources.Telegram;
 using Domain.Interfaces.DataSources.Youtube;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +20,14 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("load_from_message")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadFromMessage([FromBody] TelegramLoadOptions options)
         {
             await service.LoadFromMessage(options);
             return Ok();
         }
         [HttpPost("load_from_channel")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadFromChannel([FromBody] LoadTelegramRepliesByChannelOptions options)
         {
             await service.LoadFromChannel(options);

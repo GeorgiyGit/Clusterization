@@ -18,7 +18,7 @@ namespace Clusterization.Controllers.MyTasks
         }
 
         [HttpPost("get_all")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadAllTasks([FromBody] ModeratorGetTasksRequest request)
         {
             return Ok(await service.GetTasks(request));

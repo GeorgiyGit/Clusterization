@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{EFBC5A0B-82DF-48D5-A148-942AC3C82139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{18F7FFD8-C02C-4204-96D6-225EA23A117D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EFBC5A0B-82DF-48D5-A148-942AC3C82139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFBC5A0B-82DF-48D5-A148-942AC3C82139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFBC5A0B-82DF-48D5-A148-942AC3C82139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F7FFD8-C02C-4204-96D6-225EA23A117D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F7FFD8-C02C-4204-96D6-225EA23A117D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F7FFD8-C02C-4204-96D6-225EA23A117D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F7FFD8-C02C-4204-96D6-225EA23A117D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

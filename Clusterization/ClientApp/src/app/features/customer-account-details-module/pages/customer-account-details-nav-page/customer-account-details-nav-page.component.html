@@ -2,6 +2,9 @@
     <div class="nav-menu" [@popUpAnimation]="isMenuOpenAnimation?'in':'hidden'">
         <div [class.noDisplay]="!isMenuOpen" class="main-nav-cont">
             <ul>
+                <li class="child-element-cont" routerLink="personal-info">
+                    <a routerLinkActive="active" i18n>Персональна інформація</a>
+                </li>
                 <li class="child-element-cont" routerLink="quotas">
                     <a routerLinkActive="active" i18n>Квоти</a>
                 </li>

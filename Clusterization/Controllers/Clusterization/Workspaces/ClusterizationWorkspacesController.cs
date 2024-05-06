@@ -3,6 +3,7 @@ using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Embeddings;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +27,14 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpPost("add")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> Add([FromBody] AddClusterizationWorkspaceRequest model)
         {
             await service.Add(model);
             return Ok();
         }
         [HttpPut("update")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> Update([FromBody] UpdateClusterizationWorkspaceRequest model)
         {
             await service.Update(model);
@@ -42,7 +43,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
 
         [HttpPost]
         [Route("load_external_data")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadExternalData([FromForm] AddExternalDataRequest data)
         {
             return Ok();
@@ -68,7 +69,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpPost("get_customer_collection")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetCustomerCollection([FromBody] GetWorkspacesRequest request)
         {
             return Ok(await service.GetCustomerCollection(request));

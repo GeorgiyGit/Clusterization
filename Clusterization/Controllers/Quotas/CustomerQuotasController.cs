@@ -26,7 +26,7 @@ namespace Clusterization.Controllers.Quotas
         }
 
         [HttpGet("get_all")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetAllCustomerQuotas()
         {
             return Ok(await service.GetAllCustomerQuotas());

@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceAddPackDTOs.Requests;
 using Domain.Interfaces.Clusterization.Workspaces;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpPost("get_customer_simple_list")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetCustomerSimplePacks([FromBody] GetCustomerWorkspaceDataObjectsAddPacksRequest request)
         {
             return Ok(await service.GetCustomerSimplePacks(request));
@@ -41,7 +42,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpDelete("delete/{id}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> DeletePack([FromRoute] int id)
         {
             await service.DeletePack(id);
@@ -49,7 +50,7 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         }
 
         [HttpPost("restore/{id}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> RestorePack([FromRoute] int id)
         {
             await service.RestorePack(id);

@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.ChannelDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Interfaces.DataSources.Telegram;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,14 +18,14 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("load_by_username/{username}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadByUsername([FromRoute] string username)
         {
             await service.LoadByUsername(username);
             return Ok();
         }
         [HttpPost("load_many_by_usernames")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadManyByUsernames([FromBody] LoadManyByIdsRequest request)
         {
             await service.LoadManyByUsernames(request.Ids);
@@ -45,7 +46,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpGet("get_without_loading/{name}")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetWithoutLoading([FromRoute] string name)
         {
             return Ok(await service.GetCollectionWithoutLoadingByName(name));

@@ -1,5 +1,6 @@
 ﻿    using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Interfaces.DataSources.Youtube;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,14 @@ namespace Clusterization.Controllers.DataSources.Youtube
         }
 
         [HttpPost("load_from_video")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadFromVideo([FromBody] YoutubeLoadOptions options)
         {
             await service.LoadFromVideo(options);
             return Ok();
         }
         [HttpPost("load_from_channel")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadFromChannel([FromBody] LoadYoutubeCommentsByChannelOptions options)
         {
             await service.LoadFromChannel(options);

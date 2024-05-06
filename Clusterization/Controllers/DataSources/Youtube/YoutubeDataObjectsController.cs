@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.Interfaces.DataSources.Youtube;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
         }
 
         [HttpPost("add_comments_by_channel")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> AddCommentsByChannel([FromBody] AddYoutubeCommentsToWorkspaceByChannelRequest request)
         {
             await this.service.LoadCommentsByChannel(request);
@@ -24,7 +25,7 @@ namespace Clusterization.Controllers.DataSources.Youtube
         }
 
         [HttpPost("add_comments_by_videos")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> AddCommentsByVideos([FromBody] AddYoutubeCommentsToWorkspaceByVideosRequest request)
         {
             await this.service.LoadCommentsByVideos(request);

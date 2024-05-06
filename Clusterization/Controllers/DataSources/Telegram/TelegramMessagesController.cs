@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.MessageDTOs.Requests;
 using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs;
 using Domain.Interfaces.DataSources.Telegram;
+using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("load_by_id")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadById([FromBody] TelegramMessageLoadByIdRequest request)
         {
             await service.LoadById(request.Id, request.ChannelId);
@@ -26,7 +27,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("load_from_channel")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadFromChannel([FromBody] TelegramLoadOptions request)
         {
             await service.LoadFromChannel(request);
@@ -34,7 +35,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("load_many_by_ids")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadManyByIds([FromBody] TelegramMessageLoadManyByIdsRequest request)
         {
             await service.LoadManyByIds(request.Ids, request.ChannelId);
@@ -54,7 +55,7 @@ namespace Clusterization.Controllers.DataSources.Telegram
         }
 
         [HttpPost("get_without_loading")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetWithoutLoading([FromBody] GetTelegramMessagesRequest request)
         {
             return Ok(await service.GetCollectionWithoutLoadingByName(request));
