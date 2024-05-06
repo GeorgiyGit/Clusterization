@@ -1,7 +1,7 @@
 @import '/src/app/core/styles/colors.scss';
 
 header {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     width: 100%;
 
@@ -40,6 +40,12 @@ header {
                     width: 30px;
                     height: 30px;
                 }
+
+                &:hover{
+                    li{
+                        color: $first-color-1;
+                    }
+                }
             }
 
             li {
@@ -60,6 +66,15 @@ header {
                 a {
                     text-decoration: none;
                     color: $first-color-3;
+                }
+
+                transition:all 0.3s;
+                &:hover{
+                    color: $first-color-1;
+
+                    a{
+                        color: $first-color-1;
+                    }
                 }
             }
 
