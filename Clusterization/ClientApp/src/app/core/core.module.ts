@@ -1,4 +1,3 @@
-import { DocProfilesClusterizationPageComponent } from './../features/documentation-module/children/profiles/pages/doc-profiles-clusterization-page/doc-profiles-clusterization-page.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CircularProgressBarComponent } from '../features/shared-module/tasks/components/circular-progress-bar/circular-progress-bar.component';
@@ -16,11 +15,14 @@ import { ModeratorGuard } from './guard/moderator.guard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LongPressDirective } from './directives/long-press.directive';
+import { SwipeableCardComponent } from './components/swipeable-card/swipeable-card.component';
 
 @NgModule({
   declarations: [
     SearchInputComponent,
     CloseOutsideDirective,
+    LongPressDirective,
     SelectOptionInputComponent,
     LoaderComponent,
     NormalizedDateTimePipe,
@@ -28,11 +30,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CircularProgressBarComponent,
     FullNormalizedDateTimePipe,
     TimeDifferencePipe,
-    ConfirmPageComponent
+    ConfirmPageComponent,
+    SwipeableCardComponent
   ],
   exports:[
     SearchInputComponent,
     CloseOutsideDirective,
+    LongPressDirective,
     SelectOptionInputComponent,
     LoaderComponent,
     NormalizedDateTimePipe,
@@ -40,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CircularProgressBarComponent,
     FullNormalizedDateTimePipe,
     TimeDifferencePipe,
-    ConfirmPageComponent
+    ConfirmPageComponent,
+    SwipeableCardComponent
   ],
   imports: [
     CommonModule,

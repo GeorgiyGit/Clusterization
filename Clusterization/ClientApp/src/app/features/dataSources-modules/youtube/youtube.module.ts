@@ -30,6 +30,8 @@ import { CoreModule } from 'src/app/core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { YoutubeChannelPhoneCardComponent } from './channels/components/youtube-channel-phone-card/youtube-channel-phone-card.component';
+import { YoutubeVideoPhoneCardComponent } from './videos/components/youtube-video-phone-card/youtube-video-phone-card.component';
 
 
 @NgModule({
@@ -57,7 +59,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     YoutubeLoadAllCommentsPageComponent,
     AddYoutubeChannelCommentsToWorkspacePageComponent,
     YoutubeLoadCommentsByChannelPageComponent,
-    AddYoutubeVideosCommentsToWorkspaceComponent,],
+    AddYoutubeVideosCommentsToWorkspaceComponent,
+    YoutubeChannelPhoneCardComponent,
+    YoutubeVideoPhoneCardComponent
+  ],
   imports: [
     CommonModule,
     YoutubeRoutingModule,
