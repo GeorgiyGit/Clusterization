@@ -1,46 +1,56 @@
-<section class="overflow-cont" [class.open]="animationState=='in'">
+<section class="overflow-cont middle-overflow-cont" [class.overflow-cont-open]="animationState == 'in'">
     <div class="main-cont" [@popUpAnimation]="animationState">
         <div class="close-cont">
             <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
         </div>
         <h1 i18n>Додати робочий простір</h1>
-        <form action="">
-            <form [formGroup]="workspaceForm" (ngSubmit)="submit()">
-                <div>
-                    <div class="input-cont">
-                        <input type="text" i18n-placeholder placeholder="Назва*" formControlName="title" id="title">
-                        <span class="material-symbols-outlined icon" translate="no">title</span>
-                    </div>
-                    <div class="errors" *ngIf="title.invalid && (title.touched)">
-                        <p *ngIf="title.errors?.['required']" class="error" i18n>Назва не може бути пустою</p>
-                        <p *ngIf="title.errors?.['maxlength']" class="error" i18n>Максимальна кількість знаків - 100</p>
-                    </div>
+        <form [formGroup]="workspaceForm" (ngSubmit)="submit()">
+            <div>
+                <div class="input-cont">
+                    <input type="text" i18n-placeholder placeholder="Назва*" formControlName="title" id="title" />
+                    <span class="material-symbols-outlined icon" translate="no">title</span>
                 </div>
-                <div>
-                    <div class="input-cont">
-                        <textarea i18n-placeholder placeholder="Опис*" formControlName="description" id="description"></textarea>
-                        <span class="material-symbols-outlined icon" translate="no">description</span>
-                    </div>
-                    <div class="errors" *ngIf="description.invalid && (description.touched)">
-                        <p *ngIf="description.errors?.['required']" class="error" i18n>Опис не може бути пустим</p>
-                        <p *ngIf="description.errors?.['maxlength']" class="error" i18n>Максимальна кількість знаків - 3000</p>
-                    </div>
+                <div class="error-cont" *ngIf="title.invalid && title.touched">
+                    <p *ngIf="title.errors?.['required']" class="error" i18n>
+                        Назва не може бути пустою
+                    </p>
+                    <p *ngIf="title.errors?.['maxlength']" class="error" i18n>
+                        Максимальна кількість знаків - 100
+                    </p>
                 </div>
-                <div>
-                    <app-clusterization-types-select
-                        (sendEvent)="changeTypeId($event)"></app-clusterization-types-select>
+            </div>
+            <div>
+                <div class="input-cont">
+                    <textarea i18n-placeholder placeholder="Опис*" formControlName="description"
+                        id="description"></textarea>
+                    <span class="material-symbols-outlined icon" translate="no">description</span>
                 </div>
-                <div>
-                    <app-visible-types-select-option (sendEvent)="changeVisibleType($event)"></app-visible-types-select-option>
+                <div class="error-cont" *ngIf="description.invalid && description.touched">
+                    <p *ngIf="description.errors?.['required']" class="error" i18n>
+                        Опис не може бути пустим
+                    </p>
+                    <p *ngIf="description.errors?.['maxlength']" class="error" i18n>
+                        Максимальна кількість знаків - 3000
+                    </p>
                 </div>
-                <div>
-                    <app-changing-types-select-option (sendEvent)="changeChangingType($event)"></app-changing-types-select-option>
-                </div>
-                <div class="centered">
-                    <app-loader *ngIf="isLoading"></app-loader>
-                    <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
-                </div>
-            </form>
+            </div>
+            <div>
+                <app-clusterization-types-select (sendEvent)="changeTypeId($event)"></app-clusterization-types-select>
+            </div>
+            <div>
+                <app-visible-types-select-option
+                    (sendEvent)="changeVisibleType($event)"></app-visible-types-select-option>
+            </div>
+            <div>
+                <app-changing-types-select-option
+                    (sendEvent)="changeChangingType($event)"></app-changing-types-select-option>
+            </div>
+            <div class="centered">
+                <app-loader *ngIf="isLoading"></app-loader>
+                <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>
+                    Додати
+                </button>
+            </div>
         </form>
     </div>
 </section>

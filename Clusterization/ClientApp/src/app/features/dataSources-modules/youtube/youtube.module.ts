@@ -29,6 +29,7 @@ import { AddYoutubeVideosCommentsToWorkspaceComponent } from './youtube-data-obj
 import { CoreModule } from 'src/app/core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({

@@ -1,4 +1,4 @@
-<section class="overflow-cont" [class.open]="animationState=='in'">
+<section class="overflow-cont small-overflow-cont" [class.overflow-cont-open]="animationState=='in'">
     <form [formGroup]="logInForm"
     (ngSubmit)="logIn()"
     (clickOutside)="close($event)"
@@ -9,7 +9,7 @@
             <span class="material-symbols-outlined icon" translate="no" (click)="close($event)">close</span>
         </div>
         <h1 class="text-orange" i18n>Увійти</h1>
-        <div class="inputs">
+        <div class="inputs-cont">
             <div class="w-100">
                 <div class="input-cont">
                     <input id="email" type="email" formControlName="email" i18n-placeholder placeholder="Електронна пошта">

@@ -1,0 +1,86 @@
+@import '/src/app/core/styles/colors.scss';
+
+.overflow-cont {
+    position: fixed;
+    background-color: rgba($first-color-2, 0.5);
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    opacity: 0;
+    transition: all 0.3s;
+
+    .main-cont{
+        background-color: $second-color-2;
+        padding: 50px;
+
+        height: fit-content;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        transition: all 0.3s;
+
+        h1{
+            text-align: center;
+        }
+    }
+}
+.overflow-cont-open{
+    opacity: 1;
+}
+
+.big-overflow-cont{
+    .main-cont{
+        width: 100%;
+    }
+}
+.middle-overflow-cont{
+    .main-cont{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .small-overflow-cont{
+        padding:0;
+        .main-cont{
+            min-height: 100vh;
+            padding-top: 120px;
+            width: 100%;
+        }
+    }
+}
+@media screen and (max-width: 800px) {
+    .middle-overflow-cont{
+        padding:0;
+        .main-cont{
+            min-height: 100vh;
+            padding-top: 120px;
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .big-overflow-cont{
+        padding:0;
+        .main-cont{
+            min-height: 100vh;
+            padding-top: 120px;
+            width: 100%;
+        }
+    }
+}
