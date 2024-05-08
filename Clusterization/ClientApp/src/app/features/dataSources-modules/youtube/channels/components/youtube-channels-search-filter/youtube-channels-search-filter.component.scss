@@ -10,6 +10,26 @@
     }
 }
 
+@media screen and (max-width: 1350px) {
+    .cont{
+        app-search-input{
+            flex: 2;
+        }
+        app-select-option-input{
+            flex: 1;
+        }
+    }
+}
+@media screen and (max-width: 1050px) {
+    .cont{
+        app-search-input{
+            flex: 1;
+        }
+        app-select-option-input{
+            flex: 1;
+        }
+    }
+}
 @media screen and (max-width: 960px) {
     .cont{
         flex-direction: column;

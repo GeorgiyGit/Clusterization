@@ -1,9 +1,15 @@
 <section>
     <div *ngFor="let video of videos; let i = index">
-        <app-youtube-video-card
+        <app-youtube-video-card *ngIf="!isPhone"
             [video]="video"
             (selectVideoEvent)="selectVideo($event)"
             (unselectVideoEvent)="unselectVideo($event)"
             [isSelectOnlyLoaded]="isSelectOnlyLoaded"></app-youtube-video-card>
+
+        <app-youtube-video-phone-card *ngIf="isPhone"
+            [video]="video"
+            (selectVideoEvent)="selectVideo($event)"
+            (unselectVideoEvent)="unselectVideo($event)"
+            [isSelectOnlyLoaded]="isSelectOnlyLoaded"></app-youtube-video-phone-card>
     </div>
 </section>

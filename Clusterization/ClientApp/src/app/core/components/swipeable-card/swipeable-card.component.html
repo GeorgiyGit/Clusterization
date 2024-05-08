@@ -1,0 +1,11 @@
+<div class="swipeable-card"
+     #card
+     [ngStyle]="{'transform': 'translateX(' + offsetX + 'px)'}"
+     (mousedown)="onTouchStart($event)"
+     (touchstart)="onTouchStart($event)"
+     (mousemove)="onTouchMove($event)"
+     (touchmove)="onTouchMove($event)"
+     (mouseup)="onTouchEnd()"
+     (touchend)="onTouchEnd()">
+  <ng-content></ng-content>
+</div>

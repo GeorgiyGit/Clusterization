@@ -1,34 +1,27 @@
-@import '/src/app/core/styles/base.scss';
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
 
 section {
-    opacity: 0;
-    transition: all 0.3s;
-
-    padding: 100px;
+    padding-top: 100px;
+    padding-bottom: 50px;
 
     .main-cont {
-        background-color: $second-color-2;
-        padding: 30px;
-
-        width: 50%;
-
-        height: fit-content;
         min-height: 70vh;
 
         h1 {
-            color: $first-color-2;
-            text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
-        .blocks-cont{
+
+        .blocks-cont {
             display: flex;
             flex-direction: column;
             gap: 10px;
+
             .block {
                 display: flex;
                 cursor: pointer;
                 gap: 5px;
-    
+
                 width: fit-content;
                 color: $first-color-2;
 
@@ -39,33 +32,31 @@ section {
                 .first-color-text {
                     color: $first-color-1;
                 }
-    
-                .delete-icon{
+
+                .delete-icon {
                     color: $warn-1;
                 }
-    
+
                 p {
                     height: fit-content;
                 }
             }
         }
-        .states-cont{
+
+        .states-cont {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
     }
 }
-p {
-    margin: 0;
-    padding: 0;
-}
-h2{
+h2 {
     color: $first-color-3;
     font-size: 1em;
     margin-top: 10px;
     text-align: center;
 }
+
 .open {
     opacity: 1;
 }

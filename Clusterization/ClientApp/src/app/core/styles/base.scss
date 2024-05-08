@@ -1,5 +1,27 @@
 @import '/src/app/core/styles/colors.scss';
 
+*{
+    box-sizing: border-box;
+}
+
+h1{
+    color: $first-color-2;
+}
+h2{
+    color: $first-color-3;
+}
+p{
+    margin: 0;
+    padding: 0;
+    color: $first-color-3;
+    font-size: 1em;
+}
+
+
+.centered{
+    display: flex;
+    justify-content: center;
+}
 .icon{
     cursor: pointer;
     user-select: none;
@@ -98,7 +120,7 @@
 }
 
 
-.overflow-cont {
+/*.overflow-cont {
     position: fixed;
     background-color: rgba($first-color-2, 0.5);
     width: 100%;
@@ -114,10 +136,8 @@
     justify-content: center;
 
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
-}
+}*/
 
 .close-cont {
     color: $first-color-4;
@@ -175,6 +195,11 @@
     }
 }
 
+.inputs-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 .input-cont {
     box-sizing: border-box;
 
@@ -267,15 +292,20 @@
         user-select: none;
     }
 }
-.errors {
+.error-cont{
     display: flex;
     flex-direction: column;
     gap: 5px;
 
-    .error {
-        color: $warn-2;
+    .error{
+        color: $warn-1;
     }
 }
+.global-error{
+    text-align: center;
+    color: $warn-1;
+}
+
 
 .standard-btn {
     padding: 0;

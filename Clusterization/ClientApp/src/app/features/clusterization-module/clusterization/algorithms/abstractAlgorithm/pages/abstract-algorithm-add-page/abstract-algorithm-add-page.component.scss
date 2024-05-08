@@ -1,21 +1,12 @@
-@import '/src/app/core/styles/base.scss';
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
 
 section{
-    padding: 50px;
-    padding-top: 100px;
-
-    opacity: 0;
-    transition: all 0.3s;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .main-cont{
-        padding: 50px;
-        background-color: $second-color-2;
-
-        width: 70%;
-
-        height: fit-content;
-        min-height: 70vh;
-
+        width: 600px;
         h1{
             color: $first-color-2;
             text-align: center;
@@ -24,20 +15,6 @@ section{
 
         .add-cont{
             margin-top: 20px;
-        }
-    }
-}
-.open{
-    opacity: 1;
-}
-
-@media screen and (max-width: 800px) {
-    section{
-        padding:0;
-        .main-cont{
-            min-height: 100vh;
-            padding-top: 120px;
-            width: 100%;
         }
     }
 }

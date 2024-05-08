@@ -1,5 +1,8 @@
 @import '/src/app/core/styles/base.scss';
 
+section{
+    max-width: 100%;
+}
 .scroll{
     position: relative;
 }
@@ -14,6 +17,8 @@ ul{
     background-color: $second-color-1;
 
     width: fit-content;
+    max-width: 100%;
+
     overflow-x: auto;
     li{
         margin: 0;
@@ -34,6 +39,8 @@ ul{
             text-decoration: none;
             color: $first-color-3;
             font-weight: bold;
+
+            text-wrap: nowrap;
         }
         a.active{
             color: $warn-1;

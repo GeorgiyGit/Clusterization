@@ -34,8 +34,8 @@
     }
 }
 .selected{
-    background-color: $warn-1;
+    background-color: $selection-color;
     &:hover{
-        background-color: $warn-2;
+        background-color: $warn-1;
     }
 }

@@ -1,0 +1,53 @@
+<app-swipeable-card (swipeRight)="select()"
+(swipeLeft)="unselect()"
+[isSwipingAllowed]="channel.isSelectAvailable && !((this.isSelectOnlyLoaded && !this.channel.isLoaded) || (!this.isSelectOnlyLoaded && this.channel.isLoaded))">
+    <div class="card-cont" (click)="openFull()"
+        [class.selected]="channel.isSelected && channel.isSelectAvailable && !((this.isSelectOnlyLoaded && !this.channel.isLoaded) || (!this.isSelectOnlyLoaded && this.channel.isLoaded))">
+        <div class="img-cont">
+            <img [src]="channel.channelImageUrl" alt="channel profile image" />
+        </div>
+        <div class="main-cont">
+            <div class="top-cont">
+                <div class="title-cont">
+                    <p class="title" *ngIf="!channel.isLoaded">{{ channel.title }}</p>
+                    <p class="title warn" i18n-matTooltip matTooltip="Канал вже завантажено" *ngIf="channel.isLoaded">
+                        {{ channel.title }}
+                    </p>
+                    <span class="material-symbols-outlined icon" translate="no"
+                        (click)="copyToClipboard(channel.id, $event)">file_copy</span>
+                </div>
+                <div class="my-tooltip">
+                    <span i18n-matTooltip matTooltip="Дата останнього завантаження каналу" *ngIf="channel.isLoaded"
+                        class="time-text">{{ channel.loadedDate | normalizedDateTime }}</span>
+                    <span i18n-matTooltip matTooltip="Дата створення каналу"
+                        *ngIf="!channel.isLoaded && channel.publishedAtDateTimeOffset != null" class="time-text">{{
+                        channel.publishedAtDateTimeOffset | normalizedDateTime }}</span>
+                </div>
+            </div>
+            <div class="middle-cont">
+                <div class="block" (click)="copyToClipboard(channel.subscriberCount + '', $event)">
+                    <span i18n-matTooltip matTooltip="Кількість підписників" class="material-symbols-outlined icon"
+                        translate="no">groups</span>
+                    <p>{{ channel.subscriberCount }}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(channel.viewCount + '', $event)">
+                    <span i18n-matTooltip matTooltip="Кількість переглядів" class="material-symbols-outlined icon"
+                        translate="no">preview</span>
+                    <p>{{ channel.viewCount }}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Кількість відео" class="material-symbols-outlined icon"
+                        translate="no">movie</span>
+
+                    <p i18n-matTooltip matTooltip="Загальна кількість відео" class="normal-color-text">
+                        {{ channel.videoCount }}
+                    </p>
+                    <span> / </span>
+                    <p i18n-matTooltip matTooltip="Кількість завантажених відео в систему" class="first-color-text">
+                        {{ channel.loadedVideoCount }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-swipeable-card>

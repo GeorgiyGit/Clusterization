@@ -1,5 +1,6 @@
 <section>
     <div *ngFor="let channel of channels; let i = index">
-        <app-youtube-channel-card [channel]="channel" (selectChannelEvent)="selectChannel($event)" (unselectChannelEvent)="unselectChannel($event)"></app-youtube-channel-card>
+        <app-youtube-channel-card *ngIf="!isPhone" [channel]="channel" (selectChannelEvent)="selectChannel($event)" (unselectChannelEvent)="unselectChannel($event)"></app-youtube-channel-card>
+        <app-youtube-channel-phone-card *ngIf="isPhone" [channel]="channel" (selectChannelEvent)="selectChannel($event)" (unselectChannelEvent)="unselectChannel($event)"></app-youtube-channel-phone-card>
     </div>
 </section>

@@ -1,33 +1,14 @@
-@import '/src/app/core/styles/base.scss';
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
 
 section {
-    opacity: 0;
-    transition: all 0.3s;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
     .main-cont{
-        background-color: $second-color-2;
-        padding: 30px;
-        padding-bottom: 60px;
-        
-        width: 35%;
+        width: 500px;
 
-        height: fit-content;
-
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        color: $first-color-3;
-        
-        h1{
-            color: $first-color-2;
-            text-align: center;
-        }
-        
         .confirm-icon,
         .error-icon{
             font-size: 200px;
@@ -43,27 +24,6 @@ section {
         }
     }
 }
-.open{
-    opacity: 1;
-}
 .center{
     text-align: center;
-}
-
-@media screen and (max-width: 700px) {
-    section{
-        padding:0;
-        .main-cont{
-            min-height: 100vh;
-            padding-top: 120px;
-        }
-    }
-}
-.centered{
-    display: flex;
-    justify-content: center;
-}
-p{
-    margin: 0;
-    padding: 0;
 }

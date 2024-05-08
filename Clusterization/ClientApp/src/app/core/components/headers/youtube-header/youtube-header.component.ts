@@ -81,6 +81,15 @@ export class YoutubeHeaderComponent implements OnInit {
     },500);
   }
 
+  openHome(){
+    this.animationState = 'hidden';
+
+    setTimeout(()=>{
+      this.isDisplayPhoneMenu = false;
+      this.router.navigateByUrl('');
+    },500);
+  }
+
 
   openSignUp(event: MouseEvent){
     event.stopPropagation();
