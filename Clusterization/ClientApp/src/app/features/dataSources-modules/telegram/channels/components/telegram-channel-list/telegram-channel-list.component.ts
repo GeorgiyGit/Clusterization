@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ISimpleTelegramChannel } from '../../models/responses/simple-telegram-channel';
 
 @Component({
@@ -6,10 +6,15 @@ import { ISimpleTelegramChannel } from '../../models/responses/simple-telegram-c
   templateUrl: './telegram-channel-list.component.html',
   styleUrl: './telegram-channel-list.component.scss'
 })
-export class TelegramChannelListComponent {
+export class TelegramChannelListComponent implements OnInit{
   @Input() channels:ISimpleTelegramChannel[]=[];
   @Output() selectChannelEvent=new EventEmitter<ISimpleTelegramChannel>();
   @Output() unselectChannelEvent=new EventEmitter<ISimpleTelegramChannel>();
+
+
+  ngOnInit(): void {
+    this.phoneCalculate(window.innerWidth);
+  }
 
   toggleSelection(value:boolean){
     this.channels.forEach(elem=>{
@@ -22,5 +27,22 @@ export class TelegramChannelListComponent {
   }
   unselectChannel(channel:ISimpleTelegramChannel){
     this.unselectChannelEvent.emit(channel);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.phoneCalculate(window.innerWidth);
+  }
+
+  isPhone:boolean;
+  phoneCalculate(width: number) {
+    if (width < 750) 
+    {
+      this.isPhone = true;
+    }
+    else 
+    {
+      this.isPhone=false;
+    }
   }
 }

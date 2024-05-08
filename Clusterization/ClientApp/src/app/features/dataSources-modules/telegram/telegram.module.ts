@@ -25,6 +25,8 @@ import { TelegramLoadRepliesByChannelPageComponent } from './replies/pages/teleg
 import { AddTGMsgsToWorkspaceByChannelPageComponent } from './messages-data-objects/pages/add-tgmsgs-to-workspace-by-channel-page/add-tgmsgs-to-workspace-by-channel-page.component';
 import { AddTelegramMessageRepliesToWorkspaceComponent } from './replies-data-objects/pages/add-telegram-message-replies-to-workspace/add-telegram-message-replies-to-workspace.component';
 import { AddTelegramChannelRepliesToWorkspacePageComponent } from './replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
+import { TelegramChannelPhoneCardComponent } from './channels/components/telegram-channel-phone-card/telegram-channel-phone-card.component';
+import { TelegramMessagePhoneCardComponent } from './messages/components/telegram-message-phone-card/telegram-message-phone-card.component';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { AddTelegramChannelRepliesToWorkspacePageComponent } from './replies-dat
     TelegramLoadOneChannelComponent,
     TelegramLoadMultipleChannelsComponent,
     TelegramFullChannelPageComponent,
-  
+    TelegramChannelPhoneCardComponent,
+    
     TelegramLoadMultipleMessagesComponent,
     TelegramMessageCardComponent,
     TelegramMessageListComponent,
@@ -45,13 +48,15 @@ import { AddTelegramChannelRepliesToWorkspacePageComponent } from './replies-dat
     TelegramFullMessagePageComponent,
     TelegramLoadGroupMessagesPageComponent,
     TelegramMessageListPageComponent,
+    TelegramMessagePhoneCardComponent,
 
     TelegramLoadRepliesByChannelPageComponent,
     TelegramLoadGroupRepliesPageComponent,
 
     AddTGMsgsToWorkspaceByChannelPageComponent,
     AddTelegramChannelRepliesToWorkspacePageComponent,
-    AddTelegramMessageRepliesToWorkspaceComponent
+    AddTelegramMessageRepliesToWorkspaceComponent,
+
   ],
   imports: [
     CommonModule,

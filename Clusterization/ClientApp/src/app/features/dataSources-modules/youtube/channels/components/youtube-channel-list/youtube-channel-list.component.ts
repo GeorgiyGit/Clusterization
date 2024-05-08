@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-channel';
 
 @Component({
@@ -6,10 +6,14 @@ import { ISimpleYoutubeChannel } from '../../models/responses/simple-youtube-cha
   templateUrl: './youtube-channel-list.component.html',
   styleUrls: ['./youtube-channel-list.component.scss']
 })
-export class YoutubeChannelListComponent {
+export class YoutubeChannelListComponent implements OnInit{
   @Input() channels:ISimpleYoutubeChannel[]=[];
   @Output() selectChannelEvent=new EventEmitter<ISimpleYoutubeChannel>();
   @Output() unselectChannelEvent=new EventEmitter<ISimpleYoutubeChannel>();
+
+  ngOnInit(): void {
+    this.phoneCalculate(window.innerWidth);
+  }
 
   toggleSelection(value:boolean){
     this.channels.forEach(elem=>{
@@ -22,5 +26,22 @@ export class YoutubeChannelListComponent {
   }
   unselectChannel(channel:ISimpleYoutubeChannel){
     this.unselectChannelEvent.emit(channel);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.phoneCalculate(window.innerWidth);
+  }
+
+  isPhone:boolean;
+  phoneCalculate(width: number) {
+    if (width < 750) 
+    {
+      this.isPhone = true;
+    }
+    else 
+    {
+      this.isPhone=false;
+    }
   }
 }

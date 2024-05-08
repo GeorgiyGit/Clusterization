@@ -1,9 +1,14 @@
 <section>
     <div *ngFor="let message of messages; let i = index">
-        <app-telegram-message-card [message]="message"
-        (selectMessageEvent)="selectMessage($event)"
-        (unselectMessageEvent)="unselectMessage($event)"
-        [isSelectOnlyLoaded]="isSelectOnlyLoaded">
+        <app-telegram-message-card *ngIf="!isPhone" [message]="message"
+            (selectMessageEvent)="selectMessage($event)"
+            (unselectMessageEvent)="unselectMessage($event)"
+            [isSelectOnlyLoaded]="isSelectOnlyLoaded">
         </app-telegram-message-card>
+        <app-telegram-message-phone-card *ngIf="isPhone" [message]="message"
+            (selectMessageEvent)="selectMessage($event)"
+            (unselectMessageEvent)="unselectMessage($event)"
+            [isSelectOnlyLoaded]="isSelectOnlyLoaded">
+        </app-telegram-message-phone-card>
     </div>
 </section>

@@ -1,23 +1,13 @@
-@import '/src/app/core/styles/base.scss';
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
 
 section {
-    opacity: 0;
-    transition: all 0.3s;
-
-    padding: 100px;
+    align-items: center;
     .main-cont{
-        background-color: $second-color-2;
-        padding: 30px;
-        
-        width: 50%;
-
-        height: fit-content;
-        min-height: 70vh;
+        width: 500px;
 
         h1{
-            color: $first-color-2;
-            text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .time-cont{
@@ -35,29 +25,6 @@ section {
         .error{
             color: $warn-1;
             text-align: center;
-        }
-        p{
-            margin: 0;
-            padding: 0;
-            color: $first-color-3;
-        }
-    }
-}
-.open{
-    opacity: 1;
-}
-.centered{
-    display: flex;
-    justify-content: center;
-}
-
-@media screen and (max-width: 800px) {
-    section{
-        padding:0;
-        .main-cont{
-            min-height: 100vh;
-            padding-top: 120px;
-            width: 100%;
         }
     }
 }

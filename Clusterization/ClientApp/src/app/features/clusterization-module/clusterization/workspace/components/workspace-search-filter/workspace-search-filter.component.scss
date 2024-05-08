@@ -9,3 +9,31 @@
         flex: 1;
     }
 }
+
+@media screen and (max-width: 1200px) {
+    .cont{
+        app-search-input{
+            flex: 2;
+        }
+        app-clusterization-types-select{
+            flex: 1;
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .cont{
+        app-search-input{
+            flex: 1;
+        }
+        app-clusterization-types-select{
+            flex: 1;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .cont{
+        flex-direction: column;
+    }
+}

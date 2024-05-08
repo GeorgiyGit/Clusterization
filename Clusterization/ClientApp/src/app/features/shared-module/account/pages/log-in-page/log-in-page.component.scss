@@ -1,47 +1,17 @@
-@import '/src/app/core/styles/base.scss';
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
 
 section {
-    opacity: 0;
-    transition: all 0.3s;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
     .main-cont{
-        background-color: $second-color-2;
-        padding: 30px;
-        padding-bottom: 60px;
-        
-        width: 35%;
-
-        height: fit-content;
-
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        h1{
-            color: $first-color-2;
-            text-align: center;
-        }
-        .inputs{
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .inputs-cont{
-            display: flex;
-            flex-direction: column;
-        }
+        width: 500px;
         .btn-cont{
             display: flex;
             justify-content: center;
-
-            p{
-                color: $first-color-3;
-            }
+            
             a{
                 text-decoration: none;
                 columns: $first-color-1;
@@ -49,42 +19,4 @@ section {
             }
         }
     }
-}
-.open{
-    opacity: 1;
-}
-
-@media screen and (max-width: 700px) {
-    section{
-        padding:0;
-        .main-cont{
-            min-height: 100vh;
-            padding-top: 120px;
-        }
-    }
-}
-.error-cont{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    .error{
-        color: $warn-1;
-    }
-    p{
-        margin: 0;
-        padding: 0;
-    }
-}
-.centered{
-    display: flex;
-    justify-content: center;
-}
-p{
-    margin: 0;
-    padding: 0;
-}
-.global-error{
-    text-align: center;
-    color: $warn-1;
 }

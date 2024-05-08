@@ -1,0 +1,111 @@
+@import '/src/app/core/styles/base.scss';
+
+.card-cont {
+    flex: 1;
+    background-color: $second-color-1;
+    //padding: 20px;
+    border-radius: 10px;
+
+    color: $first-color-3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+
+    .icon {
+        color: $first-color-4;
+
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .img-cont {
+        img {
+            height: 100%;
+            width: 100%;
+
+            border-radius: 10px;
+        }
+    }
+
+    .main-cont {
+        flex: 1;
+
+        .top-cont {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .title-cont {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: center;
+                width: fit-content;
+
+                &:hover {
+                    .icon {
+                        color: $first-color-1;
+                    }
+                }
+
+                .title {
+                    color: $first-color-4;
+                    font-size: 1.4rem;
+                    width: fit-content;
+                }
+
+                .warn {
+                    color: $warn-1;
+                }
+            }
+
+            .time-text {
+                color: $first-color-2;
+            }
+
+        }
+
+        .middle-cont {
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+
+            .block {
+                display: flex;
+                cursor: pointer;
+                gap: 5px;
+
+                width: fit-content;
+
+                .normal-color-text {
+                    color: $first-color-2;
+                }
+
+                .first-color-text {
+                    color: $first-color-1;
+                }
+
+                .icon {
+                    color: $first-color-2;
+                }
+
+                p {
+                    height: fit-content;
+                }
+            }
+        }
+    }
+}
+.card-cont.selected{
+    background-color: $selection-color;
+}
