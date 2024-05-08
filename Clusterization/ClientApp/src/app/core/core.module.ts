@@ -14,7 +14,6 @@ import { CustomerGuard } from './guard/customer.guard';
 import { ModeratorGuard } from './guard/moderator.guard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LayoutModule } from '@angular/cdk/layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LongPressDirective } from './directives/long-press.directive';
 import { SwipeableCardComponent } from './components/swipeable-card/swipeable-card.component';
 
