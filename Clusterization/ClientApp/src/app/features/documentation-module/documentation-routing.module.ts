@@ -1,3 +1,4 @@
+import { DocTelegramMessagesLoadingGroupPageComponent } from './children/dataSources/telegram/messages/doc-telegram-messages-loading-group-page/doc-telegram-messages-loading-group-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DocAlgorithmsMainPageComponent } from './children/algorithms/pages/doc-algorithms-main-page/doc-algorithms-main-page.component';
@@ -37,6 +38,17 @@ import { DocCustomerQuotasPageComponent } from './children/quotas/pages/doc-cust
 import { DocQuotasPacksPageComponent } from './children/quotas/pages/doc-quotas-packs-page/doc-quotas-packs-page.component';
 import { DocQuotasLogsPageComponent } from './children/quotas/pages/doc-quotas-logs-page/doc-quotas-logs-page.component';
 import { DocQuotasPricesPageComponent } from './children/quotas/pages/doc-quotas-prices-page/doc-quotas-prices-page.component';
+import { DocTelegramChannelsMainPageComponent } from './children/dataSources/telegram/channels/doc-telegram-channels-main-page/doc-telegram-channels-main-page.component';
+import { DocTelegramChannelsLoadingByUsernamePageComponent } from './children/dataSources/telegram/channels/doc-telegram-channels-loading-by-username-page/doc-telegram-channels-loading-by-username-page.component';
+import { DocTelegramChannelsLoadingByNamePageComponent } from './children/dataSources/telegram/channels/doc-telegram-channels-loading-by-name-page/doc-telegram-channels-loading-by-name-page.component';
+import { DocTelegramChannelsDisplayingPageComponent } from './children/dataSources/telegram/channels/doc-telegram-channels-displaying-page/doc-telegram-channels-displaying-page.component';
+import { DocTelegramMessagesMainPageComponent } from './children/dataSources/telegram/messages/doc-telegram-messages-main-page/doc-telegram-messages-main-page.component';
+import { DocTelegramMessagesLoadingByIdsPageComponent } from './children/dataSources/telegram/messages/doc-telegram-messages-loading-by-ids-page/doc-telegram-messages-loading-by-ids-page.component';
+import { DocTelegramMessagesDisplayingPageComponent } from './children/dataSources/telegram/messages/doc-telegram-messages-displaying-page/doc-telegram-messages-displaying-page.component';
+import { DocTelegramRepliesMainPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-main-page/doc-telegram-replies-main-page.component';
+import { DocTelegramRepliesLoadFromMsgPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-load-from-msg-page/doc-telegram-replies-load-from-msg-page.component';
+import { DocTelegramRepliesLoadFromChannelPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-load-from-channel-page/doc-telegram-replies-load-from-channel-page.component';
+import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSources/telegram/add-data-objects/doc-telegram-add-data-objects-main-page/doc-telegram-add-data-objects-main-page.component';
 
 const routes: Routes = [
   {
@@ -53,19 +65,15 @@ const routes: Routes = [
         component:DocInfoMainPageComponent
       },
       {
-        path:'youtube',
+        path:'data_sources',
         children:[
           {
             path:'',
-            redirectTo:'main',
+            redirectTo:'youtube',
             pathMatch:'full'
           },
           {
-            path:'main',
-            component:DocYoutubeMainPageComponent
-          },
-          {
-            path:'channels',
+            path:'youtube',
             children:[
               {
                 path:'',
@@ -74,24 +82,86 @@ const routes: Routes = [
               },
               {
                 path:'main',
-                component:DocYoutubeChannelsMainPageComponent
+                component:DocYoutubeMainPageComponent
               },
               {
-                path:'loading_by_id',
-                component:DocYoutubeChannelsLoadingByIdPageComponent
+                path:'channels',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocYoutubeChannelsMainPageComponent
+                  },
+                  {
+                    path:'loading_by_id',
+                    component:DocYoutubeChannelsLoadingByIdPageComponent
+                  },
+                  {
+                    path:'loading_by_name',
+                    component:DocYoutubeChannelsLoadingByNamePageComponent
+                  },
+                  {
+                    path:'displaying',
+                    component:DocYoutubeChannelsDisplayingPageComponent
+                  }
+                ]
               },
               {
-                path:'loading_by_name',
-                component:DocYoutubeChannelsLoadingByNamePageComponent
+                path:'videos',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocYoutubeVideosMainPageComponent
+                  },
+                  {
+                    path:'loading_by_ids',
+                    component:DocYoutubeVideosLoadingByIdsPageComponent
+                  },
+                  {
+                    path:'loading_many',
+                    component:DocYoutubeVideosLoadingManyPageComponent
+                  },
+                  {
+                    path:'displaying',
+                    component:DocYoutubeVideosDisplayingPageComponent
+                  }
+                ]
               },
               {
-                path:'displaying',
-                component:DocYoutubeChannelsDisplayingPageComponent
+                path:'comments',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocYoutubeCommentsMainPageComponent
+                  },
+                  {
+                    path:'loading_by_video',
+                    component:DocYoutubeCommentsLoadFromVideoPageComponent
+                  },
+                  {
+                    path:'loading_by_channel',
+                    component:DocYoutubeCommentsLoadFromChannelPageComponent
+                  }
+                ]
               }
             ]
           },
           {
-            path:'videos',
+            path:'telegram',
             children:[
               {
                 path:'',
@@ -100,44 +170,88 @@ const routes: Routes = [
               },
               {
                 path:'main',
-                component:DocYoutubeVideosMainPageComponent
+                component:DocYoutubeMainPageComponent
               },
               {
-                path:'loading_by_ids',
-                component:DocYoutubeVideosLoadingByIdsPageComponent
+                path:'channels',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocTelegramChannelsMainPageComponent
+                  },
+                  {
+                    path:'loading_by_username',
+                    component:DocTelegramChannelsLoadingByUsernamePageComponent
+                  },
+                  {
+                    path:'loading_by_name',
+                    component:DocTelegramChannelsLoadingByNamePageComponent
+                  },
+                  {
+                    path:'displaying',
+                    component:DocTelegramChannelsDisplayingPageComponent
+                  }
+                ]
               },
               {
-                path:'loading_many',
-                component:DocYoutubeVideosLoadingManyPageComponent
+                path:'messages',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocTelegramMessagesMainPageComponent
+                  },
+                  {
+                    path:'loading_by_ids',
+                    component:DocTelegramMessagesLoadingByIdsPageComponent
+                  },
+                  {
+                    path:'loading_many',
+                    component:DocTelegramMessagesLoadingGroupPageComponent
+                  },
+                  {
+                    path:'displaying',
+                    component:DocTelegramMessagesDisplayingPageComponent
+                  }
+                ]
               },
               {
-                path:'displaying',
-                component:DocYoutubeVideosDisplayingPageComponent
+                path:'replies',
+                children:[
+                  {
+                    path:'',
+                    redirectTo:'main',
+                    pathMatch:'full'
+                  },
+                  {
+                    path:'main',
+                    component:DocTelegramRepliesMainPageComponent
+                  },
+                  {
+                    path:'loading_by_message',
+                    component:DocTelegramRepliesLoadFromMsgPageComponent
+                  },
+                  {
+                    path:'loading_by_channel',
+                    component:DocTelegramRepliesLoadFromChannelPageComponent
+                  }
+                ]
+              },
+              {
+                path:'add_data_objects',
+                component:DocTelegramAddDataObjectsMainPageComponent
               }
             ]
           },
-          {
-            path:'comments',
-            children:[
-              {
-                path:'',
-                redirectTo:'main',
-                pathMatch:'full'
-              },
-              {
-                path:'main',
-                component:DocYoutubeCommentsMainPageComponent
-              },
-              {
-                path:'loading_by_video',
-                component:DocYoutubeCommentsLoadFromVideoPageComponent
-              },
-              {
-                path:'loading_by_channel',
-                component:DocYoutubeCommentsLoadFromChannelPageComponent
-              }
-            ]
-          }
         ]
       },
       {
