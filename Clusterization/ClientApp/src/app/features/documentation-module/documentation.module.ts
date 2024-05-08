@@ -51,6 +51,7 @@ import { DocTelegramRepliesLoadFromChannelPageComponent } from './children/dataS
 import { DocTelegramRepliesLoadFromMsgPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-load-from-msg-page/doc-telegram-replies-load-from-msg-page.component';
 import { DocTelegramRepliesMainPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-main-page/doc-telegram-replies-main-page.component';
 import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSources/telegram/add-data-objects/doc-telegram-add-data-objects-main-page/doc-telegram-add-data-objects-main-page.component';
+import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models/doc-embedding-models-main-page/doc-embedding-models-main-page.component';
 
 
 @NgModule({
@@ -118,7 +119,9 @@ import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSourc
     DocTelegramRepliesLoadFromMsgPageComponent,
     DocTelegramRepliesMainPageComponent,
 
-    DocTelegramAddDataObjectsMainPageComponent
+    DocTelegramAddDataObjectsMainPageComponent,
+
+    DocEmbeddingModelsMainPageComponent
   ],
   imports: [
     CommonModule,

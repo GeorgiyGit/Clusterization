@@ -1,1 +1,8 @@
 @import '/src/app/features/documentation-module/styles/doc-styles.scss';
+
+
+table>tr{
+    td,th{
+        width: 50%;
+    }
+}
