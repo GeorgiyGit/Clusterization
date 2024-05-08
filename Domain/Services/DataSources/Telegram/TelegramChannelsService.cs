@@ -74,7 +74,7 @@ namespace Domain.Services.DataSources.Telegram
 
             var customerId = await _userService.GetCurrentUserId();
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(customerId, QuotasTypes.Youtube, loadChannelQutasCount, Guid.NewGuid().ToString());
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(customerId, QuotasTypes.Telegram, loadChannelQutasCount, Guid.NewGuid().ToString());
 
             if (!quotasResult)
             {
