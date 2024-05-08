@@ -32,6 +32,11 @@ import { DocYoutubeVideosDisplayingPageComponent } from './children/dataSources/
 import { DocYoutubeVideosLoadingByIdsPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-loading-by-ids-page/doc-youtube-videos-loading-by-ids-page.component';
 import { DocYoutubeVideosLoadingManyPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-loading-many-page/doc-youtube-videos-loading-many-page.component';
 import { DocYoutubeVideosMainPageComponent } from './children/dataSources/youtube/videos/pages/doc-youtube-videos-main-page/doc-youtube-videos-main-page.component';
+import { DocQuotasMainPageComponent } from './children/quotas/pages/doc-quotas-main-page/doc-quotas-main-page.component';
+import { DocCustomerQuotasPageComponent } from './children/quotas/pages/doc-customer-quotas-page/doc-customer-quotas-page.component';
+import { DocQuotasPacksPageComponent } from './children/quotas/pages/doc-quotas-packs-page/doc-quotas-packs-page.component';
+import { DocQuotasLogsPageComponent } from './children/quotas/pages/doc-quotas-logs-page/doc-quotas-logs-page.component';
+import { DocQuotasPricesPageComponent } from './children/quotas/pages/doc-quotas-prices-page/doc-quotas-prices-page.component';
 
 const routes: Routes = [
   {
@@ -256,7 +261,37 @@ const routes: Routes = [
             component:DocPointsMapDynamicLoadingPageComponent
           }
         ]
-      }
+      },
+      {
+        path:'quotas',
+        children:[
+          {
+            path:'',
+            redirectTo:'main',
+            pathMatch:'full'
+          },
+          {
+            path:'main',
+            component:DocQuotasMainPageComponent
+          },
+          {
+            path:'customer_quotas',
+            component:DocCustomerQuotasPageComponent
+          },
+          {
+            path:'packs',
+            component:DocQuotasPacksPageComponent
+          },
+          {
+            path:'logs',
+            component:DocQuotasLogsPageComponent
+          },
+          {
+            path:'prices',
+            component:DocQuotasPricesPageComponent
+          }
+        ]
+      },
     ]
   },
 ];

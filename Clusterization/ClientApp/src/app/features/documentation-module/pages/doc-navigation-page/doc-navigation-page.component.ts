@@ -32,6 +32,8 @@ export class DocNavigationPageComponent implements OnInit {
 
     this.states.SearchFor['embeddings'] = false;
     this.states.SearchFor['points-map'] = false;
+
+    this.states.SearchFor['quotas'] = false;
   }
   toggleSelect(key: string) {
     this.states.SearchFor[key] = !this.states.SearchFor[key];

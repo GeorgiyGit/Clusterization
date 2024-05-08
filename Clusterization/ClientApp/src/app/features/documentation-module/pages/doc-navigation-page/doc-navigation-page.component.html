@@ -6,6 +6,32 @@
                     <a routerLinkActive="active" i18n>Основне</a>
                 </li>
                 <li>
+                    <div class="parent-element-cont" (click)="toggleSelect('quotas')">
+                        <a routerLinkActive="active" routerLink="quotas" i18n>Квоти</a>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['quotas']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['quotas']">expand_less</span>
+                    </div>
+                    <ul class="ul-l2" [class.closed]="!this.states.SearchFor['quotas']">
+                        <li class="child-element-cont" routerLink="quotas/main">
+                            <a routerLinkActive="active" i18n>Основне</a>
+                        </li>
+                        <li class="child-element-cont" routerLink="quotas/customer_quotas">
+                            <a routerLinkActive="active" i18n>Квоти користувача</a>
+                        </li>
+                        <li class="child-element-cont" routerLink="quotas/packs">
+                            <a routerLinkActive="active" i18n>Пакети квот</a>
+                        </li>
+                        <li class="child-element-cont" routerLink="quotas/logs">
+                            <a routerLinkActive="active" i18n>Логи</a>
+                        </li>
+                        <li class="child-element-cont" routerLink="quotas/prices">
+                            <a routerLinkActive="active" i18n>Ціна використання</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <div class="parent-element-cont" (click)="toggleSelect('youtube')">
                         <a routerLinkActive="active" routerLink="youtube" i18n>Youtube</a>
                         <span class="material-symbols-outlined icon" translate="no"
