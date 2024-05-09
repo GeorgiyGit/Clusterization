@@ -9,7 +9,6 @@ import { DocAlgorithmsGaussianMixturePageComponent } from './children/algorithms
 import { DocAlgorithmsSpectralClusteringPageComponent } from './children/algorithms/pages/doc-algorithms-spectral-clustering-page/doc-algorithms-spectral-clustering-page.component';
 import { DocWorkspacesMainPageComponent } from './children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component';
 import { DocWorkspacesCreationPageComponent } from './children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component';
-import { DocWorkspacesAddingDataPageComponent } from './children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component';
 import { DocWorkspacesLoadingEmbeddingsPageComponent } from './children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component';
 import { DocWorkspacesDisplayingPageComponent } from './children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component';
 import { DocProfilesMainPageComponent } from './children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component';
@@ -50,6 +49,8 @@ import { DocTelegramRepliesLoadFromMsgPageComponent } from './children/dataSourc
 import { DocTelegramRepliesLoadFromChannelPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-load-from-channel-page/doc-telegram-replies-load-from-channel-page.component';
 import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSources/telegram/add-data-objects/doc-telegram-add-data-objects-main-page/doc-telegram-add-data-objects-main-page.component';
 import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models/doc-embedding-models-main-page/doc-embedding-models-main-page.component';
+import { DocYoutubeAddDataObjectsMainPageComponent } from './children/dataSources/youtube/add-data-objects/doc-youtube-add-data-objects-main-page/doc-youtube-add-data-objects-main-page.component';
+import { DocWorkspacesAddDataObjectsPageComponent } from './children/workspaces/pages/doc-workspaces-add-data-objects-page/doc-workspaces-add-data-objects-page.component';
 
 const routes: Routes = [
   {
@@ -158,6 +159,10 @@ const routes: Routes = [
                     component:DocYoutubeCommentsLoadFromChannelPageComponent
                   }
                 ]
+              },
+              {
+                path:'add_data_objects',
+                component:DocYoutubeAddDataObjectsMainPageComponent
               }
             ]
           },
@@ -306,16 +311,16 @@ const routes: Routes = [
             component:DocWorkspacesCreationPageComponent
           },
           {
-            path:'adding_data',
-            component:DocWorkspacesAddingDataPageComponent
-          },
-          {
             path:'loading_embeddings',
             component:DocWorkspacesLoadingEmbeddingsPageComponent
           },
           {
             path:'displaying',
             component:DocWorkspacesDisplayingPageComponent
+          },
+          {
+            path:'add-data-object-packs',
+            component:DocWorkspacesAddDataObjectsPageComponent
           }
         ]
       },

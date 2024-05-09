@@ -12,7 +12,6 @@ import { DocEmbeddingsMainPageComponent } from './children/embeddings/pages/doc-
 import { DocInfoMainPageComponent } from './children/pages/doc-info-main-page/doc-info-main-page.component';
 import { DocWorkspacesMainPageComponent } from './children/workspaces/pages/doc-workspaces-main-page/doc-workspaces-main-page.component';
 import { DocWorkspacesCreationPageComponent } from './children/workspaces/pages/doc-workspaces-creation-page/doc-workspaces-creation-page.component';
-import { DocWorkspacesAddingDataPageComponent } from './children/workspaces/pages/doc-workspaces-adding-data-page/doc-workspaces-adding-data-page.component';
 import { DocWorkspacesLoadingEmbeddingsPageComponent } from './children/workspaces/pages/doc-workspaces-loading-embeddings-page/doc-workspaces-loading-embeddings-page.component';
 import { DocWorkspacesDisplayingPageComponent } from './children/workspaces/pages/doc-workspaces-displaying-page/doc-workspaces-displaying-page.component';
 import { DocProfilesMainPageComponent } from './children/profiles/pages/doc-profiles-main-page/doc-profiles-main-page.component';
@@ -52,6 +51,8 @@ import { DocTelegramRepliesLoadFromMsgPageComponent } from './children/dataSourc
 import { DocTelegramRepliesMainPageComponent } from './children/dataSources/telegram/replies/doc-telegram-replies-main-page/doc-telegram-replies-main-page.component';
 import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSources/telegram/add-data-objects/doc-telegram-add-data-objects-main-page/doc-telegram-add-data-objects-main-page.component';
 import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models/doc-embedding-models-main-page/doc-embedding-models-main-page.component';
+import { DocYoutubeAddDataObjectsMainPageComponent } from './children/dataSources/youtube/add-data-objects/doc-youtube-add-data-objects-main-page/doc-youtube-add-data-objects-main-page.component';
+import { DocWorkspacesAddDataObjectsPageComponent } from './children/workspaces/pages/doc-workspaces-add-data-objects-page/doc-workspaces-add-data-objects-page.component';
 
 
 @NgModule({
@@ -72,6 +73,8 @@ import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models
     DocYoutubeCommentsLoadFromVideoPageComponent,
     DocYoutubeCommentsLoadFromChannelPageComponent,
 
+    DocYoutubeAddDataObjectsMainPageComponent,
+
     DocAlgorithmsMainPageComponent,
     DocAlgorithmsOneClusterPageComponent,
     DocAlgorithmsKMeansPageComponent,
@@ -85,9 +88,9 @@ import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models
 
     DocWorkspacesMainPageComponent,
     DocWorkspacesCreationPageComponent,
-    DocWorkspacesAddingDataPageComponent,
     DocWorkspacesLoadingEmbeddingsPageComponent,
     DocWorkspacesDisplayingPageComponent,
+    DocWorkspacesAddDataObjectsPageComponent,
 
     DocProfilesMainPageComponent,
     DocProfilesCreationPageComponent,
@@ -121,7 +124,7 @@ import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models
 
     DocTelegramAddDataObjectsMainPageComponent,
 
-    DocEmbeddingModelsMainPageComponent
+    DocEmbeddingModelsMainPageComponent,
   ],
   imports: [
     CommonModule,
