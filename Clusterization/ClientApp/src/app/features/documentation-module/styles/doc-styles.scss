@@ -5,18 +5,61 @@ h2,
 h3,
 h4,
 h5,
-p{
+p {
     color: $first-color-3;
 }
-.center{
+
+h2 {
+    font-size: 1.2em;
+    color: $warn-1;
+}
+h3{
+    font-size: 1em;
+}
+
+.center {
     text-align: center;
 }
-img{
+
+img {
     max-width: 100%;
     max-height: 100%;
 }
-ul{
-    li{
+
+ul {
+    li {
         color: $first-color-3;
+    }
+}
+
+table,
+tr,
+td,
+th {
+    border: 1px solid $first-color-4;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    tr {
+        td,th {
+            width: auto;
+            text-align: center;
+            color: $first-color-3;
+
+            padding: 10px;
+        }
+
+        th {
+            color: $warn-1;
+        }
+    }
+    .main-tr{
+        td{
+            color: $first-color-1;
+        }
     }
 }

@@ -21,10 +21,17 @@ export class DocNavigationPageComponent implements OnInit {
   states: SearchStates = new SearchStates();
 
   ngOnInit(): void {
-    this.states.SearchFor['youtube'] = false;
-    this.states.SearchFor['youtube/channels'] = false;
-    this.states.SearchFor['youtube/videos'] = false;
-    this.states.SearchFor['youtube/comments'] = false;
+    this.states.SearchFor['data_sources'] = false;
+
+    this.states.SearchFor['data_sources/youtube'] = false;
+    this.states.SearchFor['data_sources/youtube/channels'] = false;
+    this.states.SearchFor['data_sources/youtube/videos'] = false;
+    this.states.SearchFor['data_sources/youtube/comments'] = false;
+
+    this.states.SearchFor['data_sources/telegram'] = false;
+    this.states.SearchFor['data_sources/telegram/channels'] = false;
+    this.states.SearchFor['data_sources/telegram/messages'] = false;
+    this.states.SearchFor['data_sources/telegram/replies'] = false;
 
     this.states.SearchFor['algorithms'] = false;
     this.states.SearchFor['workspaces'] = false;
@@ -32,6 +39,8 @@ export class DocNavigationPageComponent implements OnInit {
 
     this.states.SearchFor['embeddings'] = false;
     this.states.SearchFor['points-map'] = false;
+
+    this.states.SearchFor['quotas'] = false;
   }
   toggleSelect(key: string) {
     this.states.SearchFor[key] = !this.states.SearchFor[key];
