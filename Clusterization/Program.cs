@@ -147,6 +147,7 @@ internal class Program
         builder.Services.AddScoped<ITelegramRepliesDataObjectsService, TelegramRepliesDataObjectsService>();
 
         builder.Services.AddScoped<IExternalDataObjectsService, ExternalDataObjectsService>();
+        builder.Services.AddScoped<IExternalDataObjectsPacksService, ExternalDataObjectsPacksService>();
 
         builder.Services.AddScoped<IDimensionalityReductionService, DimensionalityReductionService>();
         builder.Services.AddScoped<IDimensionalityReductionTechniquesService, DimensionalityReductionTechniquesService>();

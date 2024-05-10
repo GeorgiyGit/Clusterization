@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="top-cont">
+        <div class="title-cont">
+            <p class="title" *ngIf="externalObject.externalId==null || externalObject.externalId==''">{{externalObject.id}}</p>
+            <p class="title" *ngIf="externalObject.externalId!=null && externalObject.externalId!=''">{{externalObject.externalId}}</p>
+        </div>
+    </div>
+    <div class="middle-cont">
+        <p>{{externalObject.text}}</p>
+    </div>
+</div>

@@ -44,7 +44,7 @@ export class WorkspaceListPageComponent implements OnInit {
   loadFirst() {
     if (this.isLoading) return;
 
-    this.request.pageParameters.pageNumber = 0;
+    this.request.pageParameters.pageNumber = 1;
 
     this.isLoading = true;
     this.workspacesService.getWorkspaces(this.request).subscribe(res => {

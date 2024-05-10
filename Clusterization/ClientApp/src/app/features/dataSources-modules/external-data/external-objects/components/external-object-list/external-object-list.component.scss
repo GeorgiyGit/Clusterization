@@ -1,0 +1,10 @@
+@import '/src/app/core/styles/colors.scss';
+
+section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.nothing-text{
+    color: $first-color-1;
+}

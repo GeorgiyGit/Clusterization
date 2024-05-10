@@ -10,12 +10,21 @@ namespace Infrastructure.Seeders.Quotas
         public void Configure(EntityTypeBuilder<QuotasPackItem> builder)
         {
             #region basicPack
+            //text - 1
+            var basicPackExternalData = new QuotasPackItem()
+            {
+                Id = 1,
+                TypeId = QuotasTypes.ExternalData,
+                PackId = 1,
+                Count = 5000
+            };
+
             //channel - 50
             //video - 10
             //comment - 1
             var basicPackYoutube = new QuotasPackItem()
             {
-                Id = 1,
+                Id = 2,
                 TypeId = QuotasTypes.Youtube,
                 PackId = 1,
                 Count = 1000
@@ -26,7 +35,7 @@ namespace Infrastructure.Seeders.Quotas
             //comment - 1
             var basicPackTelegram = new QuotasPackItem()
             {
-                Id = 2,
+                Id = 3,
                 TypeId = QuotasTypes.Telegram,
                 PackId = 1,
                 Count = 1000
@@ -35,7 +44,7 @@ namespace Infrastructure.Seeders.Quotas
             //depending on the context
             var basicPackEmbeddings = new QuotasPackItem()
             {
-                Id = 3,
+                Id = 4,
                 TypeId = QuotasTypes.Embeddings,
                 PackId = 1,
                 Count = 2000
@@ -44,7 +53,7 @@ namespace Infrastructure.Seeders.Quotas
             //depending on the context
             var basicPackClustering = new QuotasPackItem()
             {
-                Id = 4,
+                Id = 5,
                 TypeId = QuotasTypes.Clustering,
                 PackId = 1,
                 Count = 10_000
@@ -53,7 +62,7 @@ namespace Infrastructure.Seeders.Quotas
             //public workspace - 1
             var basicPackPublicWorkspaces = new QuotasPackItem()
             {
-                Id = 5,
+                Id = 6,
                 TypeId = QuotasTypes.PublicWorkspaces,
                 PackId = 1,
                 Count = 5
@@ -62,7 +71,7 @@ namespace Infrastructure.Seeders.Quotas
             //private workspace - 1
             var basicPackPrivateWorkspaces = new QuotasPackItem()
             {
-                Id = 6,
+                Id = 7,
                 TypeId = QuotasTypes.PrivateWorkspaces,
                 PackId = 1,
                 Count = 20
@@ -72,7 +81,7 @@ namespace Infrastructure.Seeders.Quotas
             //public profiles - 1
             var basicPackPublicProfiles = new QuotasPackItem()
             {
-                Id = 7,
+                Id = 8,
                 TypeId = QuotasTypes.PublicProfiles,
                 PackId = 1,
                 Count = 20
@@ -81,7 +90,7 @@ namespace Infrastructure.Seeders.Quotas
             //private profiles - 1
             var basicPackPrivateProfiles = new QuotasPackItem()
             {
-                Id = 8,
+                Id = 9,
                 TypeId = QuotasTypes.PrivateProfiles,
                 PackId = 1,
                 Count = 50
@@ -89,12 +98,21 @@ namespace Infrastructure.Seeders.Quotas
             #endregion
 
             #region superPack
+            //text - 1
+            var superPackExternalData = new QuotasPackItem()
+            {
+                Id = 10,
+                TypeId = QuotasTypes.ExternalData,
+                PackId = 2,
+                Count = 1_000_000_000
+            };
+
             //channel - 50
             //video - 10
             //comment - 1
             var superPackYoutube = new QuotasPackItem()
             {
-                Id = 9,
+                Id = 11,
                 TypeId = QuotasTypes.Youtube,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -105,7 +123,7 @@ namespace Infrastructure.Seeders.Quotas
             //comment - 1
             var superPackTelegram = new QuotasPackItem()
             {
-                Id = 10,
+                Id = 12,
                 TypeId = QuotasTypes.Telegram,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -114,7 +132,7 @@ namespace Infrastructure.Seeders.Quotas
             //embedding - 1
             var superPackEmbeddings = new QuotasPackItem()
             {
-                Id = 11,
+                Id = 13,
                 TypeId = QuotasTypes.Embeddings,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -123,7 +141,7 @@ namespace Infrastructure.Seeders.Quotas
             //depending on the context
             var superPackClustering = new QuotasPackItem()
             {
-                Id = 12,
+                Id = 14,
                 TypeId = QuotasTypes.Clustering,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -132,7 +150,7 @@ namespace Infrastructure.Seeders.Quotas
             //public workspace - 1
             var superPackPublicWorkspaces = new QuotasPackItem()
             {
-                Id = 13,
+                Id = 15,
                 TypeId = QuotasTypes.PublicWorkspaces,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -141,7 +159,7 @@ namespace Infrastructure.Seeders.Quotas
             //private workspace - 1
             var superPackPrivateWorkspaces = new QuotasPackItem()
             {
-                Id = 14,
+                Id = 16,
                 TypeId = QuotasTypes.PrivateWorkspaces,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -151,7 +169,7 @@ namespace Infrastructure.Seeders.Quotas
             //public profiles - 1
             var superPackPublicProfiles = new QuotasPackItem()
             {
-                Id = 15,
+                Id = 17,
                 TypeId = QuotasTypes.PublicProfiles,
                 PackId = 2,
                 Count = 1_000_000_000
@@ -160,14 +178,15 @@ namespace Infrastructure.Seeders.Quotas
             //private profiles - 1
             var superPackPrivateProfiles = new QuotasPackItem()
             {
-                Id = 16,
+                Id = 18,
                 TypeId = QuotasTypes.PrivateProfiles,
                 PackId = 2,
                 Count = 1_000_000_000
             };
             #endregion
 
-            builder.HasData(basicPackYoutube,
+            builder.HasData(basicPackExternalData,
+                            basicPackYoutube,
                             basicPackTelegram,
                             basicPackEmbeddings,
                             basicPackClustering,
@@ -175,6 +194,7 @@ namespace Infrastructure.Seeders.Quotas
                             basicPackPrivateWorkspaces,
                             basicPackPublicProfiles,
                             basicPackPrivateProfiles,
+                            superPackExternalData,
                             superPackYoutube,
                             superPackTelegram,
                             superPackEmbeddings,

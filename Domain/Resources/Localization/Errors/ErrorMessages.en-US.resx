@@ -141,6 +141,12 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>An error occurred while loading embeddings</value>
   </data>
+  <data name="ExternalObjectsNotFound" xml:space="preserve">
+    <value>External objects not found</value>
+  </data>
+  <data name="ExternalObjectsPackVisibleTypeIsOnlyOwner" xml:space="preserve">
+    <value>This External objects pack can only be viewed by the owner</value>
+  </data>
   <data name="FileError" xml:space="preserve">
     <value>An error occurred while saving the file</value>
   </data>

@@ -67,6 +67,10 @@ namespace Infrastructure.Builders.Customers
             builder.HasMany(e => e.WorkspaceDataObjectsAddPacks)
                    .WithOne(e => e.Owner)
                    .HasForeignKey(e => e.OwnerId);
+
+            builder.HasMany(e => e.LoadedExternalObjectsPacks)
+                   .WithOne(e => e.Owner)
+                   .HasForeignKey(e => e.OwnerId);
         }
     }
 }

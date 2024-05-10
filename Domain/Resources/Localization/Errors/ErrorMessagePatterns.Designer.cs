@@ -133,6 +133,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExternalObjectsNotFound.
+        /// </summary>
+        public static string ExternalObjectsNotFound {
+            get {
+                return ResourceManager.GetString("ExternalObjectsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExternalObjectsPackVisibleTypeIsOnlyOwner.
+        /// </summary>
+        public static string ExternalObjectsPackVisibleTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("ExternalObjectsPackVisibleTypeIsOnlyOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FileError.
         /// </summary>
         public static string FileError {

@@ -141,6 +141,12 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>
+  <data name="ExternalObjectsNotFound" xml:space="preserve">
+    <value>Пакет зовнішніх даних не знайдено</value>
+  </data>
+  <data name="ExternalObjectsPackVisibleTypeIsOnlyOwner" xml:space="preserve">
+    <value>Цей пакет зовнішніх об'єктів може переглядати лише власник</value>
+  </data>
   <data name="FileError" xml:space="preserve">
     <value>При збереженні файлу виникла помилка</value>
   </data>

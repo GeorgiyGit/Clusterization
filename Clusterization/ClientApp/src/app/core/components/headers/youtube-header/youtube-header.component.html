@@ -42,7 +42,7 @@
                     <li routerLink="/youtube-layout/admin-panel" i18n *ngIf="accountService.isUserModerator()">Панель адміністратора</li>
                     
                     <li *ngIf="!accountService.isAuthenticated()" (click)="openSignUp($event)" i18n>Реєстрація</li>
-                    <li *ngIf="accountService.isAuthenticated()" routerLink="/main-layout/account" i18n>Акаунт</li>
+                    <li *ngIf="accountService.isAuthenticated()" routerLink="/youtube-layout/account" i18n>Акаунт</li>
                     <li>
                         <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
                         <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>

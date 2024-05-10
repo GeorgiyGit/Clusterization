@@ -4,12 +4,14 @@ namespace Domain.Entities.DataSources.ExternalData
 {
     public class ExternalObject
     {
-        public string FullId { get; set; }
-        public string Id { get; set; }
-        public string Session { get; set; }
+        public long Id { get; set; }
+        public string ExternalId { get; set; }
         public string Text { get; set; }
 
-        public MyDataObject DataObject { get; set; }
-        public long DataObjectId { get; set; }
+        public MyDataObject? DataObject { get; set; }
+        public long? DataObjectId { get; set; }
+
+        public ExternalObjectsPack Pack { get; set; }
+        public int PackId { get; set; }
     }
 }

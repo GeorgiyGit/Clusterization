@@ -1,0 +1,21 @@
+<div class="card" (click)="openFull()">
+    <div class="top-cont">
+        <div class="title-cont">
+            <p class="title">{{pack.title}}</p>
+
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних ваш" *ngIf="isYour">face</span>
+
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних видимий для всіх користувачів" *ngIf="pack!=null && pack.visibleType=='AllCustomers'">visibility</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних видимий тільки для вас" *ngIf="pack!=null && pack.visibleType=='OnlyOwner'">visibility_off</span>
+    
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних можуть змінювати всі користувачі" *ngIf="pack!=null && pack.changingType=='AllCustomers'">update</span>
+            <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей пакет даних можете змінювати тільки ви" *ngIf="pack!=null && pack.changingType=='OnlyOwner'">update_disabled</span>
+        </div>
+        <div class="my-tooltip">
+            <span i18n-matTooltip matTooltip="Дата створення" class="time-text">{{pack.creationTime | normalizedDateTime}}</span>
+        </div>
+    </div>
+    <div class="middle-cont">
+        <p>{{pack.description}}</p>
+    </div>
+</div>

@@ -33,6 +33,9 @@ import { AddTGMsgsToWorkspaceByChannelPageComponent } from "src/app/features/dat
 import { AddTelegramChannelRepliesToWorkspacePageComponent } from 'src/app/features/dataSources-modules/telegram/replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
 import { EmailVerificationPageComponent } from 'src/app/features/shared-module/account/pages/email-verification-page/email-verification-page.component';
 import { EmailVerificationAlertPageComponent } from 'src/app/features/shared-module/account/pages/email-verification-alert-page/email-verification-alert-page.component';
+import { LoadExternalObjectsPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/load-external-objects-page/load-external-objects-page.component';
+import { LoadAndAddExternalObjectsPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/load-and-add-external-objects-page/load-and-add-external-objects-page.component';
+import { ExternalDataLayoutComponent } from '../components/layouts/external-data-layout/external-data-layout.component';
 const routes: Route[] = [
   {
     path: '',
@@ -114,6 +117,32 @@ const routes: Route[] = [
       {
         path: 'dataSources/telegram',
         loadChildren: () => import('../../features/dataSources-modules/telegram/telegram.module').then(m => m.TelegramModule)
+      },
+    ]
+  },
+  {
+    path: 'externalData-layout',
+    component: ExternalDataLayoutComponent,
+    children: [
+      {
+        path: 'admin-panel',
+        loadChildren: () => import('../../features/admin-panel-module/admin-panel.module').then(m => m.AdminPanelModule),
+        canActivate: [ModeratorGuard],
+        canActivateChild: [ModeratorGuard],
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('../../features/customer-account-details-module/customer-account-details.module').then(m => m.CustomerAccountDetailsModule),
+        canActivate: [CustomerGuard],
+        canActivateChild: [CustomerGuard],
+      },
+      {
+        path: 'documentation',
+        loadChildren: () => import('../../features/documentation-module/documentation.module').then(m => m.DocumentationModule)
+      },
+      {
+        path: 'dataSources/externalData',
+        loadChildren: () => import('../../features/dataSources-modules/external-data/external-data.module').then(m => m.ExternalDataModule)
       },
     ]
   },
@@ -304,6 +333,20 @@ const routes: Route[] = [
     path:'confirm-email-alert',
     component:EmailVerificationAlertPageComponent,
     outlet:'overflow'
+  },
+  {
+    path:'dataSources/externalData/load-objects',
+    component:LoadExternalObjectsPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
+  },
+  {
+    path:'dataSources/externalData/load-and-add-data-objects/:workspaceId',
+    component:LoadAndAddExternalObjectsPageComponent,
+    outlet:'overflow',
+    canActivate:[CustomerGuard],
+    canActivateChild:[CustomerGuard],
   },
 ]
 

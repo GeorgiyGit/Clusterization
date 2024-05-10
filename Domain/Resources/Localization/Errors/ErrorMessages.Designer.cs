@@ -133,6 +133,24 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пакет зовнішніх даних не знайдено.
+        /// </summary>
+        public static string ExternalObjectsNotFound {
+            get {
+                return ResourceManager.GetString("ExternalObjectsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цей пакет зовнішніх об&apos;єктів може переглядати лише власник.
+        /// </summary>
+        public static string ExternalObjectsPackVisibleTypeIsOnlyOwner {
+            get {
+                return ResourceManager.GetString("ExternalObjectsPackVisibleTypeIsOnlyOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to При збереженні файлу виникла помилка.
         /// </summary>
         public static string FileError {

@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LoadingExternalDataObjects.
+        /// </summary>
+        internal static string LoadingExternalDataObjects {
+            get {
+                return ResourceManager.GetString("LoadingExternalDataObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LoadingMessagesFromTelegram.
         /// </summary>
         internal static string LoadingMessagesFromTelegram {

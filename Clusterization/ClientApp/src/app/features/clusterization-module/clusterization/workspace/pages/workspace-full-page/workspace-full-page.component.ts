@@ -113,7 +113,7 @@ export class WorkspaceFullPageComponent implements OnInit {
               this.toastr.error($localize`Цей робочий простір може змінювати тільки власник`);
               return;
             }
-            this.router.navigate([{ outlets: { overflow: 'workspace/add-external-data/' + this.workspace.id } }]);
+            this.router.navigate([{ outlets: { overflow: 'dataSources/externalData/load-and-add-data-objects/' + this.workspace.id } }]);
           },
           isForAuthorized: true,
           isOnlyForUsers:true

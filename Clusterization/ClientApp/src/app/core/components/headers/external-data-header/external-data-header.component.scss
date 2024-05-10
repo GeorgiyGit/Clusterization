@@ -1,0 +1,47 @@
+@import '/src/app/core/styles/header-styles.scss';
+
+
+header {
+    box-shadow: 0 0 5px 0.1px $external-data-color-1;
+
+    .standard {
+        background-color: $external-data-color-1;
+
+        >div>ul {
+            .logo-cont {
+                a {
+                    color: $external-data-color-2;
+                }
+
+                &:hover {
+                    a {
+                        color: $external-data-color-3;
+                    }
+                }
+            }
+
+            li {
+                color: $external-data-color-2;
+
+                a {
+                    color: $external-data-color-2;
+                }
+
+                &:hover {
+                    color: $external-data-color-3;
+
+                    a{
+                        color: $external-data-color-3;
+                    }
+                }
+            }
+        }
+    }
+    .phone-menu{
+        background-color: $external-data-color-2;
+
+        .menu-btn {
+            color: $external-data-color-2;
+        }
+    }
+}

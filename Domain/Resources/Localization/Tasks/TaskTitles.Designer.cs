@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Заватаження даних із зовнішніх джерел.
+        /// </summary>
+        public static string LoadingExternalDataObjects {
+            get {
+                return ResourceManager.GetString("LoadingExternalDataObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завантаження повідомлень з платформи Telegram.
         /// </summary>
         public static string LoadingMessagesFromTelegram {

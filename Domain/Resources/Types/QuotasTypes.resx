@@ -123,6 +123,9 @@
   <data name="Embeddings" xml:space="preserve">
     <value>Embeddings</value>
   </data>
+  <data name="ExternalData" xml:space="preserve">
+    <value>ExternalData</value>
+  </data>
   <data name="PrivateProfiles" xml:space="preserve">
     <value>PrivateProfiles</value>
   </data>

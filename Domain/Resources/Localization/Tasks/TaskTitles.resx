@@ -156,6 +156,9 @@
   <data name="LoadingEmbeddingsPack" xml:space="preserve">
     <value>Завантаження ембедингів з паку</value>
   </data>
+  <data name="LoadingExternalDataObjects" xml:space="preserve">
+    <value>Заватаження даних із зовнішніх джерел</value>
+  </data>
   <data name="LoadingMessagesFromTelegram" xml:space="preserve">
     <value>Завантаження повідомлень з платформи Telegram</value>
   </data>

@@ -40,6 +40,7 @@ namespace Infrastructure
 
         #region ExternalData
         public virtual DbSet<ExternalObject> ExternalObjects { get; set; }
+        public virtual DbSet<ExternalObjectsPack> ExternalObjectsPacks { get; set; }
         #endregion
 
         #endregion

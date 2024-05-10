@@ -1,0 +1,7 @@
+<section>
+    @for (object of externalObjects; track $index) {
+        <app-external-object-card [externalObject]="object"></app-external-object-card>
+    }@empty {
+        <p class="nothing-text" i18n>Даних не знайдено</p>
+    }
+</section>

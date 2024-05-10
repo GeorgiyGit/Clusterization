@@ -1,0 +1,39 @@
+<section>
+    <h1 i18n>Пакет зовнішніх даних</h1>
+    <div class="all-cont">
+        <div class="info-cont">
+            <div class="text-info-cont" *ngIf="pack!=null">
+                <h2 class="title-text">{{pack.title}} <span class="material-symbols-outlined icon" translate="no" i18n-matTooltip matTooltip="Цей робочий простір ваш">face</span></h2>
+                <p>{{pack.description}}</p>
+                <div class="block" (click)="copyToClipboard(dateStr,pack.creationTime+'',$event)">
+                    <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon" translate="no">add_circle</span>
+                    <p>{{pack.creationTime | normalizedDateTime}}</p>
+                </div>
+                <div class="block" (click)="copyToClipboard(entitiesCountStr,pack.externalObjectsCount+'',$event)">
+                    <span i18n-matTooltip matTooltip="Кількість елементів" class="material-symbols-outlined icon" translate="no">view_in_ar</span>
+                    <p>{{pack.externalObjectsCount}}</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Область видимості" class="material-symbols-outlined icon" translate="no">visibility</span>
+                    <p *ngIf="pack.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="pack.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
+                </div>
+                <div class="block">
+                    <span i18n-matTooltip matTooltip="Область змінювання" class="material-symbols-outlined icon" translate="no">change_circle</span>
+                    <p *ngIf="pack.visibleType=='AllCustomers'" i18n>Всі користувачі</p>
+                    <p *ngIf="pack.visibleType=='OnlyOwner'" i18n>Тільки власник</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-cont">
+            <div class="nav-cont">
+                <ul class="ul-list-navigation">
+                    <li *ngIf="pack!=null" routerLinkActive="active" [routerLink]="'objects-list/'+pack.id" i18n>Дані</li>
+                </ul>
+                <app-more-action-select [actions]="actions"></app-more-action-select>
+            </div>
+
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

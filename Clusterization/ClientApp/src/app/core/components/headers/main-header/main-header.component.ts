@@ -134,9 +134,12 @@ export class MainHeaderComponent implements OnInit {
     this.router.navigate([{ outlets: { overflow: 'clusterization/algorithms/add' } }]);
   }
 
-  isDataSourceMenuOpen:boolean;
-  toggleDataSourceMenu(event:MouseEvent){
+  isDataSourceMenuOpen: boolean;
+  toggleDataSourceMenu(event: MouseEvent) {
     event.stopPropagation();
-    this.isDataSourceMenuOpen=!this.isDataSourceMenuOpen;
+    this.isDataSourceMenuOpen = !this.isDataSourceMenuOpen;
+  }
+  closeDataSourceMenu(event: any) {
+    this.isDataSourceMenuOpen = false;
   }
 }

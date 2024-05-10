@@ -1,0 +1,17 @@
+<section class="overflow-cont middle-overflow-cont" [class.overflow-cont-open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Завантажити зовнішні дані до робочого простору</h1>
+        <div class="form-cont">
+            <div class="input-cont">
+                <input type="file" id="Externalfile" name="Externalfile" class="ext-input" (change)="onFileSelected($event)"/>
+                <label for="Externalfile" class="ext-label" i18n>Відкрити файл</label>
+            </div>
+            <div class="centered">
+                <button class="standard-btn" [class.disabled-btn]="selectedFile==null" type="submit" (click)="load()" *ngIf="!isLoading" i18n>Завантажити</button>
+            </div>
+        </div>
+    </div>
+</section>

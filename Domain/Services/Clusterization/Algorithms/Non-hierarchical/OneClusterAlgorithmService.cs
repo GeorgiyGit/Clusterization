@@ -117,16 +117,26 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             if (stateId != TaskStates.Wait) return;
 
             await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
+
+            var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
+            if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster)
+            {
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.ProfileNotFound]);
+                return;
+            };
+
+            if (!profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded)
+            {
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotAllDataEmbedded]);
+                return;
+            }
+
+            var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
+
             try
             {
-                var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
-
-                if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.OneCluster) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
-
-                if (!profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
-
-                var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
-
                 profile.IsInCalculation = true;
                 workspace.IsProfilesInCalculation = true;
                 await _workspaceRepository.SaveChangesAsync();
@@ -183,6 +193,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             }
             catch (Exception ex)
             {
+                profile.IsInCalculation = false;
+                workspace.IsProfilesInCalculation = await ReviewWorkspaceIsProfilesInCalculation(workspace.Id);
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
                 await _tasksService.ChangeTaskDescription(taskId, ex.Message);
             }

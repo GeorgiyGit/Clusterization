@@ -156,6 +156,9 @@
   <data name="LoadingEmbeddingsPack" xml:space="preserve">
     <value>LoadingEmbeddingsPack</value>
   </data>
+  <data name="LoadingExternalDataObjects" xml:space="preserve">
+    <value>LoadingExternalDataObjects</value>
+  </data>
   <data name="LoadingMessagesFromTelegram" xml:space="preserve">
     <value>LoadingMessagesFromTelegram</value>
   </data>

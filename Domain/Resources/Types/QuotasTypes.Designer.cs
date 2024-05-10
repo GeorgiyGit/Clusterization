@@ -79,6 +79,15 @@ namespace Domain.Resources.Types {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExternalData.
+        /// </summary>
+        public static string ExternalData {
+            get {
+                return ResourceManager.GetString("ExternalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PrivateProfiles.
         /// </summary>
         public static string PrivateProfiles {

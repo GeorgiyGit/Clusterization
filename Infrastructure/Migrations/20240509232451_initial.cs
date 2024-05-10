@@ -37,6 +37,7 @@ namespace Infrastructure.Migrations
                     LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsEdited = table.Column<bool>(type: "bit", nullable: false),
+                    LastEmailConfirmationSend = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -256,6 +257,35 @@ namespace Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExternalObjectsPacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VisibleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChangingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExternalObjectsCount = table.Column<int>(type: "int", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExternalObjectsPacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExternalObjectsPacks_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -783,15 +813,22 @@ namespace Infrastructure.Migrations
                 name: "ExternalObjects",
                 columns: table => new
                 {
-                    FullId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Session = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExternalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataObjectId = table.Column<long>(type: "bigint", nullable: false)
+                    DataObjectId = table.Column<long>(type: "bigint", nullable: false),
+                    PackId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExternalObjects", x => x.FullId);
+                    table.PrimaryKey("PK_ExternalObjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExternalObjects_ExternalObjectsPacks_PackId",
+                        column: x => x.PackId,
+                        principalTable: "ExternalObjectsPacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ExternalObjects_MyDataObject_DataObjectId",
                         column: x => x.DataObjectId,
@@ -1274,6 +1311,7 @@ namespace Infrastructure.Migrations
                 {
                     { "Clustering", "Clusterization of data", "Clustering" },
                     { "Embeddings", "Creating embeddings", "Embeddings" },
+                    { "ExternalData", "Loading data from External sources (file)", "External Data" },
                     { "PrivateProfiles", "Creating private profiles", "Private profiles" },
                     { "PrivateWorkspaces", "Creating private workspaces", "Private workspaces" },
                     { "PublicProfiles", "Creating public profiles", "Public profiles" },
@@ -1297,22 +1335,24 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Count", "PackId", "TypeId" },
                 values: new object[,]
                 {
-                    { 1, 1000, 1, "Youtube" },
-                    { 2, 1000, 1, "Telegram" },
-                    { 3, 2000, 1, "Embeddings" },
-                    { 4, 10000, 1, "Clustering" },
-                    { 5, 5, 1, "PublicWorkspaces" },
-                    { 6, 20, 1, "PrivateWorkspaces" },
-                    { 7, 20, 1, "PublicProfiles" },
-                    { 8, 50, 1, "PrivateProfiles" },
-                    { 9, 1000000000, 2, "Youtube" },
-                    { 10, 1000000000, 2, "Telegram" },
-                    { 11, 1000000000, 2, "Embeddings" },
-                    { 12, 1000000000, 2, "Clustering" },
-                    { 13, 1000000000, 2, "PublicWorkspaces" },
-                    { 14, 1000000000, 2, "PrivateWorkspaces" },
-                    { 15, 1000000000, 2, "PublicProfiles" },
-                    { 16, 1000000000, 2, "PrivateProfiles" }
+                    { 1, 5000, 1, "ExternalData" },
+                    { 2, 1000, 1, "Youtube" },
+                    { 3, 1000, 1, "Telegram" },
+                    { 4, 2000, 1, "Embeddings" },
+                    { 5, 10000, 1, "Clustering" },
+                    { 6, 5, 1, "PublicWorkspaces" },
+                    { 7, 20, 1, "PrivateWorkspaces" },
+                    { 8, 20, 1, "PublicProfiles" },
+                    { 9, 50, 1, "PrivateProfiles" },
+                    { 10, 1000000000, 2, "ExternalData" },
+                    { 11, 1000000000, 2, "Youtube" },
+                    { 12, 1000000000, 2, "Telegram" },
+                    { 13, 1000000000, 2, "Embeddings" },
+                    { 14, 1000000000, 2, "Clustering" },
+                    { 15, 1000000000, 2, "PublicWorkspaces" },
+                    { 16, 1000000000, 2, "PrivateWorkspaces" },
+                    { 17, 1000000000, 2, "PublicProfiles" },
+                    { 18, 1000000000, 2, "PrivateProfiles" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1521,6 +1561,16 @@ namespace Infrastructure.Migrations
                 table: "ExternalObjects",
                 column: "DataObjectId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExternalObjects_PackId",
+                table: "ExternalObjects",
+                column: "PackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExternalObjectsPacks_OwnerId",
+                table: "ExternalObjectsPacks",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MyDataObject_TypeId",
@@ -1775,6 +1825,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clusters");
+
+            migrationBuilder.DropTable(
+                name: "ExternalObjectsPacks");
 
             migrationBuilder.DropTable(
                 name: "WorkspaceDataObjectsAddPacks");

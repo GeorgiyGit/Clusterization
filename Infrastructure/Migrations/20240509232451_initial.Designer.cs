@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    [Migration("20240505013415_initial")]
+    [Migration("20240509232451_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -522,6 +522,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("LastEditTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("LastEmailConfirmationSend")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -641,29 +644,87 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObject", b =>
                 {
-                    b.Property<string>("FullId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("DataObjectId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Session")
+                    b.Property<string>("ExternalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PackId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FullId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DataObjectId")
                         .IsUnique();
 
+                    b.HasIndex("PackId");
+
                     b.ToTable("ExternalObjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ChangingType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExternalObjectsCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastDeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VisibleType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("ExternalObjectsPacks");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
@@ -1466,111 +1527,125 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Count = 1000,
+                            Count = 5000,
                             PackId = 1,
-                            TypeId = "Youtube"
+                            TypeId = "ExternalData"
                         },
                         new
                         {
                             Id = 2,
                             Count = 1000,
                             PackId = 1,
-                            TypeId = "Telegram"
+                            TypeId = "Youtube"
                         },
                         new
                         {
                             Id = 3,
+                            Count = 1000,
+                            PackId = 1,
+                            TypeId = "Telegram"
+                        },
+                        new
+                        {
+                            Id = 4,
                             Count = 2000,
                             PackId = 1,
                             TypeId = "Embeddings"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 5,
                             Count = 10000,
                             PackId = 1,
                             TypeId = "Clustering"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 6,
                             Count = 5,
                             PackId = 1,
                             TypeId = "PublicWorkspaces"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 7,
                             Count = 20,
                             PackId = 1,
                             TypeId = "PrivateWorkspaces"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 8,
                             Count = 20,
                             PackId = 1,
                             TypeId = "PublicProfiles"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 9,
                             Count = 50,
                             PackId = 1,
                             TypeId = "PrivateProfiles"
                         },
                         new
                         {
-                            Id = 9,
-                            Count = 1000000000,
-                            PackId = 2,
-                            TypeId = "Youtube"
-                        },
-                        new
-                        {
                             Id = 10,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "Telegram"
+                            TypeId = "ExternalData"
                         },
                         new
                         {
                             Id = 11,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "Embeddings"
+                            TypeId = "Youtube"
                         },
                         new
                         {
                             Id = 12,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "Clustering"
+                            TypeId = "Telegram"
                         },
                         new
                         {
                             Id = 13,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PublicWorkspaces"
+                            TypeId = "Embeddings"
                         },
                         new
                         {
                             Id = 14,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PrivateWorkspaces"
+                            TypeId = "Clustering"
                         },
                         new
                         {
                             Id = 15,
                             Count = 1000000000,
                             PackId = 2,
-                            TypeId = "PublicProfiles"
+                            TypeId = "PublicWorkspaces"
                         },
                         new
                         {
                             Id = 16,
+                            Count = 1000000000,
+                            PackId = 2,
+                            TypeId = "PrivateWorkspaces"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Count = 1000000000,
+                            PackId = 2,
+                            TypeId = "PublicProfiles"
+                        },
+                        new
+                        {
+                            Id = 18,
                             Count = 1000000000,
                             PackId = 2,
                             TypeId = "PrivateProfiles"
@@ -1634,6 +1709,12 @@ namespace Infrastructure.Migrations
                     b.ToTable("QuotasTypes");
 
                     b.HasData(
+                        new
+                        {
+                            Id = "ExternalData",
+                            Description = "Loading data from External sources (file)",
+                            Name = "External Data"
+                        },
                         new
                         {
                             Id = "Youtube",
@@ -2207,7 +2288,26 @@ namespace Infrastructure.Migrations
                         .WithOne("ExternalObject")
                         .HasForeignKey("Domain.Entities.DataSources.ExternalData.ExternalObject", "DataObjectId");
 
+                    b.HasOne("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", "Pack")
+                        .WithMany("ExternalObjects")
+                        .HasForeignKey("PackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("DataObject");
+
+                    b.Navigation("Pack");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", b =>
+                {
+                    b.HasOne("Domain.Entities.Customers.Customer", "Owner")
+                        .WithMany("LoadedExternalObjectsPacks")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
@@ -2668,6 +2768,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Customers.Customer", b =>
                 {
+                    b.Navigation("LoadedExternalObjectsPacks");
+
                     b.Navigation("LoadedTelegramChannels");
 
                     b.Navigation("LoadedTelegramMessages");
@@ -2713,6 +2815,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.DataObjects.MyDataObjectType", b =>
                 {
                     b.Navigation("DataObjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", b =>
+                {
+                    b.Navigation("ExternalObjects");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>

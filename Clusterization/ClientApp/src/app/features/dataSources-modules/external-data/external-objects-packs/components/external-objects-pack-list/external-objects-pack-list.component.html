@@ -1,0 +1,7 @@
+<section>
+    @for (pack of packs; track $index) {
+        <app-external-objects-pack-card [pack]="pack"></app-external-objects-pack-card>
+    }@empty {
+        <p class="nothing-text" i18n>Пакетів зовнішніх даних не знайдено</p>
+    }
+</section>

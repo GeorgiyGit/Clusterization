@@ -9,6 +9,12 @@ namespace Infrastructure.Seeders.Quotas
     {
         public void Configure(EntityTypeBuilder<QuotasType> builder)
         {
+            var externalData = new QuotasType()
+            {
+                Id = QuotasTypes.ExternalData,
+                Name = "External Data",
+                Description = "Loading data from External sources (file)"
+            };
             var youtube = new QuotasType()
             {
                 Id = QuotasTypes.Youtube,
@@ -63,7 +69,8 @@ namespace Infrastructure.Seeders.Quotas
                 Description = "Creating private profiles"
             };
 
-            builder.HasData(youtube,
+            builder.HasData(externalData,
+                youtube,
                 telegram,
                 embeddings,
                 clustering,

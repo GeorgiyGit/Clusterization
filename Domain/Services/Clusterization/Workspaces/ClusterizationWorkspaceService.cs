@@ -152,10 +152,7 @@ namespace Domain.Services.Clusterization.Workspaces
             }
 
 
-            var pageParameters = request.PageParameters;
-            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
-                                              .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-                                              .Take(pageParameters.PageSize).ToList();
+            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}", pageParameters: request.PageParameters));
 
             return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
         }
@@ -195,11 +192,7 @@ namespace Domain.Services.Clusterization.Workspaces
                 filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers);
             }
 
-
-            var pageParameters = request.PageParameters;
-            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}"))
-                                              .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-                                              .Take(pageParameters.PageSize).ToList();
+            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}", pageParameters: request.PageParameters));
 
             return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
         }

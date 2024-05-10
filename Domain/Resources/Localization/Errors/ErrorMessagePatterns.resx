@@ -141,6 +141,12 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>EmbeddingsLoadingError</value>
   </data>
+  <data name="ExternalObjectsNotFound" xml:space="preserve">
+    <value>ExternalObjectsNotFound</value>
+  </data>
+  <data name="ExternalObjectsPackVisibleTypeIsOnlyOwner" xml:space="preserve">
+    <value>ExternalObjectsPackVisibleTypeIsOnlyOwner</value>
+  </data>
   <data name="FileError" xml:space="preserve">
     <value>FileError</value>
   </data>

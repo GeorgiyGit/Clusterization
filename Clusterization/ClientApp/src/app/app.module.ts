@@ -18,6 +18,8 @@ import { MainLayoutComponent } from './core/components/layouts/main-layout/main-
 import { YoutubeLayoutComponent } from './core/components/layouts/youtube-layout/youtube-layout.component';
 import { TelegramLayoutComponent } from './core/components/layouts/telegram-layout/telegram-layout.component';
 import { TelegramHeaderComponent } from './core/components/headers/telegram-header/telegram-header.component';
+import { ExternalDataLayoutComponent } from './core/components/layouts/external-data-layout/external-data-layout.component';
+import { ExternalDataHeaderComponent } from './core/components/headers/external-data-header/external-data-header.component';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -30,10 +32,12 @@ export function tokenGetter() {
     MainHeaderComponent,
     YoutubeHeaderComponent,
     TelegramHeaderComponent,
+    ExternalDataHeaderComponent,
     
     MainLayoutComponent,
     YoutubeLayoutComponent,
-    TelegramLayoutComponent
+    TelegramLayoutComponent,
+    ExternalDataLayoutComponent
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

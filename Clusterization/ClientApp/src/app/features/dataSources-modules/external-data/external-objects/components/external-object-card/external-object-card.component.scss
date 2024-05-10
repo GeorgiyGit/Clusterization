@@ -1,0 +1,45 @@
+@import '/src/app/core/styles/base.scss';
+
+.card {
+    flex: 1;
+    background-color: $second-color-1;
+    border-radius: 10px;
+
+    border: 0;
+    color: $first-color-3;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+
+    .top-cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title-cont {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            .title {
+                color: $first-color-4;
+                font-size: 1.4rem;
+            }
+        }
+    }
+}
+
+
+p {
+    margin: 0;
+    padding: 0;
+}

@@ -6,6 +6,7 @@ using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.DataSources.Youtube;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataSources.Telegram;
+using Domain.Entities.DataSources.ExternalData;
 
 namespace Domain.Entities.Customers
 {
@@ -22,6 +23,8 @@ namespace Domain.Entities.Customers
         public ICollection<TelegramChannel> LoadedTelegramChannels { get; set; } = new HashSet<TelegramChannel>();
         public ICollection<TelegramMessage> LoadedTelegramMessages { get; set; } = new HashSet<TelegramMessage>();
         public ICollection<TelegramReply> LoadedTelegramReplies { get; set; } = new HashSet<TelegramReply>();
+
+        public ICollection<ExternalObjectsPack> LoadedExternalObjectsPacks { get; set; } = new HashSet<ExternalObjectsPack>();
 
         public ICollection<CustomerQuotas> Quotas { get; set; } = new HashSet<CustomerQuotas>();
         public ICollection<QuotasLogs> QuotasLogsCollection { get; set; } = new HashSet<QuotasLogs>();

@@ -87,7 +87,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ClusterizationProfileSearchFilterComponent,
     ClusterizationProfileListComponent,
     WorkspaceSearchFilterComponent,
-    WorkspaceListComponent
+    WorkspaceListComponent,
+    VisibleTypesSelectOptionComponent,
+    ChangingTypesSelectOptionComponent
   ],
   imports: [
     CommonModule,

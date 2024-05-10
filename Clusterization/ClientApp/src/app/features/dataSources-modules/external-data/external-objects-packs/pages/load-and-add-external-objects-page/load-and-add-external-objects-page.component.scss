@@ -1,0 +1,47 @@
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
+
+section {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    .main-cont {
+        min-height: 70vh;
+
+        h1{
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-cont {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ext-input {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -10;
+        }
+
+        .ext-label {
+            padding: 5px;
+            background-color: #4245a8;
+            border-radius: 5px;
+            color: white;
+            margin: 5px;
+        }
+    }
+}
+
+.disabled-btn {
+    background-color: $warn-1;
+    cursor: no-drop;
+}
