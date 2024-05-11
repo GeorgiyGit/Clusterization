@@ -1,0 +1,22 @@
+@import '/src/app/features/documentation-module/styles/doc-styles.scss';
+
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 3px solid $warn-1;
+    color: $first-color-4;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.9em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 0em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}
+.warn-text{
+    color: $warn-1;
+    font-weight: bold;
+}

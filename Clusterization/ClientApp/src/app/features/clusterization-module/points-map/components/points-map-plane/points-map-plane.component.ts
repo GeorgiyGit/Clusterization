@@ -51,13 +51,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   }
 
   ngOnInit() {
-    // Add a mouse down event listener
     this.el.nativeElement.addEventListener('mousedown', this.mouseDownHandler.bind(this));
 
-    // Add a mouse move event listener
     this.el.nativeElement.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
 
-    // Add a mouse up event listener
     this.el.nativeElement.addEventListener('mouseup', this.mouseUpHandler.bind(this));
 
     this.el.nativeElement.addEventListener('touchstart', this.touchStartHandler.bind(this));
@@ -66,7 +63,6 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   }
 
   ngOnDestroy() {
-    // Remove the event listeners when the component is destroyed
     this.el.nativeElement.removeEventListener('mousedown', this.mouseDownHandler);
     this.el.nativeElement.removeEventListener('mousemove', this.mouseMoveHandler);
     this.el.nativeElement.removeEventListener('mouseup', this.mouseUpHandler);
@@ -78,7 +74,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   ngAfterViewInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
-    // You can draw points on the canvas here
+
     const ratio = window.devicePixelRatio;
 
     const canvasSize = Math.min(window.innerWidth, window.innerHeight);
@@ -195,7 +191,6 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     document.body.style.overflow = 'hidden';
   }
 
-  // Event handler to enable page scrolling
   enablePageScrolling() {
     document.body.style.overflow = 'auto';
   }
@@ -205,18 +200,17 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   mouseChangesX: number = 0;
   mouseChangesY: number = 0;
   drawPoints() {
-    // Iterate through the displayedPoints array and draw each point on the canvas
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.displayedPoints.forEach(point => {
-      this.ctx.fillStyle = point.color; // Point color
+      this.ctx.fillStyle = point.color;
       this.ctx.beginPath();
 
       let xCoordinate = Math.round(point.x * this.convertedLayerValue + this.mouseChangesX + this.convertedLayerValue * Math.abs(this.tilesLevel.minXValue));
       let yCoordinate = Math.round(point.y * this.convertedLayerValue + this.mouseChangesY + this.convertedLayerValue * Math.abs(this.tilesLevel.minYValue));
-      this.ctx.arc(xCoordinate, yCoordinate, this.radius, 0, 2 * Math.PI, true); // Draw a small circle for the point
+      this.ctx.arc(xCoordinate, yCoordinate, this.radius, 0, 2 * Math.PI, true);
       this.ctx.fill();
     });
-    this.ctx.fillStyle = "black"; // Point color
+    this.ctx.fillStyle = "black";
     this.ctx.beginPath();
 
 
@@ -252,26 +246,23 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     const scaleX = this.ctx.canvas.width / this.canvas.nativeElement.clientWidth;
     const scaleY = this.ctx.canvas.height / this.canvas.nativeElement.clientHeight;
 
-    // Adjust mouse coordinates based on object-fit: cover
     const mouseX = (event.clientX - canvasRect.left) * scaleX;
     const mouseY = (event.clientY - canvasRect.top) * scaleY;
 
     return {
-      x: mouseX,   // scale mouse coordinates after they have
-      y: mouseY     // been adjusted to be relative to element
+      x: mouseX,
+      y: mouseY
     }
   }
 
   saveCanvas() {
     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
 
-    // Specify the area to capture (0, 0, 100, 100 in this example)
     let rectX = this.mouseChangesX - 10;
     let rectY = this.mouseChangesY - 10;
 
     let rectLength = this.convertedLayerValue * this.tilesLevel.tileLength * this.tilesLevel.tileCount + 20;
 
-    // Create a new canvas with the specified area
     const croppedCanvas = document.createElement('canvas');
     croppedCanvas.width = rectLength;
     croppedCanvas.height = rectLength;
@@ -280,15 +271,12 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     if (context == null) return;
     context.drawImage(canvas, rectX, rectY, rectLength, rectLength, 0, 0, rectLength, rectLength);
 
-    // Get the data URL of the cropped canvas
     const dataUrl: string = croppedCanvas.toDataURL('image/png');
 
-    // Create a link element
     const link = document.createElement('a');
     link.href = dataUrl;
     link.download = 'cropped_canvas_image' + this.tilesLevel.id + '.png';
 
-    // Simulate a click on the link to trigger the download
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

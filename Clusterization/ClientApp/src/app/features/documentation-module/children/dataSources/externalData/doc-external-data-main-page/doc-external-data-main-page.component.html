@@ -1,0 +1,59 @@
+<section>
+    <h1 i18n>Основне</h1>
+    <p i18n>Зовнішні текстові дані це текст із файлу у спеціальному форматі (JSON). Підтримуються три різні формати:</p>
+    <p>1. <span class="warn-text">[Deprecated]</span></p>
+    <pre><code>
+{{'{'}}
+    "Session": "123",
+    "ExternalObjects": [
+    {{'{'}}
+        "Id": "1",
+        "Text": "Text number 1"
+    {{'}'}},
+      {{'{'}}
+        "Id": "2",
+        "Text": "Text number 2"
+    {{'}'}},
+      {{'{'}}
+        "Id": "3",
+        "Text": "Text number 3"
+    {{'}'}},
+      {{'{'}}
+        "Id": "4",
+        "Text": "Text number 4"
+      {{'}'}}
+    ]
+{{'}'}}</code>
+    </pre>
+
+    <p>2.</p>
+    <pre>
+        <code>
+[{{'{'}}
+    "Id": "1",
+    "Text": "Text number 1"
+{{'}'}},
+{{'{'}}
+    "Id": "2",
+    "Text": "Text number 2"
+{{'}'}},
+{{'{'}}
+    "Id": "3",
+    "Text": "Text number 3"
+{{'}'}},
+{{'{'}}
+    "Id": "4",
+    "Text": "Text number 4"
+{{'}'}}]
+        </code>
+    </pre>
+
+    <p>3.</p>
+    <pre>
+<code>
+Text 1
+Text 2
+...
+Text n</code>
+    </pre>
+</section>

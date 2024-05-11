@@ -51,6 +51,9 @@ import { DocTelegramAddDataObjectsMainPageComponent } from './children/dataSourc
 import { DocEmbeddingModelsMainPageComponent } from './children/embedding-models/doc-embedding-models-main-page/doc-embedding-models-main-page.component';
 import { DocYoutubeAddDataObjectsMainPageComponent } from './children/dataSources/youtube/add-data-objects/doc-youtube-add-data-objects-main-page/doc-youtube-add-data-objects-main-page.component';
 import { DocWorkspacesAddDataObjectsPageComponent } from './children/workspaces/pages/doc-workspaces-add-data-objects-page/doc-workspaces-add-data-objects-page.component';
+import { DocExternalDataMainPageComponent } from './children/dataSources/externalData/doc-external-data-main-page/doc-external-data-main-page.component';
+import { DocExternalObjectsMainPageComponent } from './children/dataSources/externalData/doc-external-objects-main-page/doc-external-objects-main-page.component';
+import { DocExternalObjectsPacksMainPageComponent } from './children/dataSources/externalData/doc-external-objects-packs-main-page/doc-external-objects-packs-main-page.component';
 
 const routes: Routes = [
   {
@@ -256,6 +259,28 @@ const routes: Routes = [
                 path:'add_data_objects',
                 component:DocTelegramAddDataObjectsMainPageComponent
               }
+            ]
+          },
+          {
+            path:'externalData',
+            children:[
+              {
+                path:'',
+                redirectTo:'main',
+                pathMatch:'full'
+              },
+              {
+                path:'main',
+                component:DocExternalDataMainPageComponent
+              },
+              {
+                path:'objects',
+                component:DocExternalObjectsMainPageComponent
+              },
+              {
+                path:'packs',
+                component:DocExternalObjectsPacksMainPageComponent
+              },
             ]
           },
         ]

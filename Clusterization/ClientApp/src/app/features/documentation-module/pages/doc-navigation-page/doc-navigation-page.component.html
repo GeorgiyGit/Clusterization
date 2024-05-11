@@ -203,6 +203,27 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <div class="parent-element-cont" (click)="toggleSelect('data_sources/externalData')">
+                                <a routerLinkActive="active" routerLink="data_sources/externalData" i18n>Зовнішні дані</a>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="!this.states.SearchFor['data_sources/externalData']">expand_more</span>
+                                <span class="material-symbols-outlined icon" translate="no"
+                                    *ngIf="this.states.SearchFor['data_sources/externalData']">expand_less</span>
+                            </div>
+        
+                            <ul class="ul-l3" [class.closed]="!this.states.SearchFor['data_sources/externalData']">
+                                <li class="child-element-cont" routerLink="data_sources/externalData/main">
+                                    <a routerLinkActive="active" i18n>Основне</a>
+                                </li>
+                                <li class="child-element-cont" routerLink="data_sources/externalData/objects">
+                                    <a routerLinkActive="active" i18n>Зовнішні дані</a>
+                                </li>
+                                <li class="child-element-cont" routerLink="data_sources/externalData/packs">
+                                    <a routerLinkActive="active" i18n>Зовнішні пакети даних</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li>
