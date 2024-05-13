@@ -119,6 +119,22 @@ export class WorkspaceFullPageComponent implements OnInit {
           isOnlyForUsers:true
         });
       }
+      if(this.accountService.getUserId()==this.workspace.ownerId){
+        this.actions.push({
+          name: $localize`Оновити`,
+          action: () => {
+            let userId = this.accountService.getUserId();
+            if (this.workspace.ownerId!=userId) {
+              this.toastr.error($localize`Цей робочий простір може оновлювати тільки власник`);
+              return;
+            }
+
+            this.router.navigate([{ outlets: { overflow: 'clusterization/workspaces/update/' + this.workspace.id } }]);
+          },
+          isForAuthorized: true,
+          isOnlyForUsers:true
+        });
+      }
     }, error => {
       this.isLoading = false;
       this.toastr.error(error.error.Message);

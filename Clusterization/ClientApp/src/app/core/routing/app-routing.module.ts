@@ -36,6 +36,7 @@ import { EmailVerificationAlertPageComponent } from 'src/app/features/shared-mod
 import { LoadExternalObjectsPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/load-external-objects-page/load-external-objects-page.component';
 import { LoadAndAddExternalObjectsPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/load-and-add-external-objects-page/load-and-add-external-objects-page.component';
 import { ExternalDataLayoutComponent } from '../components/layouts/external-data-layout/external-data-layout.component';
+import { UpdateWorkspacePageComponent } from 'src/app/features/clusterization-module/clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
 const routes: Route[] = [
   {
     path: '',
@@ -169,6 +170,12 @@ const routes: Route[] = [
   {
     path: 'clusterization/workspaces/add',
     component: AddWorkspacePageComponent,
+    outlet: 'overflow',
+    canActivate: [CustomerGuard],
+  },
+  {
+    path: 'clusterization/workspaces/update/:id',
+    component: UpdateWorkspacePageComponent,
     outlet: 'overflow',
     canActivate: [CustomerGuard],
   },

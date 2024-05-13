@@ -39,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddScAlgorithmComponent } from './clusterization/algorithms/non-hierarchical/spectral-clustering/components/add-sc-algorithm/add-sc-algorithm.component';
 import { DRTechniquesSelectComponent } from './dimensionalityReduction/DR-techniques/components/dr-techniques-select/dr-techniques-select.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     WorkspaceListPageComponent,
     WorkspaceSearchFilterComponent,
     WorkspaceFullPageComponent,
+    UpdateWorkspacePageComponent,
     ClusterizationAlgorithmTypesSelectComponent,
     AbstractAlgorithmAddPageComponent,
     AddKMeansAlgorithmComponent,
@@ -81,7 +83,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoadEmbeddingsByPackPageComponent,
 
     VisibleTypesSelectOptionComponent,
-    ChangingTypesSelectOptionComponent
+    ChangingTypesSelectOptionComponent,
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
