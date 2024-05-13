@@ -15,6 +15,12 @@
         </div>
         <div>
             <ul>
+                <div class="lang">
+                    <div *ngFor="let loc of locales; let last = last">
+                        <a href="/{{loc.locale}}/" [class.selected]="loc.locale==locale">{{loc.name}}</a>
+                        <span *ngIf="!last"> | </span>
+                    </div>
+                </div>
                 <li *ngIf="!accountService.isAuthenticated()" (click)="openSignUp($event)" i18n>Реєстрація</li>
                 <li *ngIf="accountService.isAuthenticated()" routerLink="/telegram-layout/account" i18n>Акаунт</li>
                 <li>
@@ -46,6 +52,12 @@
                         <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
                         <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>
                     </li>
+                    <div class="lang">
+                        <div *ngFor="let loc of locales; let last = last">
+                            <a href="/{{loc.locale}}/" [class.selected]="loc.locale==locale">{{loc.name}}</a>
+                            <span *ngIf="!last"> | </span>
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>

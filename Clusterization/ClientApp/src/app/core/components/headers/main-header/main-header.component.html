@@ -26,6 +26,12 @@
         </div>
         <div>
             <ul>
+                <div class="lang">
+                    <div *ngFor="let loc of locales; let last = last">
+                        <a href="/{{loc.locale}}/" [class.selected]="loc.locale==locale">{{loc.name}}</a>
+                        <span *ngIf="!last"> | </span>
+                    </div>
+                </div>
                 <li *ngIf="!accountService.isAuthenticated()" (click)="openSignUp($event)" i18n>Реєстрація</li>
                 <li *ngIf="accountService.isAuthenticated()" routerLink="/main-layout/account" i18n>Акаунт</li>
                 <li>
@@ -58,6 +64,7 @@
                         <ul class="ul-l2" *ngIf="isDataSourceMenuOpen">
                             <li class="child-element-cont" routerLink="/youtube-layout/dataSources/youtube/channels/list">Youtube</li>
                             <li class="child-element-cont" routerLink="/telegram-layout/dataSources/telegram/channels/list">Telegram</li>
+                            <li class="child-element-cont" routerLink="/externalData-layout/dataSources/externalData/packs/list" i18n>Зовнішні дані</li>
                         </ul>
                     </li>
                     <li routerLink="/main-layout/clusterization/workspaces/list" i18n>Робочі простори</li>
@@ -69,6 +76,12 @@
                         <a *ngIf="!accountService.isAuthenticated()" (click)="openLogIn($event)" class="auth" i18n>Увійти</a>
                         <a *ngIf="accountService.isAuthenticated()" (click)="logout()" class="unSelect auth" i18n>Вийти</a>
                     </li>
+                    <div class="lang">
+                        <div *ngFor="let loc of locales; let last = last">
+                            <a href="/{{loc.locale}}/" [class.selected]="loc.locale==locale">{{loc.name}}</a>
+                            <span *ngIf="!last"> | </span>
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>

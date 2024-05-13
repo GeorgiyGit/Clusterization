@@ -38,10 +38,34 @@ header {
         }
     }
     .phone-menu{
-        background-color: $external-data-color-2;
+        background-color: $external-data-color-1;
 
         .menu-btn {
             color: $external-data-color-2;
         }
     }
+}
+
+.lang {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+
+    span{
+        color: $external-data-color-2;
+        user-select: none;
+        cursor: pointer;
+    }
+    a{
+        color: $external-data-color-2;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover{
+            color: $external-data-color-3;
+        }
+    }
+}
+.selected{
+    color: $external-data-color-3 !important;
 }

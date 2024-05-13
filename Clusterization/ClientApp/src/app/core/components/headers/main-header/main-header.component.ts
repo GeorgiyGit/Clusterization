@@ -1,6 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { AccountService } from 'src/app/features/shared-module/account/services/account.service';
@@ -41,10 +41,22 @@ import { AccountService } from 'src/app/features/shared-module/account/services/
 export class MainHeaderComponent implements OnInit {
   animationState: string = 'in';
 
+  locales:ILocale[]=[
+    {
+      locale:'uk-UA',
+      name:'ukr'
+    },
+    {
+      locale:'en-US',
+      name:'en'
+    }
+  ]
+
   constructor(private responsive: BreakpointObserver,
     private router: Router,
     private toaster: MyToastrService,
-    public accountService: AccountService) {
+    public accountService: AccountService,
+    @Inject(LOCALE_ID) public locale: string) {
   }
 
   isPhoneMenuOpen: boolean;
@@ -142,4 +154,8 @@ export class MainHeaderComponent implements OnInit {
   closeDataSourceMenu(event: any) {
     this.isDataSourceMenuOpen = false;
   }
+}
+export interface ILocale{
+  locale:string,
+  name:string
 }

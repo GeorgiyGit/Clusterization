@@ -33,7 +33,7 @@ export function tokenGetter() {
     YoutubeHeaderComponent,
     TelegramHeaderComponent,
     ExternalDataHeaderComponent,
-    
+
     MainLayoutComponent,
     YoutubeLayoutComponent,
     TelegramLayoutComponent,
@@ -63,7 +63,6 @@ export function tokenGetter() {
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     JwtHelperService,
-    {provide: LOCALE_ID, useValue: 'en-US' },
     {
       provide:HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,

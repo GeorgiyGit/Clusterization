@@ -44,3 +44,27 @@ header {
         }
     }
 }
+
+.lang {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+
+    span{
+        color: $youtube-color-2;
+        user-select: none;
+        cursor: pointer;
+    }
+    a{
+        color: $youtube-color-2;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover{
+            color: $youtube-color-1;
+        }
+    }
+}
+.selected{
+    color: $youtube-color-1 !important;
+}

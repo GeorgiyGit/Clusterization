@@ -10,10 +10,10 @@ namespace Clusterization.Seeders
         {
             using (UserManager<Customer> _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>())
             {
-                if (await _userManager.FindByEmailAsync("admin@gmail.com") != null) return;
+                if (await _userManager.FindByEmailAsync("") != null) return;
 
-                var newuser = new Customer { UserName = "Admin", Email = "admin@gmail.com" };
-                var result = await _userManager.CreateAsync(newuser, "12345678");
+                var newuser = new Customer { UserName = "Admin", Email = "" };
+                var result = await _userManager.CreateAsync(newuser, "");
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(newuser);
                 await _userManager.ConfirmEmailAsync(newuser, token);
