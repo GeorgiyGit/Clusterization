@@ -135,6 +135,9 @@
   <data name="EmailConfirmationError" xml:space="preserve">
     <value>Something went wrong while verifying your email</value>
   </data>
+  <data name="EmailIsAlreadyConfirmed" xml:space="preserve">
+    <value>Email is already confirmed</value>
+  </data>
   <data name="EmailSendingToFast" xml:space="preserve">
     <value>You want to send email to fast</value>
   </data>

@@ -112,6 +112,8 @@ namespace Domain.Services.Customers
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotFound], HttpStatusCode.NotFound);
 
+            if(await _userManager.IsEmailConfirmedAsync(user)) throw new HttpException(_localizer[ErrorMessagePatterns.EmailIsAlreadyConfirmed], HttpStatusCode.BadRequest);
+
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
             if (!result.Succeeded)

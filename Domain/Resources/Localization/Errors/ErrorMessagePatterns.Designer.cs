@@ -115,6 +115,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EmailIsAlreadyConfirmed.
+        /// </summary>
+        public static string EmailIsAlreadyConfirmed {
+            get {
+                return ResourceManager.GetString("EmailIsAlreadyConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EmailSendingToFast.
         /// </summary>
         public static string EmailSendingToFast {

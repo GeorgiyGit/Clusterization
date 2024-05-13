@@ -115,6 +115,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Електронну пошту вже підтверджено.
+        /// </summary>
+        public static string EmailIsAlreadyConfirmed {
+            get {
+                return ResourceManager.GetString("EmailIsAlreadyConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ви хочете надсилати імейли занадто швидко.
         /// </summary>
         public static string EmailSendingToFast {
