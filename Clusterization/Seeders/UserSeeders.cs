@@ -1,19 +1,28 @@
 ﻿using Domain.Entities.Customers;
 using Domain.Resources.Types;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace Clusterization.Seeders
 {
     public static class UserSeeders
     {
-        public static async Task Configure(IServiceProvider serviceProvider)
+        public static async Task Configure(IServiceProvider serviceProvider, IConfigurationManager configurationManager)
         {
             using (UserManager<Customer> _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>())
             {
-                if (await _userManager.FindByEmailAsync("sladkovsky.george@gmail.com") != null) return;
+                var userSeederOptions = configurationManager.GetSection("UserSeeder");
 
-                var newuser = new Customer { UserName = "Admin", Email = "sladkovsky.george@gmail.com" };
-                var result = await _userManager.CreateAsync(newuser, "94519451Ge11$");
+                var email = userSeederOptions["Email"];
+                var password = userSeederOptions["Password"];
+                var username = userSeederOptions["username"];
+
+                if (email == null || password == null || username == null) return;
+
+                if (await _userManager.FindByEmailAsync(email) != null) return;
+
+                var newuser = new Customer { UserName = username, Email = email };
+                var result = await _userManager.CreateAsync(newuser, password);
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(newuser);
                 await _userManager.ConfirmEmailAsync(newuser, token);

@@ -306,7 +306,7 @@ internal class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            UserSeeders.Configure(scope.ServiceProvider).Wait();
+            UserSeeders.Configure(scope.ServiceProvider, builder.Configuration).Wait();
         }
 
         app.Run();
