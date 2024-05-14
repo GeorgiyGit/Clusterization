@@ -15,6 +15,8 @@ namespace Infrastructure.Builders.Quotas
             builder.HasOne(e => e.Customer)
                    .WithMany(e => e.QuotasLogsCollection)
                    .HasForeignKey(e => e.CustomerId);
+
+            builder.HasIndex(e => new { e.CreationTime });
         }
     }
 }

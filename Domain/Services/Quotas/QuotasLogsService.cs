@@ -58,7 +58,10 @@ namespace Domain.Services.Quotas
             {
                 filterCondition = filterCondition.And(e => e.TypeId == request.TypeId);
             }
-            var logs = (await _quotasLogsRepository.GetAsync(filter: filterCondition, includeProperties: $"{nameof(QuotasLogs.Type)},{nameof(QuotasLogs.Customer)}", orderBy: order => order.OrderByDescending(e => e.CreationTime)));
+            var logs = (await _quotasLogsRepository.GetAsync(filter: filterCondition,
+                                                             includeProperties: $"{nameof(QuotasLogs.Type)},{nameof(QuotasLogs.Customer)}",
+                                                             orderBy: order => order.OrderByDescending(e => e.CreationTime),
+                                                             pageParameters: request.PageParameters));
 
             return _mapper.Map<ICollection<QuotasLogsDTO>>(logs);
         }

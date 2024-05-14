@@ -87,14 +87,24 @@ namespace Domain.Services.Clusterization.Workspaces
 
             if(workspace.VisibleType==VisibleTypes.AllCustomers && model.VisibleType == VisibleTypes.OnlyOwner)
             {
-                await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PrivateWorkspaces, 1, Guid.NewGuid().ToString());
+                var takeRes = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PrivateWorkspaces, 1, Guid.NewGuid().ToString());
+
+                if (!takeRes)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                }
 
                 var res = await _quotasControllerService.AddCustomerQuotas(userId, QuotasTypes.PublicWorkspaces, 1, Guid.NewGuid().ToString());
                 if (!res) return;
             }
             else if (workspace.VisibleType == VisibleTypes.OnlyOwner && model.VisibleType == VisibleTypes.AllCustomers)
             {
-                await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PublicWorkspaces, 1, Guid.NewGuid().ToString());
+                var takeRes = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PublicWorkspaces, 1, Guid.NewGuid().ToString());
+
+                if (!takeRes)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                }
 
                 var res = await _quotasControllerService.AddCustomerQuotas(userId, QuotasTypes.PrivateWorkspaces, 1, Guid.NewGuid().ToString());
                 if (!res) return;

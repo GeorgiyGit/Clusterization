@@ -12,7 +12,7 @@ namespace Infrastructure.Builders.DataSources.Youtube
                    .WithOne(e => e.Video)
                    .HasForeignKey(e => e.VideoId);
 
-            builder.HasIndex(e => new { e.PublishedAtDateTimeOffset, e.CommentCount, e.ViewCount });
+            builder.HasIndex(e => new { e.PublishedAtDateTimeOffset, e.CommentCount, e.ViewCount,e.ChannelId });
 
             builder.HasOne(e => e.Channel)
                    .WithMany(e => e.Videos)

@@ -52,13 +52,13 @@ export class CustomerQuotasLogsPageComponent implements OnInit {
 
     this.isLoading2 = true;
     this.quotasLogsService.getQuotasLogs(this.request).subscribe(res => {
-      this.isLoading = false;
+      this.isLoading2 = false;
       this.logsCollection = this.logsCollection.concat(res);
 
       if (res.length < this.request.pageParameters.pageSize) this.isLoadMoreAvailable = false;
       else this.isLoadMoreAvailable = true;
     }, error => {
-      this.isLoading = false;
+      this.isLoading2 = false;
       this.toastr.error(error.error.Message);
     })
   }
