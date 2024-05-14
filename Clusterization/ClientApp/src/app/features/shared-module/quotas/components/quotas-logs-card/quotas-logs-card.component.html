@@ -6,6 +6,6 @@
         <p i18n-matTooltip matTooltip="Дата використання">{{logs.creationTime | normalizedDateTime}}</p>
     </div>
     <div class="block btn-cont" (click)="copyToClipboard(logs.count+'',$event)">
-        <p i18n-matTooltip matTooltip="Кількість квот">{{logs.count}}</p>
+        <p i18n-matTooltip matTooltip="Кількість квот"><span *ngIf="logs.isPlus" class="plus">+</span> <span *ngIf="!logs.isPlus" class="minus">-</span> {{logs.count}}</p>
     </div>
 </div>

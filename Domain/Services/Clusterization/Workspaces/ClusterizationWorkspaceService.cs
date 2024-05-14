@@ -85,6 +85,21 @@ namespace Domain.Services.Clusterization.Workspaces
 
             if (workspace == null || workspace.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
 
+            if(workspace.VisibleType==VisibleTypes.AllCustomers && model.VisibleType == VisibleTypes.OnlyOwner)
+            {
+                await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PrivateWorkspaces, 1, Guid.NewGuid().ToString());
+
+                var res = await _quotasControllerService.AddCustomerQuotas(userId, QuotasTypes.PublicWorkspaces, 1, Guid.NewGuid().ToString());
+                if (!res) return;
+            }
+            else if (workspace.VisibleType == VisibleTypes.OnlyOwner && model.VisibleType == VisibleTypes.AllCustomers)
+            {
+                await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.PublicWorkspaces, 1, Guid.NewGuid().ToString());
+
+                var res = await _quotasControllerService.AddCustomerQuotas(userId, QuotasTypes.PrivateWorkspaces, 1, Guid.NewGuid().ToString());
+                if (!res) return;
+            }
+
             workspace.Title = model.Title;
             workspace.Description = model.Description;
             workspace.VisibleType = model.VisibleType;

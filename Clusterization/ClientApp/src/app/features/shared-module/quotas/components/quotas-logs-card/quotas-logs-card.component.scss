@@ -34,6 +34,13 @@
     .btn-cont{
         font-weight: bold;
         width: fit-content;
+
+        .plus{
+            color: $first-color-1;
+        }
+        .minus{
+            color: $warn-1;
+        }
     }
     p{
         margin: 0;

@@ -7,6 +7,10 @@ using Domain.Exceptions;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
+using Domain.Resources.Localization.Errors;
+using Microsoft.Extensions.Localization;
+using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace Domain.Services.Quotas
 {
@@ -66,7 +70,6 @@ namespace Domain.Services.Quotas
                 PackId = request.PackId
             });
         }
-
         public async Task<ICollection<CustomerQuotasDTO>> GetAllCustomerQuotas()
         {
             var customerId = await _userService.GetCurrentUserId();

@@ -16,5 +16,6 @@ namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Requests
         public string CustomerId { get; set; }
 
         public int Count { get; set; }
+        public bool IsPlus { get; set; }
     }
 }

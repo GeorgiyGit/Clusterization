@@ -38,6 +38,23 @@ namespace Domain.Services.Quotas
             return customerQuotas.AvailableCount;
         }
 
+        public async Task AddAvailableCount(int count, string type, string userId)
+        {
+            var customerQuotas = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == userId && e.TypeId == type)).FirstOrDefault();
+            if (customerQuotas == null) throw new HttpException(_localizer[ErrorMessagePatterns.CustomerQuotasNotFound], HttpStatusCode.NotFound);
+
+            customerQuotas.AvailableCount += count;
+            await _customerQuotasRepository.SaveChangesAsync();
+        }
+        public async Task RemoveExpireCount(int count, string type, string userId)
+        {
+            var customerQuotas = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == userId && e.TypeId == type)).FirstOrDefault();
+            if (customerQuotas == null) throw new HttpException(_localizer[ErrorMessagePatterns.CustomerQuotasNotFound], HttpStatusCode.NotFound);
+
+            customerQuotas.ExpiredCount -= count;
+            await _customerQuotasRepository.SaveChangesAsync();
+        }
+
         public async Task<bool> TakeCustomerQuotas(string customerId, string typeId, int quotasCount, string logsId)
         {
             var customerQuotas = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId && e.TypeId == typeId)).FirstOrDefault();
@@ -59,6 +76,37 @@ namespace Domain.Services.Quotas
                     Count = quotasCount,
                     CustomerId = customerId,
                     TypeId = typeId
+                });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AddCustomerQuotas(string customerId, string typeId, int quotasCount, string logsId)
+        {
+            var customerQuotas = (await _customerQuotasRepository.GetAsync(e => e.CustomerId == customerId && e.TypeId == typeId)).FirstOrDefault();
+
+            if (customerQuotas == null) throw new HttpException(_localizer[ErrorMessagePatterns.CustomerQuotasNotFound], HttpStatusCode.NotFound);
+
+            try
+            {
+                customerQuotas.AvailableCount += quotasCount;
+
+                if (customerQuotas.ExpiredCount - quotasCount > 0) customerQuotas.ExpiredCount -= quotasCount;
+                else customerQuotas.ExpiredCount = 0;
+
+                await _customerQuotasRepository.SaveChangesAsync();
+
+                await _quotasLogsService.AddQuotasLogs(new AddQuotasLogsRequest()
+                {
+                    Id = logsId,
+                    Count = quotasCount,
+                    CustomerId = customerId,
+                    TypeId = typeId,
+                    IsPlus = true
                 });
                 return true;
             }

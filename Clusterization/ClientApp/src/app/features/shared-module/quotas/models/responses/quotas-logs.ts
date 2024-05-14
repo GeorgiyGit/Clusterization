@@ -5,5 +5,6 @@ export interface IQuotasLogs{
     type:IQuotasType,
     customerId:string,
     count:number,
+    isPlus:boolean,
     creationTime:Date
 }

@@ -14,5 +14,6 @@ namespace Domain.Entities.Quotas
         public string CustomerId { get; set; }
 
         public int Count { get; set; }
+        public bool IsPlus { get; set; }
     }
 }

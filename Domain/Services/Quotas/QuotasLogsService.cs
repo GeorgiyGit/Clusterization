@@ -93,7 +93,8 @@ namespace Domain.Services.Quotas
                     Id = model.Id,
                     Count = model.Count,
                     CustomerId = model.CustomerId,
-                    TypeId = model.TypeId
+                    TypeId = model.TypeId,
+                    IsPlus=model.IsPlus
                 };
 
                 await _quotasLogsRepository.AddAsync(newLogs);

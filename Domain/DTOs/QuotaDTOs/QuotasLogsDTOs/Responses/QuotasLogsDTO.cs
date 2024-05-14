@@ -17,6 +17,7 @@ namespace Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses
         public string CustomerId { get; set; }
 
         public int Count { get; set; }
+        public bool IsPlus { get; set; }
 
         public DateTime CreationTime { get; set; }
     }
