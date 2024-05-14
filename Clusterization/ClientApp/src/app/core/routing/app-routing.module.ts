@@ -37,6 +37,7 @@ import { LoadExternalObjectsPageComponent } from 'src/app/features/dataSources-m
 import { LoadAndAddExternalObjectsPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/load-and-add-external-objects-page/load-and-add-external-objects-page.component';
 import { ExternalDataLayoutComponent } from '../components/layouts/external-data-layout/external-data-layout.component';
 import { UpdateWorkspacePageComponent } from 'src/app/features/clusterization-module/clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
+import { UpdateExternalObjectsPackPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/update-external-objects-pack-page/update-external-objects-pack-page.component';
 const routes: Route[] = [
   {
     path: '',
@@ -354,6 +355,12 @@ const routes: Route[] = [
     outlet:'overflow',
     canActivate:[CustomerGuard],
     canActivateChild:[CustomerGuard],
+  },
+  {
+    path: 'dataSources/externalData/packs/update/:id',
+    component: UpdateExternalObjectsPackPageComponent,
+    outlet: 'overflow',
+    canActivate: [CustomerGuard],
   },
 ]
 

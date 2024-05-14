@@ -1,0 +1,20 @@
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
+
+section {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    .main-cont {
+        min-height: 70vh;
+
+        h1{
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+}

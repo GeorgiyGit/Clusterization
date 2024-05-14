@@ -34,6 +34,14 @@ namespace Clusterization.Controllers.DataSources.External
             await service.AddExternalDataObjectsToWorkspace(request);
             return Ok();
         }
+        [HttpPut("update")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> UpdatePack([FromBody] UpdateExternalDataPackRequest request)
+        {
+            await service.UpdatePack(request);
+            return Ok();
+        }
+
 
         [HttpPost("load_and_add")]
         [Authorize(Roles = UserRoles.User)]

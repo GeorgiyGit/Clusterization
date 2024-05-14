@@ -18,6 +18,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.DTOs.DataSourcesDTOs.ExternalDataDTOs.Responses;
+using TL.Methods;
 
 namespace Domain.Interfaces.DataSources.ExternalData
 {
@@ -26,7 +27,9 @@ namespace Domain.Interfaces.DataSources.ExternalData
         public Task LoadExternalDataObjectBackgroundJob(AddExternalDataRequest request);
         public Task AddExternalDataObjectsToWorkspace(AddExternalDataObjectsPacksToWorkspaceRequest request);
         public Task LoadingExternalDataAndAddingToWorkspace(AddExternalDataRequest request);
-        
+
+        public Task UpdatePack(UpdateExternalDataPackRequest request);
+
         public Task<ICollection<SimpleExternalObjectsPackDTO>> GetCollection(GetExternalDataObjectsPacksRequest request);
         public Task<FullExternalObjectsPackDTO> GetFullById(int id);
     }

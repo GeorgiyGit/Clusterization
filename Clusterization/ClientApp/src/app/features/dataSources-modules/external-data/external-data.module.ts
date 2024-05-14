@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClusterizationModule } from '../../clusterization-module/clusterization.module';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ExternalObjectListPageComponent } from './external-objects/pages/external-object-list-page/external-object-list-page.component';
+import { UpdateExternalObjectsPackPageComponent } from './external-objects-packs/pages/update-external-objects-pack-page/update-external-objects-pack-page.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ExternalObjectListPageComponent } from './external-objects/pages/extern
     ExternalObjectsPackListComponent,
     ExternalObjectsPackListPageComponent,
     ExternalObjectsPackFullPageComponent,
+    UpdateExternalObjectsPackPageComponent,
 
     LoadExternalObjectsPageComponent,
     LoadAndAddExternalObjectsPageComponent,

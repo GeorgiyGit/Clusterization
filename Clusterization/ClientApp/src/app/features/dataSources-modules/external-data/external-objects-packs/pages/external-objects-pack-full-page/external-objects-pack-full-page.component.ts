@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MyLocalStorageService } from 'src/app/core/services/my-local-storage.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { AccountService } from 'src/app/features/shared-module/account/services/account.service';
 
 @Component({
   selector: 'app-external-objects-pack-full-page',
@@ -18,7 +19,6 @@ export class ExternalObjectsPackFullPageComponent implements OnInit {
   dateStr:string=$localize`Дату`;
   countStr:string=$localize`Кількість`;
   entitiesCountStr: string = $localize`Кількість елементів`;
-
   actions: ISelectAction[] = [
     {
       name: $localize`Додати дані до робочого простору`,
@@ -50,7 +50,8 @@ export class ExternalObjectsPackFullPageComponent implements OnInit {
     private router: Router,
     private toastr: MyToastrService,
     private clipboard: Clipboard,
-    private storageService: MyLocalStorageService) { }
+    private storageService: MyLocalStorageService,
+    private accountService:AccountService) { }
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
 
@@ -59,6 +60,23 @@ export class ExternalObjectsPackFullPageComponent implements OnInit {
       this.pack = res;
 
       this.isLoading = false;
+
+      if(this.accountService.getUserId()==this.pack.ownerId){
+        this.actions.push({
+          name: $localize`Оновити`,
+          action: () => {
+            let userId = this.accountService.getUserId();
+            if (this.pack.ownerId!=userId) {
+              this.toastr.error($localize`Цей пакет зовнішніх даних може оновлювати тільки власник`);
+              return;
+            }
+
+            this.router.navigate([{ outlets: { overflow: 'dataSources/externalData/packs/update/' + this.pack.id } }]);
+          },
+          isForAuthorized: true,
+          isOnlyForUsers:true
+        });
+      }
     }, error => {
       this.isLoading = false;
       this.toastr.error(error.error.Message);

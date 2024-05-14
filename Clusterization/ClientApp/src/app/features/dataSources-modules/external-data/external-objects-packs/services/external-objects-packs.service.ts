@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ILoadExternalObjectsRequest } from '../models/requests/load-external-objects-request';
 import { IAddExternalObjectsToWorkspaceRequest } from '../models/requests/add-external-objects-to-workspace-request';
 import { IGetExternalObjectsPacksRequest } from '../models/requests/get-external-objects-packs-request';
+import { IUpdateExternalObjectsPackRequest } from '../models/requests/update-external-objects-pack-request';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,9 @@ export class ExternalObjectsPacksService {
   }
   add(request:IAddExternalObjectsToWorkspaceRequest): Observable<any> {
     return this.http.post(this.controllerUrl + "add",request);
+  }
+  update(request:IUpdateExternalObjectsPackRequest): Observable<any> {
+    return this.http.put(this.controllerUrl + "update",request);
   }
   loadAndAdd(request:ILoadExternalObjectsRequest): Observable<any> {
     const formData = new FormData();

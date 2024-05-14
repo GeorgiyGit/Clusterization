@@ -321,7 +321,26 @@ namespace Domain.Services.DataSources.ExternalData
                 WorkspaceId = (int)request.WorkspaceId
             }, userId, taskId2));
         }
-        
+
+        public async Task UpdatePack(UpdateExternalDataPackRequest request)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            var pack = await _externalObjectsPacksRepository.FindAsync(request.Id);
+            if (pack == null || pack.OwnerId != userId) throw new HttpException(_localizer[ErrorMessagePatterns.ExternalObjectsNotFound], HttpStatusCode.NotFound);
+
+            pack.ChangingType = request.ChangingType;
+            pack.VisibleType = request.VisibleType;
+            pack.Title = request.Title;
+            pack.Description = request.Description;
+            
+            pack.LastEditTime = DateTime.UtcNow;
+            pack.IsEdited = true;
+
+            await _externalObjectsPacksRepository.SaveChangesAsync();
+        }
+
         public async Task<ICollection<SimpleExternalObjectsPackDTO>> GetCollection(GetExternalDataObjectsPacksRequest request)
         {
             Expression<Func<ExternalObjectsPack, bool>> filterCondition = e => true;
