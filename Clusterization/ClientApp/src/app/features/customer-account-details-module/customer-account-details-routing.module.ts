@@ -16,6 +16,9 @@ import { CustomerPersonalInformationPageComponent } from './children/personal-in
 import { CustomerTelegramMainPageComponent } from './children/data-sources/telegram/customer-telegram-main-page/customer-telegram-main-page.component';
 import { CustomerTelegramChannelsLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-channels-loaded-list-page/customer-telegram-channels-loaded-list-page.component';
 import { CustomerTelegramMessagesLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-messages-loaded-list-page/customer-telegram-messages-loaded-list-page.component';
+import { CustomerYoutubeMainPageComponent } from './children/data-sources/youtube/customer-youtube-main-page/customer-youtube-main-page.component';
+import { CustomerYoutubeChannelsLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-channels-loaded-list-page/customer-youtube-channels-loaded-list-page.component';
+import { CustomerYoutubeVideosLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-videos-loaded-list-page/customer-youtube-videos-loaded-list-page.component';
 
 const routes: Routes = [
   {
@@ -115,8 +118,27 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'telegram',
+            redirectTo: 'youtube',
             pathMatch: 'full'
+          },
+          {
+            path: 'youtube',
+            component: CustomerYoutubeMainPageComponent,
+            children:[
+              {
+                path: '',
+                redirectTo: 'loaded-channels',
+                pathMatch: 'full'
+              },
+              {
+                path:'loaded-channels',
+                component:CustomerYoutubeChannelsLoadedListPageComponent
+              },
+              {
+                path:'loaded-videos',
+                component:CustomerYoutubeVideosLoadedListPageComponent
+              }
+            ]
           },
           {
             path: 'telegram',
@@ -136,7 +158,7 @@ const routes: Routes = [
                 component:CustomerTelegramMessagesLoadedListPageComponent
               }
             ]
-          }
+          },
         ]
       },
     ]

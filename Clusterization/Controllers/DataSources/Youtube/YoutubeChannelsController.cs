@@ -44,6 +44,13 @@ namespace Clusterization.Controllers.DataSources.Youtube
             return Ok(await service.GetLoadedCollection(request));
         }
 
+        [HttpPost("get_customer_loaded_collection")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> GetCustomerLoadedCollection([FromBody] GetYoutubeChannelsRequest request)
+        {
+            return Ok(await service.GetCustomerLoadedCollection(request));
+        }
+
         [HttpPost("get_without_loading")]
         [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetWithoutLoading([FromBody] GetWithoutLoadingRequest request)

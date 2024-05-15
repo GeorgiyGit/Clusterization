@@ -25,7 +25,7 @@ export class CustomerAccountDetailsNavPageComponent implements OnInit{
   isMenuOpenAnimation: boolean = true;
   
   ngOnInit(): void {
-    this.states.SearchFor['data-sources/telegram'] = false;
+    this.states.SearchFor['data-sources'] = false;
   }
 
   toggleMenu() {

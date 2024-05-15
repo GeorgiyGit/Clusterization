@@ -23,39 +23,43 @@ import { CustomerTelegramChannelsLoadedListPageComponent } from './children/data
 import { CustomerTelegramMainPageComponent } from './children/data-sources/telegram/customer-telegram-main-page/customer-telegram-main-page.component';
 import { CustomerTelegramMessagesLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-messages-loaded-list-page/customer-telegram-messages-loaded-list-page.component';
 import { TelegramModule } from '../dataSources-modules/telegram/telegram.module';
+import { CustomerYoutubeChannelsLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-channels-loaded-list-page/customer-youtube-channels-loaded-list-page.component';
+import { CustomerYoutubeMainPageComponent } from './children/data-sources/youtube/customer-youtube-main-page/customer-youtube-main-page.component';
+import { CustomerYoutubeVideosLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-videos-loaded-list-page/customer-youtube-videos-loaded-list-page.component';
+import { YoutubeModule } from "../dataSources-modules/youtube/youtube.module";
 
 
 @NgModule({
-  declarations: [
-    CustomerAccountDetailsNavPageComponent,
-    CustomerQuotasListPageComponent,
-    CustomerQuotasMainPageComponent,
-    CustomerQuotasLogsPageComponent,
-    CustomerQuotasItemCardComponent,
-    CustomerTasksListComponent,
-    CustomerTasksListPageComponent,
-    CustomerQuotasPackLogsPageComponent,
-    
-    CustomerWorkspacesMainPageComponent,
-    CustomerWorkspacesListPageComponent,
-
-    CustomerProfilesMainPageComponent,
-    CustomerProfilesListPageComponent,
-
-    CustomerPersonalInformationMainPageComponent,
-    CustomerPersonalInformationPageComponent,
-
-    CustomerTelegramChannelsLoadedListPageComponent,
-    CustomerTelegramMainPageComponent,
-    CustomerTelegramMessagesLoadedListPageComponent
-  ],
-  imports: [
-    CommonModule,
-    CustomerAccountDetailsRoutingModule,
-    CoreModule,
-    ClusterizationModule,
-    TelegramModule,
-    SharedModule
-  ]
+    declarations: [
+        CustomerAccountDetailsNavPageComponent,
+        CustomerQuotasListPageComponent,
+        CustomerQuotasMainPageComponent,
+        CustomerQuotasLogsPageComponent,
+        CustomerQuotasItemCardComponent,
+        CustomerTasksListComponent,
+        CustomerTasksListPageComponent,
+        CustomerQuotasPackLogsPageComponent,
+        CustomerWorkspacesMainPageComponent,
+        CustomerWorkspacesListPageComponent,
+        CustomerProfilesMainPageComponent,
+        CustomerProfilesListPageComponent,
+        CustomerPersonalInformationMainPageComponent,
+        CustomerPersonalInformationPageComponent,
+        CustomerTelegramChannelsLoadedListPageComponent,
+        CustomerTelegramMainPageComponent,
+        CustomerTelegramMessagesLoadedListPageComponent,
+        CustomerYoutubeChannelsLoadedListPageComponent,
+        CustomerYoutubeMainPageComponent,
+        CustomerYoutubeVideosLoadedListPageComponent
+    ],
+    imports: [
+        CommonModule,
+        CustomerAccountDetailsRoutingModule,
+        CoreModule,
+        ClusterizationModule,
+        TelegramModule,
+        SharedModule,
+        YoutubeModule
+    ]
 })
 export class CustomerAccountDetailsModule { }
