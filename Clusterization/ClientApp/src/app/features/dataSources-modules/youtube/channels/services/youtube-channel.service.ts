@@ -30,6 +30,9 @@ export class YoutubeChannelService {
   getMany(request:IGetYoutubeChannelsRequest): Observable<ISimpleYoutubeChannel[]> {
     return this.http.post<ISimpleYoutubeChannel[]>(this.controllerUrl + "get_loaded_collection/",request);
   }
+  getCustomerMany(request:IGetYoutubeChannelsRequest): Observable<ISimpleYoutubeChannel[]> {
+    return this.http.post<ISimpleYoutubeChannel[]>(this.controllerUrl + "get_customer_loaded_collection/",request);
+  }
 
   getWithoutLoading(name:string,nextPageToken:string | undefined,filterType:string): Observable<IYoutubeChannelsWithoutLoadingResponse> {
     return this.http.post<IYoutubeChannelsWithoutLoadingResponse>(this.controllerUrl + "get_without_loading/",{

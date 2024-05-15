@@ -34,6 +34,9 @@ export class YoutubeVideoService {
   getMany(request:IGetYoutubeVideosRequest): Observable<ISimpleYoutubeVideo[]> {
     return this.http.post<ISimpleYoutubeVideo[]>(this.controllerUrl + "get_loaded_collection",request);
   }
+  getCustomerMany(request:IGetYoutubeVideosRequest): Observable<ISimpleYoutubeVideo[]> {
+    return this.http.post<ISimpleYoutubeVideo[]>(this.controllerUrl + "get_customer_loaded_collection",request);
+  }
 
   getWithoutLoading(name:string,nextPageToken:string | undefined, channelId:string | undefined,filterType:string): Observable<IYoutubeVideosWithoutLoadingResponse> {
     return this.http.post<IYoutubeVideosWithoutLoadingResponse>(this.controllerUrl + "get_without_loading/",{

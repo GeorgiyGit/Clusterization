@@ -31,6 +31,8 @@ namespace Domain.Interfaces.DataSources.ExternalData
         public Task UpdatePack(UpdateExternalDataPackRequest request);
 
         public Task<ICollection<SimpleExternalObjectsPackDTO>> GetCollection(GetExternalDataObjectsPacksRequest request);
+        public Task<ICollection<SimpleExternalObjectsPackDTO>> GetCustomerCollection(GetExternalDataObjectsPacksRequest request);
+
         public Task<FullExternalObjectsPackDTO> GetFullById(int id);
     }
 }

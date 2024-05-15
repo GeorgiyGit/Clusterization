@@ -17,6 +17,8 @@ using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
 using Domain.Resources.Types.DataSources.Youtube;
+using Domain.Entities.DataSources.Telegram;
+using Domain.Extensions;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -226,6 +228,67 @@ namespace Domain.Services.DataSources.Youtube
                 catch { }
             }
             Expression<Func<Entities.DataSources.Youtube.YoutubeChannel, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Title.Contains(request.FilterStr);
+
+            Func<IQueryable<Entities.DataSources.Youtube.YoutubeChannel>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeChannel>> orderByExpression = q =>
+                q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
+
+            if (request.FilterType == ChannelFilterTypes.ByTimeDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
+            }
+            else if (request.FilterType == ChannelFilterTypes.ByTimeInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.PublishedAtDateTimeOffset);
+            }
+            else if (request.FilterType == ChannelFilterTypes.ByVideoCountDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.VideoCount);
+            }
+            else if (request.FilterType == ChannelFilterTypes.ByVideoCountInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.VideoCount);
+            }
+            else if (request.FilterType == ChannelFilterTypes.BySubscribersDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.SubscriberCount);
+            }
+            else if (request.FilterType == ChannelFilterTypes.BySubscribersInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.SubscriberCount);
+            }
+
+            var pageParameters = request.PageParameters;
+
+            var channels = await _repository.GetAsync(filter: filterCondition,
+                                                      orderBy: orderByExpression,
+                                                      pageParameters: pageParameters);
+
+
+            var mappedChannels = _mapper.Map<ICollection<SimpleYoutubeChannelDTO>>(channels);
+            foreach (var channel in mappedChannels)
+            {
+                channel.IsLoaded = true;
+            }
+            return mappedChannels;
+        }
+
+        public async Task<ICollection<SimpleYoutubeChannelDTO>> GetCustomerLoadedCollection(GetYoutubeChannelsRequest request)
+        {
+            var customerId = await _userService.GetCurrentUserId();
+            if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<Entities.DataSources.Youtube.YoutubeChannel, bool>> filterCondition = e => e.LoaderId == customerId;
+
+            if (!string.IsNullOrEmpty(request.FilterStr))
+            {
+                filterCondition = filterCondition.And(e => e.Title.Contains(request.FilterStr));
+            }
 
             Func<IQueryable<Entities.DataSources.Youtube.YoutubeChannel>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeChannel>> orderByExpression = q =>
                 q.OrderByDescending(e => e.PublishedAtDateTimeOffset);

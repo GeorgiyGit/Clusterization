@@ -77,5 +77,4 @@ export class TelegramChannelListPageComponent implements OnInit{
       this.loadMore();
     }
   }
-
 }

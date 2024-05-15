@@ -12,7 +12,8 @@ namespace Domain.Interfaces.DataSources.Youtube
 
         public Task<SimpleYoutubeVideoDTO> GetLoadedById(string id);
         public Task<ICollection<SimpleYoutubeVideoDTO>> GetLoadedCollection(GetYoutubeVideosRequest request);
-
+        public Task<ICollection<SimpleYoutubeVideoDTO>> GetCustomerLoadedCollection(GetYoutubeVideosRequest request);
+        
         public Task<YoutubeVideosWithoutLoadingResponse> GetCollectionWithoutLoadingByName(string name, string? nextPageToken, string? channelId, string filterType);
     }
 }

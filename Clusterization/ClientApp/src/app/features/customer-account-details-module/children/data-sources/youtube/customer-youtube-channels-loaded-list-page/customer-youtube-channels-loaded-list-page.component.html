@@ -1,0 +1,18 @@
+<section>
+    <div class="mb-10">
+        <app-youtube-channels-search-filter (sendEvent)="changeFilter($event)"></app-youtube-channels-search-filter>
+    </div>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="!isLoading && (channels==null || channels.length==0)">
+        <p class="nothing-text" i18n>Каналів не знайдено</p>
+    </div>
+    <app-youtube-channel-list [class.disable]="isLoading" [channels]="channels"></app-youtube-channel-list>
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

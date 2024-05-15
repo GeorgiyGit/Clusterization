@@ -36,6 +36,9 @@ export class TelegramMessagesService {
   getMany(request:IGetTelegramMessagesRequest): Observable<ISimpleTelegramMessage[]> {
     return this.http.post<ISimpleTelegramMessage[]>(this.controllerUrl + "get_loaded_collection",request);
   }
+  getCustomerMany(request:IGetTelegramMessagesRequest): Observable<ISimpleTelegramMessage[]> {
+    return this.http.post<ISimpleTelegramMessage[]>(this.controllerUrl + "get_customer_loaded_collection",request);
+  }
 
   getWithoutLoading(request:IGetTelegramMessagesRequest): Observable<ISimpleTelegramMessage[]> {
     return this.http.post<ISimpleTelegramMessage[]>(this.controllerUrl + "get_without_loading/",request);

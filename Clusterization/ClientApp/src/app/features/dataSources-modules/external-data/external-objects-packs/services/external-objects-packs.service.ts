@@ -55,6 +55,9 @@ export class ExternalObjectsPacksService {
   getCollection(request:IGetExternalObjectsPacksRequest): Observable<any> {
     return this.http.post(this.controllerUrl + "get_collection",request);
   }
+  getCustomerCollection(request:IGetExternalObjectsPacksRequest): Observable<any> {
+    return this.http.post(this.controllerUrl + "get_customer_collection",request);
+  }
   getFull(id:number): Observable<any> {
     return this.http.get(this.controllerUrl + "get_full/"+id);
   }

@@ -21,6 +21,7 @@ using Domain.Interfaces.DataSources.Youtube;
 using Domain.Interfaces.Other;
 using Domain.Resources.Types.DataSources.Youtube;
 using Domain.Entities.DataSources.Youtube;
+using Domain.Extensions;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -436,6 +437,66 @@ namespace Domain.Services.DataSources.Youtube
                 }
             }
 
+
+            Func<IQueryable<Entities.DataSources.Youtube.YoutubeVideo>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeVideo>> orderByExpression = q =>
+                q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
+
+            if (request.FilterType == VideoFilterTypes.ByTimeDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.PublishedAtDateTimeOffset);
+            }
+            else if (request.FilterType == VideoFilterTypes.ByTimeInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.PublishedAtDateTimeOffset);
+            }
+            else if (request.FilterType == VideoFilterTypes.ByViewsDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.ViewCount);
+            }
+            else if (request.FilterType == VideoFilterTypes.ByViewsInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.ViewCount);
+            }
+            else if (request.FilterType == VideoFilterTypes.ByCommentsDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.CommentCount);
+            }
+            else if (request.FilterType == VideoFilterTypes.ByCommentsInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.CommentCount);
+            }
+
+            var pageParameters = request.PageParameters;
+
+            var videos = await _repository.GetAsync(filter: filterCondition,
+                                                   orderBy: orderByExpression,
+                                                   pageParameters: pageParameters);
+
+            var mappedVideos = _mapper.Map<ICollection<SimpleYoutubeVideoDTO>>(videos);
+            foreach (var video in mappedVideos)
+            {
+                video.IsLoaded = true;
+            }
+
+            return mappedVideos;
+        }
+        public async Task<ICollection<SimpleYoutubeVideoDTO>> GetCustomerLoadedCollection(GetYoutubeVideosRequest request)
+        {
+            var customerId = await _userService.GetCurrentUserId();
+            if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<Entities.DataSources.Youtube.YoutubeVideo, bool>> filterCondition = e => e.LoaderId == customerId;
+            
+            if (!string.IsNullOrEmpty(request.FilterStr))
+            {
+                filterCondition = filterCondition.And(e => e.Title.Contains(request.FilterStr));
+            }
 
             Func<IQueryable<Entities.DataSources.Youtube.YoutubeVideo>, IOrderedQueryable<Entities.DataSources.Youtube.YoutubeVideo>> orderByExpression = q =>
                 q.OrderByDescending(e => e.PublishedAtDateTimeOffset);

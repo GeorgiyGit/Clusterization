@@ -63,6 +63,13 @@ import { YoutubeVideoPhoneCardComponent } from './videos/components/youtube-vide
     YoutubeChannelPhoneCardComponent,
     YoutubeVideoPhoneCardComponent
   ],
+  exports:[
+    YoutubeChannelListComponent,
+    YoutubeChannelsSearchFilterComponent,
+
+    YoutubeVideoListComponent,
+    YoutubeVideosSearchFilterComponent
+  ],
   imports: [
     CommonModule,
     YoutubeRoutingModule,

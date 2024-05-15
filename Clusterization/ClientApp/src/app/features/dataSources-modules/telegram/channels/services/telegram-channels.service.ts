@@ -30,6 +30,9 @@ export class TelegramChannelsService {
   getMany(request: IGetTelegramChannelsRequest): Observable<ISimpleTelegramChannel[]> {
     return this.http.post<ISimpleTelegramChannel[]>(this.controllerUrl + "get_loaded_collection/", request);
   }
+  getCustomerMany(request: IGetTelegramChannelsRequest): Observable<ISimpleTelegramChannel[]> {
+    return this.http.post<ISimpleTelegramChannel[]>(this.controllerUrl + "get_customer_loaded_collection/", request);
+  }
 
   getWithoutLoading(name: string): Observable<ISimpleTelegramChannel[]> {
     return this.http.get<ISimpleTelegramChannel[]>(this.controllerUrl + "get_without_loading/"+name);
