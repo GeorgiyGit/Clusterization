@@ -27,6 +27,9 @@ import { CustomerYoutubeChannelsLoadedListPageComponent } from './children/data-
 import { CustomerYoutubeMainPageComponent } from './children/data-sources/youtube/customer-youtube-main-page/customer-youtube-main-page.component';
 import { CustomerYoutubeVideosLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-videos-loaded-list-page/customer-youtube-videos-loaded-list-page.component';
 import { YoutubeModule } from "../dataSources-modules/youtube/youtube.module";
+import { CustomerExternalDataMainPageComponent } from './children/data-sources/externalData/customer-external-data-main-page/customer-external-data-main-page.component';
+import { ExternalDataModule } from "../dataSources-modules/external-data/external-data.module";
+import { CustomerEdPacksLoadedListPageComponent } from './children/data-sources/externalData/customer-ed-packs-loaded-list-page/customer-ed-packs-loaded-list-page.component';
 
 
 @NgModule({
@@ -50,7 +53,9 @@ import { YoutubeModule } from "../dataSources-modules/youtube/youtube.module";
         CustomerTelegramMessagesLoadedListPageComponent,
         CustomerYoutubeChannelsLoadedListPageComponent,
         CustomerYoutubeMainPageComponent,
-        CustomerYoutubeVideosLoadedListPageComponent
+        CustomerYoutubeVideosLoadedListPageComponent,
+        CustomerExternalDataMainPageComponent,
+        CustomerEdPacksLoadedListPageComponent
     ],
     imports: [
         CommonModule,
@@ -59,7 +64,8 @@ import { YoutubeModule } from "../dataSources-modules/youtube/youtube.module";
         ClusterizationModule,
         TelegramModule,
         SharedModule,
-        YoutubeModule
+        YoutubeModule,
+        ExternalDataModule
     ]
 })
 export class CustomerAccountDetailsModule { }

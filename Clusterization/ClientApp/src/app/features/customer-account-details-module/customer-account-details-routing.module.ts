@@ -19,6 +19,8 @@ import { CustomerTelegramMessagesLoadedListPageComponent } from './children/data
 import { CustomerYoutubeMainPageComponent } from './children/data-sources/youtube/customer-youtube-main-page/customer-youtube-main-page.component';
 import { CustomerYoutubeChannelsLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-channels-loaded-list-page/customer-youtube-channels-loaded-list-page.component';
 import { CustomerYoutubeVideosLoadedListPageComponent } from './children/data-sources/youtube/customer-youtube-videos-loaded-list-page/customer-youtube-videos-loaded-list-page.component';
+import { CustomerExternalDataMainPageComponent } from './children/data-sources/externalData/customer-external-data-main-page/customer-external-data-main-page.component';
+import { CustomerEdPacksLoadedListPageComponent } from './children/data-sources/externalData/customer-ed-packs-loaded-list-page/customer-ed-packs-loaded-list-page.component';
 
 const routes: Routes = [
   {
@@ -156,6 +158,21 @@ const routes: Routes = [
               {
                 path:'loaded-messages',
                 component:CustomerTelegramMessagesLoadedListPageComponent
+              }
+            ]
+          },
+          {
+            path: 'externalData',
+            component: CustomerExternalDataMainPageComponent,
+            children:[
+              {
+                path: '',
+                redirectTo: 'loaded-packs',
+                pathMatch: 'full'
+              },
+              {
+                path:'loaded-packs',
+                component:CustomerEdPacksLoadedListPageComponent
               }
             ]
           },

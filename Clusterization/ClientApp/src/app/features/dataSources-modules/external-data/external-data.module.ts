@@ -33,6 +33,9 @@ import { UpdateExternalObjectsPackPageComponent } from './external-objects-packs
     LoadExternalObjectsPageComponent,
     LoadAndAddExternalObjectsPageComponent,
   ],
+  exports:[
+    ExternalObjectsPackListComponent
+  ],
   imports: [
     CommonModule,
     ExternalDataRoutingModule,

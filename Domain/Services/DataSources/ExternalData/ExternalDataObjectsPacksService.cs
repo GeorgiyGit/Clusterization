@@ -365,6 +365,31 @@ namespace Domain.Services.DataSources.ExternalData
 
             return _mapper.Map<ICollection<SimpleExternalObjectsPackDTO>>(packs);
         }
+        public async Task<ICollection<SimpleExternalObjectsPackDTO>> GetCustomerCollection(GetExternalDataObjectsPacksRequest request)
+        {
+            var customerId = await _userService.GetCurrentUserId();
+            if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<ExternalObjectsPack, bool>> filterCondition = e => e.OwnerId == customerId;
+
+            if (!string.IsNullOrEmpty(request.FilterStr))
+            {
+                filterCondition = filterCondition.And(e => e.Title.Contains(request.FilterStr));
+            }
+
+            if (customerId != null)
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers || e.OwnerId == customerId);
+            }
+            else
+            {
+                filterCondition = filterCondition.And(e => e.VisibleType == VisibleTypes.AllCustomers);
+            }
+
+            var packs = await _externalObjectsPacksRepository.GetAsync(filter: filterCondition, pageParameters: request.PageParameters);
+
+            return _mapper.Map<ICollection<SimpleExternalObjectsPackDTO>>(packs);
+        }
         public async Task<FullExternalObjectsPackDTO> GetFullById(int id)
         {
             var pack = await _externalObjectsPacksRepository.FindAsync(id);

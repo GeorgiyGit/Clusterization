@@ -57,6 +57,13 @@ namespace Clusterization.Controllers.DataSources.External
             return Ok(await service.GetCollection(request));
         }
 
+        [HttpPost("get_customer_collection")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> GetCustomerCollection([FromBody] GetExternalDataObjectsPacksRequest request)
+        {
+            return Ok(await service.GetCustomerCollection(request));
+        }
+
         [HttpGet("get_full/{id}")]
         public async Task<IActionResult> GetFullById([FromRoute] int id)
         {
