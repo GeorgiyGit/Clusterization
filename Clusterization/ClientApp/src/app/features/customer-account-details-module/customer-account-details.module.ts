@@ -19,6 +19,10 @@ import { ClusterizationModule } from '../clusterization-module/clusterization.mo
 import { SharedModule } from '../shared-module/shared.module';
 import { CustomerPersonalInformationMainPageComponent } from './children/personal-information/pages/customer-personal-information-main-page/customer-personal-information-main-page.component';
 import { CustomerPersonalInformationPageComponent } from './children/personal-information/pages/customer-personal-information-page/customer-personal-information-page.component';
+import { CustomerTelegramChannelsLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-channels-loaded-list-page/customer-telegram-channels-loaded-list-page.component';
+import { CustomerTelegramMainPageComponent } from './children/data-sources/telegram/customer-telegram-main-page/customer-telegram-main-page.component';
+import { CustomerTelegramMessagesLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-messages-loaded-list-page/customer-telegram-messages-loaded-list-page.component';
+import { TelegramModule } from '../dataSources-modules/telegram/telegram.module';
 
 
 @NgModule({
@@ -40,12 +44,17 @@ import { CustomerPersonalInformationPageComponent } from './children/personal-in
 
     CustomerPersonalInformationMainPageComponent,
     CustomerPersonalInformationPageComponent,
+
+    CustomerTelegramChannelsLoadedListPageComponent,
+    CustomerTelegramMainPageComponent,
+    CustomerTelegramMessagesLoadedListPageComponent
   ],
   imports: [
     CommonModule,
     CustomerAccountDetailsRoutingModule,
     CoreModule,
     ClusterizationModule,
+    TelegramModule,
     SharedModule
   ]
 })

@@ -19,6 +19,7 @@ using Accord.Statistics.Kernels;
 using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.MessageDTOs.Responses;
 using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.MessageDTOs.Requests;
 using Domain.Resources.Types.DataSources.Telegram;
+using Domain.Extensions;
 
 namespace Domain.Services.DataSources.Telegram
 {
@@ -336,6 +337,74 @@ namespace Domain.Services.DataSources.Telegram
         public async Task<ICollection<SimpleTelegramMessageDTO>> GetLoadedCollection(GetTelegramMessagesRequest request)
         {
             Expression<Func<TelegramMessage, bool>> filterCondition = e => string.IsNullOrEmpty(request.FilterStr) || e.Message.Contains(request.FilterStr);
+            if (request.ChannelId != null)
+            {
+                var channel = await _channelsRepository.FindAsync(request.ChannelId);
+
+                if (channel != null)
+                {
+                    filterCondition = e => e.TelegramChannelId == request.ChannelId;
+                }
+            }
+
+
+            Func<IQueryable<TelegramMessage>, IOrderedQueryable<TelegramMessage>> orderByExpression = q =>
+                q.OrderByDescending(e => e.Date);
+
+            if (request.FilterType == TelegramMessageFilterTypes.ByTimeDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.Date);
+            }
+            else if (request.FilterType == TelegramMessageFilterTypes.ByTimeInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.Date);
+            }
+            else if (request.FilterType == TelegramMessageFilterTypes.ByViewsDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.Views);
+            }
+            else if (request.FilterType == TelegramMessageFilterTypes.ByViewsInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.Views);
+            }
+            else if (request.FilterType == TelegramMessageFilterTypes.ByRepliesDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.TelegramRepliesCount);
+            }
+            else if (request.FilterType == TelegramMessageFilterTypes.ByRepliesInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.TelegramRepliesCount);
+            }
+
+            var pageParameters = request.PageParameters;
+
+            var msgs = await _repository.GetAsync(filter: filterCondition,
+                                                  orderBy: orderByExpression,
+                                                  pageParameters: pageParameters);
+
+            var mappedMsgs = _mapper.Map<ICollection<SimpleTelegramMessageDTO>>(msgs);
+
+            return mappedMsgs;
+        }
+
+        public async Task<ICollection<SimpleTelegramMessageDTO>> GetCustomerLoadedCollection(GetTelegramMessagesRequest request)
+        {
+            var customerId = await _userService.GetCurrentUserId();
+            if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<TelegramMessage, bool>> filterCondition = e => e.LoaderId == customerId;
+
+            if (!string.IsNullOrEmpty(request.FilterStr))
+            {
+                filterCondition = filterCondition.And(e => e.Message.Contains(request.FilterStr));
+            }
+
             if (request.ChannelId != null)
             {
                 var channel = await _channelsRepository.FindAsync(request.ChannelId);

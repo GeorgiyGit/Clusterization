@@ -1,5 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SearchStates } from 'src/app/features/documentation-module/pages/doc-navigation-page/doc-navigation-page.component';
 
 @Component({
   selector: 'app-customer-account-details-nav-page',
@@ -17,10 +18,16 @@ import { Component } from '@angular/core';
     ])
   ]
 })
-export class CustomerAccountDetailsNavPageComponent {
+export class CustomerAccountDetailsNavPageComponent implements OnInit{
+  states: SearchStates = new SearchStates();
+  
   isMenuOpen: boolean = true;
   isMenuOpenAnimation: boolean = true;
   
+  ngOnInit(): void {
+    this.states.SearchFor['data-sources/telegram'] = false;
+  }
+
   toggleMenu() {
     if (this.isMenuOpen == true) {
       this.isMenuOpenAnimation = false;
@@ -34,5 +41,9 @@ export class CustomerAccountDetailsNavPageComponent {
       this.isMenuOpen = true;
       this.isMenuOpenAnimation = true;
     }
+  }
+
+  toggleSelect(key: string) {
+    this.states.SearchFor[key] = !this.states.SearchFor[key];
   }
 }

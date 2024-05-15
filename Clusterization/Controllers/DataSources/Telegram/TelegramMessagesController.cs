@@ -53,6 +53,12 @@ namespace Clusterization.Controllers.DataSources.Telegram
         {
             return Ok(await service.GetLoadedCollection(request));
         }
+        [HttpPost("get_customer_loaded_collection")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> GetCustomerLoadedCollection([FromBody] GetTelegramMessagesRequest request)
+        {
+            return Ok(await service.GetCustomerLoadedCollection(request));
+        }
 
         [HttpPost("get_without_loading")]
         [Authorize(Roles = UserRoles.User)]

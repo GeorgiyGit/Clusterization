@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IGetTelegramChannelsRequest } from '../../models/requests/get-telegram-channels-request';
-import { ISimpleTelegramChannel } from '../../models/responses/simple-telegram-channel';
-import { TelegramChannelsService } from '../../services/telegram-channels.service';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
-import { ITelegramChannelFilter } from '../../models/telegram-channel-filter';
+import { IGetTelegramChannelsRequest } from 'src/app/features/dataSources-modules/telegram/channels/models/requests/get-telegram-channels-request';
+import { ISimpleTelegramChannel } from 'src/app/features/dataSources-modules/telegram/channels/models/responses/simple-telegram-channel';
+import { ITelegramChannelFilter } from 'src/app/features/dataSources-modules/telegram/channels/models/telegram-channel-filter';
+import { TelegramChannelsService } from 'src/app/features/dataSources-modules/telegram/channels/services/telegram-channels.service';
 
 @Component({
-  selector: 'app-telegram-channel-list-page',
-  templateUrl: './telegram-channel-list-page.component.html',
-  styleUrl: './telegram-channel-list-page.component.scss'
+  selector: 'app-customer-telegram-channels-loaded-list-page',
+  templateUrl: './customer-telegram-channels-loaded-list-page.component.html',
+  styleUrl: './customer-telegram-channels-loaded-list-page.component.scss'
 })
-export class TelegramChannelListPageComponent implements OnInit{
+export class CustomerTelegramChannelsLoadedListPageComponent implements OnInit{
   request:IGetTelegramChannelsRequest={
     filterStr:'',
     filterType:'ByTimeDesc',
@@ -42,7 +42,7 @@ export class TelegramChannelListPageComponent implements OnInit{
     this.request.pageParameters.pageNumber=1;
 
     this.isLoading=true;
-    this.channelService.getMany(this.request).subscribe(res=>{
+    this.channelService.getCustomerMany(this.request).subscribe(res=>{
       this.channels=res;
       this.isLoading=false;
 
@@ -58,7 +58,7 @@ export class TelegramChannelListPageComponent implements OnInit{
   loadMore(){
     if(this.isLoading2)return;
     this.isLoading2=true;
-    this.channelService.getMany(this.request).subscribe(res=>{
+    this.channelService.getCustomerMany(this.request).subscribe(res=>{
       this.channels=this.channels.concat(res);
       this.isLoading2=false;
 
@@ -77,4 +77,5 @@ export class TelegramChannelListPageComponent implements OnInit{
       this.loadMore();
     }
   }
+
 }

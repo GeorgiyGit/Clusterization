@@ -58,6 +58,12 @@ import { TelegramMessagePhoneCardComponent } from './messages/components/telegra
     AddTelegramMessageRepliesToWorkspaceComponent,
 
   ],
+  exports:[
+    TelegramChannelListComponent,
+    TelegramChannelsSearchFilterComponent,
+    TelegramMessageListComponent,
+    TelegramMessagesSearchFilterComponent
+  ],
   imports: [
     CommonModule,
     TelegramRoutingModule,

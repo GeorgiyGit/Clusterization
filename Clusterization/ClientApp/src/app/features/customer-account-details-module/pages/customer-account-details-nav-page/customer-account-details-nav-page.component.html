@@ -17,6 +17,21 @@
                 <li class="child-element-cont" routerLink="profiles">
                     <a routerLinkActive="active" i18n>Профілі кластеризації</a>
                 </li>
+                <li>
+                    <div class="parent-element-cont" (click)="toggleSelect('data-sources')">
+                        <a routerLinkActive="active" routerLink="data-sources" i18n>Джерела даних</a>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="!this.states.SearchFor['data-sources']">expand_more</span>
+                        <span class="material-symbols-outlined icon" translate="no"
+                            *ngIf="this.states.SearchFor['data-sources']">expand_less</span>
+                    </div>
+
+                    <ul class="ul-l2" [class.closed]="!this.states.SearchFor['data-sources']">
+                        <li class="child-element-cont" routerLink="data-sources/telegram">
+                            <a routerLinkActive="active">Telegram</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <div class="arrow-cont" (click)="toggleMenu()">

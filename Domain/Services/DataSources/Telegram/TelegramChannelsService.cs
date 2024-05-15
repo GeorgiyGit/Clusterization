@@ -26,6 +26,7 @@ using Domain.DTOs.YoutubeDTOs.ChannelDTOs;
 using Domain.Resources.Types.DataSources.Youtube;
 using System.Linq.Expressions;
 using Domain.Resources.Types.DataSources.Telegram;
+using Domain.Extensions;
 
 namespace Domain.Services.DataSources.Telegram
 {
@@ -188,7 +189,62 @@ namespace Domain.Services.DataSources.Telegram
             var mappedChannels = _mapper.Map<ICollection<SimpleTelegramChannelDTO>>(channels);
             return mappedChannels;
         }
+        public async Task<ICollection<SimpleTelegramChannelDTO>> GetCustomerLoadedCollection(GetTelegramChannelsRequest request)
+        {
+            var customerId = await _userService.GetCurrentUserId();
+            if (customerId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
+            Expression<Func<TelegramChannel, bool>> filterCondition = e => e.LoaderId == customerId;
+
+            if (!string.IsNullOrEmpty(request.FilterStr))
+            {
+                filterCondition = filterCondition.And(e => e.Title.Contains(request.FilterStr));
+            }
+
+            Func<IQueryable<TelegramChannel>, IOrderedQueryable<TelegramChannel>> orderByExpression = q =>
+                q.OrderByDescending(e => e.LoadedDate);
+
+            if (request.FilterType == TelegramChannelFilterTypes.ByTimeDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.LoadedDate);
+            }
+            else if (request.FilterType == TelegramChannelFilterTypes.ByTimeInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.LoadedDate);
+            }
+            else if (request.FilterType == TelegramChannelFilterTypes.ByLoadedMessageCountDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.TelegramMessagesCount);
+            }
+            else if (request.FilterType == TelegramChannelFilterTypes.ByLoadedMessageCountInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.TelegramMessagesCount);
+            }
+            else if (request.FilterType == TelegramChannelFilterTypes.ByParticipantsDesc)
+            {
+                orderByExpression = q =>
+                        q.OrderByDescending(e => e.ParticipantsCount);
+            }
+            else if (request.FilterType == TelegramChannelFilterTypes.ByParticipantsInc)
+            {
+                orderByExpression = q =>
+                        q.OrderBy(e => e.ParticipantsCount);
+            }
+
+            var pageParameters = request.PageParameters;
+
+            var channels = await _repository.GetAsync(filter: filterCondition,
+                                                      orderBy: orderByExpression,
+                                                      pageParameters: pageParameters);
+
+
+            var mappedChannels = _mapper.Map<ICollection<SimpleTelegramChannelDTO>>(channels);
+            return mappedChannels;
+        }
         public async Task<ICollection<SimpleTelegramChannelDTO>> GetCollectionWithoutLoadingByName(string name)
         {
             var response = await _wTelegramService.Client.Contacts_Search(name, 20);

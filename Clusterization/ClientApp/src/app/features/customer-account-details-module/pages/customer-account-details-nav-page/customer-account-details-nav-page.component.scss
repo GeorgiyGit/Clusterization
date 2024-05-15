@@ -17,7 +17,8 @@ section {
             height: fit-content;
         }
         
-        .child-element-cont {
+        .child-element-cont,
+        .parent-element-cont {
             cursor: pointer;
 
             color: $first-color-3;
@@ -25,6 +26,18 @@ section {
 
             &:hover {
                 background-color: $second-color-1;
+            }
+        }
+
+        .parent-element-cont {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .icon {
+                color: $first-color-3;
+                user-select: none;
+                cursor: pointer;
             }
         }
 

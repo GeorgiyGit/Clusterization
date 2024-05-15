@@ -28,6 +28,7 @@ namespace Domain.Interfaces.DataSources.Telegram
 
         public Task<FullTelegramChannelDTO> GetLoadedById(long id);
         public Task<ICollection<SimpleTelegramChannelDTO>> GetLoadedCollection(GetTelegramChannelsRequest request);
+        public Task<ICollection<SimpleTelegramChannelDTO>> GetCustomerLoadedCollection(GetTelegramChannelsRequest request);
 
         public Task<ICollection<SimpleTelegramChannelDTO>> GetCollectionWithoutLoadingByName(string name);
     }

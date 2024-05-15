@@ -13,6 +13,9 @@ import { CustomerWorkspacesMainPageComponent } from './children/workspaces/pages
 import { CustomerAccountDetailsNavPageComponent } from './pages/customer-account-details-nav-page/customer-account-details-nav-page.component';
 import { CustomerPersonalInformationMainPageComponent } from './children/personal-information/pages/customer-personal-information-main-page/customer-personal-information-main-page.component';
 import { CustomerPersonalInformationPageComponent } from './children/personal-information/pages/customer-personal-information-page/customer-personal-information-page.component';
+import { CustomerTelegramMainPageComponent } from './children/data-sources/telegram/customer-telegram-main-page/customer-telegram-main-page.component';
+import { CustomerTelegramChannelsLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-channels-loaded-list-page/customer-telegram-channels-loaded-list-page.component';
+import { CustomerTelegramMessagesLoadedListPageComponent } from './children/data-sources/telegram/customer-telegram-messages-loaded-list-page/customer-telegram-messages-loaded-list-page.component';
 
 const routes: Routes = [
   {
@@ -104,6 +107,35 @@ const routes: Routes = [
           {
             path: 'list',
             component: CustomerProfilesListPageComponent
+          }
+        ]
+      },
+      {
+        path: 'data-sources',
+        children: [
+          {
+            path: '',
+            redirectTo: 'telegram',
+            pathMatch: 'full'
+          },
+          {
+            path: 'telegram',
+            component: CustomerTelegramMainPageComponent,
+            children:[
+              {
+                path: '',
+                redirectTo: 'loaded-channels',
+                pathMatch: 'full'
+              },
+              {
+                path:'loaded-channels',
+                component:CustomerTelegramChannelsLoadedListPageComponent
+              },
+              {
+                path:'loaded-messages',
+                component:CustomerTelegramMessagesLoadedListPageComponent
+              }
+            ]
           }
         ]
       },
