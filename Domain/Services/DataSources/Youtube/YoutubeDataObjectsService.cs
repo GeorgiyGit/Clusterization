@@ -18,6 +18,7 @@ using System.Net;
 using Domain.Entities.DataSources.Youtube;
 using Domain.Resources.Types.Clusterization;
 using Domain.Resources.Types.DataSources;
+using Domain.DTOs;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -221,38 +222,67 @@ namespace Domain.Services.DataSources.Youtube
                 foreach (var id in request.VideoIds)
                 {
                     var newConditions = filterCondition.And(e => e.VideoId == id);
-                    var comments = (await _commentsRepository.GetAsync(filter: newConditions, includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.Video)},{nameof(Entities.DataSources.Youtube.YoutubeComment.DataObject)}")).Take(request.MaxCountInVideo);
 
-                    foreach (var comment in comments)
+                    const int pageSize = 500;
+
+                    var pageParameters = new PageParameters()
                     {
-                        MyDataObject dataObject;
-                        if (comment.DataObject == null)
+                        PageNumber = 1,
+                        PageSize = pageSize
+                    };
+                    if (request.MaxCountInVideo < pageSize) pageParameters.PageSize = request.MaxCountInVideo;
+                    
+                    int loadedCount = 0;
+                    while (true)
+                    {
+                        var comments = await _commentsRepository.GetAsync(filter: newConditions,
+                                                                           includeProperties: $"{nameof(Entities.DataSources.Youtube.YoutubeComment.Video)},{nameof(Entities.DataSources.Youtube.YoutubeComment.DataObject)}",
+                                                                           pageParameters: pageParameters);
+
+                        if (comments.Count() == 0) break;
+
+                        foreach (var comment in comments)
                         {
-                            dataObject = new MyDataObject()
+                            MyDataObject dataObject;
+                            if (comment.DataObject == null)
                             {
-                                YoutubeComment = comment,
-                                TypeId = DataObjectTypes.YoutubeComment,
-                                Text = comment.TextOriginal,
-                            };
+                                dataObject = new MyDataObject()
+                                {
+                                    YoutubeComment = comment,
+                                    TypeId = DataObjectTypes.YoutubeComment,
+                                    Text = comment.TextOriginal,
+                                };
 
-                            await _dataObjectsRepository.AddAsync(dataObject);
-                            await _dataObjectsRepository.SaveChangesAsync();
-                        }
-                        else
-                        {
-                            dataObject = comment.DataObject;
-                            pack.DataObjects.Add(dataObject);
+                                await _dataObjectsRepository.AddAsync(dataObject);
+                                await _dataObjectsRepository.SaveChangesAsync();
+                            }
+                            else
+                            {
+                                dataObject = comment.DataObject;
+                                pack.DataObjects.Add(dataObject);
+                            }
+
+                            if (!workspace.DataObjects.Contains(dataObject))
+                            {
+                                pack.DataObjects.Add(dataObject);
+                                dataObject.WorkspaceDataObjectsAddPacks.Add(pack);
+
+                                workspace.DataObjects.Add(dataObject);
+                                workspace.EntitiesCount++;
+                                addedElementsCount++;
+                                loadedCount++;
+                            }
                         }
 
-                        if (!workspace.DataObjects.Contains(dataObject))
-                        {
-                            pack.DataObjects.Add(dataObject);
-                            dataObject.WorkspaceDataObjectsAddPacks.Add(pack);
+                        await _workspacesRepository.SaveChangesAsync();
 
-                            workspace.DataObjects.Add(dataObject);
-                            workspace.EntitiesCount++;
-                            addedElementsCount++;
-                        }
+                        float percents = (float)loadedCount / (float)request.MaxCountInVideo * 100f;
+                        if (percents > 100f) percents = 100f;
+                        await _tasksService.ChangeTaskPercent(taskId, percents);
+
+                        if (loadedCount >= request.MaxCountInVideo) break;
+                        
+                        pageParameters.PageNumber++;
                     }
                 }
 

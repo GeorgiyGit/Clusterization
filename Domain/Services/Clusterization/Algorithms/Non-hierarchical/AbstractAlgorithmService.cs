@@ -111,16 +111,22 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         {
             List<AddEmbeddingsWithDRHelpModel> helpModels = new List<AddEmbeddingsWithDRHelpModel>();
 
-            foreach (var dataObject in dataObjects)
+            for (int i = 0; i < dataObjects.Count(); i++)
             {
+                var dataObject = dataObjects.ElementAt(i);
+
                 var embeddingObjectsGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DRTechniqueId && e.EmbeddingModelId == embeddingModelId && e.WorkspaceId == workspaceId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
 
-                if (embeddingObjectsGroup == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
-
+                if (embeddingObjectsGroup == null)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                }
                 var dimensionEmbedding = (await _dimensionEmbeddingObjectsRepository.GetAsync(e => e.EmbeddingObjectsGroupId == embeddingObjectsGroup.Id && e.TypeId == dimensionCount)).FirstOrDefault();
 
-                if (dimensionEmbedding == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
-
+                if (dimensionEmbedding == null)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                }
                 var embedding = dimensionEmbedding.ValuesString.Split(' ').Select(double.Parse).ToArray();
 
                 helpModels.Add(new AddEmbeddingsWithDRHelpModel()

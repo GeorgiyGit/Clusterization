@@ -21,6 +21,8 @@ using OpenAI.ObjectModels.ResponseModels;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Interfaces.Embeddings;
 using Domain.Resources.Types.Clusterization;
+using Domain.DTOs;
+using Domain.Entities.Embeddings;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -28,9 +30,11 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
     {
 
         private readonly IRepository<WorkspaceDataObjectsAddPack> _dataPacksRepository;
+        private readonly IRepository<MyDataObject> _dataObjectsRepository;
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
-        private readonly IRepository<EmbeddingModel> _embeddingModelsRepository;
+        private readonly IRepository<EmbeddingModel> _embeddingModelsRepository; 
         private readonly IRepository<ClusterizationProfile> _profilesRepository;
+        private readonly IRepository<EmbeddingObjectsGroup> _embeddingObjectsGroupsRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
@@ -55,7 +59,9 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                                      IEmbeddingsService embeddingsService,
                                      IRepository<EmbeddingModel> embeddingModelsRepository,
                                      IRepository<ClusterizationProfile> profilesRepository,
-                                     IEmbeddingLoadingStatesService embeddingLoadingStatesService)
+                                     IEmbeddingLoadingStatesService embeddingLoadingStatesService,
+                                     IRepository<MyDataObject> dataObjectsRepository,
+                                     IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository)
         {
             _localizer = localizer;
             _backgroundJobClient = backgroundJobClient;
@@ -70,6 +76,8 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             _embeddingModelsRepository = embeddingModelsRepository;
             _profilesRepository = profilesRepository;
             _embeddingLoadingStatesService = embeddingLoadingStatesService;
+            _dataObjectsRepository = dataObjectsRepository;
+            _embeddingObjectsGroupsRepository = embeddingObjectsGroupsRepository;
         }
         public async Task LoadEmbeddingsByProfile(int profileId)
         {
@@ -142,7 +150,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
         {
             try
             {
-                var pack = (await _dataPacksRepository.GetAsync(e => e.Id == packId, includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Workspace)},{nameof(WorkspaceDataObjectsAddPack.DataObjects)},{nameof(WorkspaceDataObjectsAddPack.EmbeddingLoadingStates)}")).FirstOrDefault();
+                var pack = (await _dataPacksRepository.GetAsync(e => e.Id == packId, includeProperties: $"{nameof(WorkspaceDataObjectsAddPack.Workspace)},{nameof(WorkspaceDataObjectsAddPack.EmbeddingLoadingStates)}")).FirstOrDefault();
 
                 if (pack == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceDataObjectsAddPackNotFound], System.Net.HttpStatusCode.NotFound);
 
@@ -166,46 +174,112 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
 
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
+                var logsId = Guid.NewGuid().ToString();
 
-                var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, pack.DataObjects.Count() * embeddingModel.QuotasPrice, Guid.NewGuid().ToString());
-
-                if (!quotasResult)
+                const int pageSize = 500;
+                var pageParameters = new PageParameters()
                 {
-                    throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
-                }
+                    PageNumber = 1,
+                    PageSize = pageSize
+                };
+                if (pack.DataObjectsCount < pageSize) pageParameters.PageSize = pack.DataObjectsCount;
 
-                var dataObjects = pack.DataObjects.ToList();
-                var dataObjectStrings = pack.DataObjects.Select(e => e.Text.Length > embeddingModel.MaxInputCount ? e.Text.Substring(0, embeddingModel.MaxInputCount) : e.Text).ToList();
-
-                var result = await LoadEmbeddings(embeddingModelId, dataObjectStrings);
-
-                if (!result.Successful)
-                {
-                    await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                    await _tasksService.ChangeTaskDescription(taskId, result.Error.Message);
-                    return;
-                }
-
-                await _tasksService.ChangeTaskPercent(taskId, 50f);
-
-                var maxDimensionCount = embeddingModel.DimensionTypeId;
-
+                int loadedCount = 0;
                 var percents = 0f;
-                for (int i = 0; i < result.Data.Count(); i++)
+                while (true)
                 {
-                    await _embeddingsService.AddEmbeddingsToDataObject(result.Data[i].Embedding, pack.WorkspaceId, DimensionalityReductionTechniques.JSL, embeddingModelId, dataObjects[i].Id, maxDimensionCount);
+                    var dataObjects = (await _dataObjectsRepository.GetAsync(e => e.WorkspaceDataObjectsAddPacks.Contains(pack),
+                                                                             pageParameters: pageParameters)).ToList();
+                    
+                    if (dataObjects.Count() == 0) break;
+                    List<MyDataObject> filteredDataObjects = new List<MyDataObject>();
 
-                    percents += 1f / (float)result.Data.Count() * 100f;
+                    foreach(var dataObject in dataObjects)
+                    {
+                        var embeddingObjectsGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingModelId == embeddingModelId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
+
+                        if (embeddingObjectsGroup == null)
+                        {
+                            filteredDataObjects.Add(dataObject);
+                        }
+                    }
+
+                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.Embeddings, filteredDataObjects.Count() * embeddingModel.QuotasPrice, logsId);
+                    if (!quotasResult)
+                    {
+                        throw new HttpException(_localizer[ErrorMessagePatterns.NotEnoughQuotas], HttpStatusCode.BadRequest);
+                    }
+
+                    var dataObjectStrings = filteredDataObjects.Select(e => e.Text.Length > embeddingModel.MaxInputCount ? e.Text.Substring(0, embeddingModel.MaxInputCount) : e.Text).ToList();
+
+                    EmbeddingCreateResponse result = new EmbeddingCreateResponse();
+
+                    if (filteredDataObjects.Count > 0)
+                    {
+                        for (int i = 0; i < dataObjectStrings.Count; i++)
+                        {
+                            if (dataObjectStrings[i] == null || dataObjectStrings[i] == "")
+                            {
+                                dataObjectStrings[i] = "-";
+                            }
+                        }
+
+                        result = await LoadEmbeddings(embeddingModelId, dataObjectStrings);
+
+                        if (!result.Successful)
+                        {
+                            await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                            await _tasksService.ChangeTaskDescription(taskId, result.Error.Message);
+                            return;
+                        }
+                    }
+
+                    await _tasksService.ChangeTaskPercent(taskId, 50f);
+
+                    var maxDimensionCount = embeddingModel.DimensionTypeId;
+
+                    var resId = 0;
+                    for (int i = 0; i < dataObjects.Count(); i++)
+                    {
+                        var dataObject = dataObjects[i];
+
+                        if (filteredDataObjects.Contains(dataObject))
+                        {
+                            await _embeddingsService.AddEmbeddingsToDataObject(result.Data[resId].Embedding, pack.WorkspaceId, DimensionalityReductionTechniques.JSL, embeddingModelId, dataObject.Id, maxDimensionCount);
+                            resId++;
+                        }
+                        else
+                        {
+                            var embeddingObjectsGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DimensionalityReductionTechniques.JSL && e.EmbeddingModelId == embeddingModelId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
+
+                            var origEmbeddingGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DimensionalityReductionTechniques.JSL && e.WorkspaceId==workspace.Id && e.EmbeddingModelId == embeddingModelId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
+
+                            if (origEmbeddingGroup == null)
+                            {
+                                var embeddings = embeddingObjectsGroup.DimensionEmbeddingObjects.Where(e => e.TypeId == embeddingModel.DimensionTypeId).FirstOrDefault().ValuesString.Split(' ').Select(double.Parse).ToList();
+                                await _embeddingsService.AddEmbeddingsToDataObject(embeddings, pack.WorkspaceId, DimensionalityReductionTechniques.JSL, embeddingModelId, dataObject.Id, maxDimensionCount);
+                            }
+                        }
+
+                        percents += 1f / (float)pack.DataObjectsCount * 100f;
+                        await _tasksService.ChangeTaskPercent(taskId, percents);
+                        loadedCount++;
+                    }
+
                     await _tasksService.ChangeTaskPercent(taskId, percents);
+
+                    await _embeddingModelsRepository.SaveChangesAsync();
+
+                    if (loadedCount >= pack.DataObjectsCount) break;
+
+                    pageParameters.PageNumber++;
                 }
+                packState.IsAllEmbeddingsLoaded = true;
+
+                await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
 
                 await _tasksService.ChangeTaskPercent(taskId, 100f);
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
-
-                packState.IsAllEmbeddingsLoaded = true;
-                await _embeddingModelsRepository.SaveChangesAsync();
-
-                await _embeddingLoadingStatesService.ReviewStates(workspace.Id);
             }
             catch (Exception ex)
             {

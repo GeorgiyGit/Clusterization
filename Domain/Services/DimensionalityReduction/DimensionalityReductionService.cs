@@ -65,19 +65,27 @@ namespace Domain.Services.DimensionalityReduction
 
             var embeddingModel = (await _embeddingModelsRepository.GetAsync(e => e.Id == embeddingModelId, includeProperties: $"{nameof(EmbeddingModel.DimensionType)}")).FirstOrDefault();
 
-            foreach(var dataObject in workspace.DataObjects)
+            for(int i=0;i< workspace.DataObjects.Count(); i++)
             {
+                var dataObject = workspace.DataObjects.ElementAt(i);
+
                 var originalDataObject = (await _dataObjectsRepository.GetAsync(e => e.Id == dataObject.Id)).FirstOrDefault();
 
                 var embeddingObjectsGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DRTechniqueId && e.EmbeddingModelId == embeddingModelId && e.WorkspaceId == workspaceId && e.DataObjectId == dataObject.Id,includeProperties:$"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
 
                 var originalEmbeddingGroup = (await _embeddingObjectsGroupsRepository.GetAsync(e => e.DRTechniqueId == DimensionalityReductionTechniques.JSL && e.WorkspaceId == workspaceId && e.EmbeddingModelId == embeddingModelId && e.DataObjectId == dataObject.Id, includeProperties: $"{nameof(EmbeddingObjectsGroup.DimensionEmbeddingObjects)}")).FirstOrDefault();
 
-                if (originalEmbeddingGroup == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                if (originalEmbeddingGroup == null)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                }
 
                 var dimensionEmbedding = (await _dimensionEmbeddingObjectsRepository.GetAsync(e => e.EmbeddingObjectsGroupId == originalEmbeddingGroup.Id && e.TypeId== embeddingModel.DimensionTypeId)).FirstOrDefault();
 
-                if (dimensionEmbedding == null) throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                if (dimensionEmbedding == null)
+                {
+                    throw new HttpException(_localizer[ErrorMessagePatterns.NotAllDataEmbedded], HttpStatusCode.BadRequest);
+                }
 
                 var embedding = dimensionEmbedding.ValuesString.Split(' ').Select(double.Parse).ToArray();
 
