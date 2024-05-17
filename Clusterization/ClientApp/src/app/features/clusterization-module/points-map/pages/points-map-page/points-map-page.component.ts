@@ -18,7 +18,6 @@ export class PointsMapPageComponent implements OnInit {
 
   loadingMatrix: boolean[][] = [];
 
-  points: IDisplayedPoint[] = [];
   layerValue:number=200;
 
   tilesLevel: IClusterizationTilesLevel;
@@ -62,7 +61,6 @@ export class PointsMapPageComponent implements OnInit {
       if (this.tiles[position.y] == undefined) this.tiles[position.y] = [];
       this.tiles[position.y][position.x] = res;
 
-      this.points = this.points.concat(res.points);
     }, error => {
       this.toastr.error(error.error.Message);
     })
@@ -87,8 +85,6 @@ export class PointsMapPageComponent implements OnInit {
         this.tiles[tile.y][tile.x] = tile;
         newPoints = newPoints.concat(tile.points);
       })
-
-      this.points = this.points.concat(newPoints);
     }, error => {
       this.toastr.error(error.error.Message);
     })

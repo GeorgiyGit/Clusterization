@@ -12,7 +12,9 @@ import { MyToastrService } from 'src/app/core/services/my-toastr.service';
   styleUrls: ['./points-map-plane.component.scss']
 })
 export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit {
-  @Input() displayedPoints: IDisplayedPoint[] = [];
+  visibleAreaMatrix: boolean[][] = [];
+  displayedPoints: IDisplayedPoint[] = [];
+
   @Input() tiles: IClusterizationTile[][] = [];
   @Input() loadingMatrix: boolean[][] = [];
 
@@ -26,8 +28,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   maxTileLength = 16;
 
   radius: number = 7;
-
-  @ViewChild('pointCanvas') canvas: ElementRef;
+  @ViewChild('pointCanvas', { static: true }) canvas: ElementRef;
   private ctx: CanvasRenderingContext2D;
 
   constructor(private el: ElementRef,
@@ -44,6 +45,12 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
       this.drawPoints();
     }
     if (changes['tilesLevel'] && !changes['tilesLevel'].firstChange) {
+      for (let y = 0; y < this.tilesLevel.tileCount; y++) {
+        this.visibleAreaMatrix[y] = [];
+        for (let x = 0; x < this.tilesLevel.tileCount; x++) {
+          this.visibleAreaMatrix[y][x] = false;
+        }
+      }
       this.convertLayerValue();
       this.tilesCalculation();
       this.drawPoints();
@@ -111,7 +118,16 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     let yCord = Math.floor((-this.mouseChangesY) / (this.tilesLevel.tileLength * this.convertedLayerValue));
     if (yCord < 0) yCord = 0;
 
-    var tiles: IMyPosition[] = [];
+    let tiles: IMyPosition[] = [];
+    let newVisibleAreaMatrix: boolean[][] = [];
+
+    for (let y = 0; y < this.tilesLevel.tileCount; y++) {
+      newVisibleAreaMatrix[y] = [];
+      for (let x = 0; x < this.tilesLevel.tileCount; x++) {
+        newVisibleAreaMatrix[y][x] = false;
+      }
+    }
+
     for (let y = yCord; y <= yTilesCount; y++) {
       for (let x = xCord; x <= xTilesCount; x++) {
         if (this.tiles[y] == undefined) {
@@ -121,12 +137,38 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
           this.loadingMatrix[y][x] = true;
           tiles.push({ x: x, y: y });
         }
+
+        newVisibleAreaMatrix[y][x] = true;
+      }
+    }
+    let flag=false;
+    for (let y = 0; y < this.tilesLevel.tileCount; y++) {
+      for (let x = 0; x < this.tilesLevel.tileCount; x++) {
+        if (this.visibleAreaMatrix[y][x] != newVisibleAreaMatrix[y][x]) {
+          this.visibleAreaMatrix = newVisibleAreaMatrix;
+          this.calculateDisplayedPoints();
+          flag=true;
+          break;
+        }
+        if(flag)break;
       }
     }
 
     if (tiles.length > 0) {
       this.addMultipleTilesEvent.emit(tiles);
     }
+  }
+
+  calculateDisplayedPoints() {
+    let newDisplayedPoints: IDisplayedPoint[] = [];
+    for (let y = 0; y < this.tilesLevel.tileCount; y++) {
+      for (let x = 0; x < this.tilesLevel.tileCount; x++) {
+        if (this.visibleAreaMatrix[y][x] && this.tiles[y] != null && this.tiles[y][x] != null) {
+          newDisplayedPoints.push(...this.tiles[y][x].points);
+        }
+      }
+    }
+    this.displayedPoints = newDisplayedPoints;
   }
 
   //#region  mouse
@@ -159,30 +201,30 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.isMouseDown = false;
   }
 
-  
+
   private touchStartHandler(event: TouchEvent) {
     this.isMouseDown = true;
     this.mouseChangesX = event.touches[0].pageX;
     this.mousePositionY = event.touches[0].pageY;
   }
-  
+
   private touchMoveHandler(event: TouchEvent) {
     if (this.isMouseDown) {
       const touchPositionX = event.touches[0].pageX;
       const touchPositionY = event.touches[0].pageY;
-  
+
       this.mouseChangesX += touchPositionX - this.mouseChangesX;
       this.mouseChangesY += touchPositionY - this.mousePositionY;
-  
+
       this.mouseChangesX = touchPositionX;
       this.mousePositionY = touchPositionY;
-  
+
       this.tilesCalculation();
-  
+
       this.drawPoints();
     }
   }
-  
+
   private touchEndHandler(event: TouchEvent) {
     this.isMouseDown = false;
   }
@@ -200,16 +242,18 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   mouseChangesX: number = 0;
   mouseChangesY: number = 0;
   drawPoints() {
+    if (this.tilesLevel == null) return;
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.displayedPoints.forEach(point => {
       this.ctx.fillStyle = point.color;
-      this.ctx.beginPath();
 
+      this.ctx.beginPath();
       let xCoordinate = Math.round(point.x * this.convertedLayerValue + this.mouseChangesX + this.convertedLayerValue * Math.abs(this.tilesLevel.minXValue));
       let yCoordinate = Math.round(point.y * this.convertedLayerValue + this.mouseChangesY + this.convertedLayerValue * Math.abs(this.tilesLevel.minYValue));
       this.ctx.arc(xCoordinate, yCoordinate, this.radius, 0, 2 * Math.PI, true);
       this.ctx.fill();
     });
+
     this.ctx.fillStyle = "black";
     this.ctx.beginPath();
 
@@ -266,7 +310,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     const croppedCanvas = document.createElement('canvas');
     croppedCanvas.width = rectLength;
     croppedCanvas.height = rectLength;
-    const context = croppedCanvas.getContext('2d');
+    const context = croppedCanvas.getContext('2d', { alpha: false });
 
     if (context == null) return;
     context.drawImage(canvas, rectX, rectY, rectLength, rectLength, 0, 0, rectLength, rectLength);
