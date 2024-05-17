@@ -15,3 +15,12 @@
         gap: 10px;
     }
 }
+.main-cont{
+    display: flex;
+    justify-content: space-between;
+
+    gap: 10px;
+    app-clusters-list{
+        flex: 1;
+    }
+}

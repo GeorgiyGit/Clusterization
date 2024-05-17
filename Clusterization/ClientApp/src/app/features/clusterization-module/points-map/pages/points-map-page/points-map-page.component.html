@@ -9,7 +9,8 @@
             <span class="material-symbols-outlined icon" translate="no" (click)="downloadImage()">download</span>
         </div>
     </div>
-    <app-points-map-plane
+    <div class="main-cont">
+        <app-points-map-plane
         [layerValue]="layerValue"
         (addTileEvent)="addTile($event)"
         [tilesLevel]="tilesLevel"
@@ -17,4 +18,6 @@
         (addMultipleTilesEvent)="addManyTiles($event)"
         [loadingMatrix]="loadingMatrix"
         (wheel)="handleMouseWheel($event)"></app-points-map-plane>
+        <app-clusters-list [profileId]="profileId"></app-clusters-list>
+    </div>
 </section>

@@ -239,8 +239,8 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   //#endregion
 
 
-  mouseChangesX: number = 0;
-  mouseChangesY: number = 0;
+  mouseChangesX: number = 50;
+  mouseChangesY: number = 50;
   drawPoints() {
     if (this.tilesLevel == null) return;
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);

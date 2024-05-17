@@ -124,7 +124,8 @@ internal class Program
         builder.Services.AddScoped<IClusterizationDisplayedPointsService, ClusterizationDisplayedPointsService>();
         builder.Services.AddScoped<IClusterizationTilesService, ClusterizationTilesService>();
         builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
-        
+        builder.Services.AddScoped<IClustersService, ClustersService>();
+
         builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
         builder.Services.AddScoped<IWorkspaceDataObjectsAddPacksService, WorkspaceDataObjectsAddPacksService>();
         builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
@@ -310,6 +311,5 @@ internal class Program
         }
 
         app.Run();
-
     }
 }

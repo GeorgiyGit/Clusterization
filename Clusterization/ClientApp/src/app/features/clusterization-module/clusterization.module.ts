@@ -40,6 +40,9 @@ import { AddScAlgorithmComponent } from './clusterization/algorithms/non-hierarc
 import { DRTechniquesSelectComponent } from './dimensionalityReduction/DR-techniques/components/dr-techniques-select/dr-techniques-select.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
+import { ClustersListComponent } from './clusters/components/clusters-list/clusters-list.component';
+import { ClusterCardComponent } from './clusters/components/cluster-card/cluster-card.component';
+import { ClusterDataObjectCardComponent } from './clusters/components/cluster-data-object-card/cluster-data-object-card.component';
 
 
 @NgModule({
@@ -84,6 +87,10 @@ import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/u
 
     VisibleTypesSelectOptionComponent,
     ChangingTypesSelectOptionComponent,
+
+    ClustersListComponent,
+    ClusterCardComponent,
+    ClusterDataObjectCardComponent
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
