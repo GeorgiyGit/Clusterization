@@ -18,6 +18,8 @@
         (addMultipleTilesEvent)="addManyTiles($event)"
         [loadingMatrix]="loadingMatrix"
         (wheel)="handleMouseWheel($event)"></app-points-map-plane>
-        <app-clusters-list [profileId]="profileId"></app-clusters-list>
+        <app-clusters-list [profileId]="profileId"
+            (selectClusterEvent)="addAllowedClusterId($event)"
+            (unSelectClusterEvent)="removeAllowedClusterId($event)"></app-clusters-list>
     </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICluster } from '../../models/responses/cluster';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { ClustersService } from '../../services/clusters.service';
@@ -12,6 +12,9 @@ import { IClusterData } from '../../models/responses/cluster-data';
 })
 export class ClusterCardComponent implements OnInit{
   @Input() cluster: ICluster;
+
+  @Output() selectClusterEvent=new EventEmitter<number>();
+  @Output() unSelectClusterEvent=new EventEmitter<number>();
 
   isOpen:boolean=false;
   request:IGetClusterDataRequest={
@@ -73,10 +76,30 @@ export class ClusterCardComponent implements OnInit{
     }
   }
 
-  toggleOpen(){
+  toggleOpen(event:MouseEvent){
+    event.stopPropagation();
     this.isOpen=!this.isOpen;
     if(this.isOpen){
       this.loadFirst();
     }
+  }
+
+  isSelected:boolean;
+  toggleSelect(){
+    if(this.isSelected){
+      this.isSelected=false;
+      this.unSelectClusterEvent.emit(this.cluster.id);
+    }
+    else{
+      this.isSelected=true;
+      this.selectClusterEvent.emit(this.cluster.id);
+    }
+  }
+
+  selectEvent(id:number){
+    this.selectClusterEvent.emit(id);
+  }
+  unselectEvent(id:number){
+    this.unSelectClusterEvent.emit(id);
   }
 }

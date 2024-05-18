@@ -1,5 +1,5 @@
 <div>
-    <div class="card-cont">
+    <div class="card-cont" [class.selected]="isSelected" (click)="toggleSelect()">
         <div class="circle" [style.background-color]="cluster.color">
         </div>
         <div class="text-cont">
@@ -7,9 +7,9 @@
             <p class="title" *ngIf="cluster.name!=undefined">{{cluster.name}}</p>
             <p class="elements-count">{{cluster.childElementsCount}}</p>
         </div>
-        <span class="material-symbols-outlined icon" (click)="toggleOpen()" translate="no"
+        <span class="material-symbols-outlined icon" (click)="toggleOpen($event)" translate="no"
             *ngIf="!this.isOpen">expand_more</span>
-        <span class="material-symbols-outlined icon" (click)="toggleOpen()" translate="no"
+        <span class="material-symbols-outlined icon" (click)="toggleOpen($event)" translate="no"
             *ngIf="this.isOpen">expand_less</span>
     </div>
     <div class="list-cont" *ngIf="isOpen">
@@ -17,7 +17,10 @@
             <app-loader></app-loader>
         </div>
         @for (entity of entities; track $index) {
-        <app-cluster-card *ngIf="entity.cluster!=null" [cluster]="entity.cluster"></app-cluster-card>
+        <app-cluster-card *ngIf="entity.cluster!=null"
+            [cluster]="entity.cluster"
+            (selectClusterEvent)="selectEvent($event)"
+            (unSelectClusterEvent)="unselectEvent($event)"></app-cluster-card>
         <app-cluster-data-object-card *ngIf="entity.dataObject!=null"
             [dataObject]="entity.dataObject"></app-cluster-data-object-card>
         }@empty {

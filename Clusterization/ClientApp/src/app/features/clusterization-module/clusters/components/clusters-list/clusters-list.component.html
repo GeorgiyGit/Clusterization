@@ -5,7 +5,9 @@
             <app-loader></app-loader>
         </div>
         @for (cluster of clusters; track $index) {
-            <app-cluster-card [cluster]="cluster"></app-cluster-card>
+            <app-cluster-card [cluster]="cluster"
+                (selectClusterEvent)="selectEvent($event)"
+                (unSelectClusterEvent)="unselectEvent($event)"></app-cluster-card>
         }@empty {
             <div class="centered" *ngIf="!isLoading">
                 <p class="nothing-text" i18n>Кластерів не знайдено</p>

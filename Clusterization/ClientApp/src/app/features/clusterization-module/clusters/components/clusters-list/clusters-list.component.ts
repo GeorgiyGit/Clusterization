@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ClustersService } from '../../services/clusters.service';
 import { IGetClustersRequest } from '../../models/requests/get-clusters-request';
 import { ICluster } from '../../models/responses/cluster';
@@ -13,7 +13,9 @@ export class ClustersListComponent implements OnInit, OnChanges {
   @Input() profileId:number=-1;
   clusters:ICluster[]=[];
 
-
+  @Output() selectClusterEvent=new EventEmitter<number>();
+  @Output() unSelectClusterEvent=new EventEmitter<number>();
+  
   request:IGetClustersRequest={
     profileId:this.profileId,
     pageParameters:{
@@ -81,5 +83,12 @@ export class ClustersListComponent implements OnInit, OnChanges {
       this.request.pageParameters.pageNumber++;
       this.loadMore();
     }
+  }
+
+  selectEvent(id:number){
+    this.selectClusterEvent.emit(id);
+  }
+  unselectEvent(id:number){
+    this.unSelectClusterEvent.emit(id);
   }
 }

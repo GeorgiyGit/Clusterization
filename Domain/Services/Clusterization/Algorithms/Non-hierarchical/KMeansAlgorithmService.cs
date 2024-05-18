@@ -226,6 +226,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             {
                 var cluster = clusters[labels[i]];
                 cluster.DataObjects.Add(helpModels[i].DataObject);
+                cluster.ChildElementsCount++;
             }
 
             return clusters;

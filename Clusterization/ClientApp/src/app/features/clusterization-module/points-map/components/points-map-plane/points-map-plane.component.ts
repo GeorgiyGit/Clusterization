@@ -45,6 +45,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
       this.drawPoints();
     }
     if (changes['tilesLevel'] && !changes['tilesLevel'].firstChange) {
+      console.log(1);
       for (let y = 0; y < this.tilesLevel.tileCount; y++) {
         this.visibleAreaMatrix[y] = [];
         for (let x = 0; x < this.tilesLevel.tileCount; x++) {

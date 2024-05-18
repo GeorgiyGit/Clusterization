@@ -159,7 +159,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 {
                     Color = clusterColor,
                     Profile = profile,
-                    DataObjects = dataObjects.ToList()
+                    DataObjects = dataObjects.ToList(),
+                    ChildElementsCount = dataObjects.Count()
                 };
                 await _clustersRepository.AddAsync(cluster);
 

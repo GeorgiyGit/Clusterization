@@ -12,5 +12,7 @@ namespace Domain.DTOs.ClusterizationDTOs.TileDTOs
         public int ProfileId { get; set; }
         public int Z { get; set; }
         public List<MyIntegerVector2> Points { get; set; } = new List<MyIntegerVector2>();
+
+        public ICollection<int> AllowedClusterIds { get; set; } = new List<int>();
     }
 }

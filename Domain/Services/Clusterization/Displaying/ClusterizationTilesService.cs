@@ -3,15 +3,18 @@ using Domain.DTOs.ClusterizationDTOs.DisplayedPointDTOs;
 using Domain.DTOs.ClusterizationDTOs.TileDTOs;
 using Domain.DTOs.ClusterizationDTOs.TilesLevelDTOs;
 using Domain.Entities.Clusterization.Displaying;
+using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataObjects;
 using Domain.Entities.Embeddings;
 using Domain.Exceptions;
+using Domain.Extensions;
 using Domain.HelpModels;
 using Domain.Interfaces.Clusterization.Displaying;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Microsoft.Extensions.Localization;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace Domain.Services.Clusterization.Displaying
@@ -124,22 +127,32 @@ namespace Domain.Services.Clusterization.Displaying
 
 
         #region get_tiles
-        public async Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z)
+        public async Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z, ICollection<int> allowedClusterIds)
         {
             var tile = (await _tilesRepository.GetAsync(c => c.ProfileId == profileId && c.X == x && c.Y == y && c.Z == z)).FirstOrDefault();
 
             if (tile == null) throw new HttpException(_localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
 
-            return await GetOneTile(tile.Id);
+            return await GetOneTile(tile.Id, allowedClusterIds);
         }
-        public async Task<ClusterizationTileDTO> GetOneTile(int tileId)
+        public async Task<ClusterizationTileDTO> GetOneTile(int tileId, ICollection<int> allowedClusterIds)
         {
             var tile = (await _tilesRepository.GetAsync(c => c.Id == tileId)).FirstOrDefault();
 
             if (tile == null) throw new HttpException(_localizer[ErrorMessagePatterns.TileNotFound], HttpStatusCode.NotFound);
 
-            var points = (await _displayedPointsRepository.GetAsync(e => e.TileId == tileId, includeProperties: $"{nameof(DisplayedPoint.Cluster)}")).ToList();
+            ICollection<DisplayedPoint> points = new List<DisplayedPoint>();
+            
+            if (allowedClusterIds.Count() > 0)
+            {
+                var filterCondition = ExpressionExtensions.PointsCreateAndExpression(tileId, allowedClusterIds.ToArray());
 
+                points = (await _displayedPointsRepository.GetAsync(filter:filterCondition, includeProperties: $"{nameof(DisplayedPoint.Cluster)}")).ToList();
+            }
+            else
+            {
+                points = (await _displayedPointsRepository.GetAsync(e => e.TileId == tileId, includeProperties: $"{nameof(DisplayedPoint.Cluster)}")).ToList();
+            }
             var mappedTile = _mapper.Map<ClusterizationTileDTO>(tile);
 
             mappedTile.Points = _mapper.Map<ICollection<DisplayedPointDTO>>(points);
@@ -147,7 +160,7 @@ namespace Domain.Services.Clusterization.Displaying
             return mappedTile;
         }
 
-        public async Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points)
+        public async Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points, ICollection<int> allowedClusterIds)
         {
             var tilesLevel = (await _tilesLevelRepository.GetAsync(e => e.ProfileId == profileId && e.Z == z, includeProperties: $"{nameof(ClusterizationTilesLevel.Tiles)}")).FirstOrDefault();
 
@@ -160,7 +173,7 @@ namespace Domain.Services.Clusterization.Displaying
 
                 if (tileId != null)
                 {
-                    var tile = await GetOneTile((int)tileId);
+                    var tile = await GetOneTile((int)tileId,allowedClusterIds);
                     tiles.Add(tile);
                 }
             }

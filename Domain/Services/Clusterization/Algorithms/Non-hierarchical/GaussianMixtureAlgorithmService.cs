@@ -235,6 +235,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 foreach (int index in tempCluster.EntityIds)
                 {
                     newCluster.DataObjects.Add(helpModels[index].DataObject);
+                    newCluster.ChildElementsCount++;
                 }
             }
 
