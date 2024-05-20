@@ -33,9 +33,14 @@
 
         transition: all 0.3s;
 
+        border-radius: 8px;
+
         h1{
             text-align: center;
         }
+    }
+    .low-padding{
+        padding: 20px;
     }
 }
 .overflow-cont-open{
@@ -62,6 +67,10 @@
             padding-top: 60px;
             width: 100%;
         }
+        .low-padding{
+            padding: 20px;
+            padding-top: 60px;
+        }
     }
 }
 @media screen and (max-width: 800px) {
@@ -72,6 +81,10 @@
             padding:20px;
             padding-top: 60px;
             width: 100%;
+        }
+        .low-padding{
+            padding: 20px;
+            padding-top: 60px;
         }
     }
 }
@@ -84,6 +97,10 @@
             padding:20px;
             padding-top: 60px;
             width: 100%;
+        }
+        .low-padding{
+            padding: 20px;
+            padding-top: 60px;
         }
     }
 }

@@ -88,6 +88,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DisplayedPointNotFound.
+        /// </summary>
+        public static string DisplayedPointNotFound {
+            get {
+                return ResourceManager.GetString("DisplayedPointNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DRTechniqueNotFound.
         /// </summary>
         public static string DRTechniqueNotFound {

@@ -27,6 +27,8 @@ import { AddTelegramMessageRepliesToWorkspaceComponent } from './replies-data-ob
 import { AddTelegramChannelRepliesToWorkspacePageComponent } from './replies-data-objects/pages/add-telegram-channel-replies-to-workspace-page/add-telegram-channel-replies-to-workspace-page.component';
 import { TelegramChannelPhoneCardComponent } from './channels/components/telegram-channel-phone-card/telegram-channel-phone-card.component';
 import { TelegramMessagePhoneCardComponent } from './messages/components/telegram-message-phone-card/telegram-message-phone-card.component';
+import { TelegramReactionComponent } from './reactions/components/telegram-reaction/telegram-reaction.component';
+import { TelegramReactionListComponent } from './reactions/components/telegram-reaction-list/telegram-reaction-list.component';
 
 
 @NgModule({
@@ -57,12 +59,15 @@ import { TelegramMessagePhoneCardComponent } from './messages/components/telegra
     AddTelegramChannelRepliesToWorkspacePageComponent,
     AddTelegramMessageRepliesToWorkspaceComponent,
 
+    TelegramReactionComponent,
+    TelegramReactionListComponent
   ],
   exports:[
     TelegramChannelListComponent,
     TelegramChannelsSearchFilterComponent,
     TelegramMessageListComponent,
-    TelegramMessagesSearchFilterComponent
+    TelegramMessagesSearchFilterComponent,
+    TelegramReactionListComponent
   ],
   imports: [
     CommonModule,

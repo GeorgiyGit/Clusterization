@@ -126,6 +126,9 @@
   <data name="CustomerQuotasNotFound" xml:space="preserve">
     <value>Customer quotas not found</value>
   </data>
+  <data name="DisplayedPointNotFound" xml:space="preserve">
+    <value>Displayed point not found</value>
+  </data>
   <data name="DRTechniqueNotFound" xml:space="preserve">
     <value>Dimensionality reduction technique not found</value>
   </data>

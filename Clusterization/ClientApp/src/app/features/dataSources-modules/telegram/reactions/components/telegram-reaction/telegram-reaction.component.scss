@@ -1,0 +1,10 @@
+@import '/src/app/core/styles/base.scss';
+
+.cont{
+    background-color: argb($first-color-1,0.5);
+    border-radius: 50%;
+
+    .span{
+        color: $first-color-3;
+    }
+}

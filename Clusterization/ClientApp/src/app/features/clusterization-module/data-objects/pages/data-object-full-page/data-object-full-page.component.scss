@@ -1,0 +1,30 @@
+@import '/src/app/core/styles/base.scss',
+'/src/app/core/styles/cont-styles.scss';
+
+section {
+    align-items: center;
+    .main-cont{
+        width: 600px;
+
+        h1{
+            margin-bottom: 20px;
+        }
+
+        .time-cont{
+            display: flex;
+            
+            align-items: center;
+            justify-content: center;
+
+            gap: 5px;
+
+            span{
+                color: $first-color-2;
+            }
+        }
+        .error{
+            color: $warn-1;
+            text-align: center;
+        }
+    }
+}

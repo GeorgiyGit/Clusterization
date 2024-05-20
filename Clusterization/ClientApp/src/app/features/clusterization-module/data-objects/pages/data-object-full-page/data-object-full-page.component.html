@@ -1,0 +1,12 @@
+<section class="overflow-cont small-overflow-cont" [class.overflow-cont-open]="animationState=='in'">
+    <div class="main-cont low-padding" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+
+        <app-youtube-comment-data-object *ngIf="dataObject!=null && dataObject.youtubeComment!=null" [model]="dataObject.youtubeComment"></app-youtube-comment-data-object>
+        <app-telegram-message-data-object *ngIf="dataObject!=null && dataObject.telegramMessage!=null" [model]="dataObject.telegramMessage"></app-telegram-message-data-object>
+        <app-telegram-reply-data-object *ngIf="dataObject!=null && dataObject.telegramReply!=null" [model]="dataObject.telegramReply"></app-telegram-reply-data-object>
+        <app-external-data-data-object *ngIf="dataObject!=null && dataObject.externalObject!=null" [model]="dataObject.externalObject"></app-external-data-data-object>
+    </div>
+</section>

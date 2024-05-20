@@ -39,10 +39,11 @@ export class PointsMapPageComponent implements OnInit {
   }
 
   addLayerValue() {
-    this.layerValue++;
+    this.layerValue+=1;
   }
   reduceLayerValue() {
-    this.layerValue--;
+    if(this.layerValue<10)return;
+    this.layerValue-=1;
   }
   centralize() {
     this.layerValue = 50;
@@ -110,6 +111,7 @@ export class PointsMapPageComponent implements OnInit {
       this.layerValue += -event.deltaY / 100;
     }
     else {
+      if(this.layerValue<10)return;
       this.layerValue += -event.deltaY / 100;
     }
   }

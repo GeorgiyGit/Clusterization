@@ -1,0 +1,40 @@
+@import '/src/app/core/styles/base.scss';
+
+.cont{
+    display: flex;
+    gap: 10px;
+
+    .avatar-cont{
+        flex: 1;
+        .img{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+    .main-cont{
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .top-cont{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .owner-name{
+                color: $first-color-1;
+            }
+        }
+
+        .text-cont{
+            color: $first-color-3;
+        }
+        .bottom-cont{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+}
