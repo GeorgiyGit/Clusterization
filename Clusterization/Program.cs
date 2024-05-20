@@ -13,6 +13,7 @@ using Domain.Interfaces.Clusterization.Displaying;
 using Domain.Interfaces.Clusterization.Profiles;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
+using Domain.Interfaces.DataObjects;
 using Domain.Interfaces.DataSources.ExternalData;
 using Domain.Interfaces.DataSources.Telegram;
 using Domain.Interfaces.DataSources.Youtube;
@@ -31,6 +32,7 @@ using Domain.Services.Clusterization.Displaying;
 using Domain.Services.Clusterization.Profiles;
 using Domain.Services.Clusterization.Workspaces;
 using Domain.Services.Customers;
+using Domain.Services.DataObjects;
 using Domain.Services.DataSources.ExternalData;
 using Domain.Services.DataSources.Telegram;
 using Domain.Services.DataSources.Youtube;
@@ -124,7 +126,8 @@ internal class Program
         builder.Services.AddScoped<IClusterizationDisplayedPointsService, ClusterizationDisplayedPointsService>();
         builder.Services.AddScoped<IClusterizationTilesService, ClusterizationTilesService>();
         builder.Services.AddScoped<IClusterizationTypesService, ClusterizationTypeService>();
-        
+        builder.Services.AddScoped<IClustersService, ClustersService>();
+
         builder.Services.AddScoped<IClusterizationWorkspacesService, ClusterizationWorkspacesService>();
         builder.Services.AddScoped<IWorkspaceDataObjectsAddPacksService, WorkspaceDataObjectsAddPacksService>();
         builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
@@ -167,6 +170,8 @@ internal class Program
         builder.Services.AddScoped<IQuotasControllerService, QuotasControllerService>();
         builder.Services.AddScoped<IQuotasLogsService, QuotasLogsService>();
         builder.Services.AddScoped<IQuotasTypesService, QuotasTypesService>();
+
+        builder.Services.AddScoped<IMyDataObjectsService, MyDataObjectsService>();
 
         builder.Services.AddOpenAIService();
 
@@ -310,6 +315,5 @@ internal class Program
         }
 
         app.Run();
-
     }
 }

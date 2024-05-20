@@ -18,13 +18,15 @@ export class PointsMapPageComponent implements OnInit {
 
   loadingMatrix: boolean[][] = [];
 
-  layerValue:number=200;
+  layerValue: number = 200;
 
   tilesLevel: IClusterizationTilesLevel;
 
   level: number = 0;
 
   profileId: number;
+
+  allowedClusterIds: number[] = [];
 
   constructor(private tilesService: ClusterizationTilesService,
     private route: ActivatedRoute,
@@ -37,13 +39,14 @@ export class PointsMapPageComponent implements OnInit {
   }
 
   addLayerValue() {
-      this.layerValue++;
+    this.layerValue+=1;
   }
   reduceLayerValue() {
-      this.layerValue --;
+    if(this.layerValue<10)return;
+    this.layerValue-=1;
   }
-  centralize(){
-    this.layerValue=50;
+  centralize() {
+    this.layerValue = 50;
   }
 
   addTile(position: IMyPosition) {
@@ -55,12 +58,11 @@ export class PointsMapPageComponent implements OnInit {
 
     this.loadingMatrix[position.y][position.x] == true;
 
-    this.tilesService.getOneTileByProfile(this.profileId, position.x, position.y, this.level).subscribe(res => {
-
-
+    this.tilesService.getOneTileByProfile(this.profileId, position.x, position.y, this.level, this.allowedClusterIds).subscribe(res => {
       if (this.tiles[position.y] == undefined) this.tiles[position.y] = [];
       this.tiles[position.y][position.x] = res;
-
+      this.filterChild.calculateDisplayedPoints();
+      this.filterChild.drawPoints();
     }, error => {
       this.toastr.error(error.error.Message);
     })
@@ -70,8 +72,6 @@ export class PointsMapPageComponent implements OnInit {
     points.forEach(point => {
       if (this.tiles[point.y] == undefined) this.tiles[point.y] = [];
       if (this.tiles[point.y][point.x] != undefined) return;
-
-      //if (this.loadingMatrix[point.y] == undefined) this.loadingMatrix[point.y] = [];
     });
 
     points.forEach(point => {
@@ -79,12 +79,14 @@ export class PointsMapPageComponent implements OnInit {
       else this.loadingMatrix[point.y][point.x] == true;
     });
 
-    this.tilesService.getTileCollection(this.profileId, this.level, points).subscribe(res => {
+    this.tilesService.getTileCollection(this.profileId, this.level, points, this.allowedClusterIds).subscribe(res => {
       let newPoints: IDisplayedPoint[] = [];
       res.forEach(tile => {
         this.tiles[tile.y][tile.x] = tile;
         newPoints = newPoints.concat(tile.points);
-      })
+      });
+      this.filterChild.calculateDisplayedPoints();
+      this.filterChild.drawPoints();
     }, error => {
       this.toastr.error(error.error.Message);
     })
@@ -102,19 +104,29 @@ export class PointsMapPageComponent implements OnInit {
     })
   }
 
-  handleMouseWheel(event:WheelEvent){
+  handleMouseWheel(event: WheelEvent) {
     event.preventDefault();
-    
-    if(-event.deltaY>0){
-        this.layerValue+=-event.deltaY/100;
+
+    if (-event.deltaY > 0) {
+      this.layerValue += -event.deltaY / 100;
     }
-    else{
-        this.layerValue+=-event.deltaY/100;
+    else {
+      if(this.layerValue<10)return;
+      this.layerValue += -event.deltaY / 100;
     }
   }
 
   @ViewChild(PointsMapPlaneComponent) filterChild: PointsMapPlaneComponent;
-  downloadImage(){
+  downloadImage() {
     this.filterChild.saveCanvas();
+  }
+
+  addAllowedClusterId(id: number) {
+    this.allowedClusterIds.push(id);
+    this.loadTilesLevel(this.level);
+  }
+  removeAllowedClusterId(id: number) {
+    this.allowedClusterIds = this.allowedClusterIds.filter(e => e != id);
+    this.loadTilesLevel(this.level);
   }
 }

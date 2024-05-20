@@ -28,6 +28,8 @@ namespace Infrastructure.Builders.Clusterization
             builder.HasMany(e => e.DisplayedPoints)
                    .WithOne(e => e.Cluster)
                    .HasForeignKey(e => e.ClusterId);
+
+            builder.HasIndex(e => new { e.ChildElementsCount });
         }
     }
 }

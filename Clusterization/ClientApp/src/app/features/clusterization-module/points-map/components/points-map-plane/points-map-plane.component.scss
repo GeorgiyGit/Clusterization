@@ -1,6 +1,12 @@
+@import '/src/app/core/styles/colors.scss';
 
 canvas{
     width: 100%;
     height: 100%;
     overscroll-behavior: contain;
+    background-color: $second-color-1;
+}
+.canvas-cont{
+    border: 5px solid $first-color-2;
+    border-radius: 5px;
 }

@@ -38,6 +38,8 @@ import { LoadAndAddExternalObjectsPageComponent } from 'src/app/features/dataSou
 import { ExternalDataLayoutComponent } from '../components/layouts/external-data-layout/external-data-layout.component';
 import { UpdateWorkspacePageComponent } from 'src/app/features/clusterization-module/clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
 import { UpdateExternalObjectsPackPageComponent } from 'src/app/features/dataSources-modules/external-data/external-objects-packs/pages/update-external-objects-pack-page/update-external-objects-pack-page.component';
+import { DataObjectFullPageComponent } from 'src/app/features/clusterization-module/data-objects/pages/data-object-full-page/data-object-full-page.component';
+import { LoadClustersFilePageComponent } from 'src/app/features/clusterization-module/clusters/pages/load-clusters-file-page/load-clusters-file-page.component';
 const routes: Route[] = [
   {
     path: '',
@@ -204,6 +206,19 @@ const routes: Route[] = [
     canActivate: [CustomerGuard],
     canActivateChild: [CustomerGuard],
   },
+  {
+    path: 'clusterization/dataObjects/full/:id',
+    component: DataObjectFullPageComponent,
+    outlet: 'overflow',
+    canActivate: [CustomerGuard],
+  },
+  {
+    path: 'clusterization/clusters/download-file/:profileId',
+    component: LoadClustersFilePageComponent,
+    outlet: 'overflow',
+    canActivate: [CustomerGuard],
+  },
+
   {
     path:'dataSources/youtube/channels/load',
     component:YoutubeLoadNewChannelPageComponent,

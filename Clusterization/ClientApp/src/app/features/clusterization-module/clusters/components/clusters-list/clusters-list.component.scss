@@ -1,0 +1,42 @@
+@import '/src/app/core/styles/base.scss';
+
+h2{
+    font-size: 1em;
+    text-align: center;
+}
+.list-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding-right: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+.more-btn{
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    padding: 5px 10px;
+
+    font-size: 0.9em;
+    background-color: $first-color-2;
+    color: $second-color-1;
+
+    font-weight: bold;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    &:hover{
+        background-color: $first-color-3;
+    }
+    &:active{
+        background-color: $first-color-4;
+    }
+}
+
+.nothing-text{
+    color: $first-color-1;
+}

@@ -208,7 +208,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\DataSourcesDTOs\TelegramDTOs\ReplyDTOs\Responses\" />
+    <Folder Include="DTOs\DataObjectDTOs\Requests\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>
 

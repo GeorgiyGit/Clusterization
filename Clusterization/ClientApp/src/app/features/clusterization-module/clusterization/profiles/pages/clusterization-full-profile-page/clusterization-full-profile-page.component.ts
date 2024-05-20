@@ -59,6 +59,19 @@ export class ClusterizationFullProfilePageComponent implements OnInit {
       },
       isForAuthorized: true,
       isOnlyForUsers:true
+    },
+    {
+      name: $localize`Завантажити дані`,
+      action: () => {
+        if(!this.profile.isCalculated){
+          this.toastr.error($localize`Цей профіль не кластеризовано!!!`);
+          return;
+        }
+
+        this.router.navigate([{ outlets: { overflow: 'clusterization/clusters/download-file/' + this.profile.id } }]);
+      },
+      isForAuthorized: true,
+      isOnlyForUsers:true
     }
   ]
 

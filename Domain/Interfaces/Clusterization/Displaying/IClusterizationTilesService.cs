@@ -17,10 +17,10 @@ namespace Domain.Interfaces.Clusterization.Displaying
     {
         public Task<ICollection<ClusterizationTile>> GenerateOneLevelTiles(ICollection<TileGeneratingHelpModel> entityHelpModels, int tilesCount, int z, ClusterizationTilesLevel tilesLevel, string DRTechniqueId, string embeddingModelId, int workspaceId);
 
-        public Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z);
-        public Task<ClusterizationTileDTO> GetOneTile(int tileId);
+        public Task<ClusterizationTileDTO> GetOneTile(int profileId, int x, int y, int z, ICollection<int> allowedClusterIds);
+        public Task<ClusterizationTileDTO> GetOneTile(int tileId, ICollection<int> allowedClusterIds);
 
-        public Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points);
+        public Task<ICollection<ClusterizationTileDTO>> GetTileCollection(int profileId, int z, ICollection<MyIntegerVector2> points, ICollection<int> allowedClusterIds);
 
         public Task<ClusterizationTilesLevelDTO> GetTilesLevel(int profileId, int z);
 

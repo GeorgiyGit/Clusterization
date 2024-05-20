@@ -10,6 +10,8 @@ namespace Domain.Entities.Clusterization
 
         public string Color { get; set; }
 
+        public string? Name { get; set; }
+        public int ChildElementsCount { get; set; }
 
         public ClusterizationProfile Profile { get; set; }
         public int ProfileId { get; set; }

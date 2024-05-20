@@ -1,0 +1,22 @@
+@import '/src/app/core/styles/base.scss';
+
+.main-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .top-cont{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .text-cont{
+        color: $first-color-3;
+    }
+    .bottom-cont{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}

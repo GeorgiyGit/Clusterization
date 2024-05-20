@@ -21,26 +21,28 @@ export class ClusterizationTilesService {
     return this.http.get<IClusterizationTile>(this.controllerUrl + "get_tile_by_id/" + tileId);
   }
 
-  getOneTileByProfile(profileId: number, x: number, y: number, z: number): Observable<IClusterizationTile> {
+  getOneTileByProfile(profileId: number, x: number, y: number, z: number, allowedClusterIds: number[]): Observable<IClusterizationTile> {
     return this.http.post<IClusterizationTile>(this.controllerUrl + "get_tile_by_profile/", {
       profileId: profileId,
       x: x,
       y: y,
-      z: z
+      z: z,
+      allowedClusterIds: allowedClusterIds
     });
   }
-  getTileCollection(profileId: number, z: number, points:IMyPosition[]): Observable<IClusterizationTile[]> {
+  getTileCollection(profileId: number, z: number, points: IMyPosition[], allowedClusterIds: number[]): Observable<IClusterizationTile[]> {
     return this.http.post<IClusterizationTile[]>(this.controllerUrl + "get_tile_collection/", {
       profileId: profileId,
       z: z,
-      points:points
+      points: points,
+      allowedClusterIds: allowedClusterIds
     });
   }
 
   getTilesLevelByProfile(profileId: number, x: number): Observable<IClusterizationTilesLevel> {
     return this.http.post<IClusterizationTilesLevel>(this.controllerUrl + "get_tiles_level_by_profile/", {
       profileId: profileId,
-      x: x,
+      x: x
     });
   }
 }

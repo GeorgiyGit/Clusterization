@@ -138,8 +138,14 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ChildElementsCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Color")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentClusterId")
@@ -149,6 +155,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChildElementsCount");
 
                     b.HasIndex("ParentClusterId");
 

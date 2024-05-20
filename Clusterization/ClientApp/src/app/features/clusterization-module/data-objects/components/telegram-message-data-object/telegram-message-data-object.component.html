@@ -1,0 +1,12 @@
+<div class="main-cont">
+    <div class="top-cont">
+        <p>{{model.postAuthor}}</p>
+        <p>{{model.date| normalizedDateTime}}</p>
+    </div>
+    <div class="text-cont">
+        <p>{{model.message}}</p>
+    </div>
+    <div class="bottom-cont">
+        <app-telegram-reaction-list [reactions]="model.reactions"></app-telegram-reaction-list>
+    </div>
+</div>

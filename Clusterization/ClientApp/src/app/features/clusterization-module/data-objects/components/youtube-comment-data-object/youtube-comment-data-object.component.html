@@ -1,0 +1,18 @@
+<div class="cont">
+    <div class="avatar-cont">
+        <img [src]="model.authorProfileImageUrl" alt="comment`s owner avatar" class="img">
+    </div>
+    <div class="main-cont">
+        <div class="top-cont">
+            <p class="owner-name">{{model.authorDisplayName}}</p>
+            <p>{{model.publishedAtDateTimeOffset | normalizedDateTime}}</p>
+        </div>
+        <div class="text-cont">
+            <p>{{model.textOriginal}}</p>
+        </div>
+        <div class="bottom-cont">
+            <span class="material-symbols-outlined icon" translate="no">thumb_up</span>
+            <p>{{model.likeCount}}</p>
+        </div>
+    </div>
+</div>

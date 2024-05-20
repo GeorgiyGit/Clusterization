@@ -1,0 +1,23 @@
+<section>
+    <h2 i18n>Список кластерів</h2>
+    <div class="list-cont">
+        <div class="centered" *ngIf="isLoading">
+            <app-loader></app-loader>
+        </div>
+        @for (cluster of clusters; track $index) {
+            <app-cluster-card [cluster]="cluster"
+                (selectClusterEvent)="selectEvent($event)"
+                (unSelectClusterEvent)="unselectEvent($event)"></app-cluster-card>
+        }@empty {
+            <div class="centered" *ngIf="!isLoading">
+                <p class="nothing-text" i18n>Кластерів не знайдено</p>
+            </div>
+        }
+        <div class="centered" *ngIf="isLoading2">
+            <app-loader></app-loader>
+        </div>
+        <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+            <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
+        </div>
+    </div>
+</section>

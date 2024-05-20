@@ -40,6 +40,16 @@ import { AddScAlgorithmComponent } from './clusterization/algorithms/non-hierarc
 import { DRTechniquesSelectComponent } from './dimensionalityReduction/DR-techniques/components/dr-techniques-select/dr-techniques-select.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/update-workspace-page/update-workspace-page.component';
+import { ClustersListComponent } from './clusters/components/clusters-list/clusters-list.component';
+import { ClusterCardComponent } from './clusters/components/cluster-card/cluster-card.component';
+import { ClusterDataObjectCardComponent } from './clusters/components/cluster-data-object-card/cluster-data-object-card.component';
+import { YoutubeCommentDataObjectComponent } from './data-objects/components/youtube-comment-data-object/youtube-comment-data-object.component';
+import { TelegramMessageDataObjectComponent } from './data-objects/components/telegram-message-data-object/telegram-message-data-object.component';
+import { TelegramReplyDataObjectComponent } from './data-objects/components/telegram-reply-data-object/telegram-reply-data-object.component';
+import { ExternalDataDataObjectComponent } from './data-objects/components/external-data-data-object/external-data-data-object.component';
+import { DataObjectFullPageComponent } from './data-objects/pages/data-object-full-page/data-object-full-page.component';
+import { TelegramModule } from '../dataSources-modules/telegram/telegram.module';
+import { LoadClustersFilePageComponent } from './clusters/pages/load-clusters-file-page/load-clusters-file-page.component';
 
 
 @NgModule({
@@ -84,6 +94,17 @@ import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/u
 
     VisibleTypesSelectOptionComponent,
     ChangingTypesSelectOptionComponent,
+
+    ClustersListComponent,
+    ClusterCardComponent,
+    ClusterDataObjectCardComponent,
+    LoadClustersFilePageComponent,
+
+    YoutubeCommentDataObjectComponent,
+    TelegramMessageDataObjectComponent,
+    TelegramReplyDataObjectComponent,
+    ExternalDataDataObjectComponent,
+    DataObjectFullPageComponent,
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
@@ -99,7 +120,8 @@ import { UpdateWorkspacePageComponent } from './clusterization/workspace/pages/u
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TelegramModule
   ]
 })
 export class ClusterizationModule { }

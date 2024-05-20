@@ -33,8 +33,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   constructor(private el: ElementRef,
     private displayedPointsService: ClusterizationDisplayedPointsService,
-    private toastr: MyToastrService,
-    private renderer: Renderer2) { }
+    private toastr: MyToastrService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['displayedPoints'] && !changes['displayedPoints'].firstChange) {
       this.drawPoints();
@@ -192,7 +191,6 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
       this.mousePositionY = event.pageY;
 
       this.tilesCalculation();
-
       this.drawPoints();
     }
   }
@@ -220,7 +218,6 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
       this.mousePositionY = touchPositionY;
 
       this.tilesCalculation();
-
       this.drawPoints();
     }
   }
@@ -239,8 +236,9 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
   //#endregion
 
 
-  mouseChangesX: number = 0;
-  mouseChangesY: number = 0;
+  mouseChangesX: number = 50;
+  mouseChangesY: number = 50;
+
   drawPoints() {
     if (this.tilesLevel == null) return;
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
