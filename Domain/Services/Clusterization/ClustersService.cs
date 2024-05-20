@@ -113,5 +113,80 @@ namespace Domain.Services.Clusterization
 
             return result;
         }
+
+        public async Task<ClusterListFileDTO> GetClustersFileModel(GetClustersFileRequest request)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            var profile = (await _profilesRepository.GetAsync(e => e.Id == request.ProfileId)).FirstOrDefault();
+
+            if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
+
+            ClusterListFileDTO result = new ClusterListFileDTO();
+            if (request.ClusterIds.Any())
+            {
+                foreach (var id in request.ClusterIds)
+                {
+                    var cluster = await _clustersRepository.FindAsync(id);
+
+                    var displayedPoints = await _pointsRepository.GetAsync(e => e.ClusterId == id, includeProperties: $"{nameof(DisplayedPoint.DataObject)}");
+
+                    var newCluster = new ClusterFileDTO()
+                    {
+                        Color = cluster.Color,
+                        ChildElementsCount = cluster.ChildElementsCount,
+                        ParentClusterId = cluster.ParentClusterId,
+                        Id = cluster.Id,
+                        Name = cluster.Name
+                    };
+
+                    foreach (var point in displayedPoints)
+                    {
+                        var filePoint = new ClusterDataObjectDTO()
+                        {
+                            Id = point.Id,
+                            Text = point.DataObject.Text,
+                            X = point.X,
+                            Y = point.Y
+                        };
+                        newCluster.ChildElements.Add(filePoint);
+                    }
+
+                    result.Clusters.Add(newCluster);
+                }
+            }
+            else
+            {
+                var clusters = (await _clustersRepository.GetAsync(e => e.ProfileId == request.ProfileId)).ToList();
+
+                foreach (var cluster in clusters)
+                {
+                    var displayedPoints = await _pointsRepository.GetAsync(e => e.ClusterId == cluster.Id, includeProperties: $"{nameof(DisplayedPoint.DataObject)}");
+                    var newCluster = new ClusterFileDTO()
+                    {
+                        Color = cluster.Color,
+                        ChildElementsCount = cluster.ChildElementsCount,
+                        ParentClusterId = cluster.ParentClusterId,
+                        Id = cluster.Id,
+                        Name = cluster.Name
+                    };
+
+                    foreach (var point in displayedPoints)
+                    {
+                        var filePoint = new ClusterDataObjectDTO()
+                        {
+                            Id = point.Id,
+                            Text = point.DataObject.Text,
+                            X = point.X,
+                            Y = point.Y
+                        };
+                        newCluster.ChildElements.Add(filePoint);
+                    }
+
+                    result.Clusters.Add(newCluster);
+                }
+            }
+
+            return result;
+        }
     }
 }

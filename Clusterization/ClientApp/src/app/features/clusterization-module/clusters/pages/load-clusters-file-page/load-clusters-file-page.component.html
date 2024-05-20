@@ -1,0 +1,27 @@
+<section class="overflow-cont middle-overflow-cont" [class.overflow-cont-open]="animationState=='in'">
+    <div class="main-cont" [@popUpAnimation]="animationState">
+        <div class="close-cont">
+            <span class="material-symbols-outlined icon" translate="no" (click)="closeOverflow()">close</span>
+        </div>
+        <h1 i18n>Завантажити файл з даними кластерів</h1>
+        <div class="one-radio-conts">
+            <div class="one-radio-cont">
+                <input type="radio" id="youtubeDate1" name="youtubeDate" [checked]="true"
+                    (change)="selectisSelectAllClusters(true,$event)">
+                <label for="youtubeDate1" i18n>Всі кластери</label>
+            </div>
+            <div class="one-radio-cont">
+                <input type="radio" id="youtubeDate2" name="youtubeDate"
+                    (change)="selectisSelectAllClusters(false,$event)">
+                <label for="youtubeDate2" i18n>Вибрані кластери</label>
+            </div>
+        </div>
+        <app-clusters-list [class.disable]="isSelectAllClusters" (selectClusterEvent)="selectClusterId($event)"
+            (unSelectClusterEvent)="unselectClusterId($event)"
+            [profileId]="this.profileId"></app-clusters-list>
+        <div class="centered">
+            <app-loader  *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" (click)="load()" i18n>Завантажити</button>
+        </div>
+    </div>
+</section>

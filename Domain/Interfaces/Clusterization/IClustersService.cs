@@ -16,5 +16,6 @@ namespace Domain.Interfaces.Clusterization
     {
         public Task<ICollection<ClusterDTO>> GetClusters(GetClustersRequest request);
         public Task<ICollection<ClusterDataDTO>> GetClusterEntities(GetClusterDataRequest request);
+        public Task<ClusterListFileDTO> GetClustersFileModel(GetClustersFileRequest request);
     }
 }

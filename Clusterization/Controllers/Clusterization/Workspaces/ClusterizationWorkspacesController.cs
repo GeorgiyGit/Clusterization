@@ -81,22 +81,18 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         {
             var list = await service.GetAllDataObjectsInList(id);
 
-            // Your logic to get data or generate content
             var content = "";
             foreach (var item in list)
             {
                 content += item.Replace("\n", "") + "\n";
             }
 
-            // Replace "generated_text_file.txt" with your desired file name
             string fileName = "entities.txt";
 
             var memory = new MemoryStream();
             using (StreamWriter streamWriter = new StreamWriter(memory, Encoding.UTF8, 1024, true))
             {
-                // Write content line by line
                 streamWriter.WriteLine(content);
-                // Add more lines as needed
             }
             memory.Position = 0;
             return File(memory, "text/plain", fileName);

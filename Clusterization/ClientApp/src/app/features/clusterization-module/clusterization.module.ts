@@ -49,6 +49,7 @@ import { TelegramReplyDataObjectComponent } from './data-objects/components/tele
 import { ExternalDataDataObjectComponent } from './data-objects/components/external-data-data-object/external-data-data-object.component';
 import { DataObjectFullPageComponent } from './data-objects/pages/data-object-full-page/data-object-full-page.component';
 import { TelegramModule } from '../dataSources-modules/telegram/telegram.module';
+import { LoadClustersFilePageComponent } from './clusters/pages/load-clusters-file-page/load-clusters-file-page.component';
 
 
 @NgModule({
@@ -97,12 +98,13 @@ import { TelegramModule } from '../dataSources-modules/telegram/telegram.module'
     ClustersListComponent,
     ClusterCardComponent,
     ClusterDataObjectCardComponent,
+    LoadClustersFilePageComponent,
 
     YoutubeCommentDataObjectComponent,
     TelegramMessageDataObjectComponent,
     TelegramReplyDataObjectComponent,
     ExternalDataDataObjectComponent,
-    DataObjectFullPageComponent
+    DataObjectFullPageComponent,
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
