@@ -7,6 +7,7 @@
             </div>
             <div class="text-info-cont" *ngIf="channel!=null">
                 <h4 class="title-text">{{channel.title}}</h4>
+                <p>{{channel.about | truncate:100:false:'...'}}</p>
                 <div class="block" (click)="copyToClipboard(dateStr,channel.date+'',$event)">
                     <span i18n-matTooltip matTooltip="Дата створення" class="material-symbols-outlined icon"
                         translate="no">add_circle</span>
