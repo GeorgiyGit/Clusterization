@@ -70,7 +70,7 @@ internal class Program
 
         // Add services to the container.
 
-        var connectionString = builder.Configuration.GetConnectionString("LocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'LocalClusterizationDbContextConnection' not found.");
+        var connectionString = builder.Configuration.GetConnectionString("LocalClusterizationDbContextConnection2") ?? throw new InvalidOperationException("Connection string 'LocalClusterizationDbContextConnection2' not found.");
 
         //var vectorConnectionString = builder.Configuration.GetConnectionString("VectorLocalClusterizationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'VectorLocalClusterizationDbContextConnection' not found.");
 

@@ -46,7 +46,10 @@ namespace Infrastructure
         #endregion
 
         #region Tasks
-        public virtual DbSet<MyTask> MyTasks { get; set; }
+        public virtual DbSet<MyBaseTask> MyBaseTasks { get; set; }
+        public virtual DbSet<MyMainTask> MyMainTasks { get; set; }
+        public virtual DbSet<MySubTask> MySubTasks { get; set; }
+
         public virtual DbSet<MyTaskState> MyTaskStates { get; set; }
         #endregion
 

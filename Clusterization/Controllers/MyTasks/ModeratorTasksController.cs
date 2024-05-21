@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs.TaskDTOs;
+using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Types;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +18,18 @@ namespace Clusterization.Controllers.MyTasks
             this.service = service;
         }
 
-        [HttpPost("get_all")]
-        [Authorize(Roles = UserRoles.User)]
-        public async Task<IActionResult> LoadAllTasks([FromBody] ModeratorGetTasksRequest request)
+        [HttpPost("get_main_tasks")]
+        [Authorize(Roles = UserRoles.Moderator)]
+        public async Task<IActionResult> GetMainTasks([FromBody] ModeratorGetTasksRequest request)
         {
-            return Ok(await service.GetTasks(request));
+            return Ok(await service.GetMainTasks(request));
+        }
+
+        [HttpPost("get_sub_tasks")]
+        [Authorize(Roles = UserRoles.Moderator)]
+        public async Task<IActionResult> GetSubTasks([FromBody] ModeratorGetSubTasksRequest request)
+        {
+            return Ok(await service.GetSubTasks(request));
         }
     }
 }

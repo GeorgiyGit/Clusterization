@@ -25,6 +25,9 @@ using Domain.Entities.DataSources.Telegram;
 using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs;
 using Domain.Extensions;
 using Domain.Interfaces.DataSources.Telegram;
+using AutoMapper;
+using Domain.DTOs.TaskDTOs.Requests;
+using Domain.Resources.Types.Tasks;
 
 namespace Domain.Services.DataSources.Telegram
 {
@@ -71,11 +74,18 @@ namespace Domain.Services.DataSources.Telegram
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingTelegramMessagesToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = request.ChannelId + "",
+                EntityType = TaskEntityTypes.TelegramChannel,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingTelegramMessagesToWorkspace],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadMessageByChannelBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadMessageByChannelBackgroundJob(AddTelegramMessagesToWorkspaceByChannelRequest request, string userId, int taskId)
+        public async Task LoadMessageByChannelBackgroundJob(AddTelegramMessagesToWorkspaceByChannelRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;

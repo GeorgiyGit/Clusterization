@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    [Migration("20240514223549_add-indexes")]
-    partial class addindexes
+    [Migration("20240521225729_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,8 +141,14 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ChildElementsCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Color")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentClusterId")
@@ -152,6 +158,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChildElementsCount");
 
                     b.HasIndex("ParentClusterId");
 
@@ -1771,13 +1779,10 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Tasks.MyTask", b =>
+            modelBuilder.Entity("Domain.Entities.Tasks.MyBaseTask", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -1786,8 +1791,19 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EntityId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityType")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("Percent")
                         .HasColumnType("real");
@@ -1796,6 +1812,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("StateId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TaskType")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -1809,7 +1829,13 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("MyTasks");
+                    b.HasIndex("StartTime", "EntityType", "TaskType");
+
+                    b.ToTable("MyBaseTasks");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("MyBaseTask");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Domain.Entities.Tasks.MyTaskState", b =>
@@ -2065,6 +2091,37 @@ namespace Infrastructure.Migrations
                         });
 
                     b.HasDiscriminator().HasValue("SpectralClusteringAlgorithm");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tasks.MyMainTask", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Tasks.MyBaseTask");
+
+                    b.Property<bool>("IsGroupTask")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SubTasksCount")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("MyMainTask");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tasks.MySubTask", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Tasks.MyBaseTask");
+
+                    b.Property<string>("GroupTaskId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasIndex("GroupTaskId");
+
+                    b.HasIndex("Position");
+
+                    b.HasDiscriminator().HasValue("MySubTask");
                 });
 
             modelBuilder.Entity("ClusterMyDataObject", b =>
@@ -2627,7 +2684,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Pack");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Tasks.MyTask", b =>
+            modelBuilder.Entity("Domain.Entities.Tasks.MyBaseTask", b =>
                 {
                     b.HasOne("Domain.Entities.Customers.Customer", "Customer")
                         .WithMany("Tasks")
@@ -2710,6 +2767,17 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("WorkspaceDataObjectsAddPacksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tasks.MySubTask", b =>
+                {
+                    b.HasOne("Domain.Entities.Tasks.MyMainTask", "GroupTask")
+                        .WithMany("SubTasks")
+                        .HasForeignKey("GroupTaskId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("GroupTask");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.ClusterizationAbstactAlgorithm", b =>
@@ -2908,6 +2976,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Tasks.MyTaskState", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tasks.MyMainTask", b =>
+                {
+                    b.Navigation("SubTasks");
                 });
 #pragma warning restore 612, 618
         }

@@ -97,6 +97,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Кластеризація.
+        /// </summary>
+        public static string Clustering {
+            get {
+                return ResourceManager.GetString("Clustering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Кластеризація (DBSCAN).
         /// </summary>
         public static string ClusterizationDBSCAN {
@@ -142,6 +151,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Зменшення розмірності.
+        /// </summary>
+        public static string DimensionReduction {
+            get {
+                return ResourceManager.GetString("DimensionReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Завантаження всіх ембедингів з робочого простору.
         /// </summary>
         public static string LoadingAllEmbeddingsInWorkspace {
@@ -178,6 +196,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Заватаження даних із зовнішніх джерел і додавання їх до робочого простору.
+        /// </summary>
+        public static string LoadingExternalDataAndAddingToWorkspacLoadingExternalDataAndAddingToWorkspace {
+            get {
+                return ResourceManager.GetString("LoadingExternalDataAndAddingToWorkspacLoadingExternalDataAndAddingToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Заватаження даних із зовнішніх джерел.
         /// </summary>
         public static string LoadingExternalDataObjects {
@@ -210,6 +237,15 @@ namespace Domain.Resources.Localization.Tasks {
         public static string LoadingVideosFromYoutube {
             get {
                 return ResourceManager.GetString("LoadingVideosFromYoutube", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Створення квадратів із точок.
+        /// </summary>
+        public static string TilesCreating {
+            get {
+                return ResourceManager.GetString("TilesCreating", resourceCulture);
             }
         }
     }

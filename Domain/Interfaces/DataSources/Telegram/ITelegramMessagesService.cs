@@ -7,7 +7,6 @@ namespace Domain.Interfaces.DataSources.Telegram
     public interface ITelegramMessagesService
     {
         public Task LoadFromChannel(TelegramLoadOptions options);
-        public Task LoadFromChannelBackgroundJob(TelegramLoadOptions options, string userId, int taskId);
 
         public Task LoadById(int id, long channelId);
         public Task LoadManyByIds(ICollection<int> ids, long channelId);

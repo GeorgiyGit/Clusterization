@@ -19,6 +19,8 @@ using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;
 using Domain.Resources.Types.DataSources.Youtube;
+using Domain.Resources.Types.Tasks;
+using Domain.DTOs.TaskDTOs.Requests;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -81,11 +83,18 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = options.ParentId + "",
+                EntityType = TaskEntityTypes.YoutubeVideo,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsFromVideoBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadCommentsFromVideoBackgroundJob(YoutubeLoadOptions options, string userId, int taskId)
+        public async Task LoadCommentsFromVideoBackgroundJob(YoutubeLoadOptions options, string userId, string taskId)
         {
             string videoId = options.ParentId;
             bool isNewVideo = false;
@@ -233,11 +242,18 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = options.ParentId + "",
+                EntityType = TaskEntityTypes.YoutubeChannel,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingCommentsFromYoutube],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadCommentsFromChannelBackgroundJob(LoadYoutubeCommentsByChannelOptions options, string userId, int taskId)
+        public async Task LoadCommentsFromChannelBackgroundJob(LoadYoutubeCommentsByChannelOptions options, string userId, string taskId)
         {
             string channelId = options.ParentId;
             if (await _privateChannelService.GetById(channelId) == null) return;

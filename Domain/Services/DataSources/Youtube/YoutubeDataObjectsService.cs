@@ -19,6 +19,8 @@ using Domain.Entities.DataSources.Youtube;
 using Domain.Resources.Types.Clusterization;
 using Domain.Resources.Types.DataSources;
 using Domain.DTOs;
+using Domain.DTOs.TaskDTOs.Requests;
+using Domain.Resources.Types.Tasks;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -65,11 +67,18 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = request.ChannelId + "",
+                EntityType = TaskEntityTypes.YoutubeChannel,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByChannelBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByChannelBackgroundJob(AddYoutubeCommentsToWorkspaceByChannelRequest request, string userId, int taskId)
+        public async Task LoadCommentsByChannelBackgroundJob(AddYoutubeCommentsToWorkspaceByChannelRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -183,11 +192,16 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadCommentsByVideosBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadCommentsByVideosBackgroundJob(AddYoutubeCommentsToWorkspaceByVideosRequest request, string userId, int taskId)
+        public async Task LoadCommentsByVideosBackgroundJob(AddYoutubeCommentsToWorkspaceByVideosRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;

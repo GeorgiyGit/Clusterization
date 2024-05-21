@@ -117,67 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingExternalDataToWorkspace" xml:space="preserve">
-    <value>Adding external data to workspace</value>
+  <data name="MainTask" xml:space="preserve">
+    <value>MainTask</value>
   </data>
-  <data name="AddingTelegramMessagesToWorkspace" xml:space="preserve">
-    <value>Adding messages from Telegram to workspace</value>
-  </data>
-  <data name="AddingTelegramRepliesToWorkspace" xml:space="preserve">
-    <value>Adding replies from Telegram to workspace</value>
-  </data>
-  <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
-    <value>Adding comments from Youtube to workspace</value>
-  </data>
-  <data name="Clustering" xml:space="preserve">
-    <value>Clustering</value>
-  </data>
-  <data name="ClusterizationDBSCAN" xml:space="preserve">
-    <value>Clusterization (DBSCAN)</value>
-  </data>
-  <data name="ClusterizationGaussianMixture" xml:space="preserve">
-    <value>Clusterization (Gaussian Mixture)</value>
-  </data>
-  <data name="ClusterizationKMeans" xml:space="preserve">
-    <value>Clusterization (k-Means)</value>
-  </data>
-  <data name="ClusterizationOneCluser" xml:space="preserve">
-    <value>Clusterization (One Cluster)</value>
-  </data>
-  <data name="ClusterizationSpectralClustering" xml:space="preserve">
-    <value>Clusterization (Spectral Clustering)</value>
-  </data>
-  <data name="DimensionReduction" xml:space="preserve">
-    <value>Dimension reduction</value>
-  </data>
-  <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
-    <value>Loading all embeddings in workspace</value>
-  </data>
-  <data name="LoadingChannelsFromYoutube" xml:space="preserve">
-    <value>Loading channels from Youtube</value>
-  </data>
-  <data name="LoadingCommentsFromYoutube" xml:space="preserve">
-    <value>Loading comments from Youtube</value>
-  </data>
-  <data name="LoadingEmbeddingsPack" xml:space="preserve">
-    <value>Loading embeddings pack</value>
-  </data>
-  <data name="LoadingExternalDataAndAddingToWorkspace" xml:space="preserve">
-    <value>Loading external data and adding it to workspace</value>
-  </data>
-  <data name="LoadingExternalDataObjects" xml:space="preserve">
-    <value>Loading external data objects</value>
-  </data>
-  <data name="LoadingMessagesFromTelegram" xml:space="preserve">
-    <value>Loading messages from Telegram</value>
-  </data>
-  <data name="LoadingRepliesFromTelegram" xml:space="preserve">
-    <value>Loading replies from telegram</value>
-  </data>
-  <data name="LoadingVideosFromYoutube" xml:space="preserve">
-    <value>Loading videos from Youtube</value>
-  </data>
-  <data name="TilesCreating" xml:space="preserve">
-    <value>Tiles creating</value>
+  <data name="SubTask" xml:space="preserve">
+    <value>SubTask</value>
   </data>
 </root>

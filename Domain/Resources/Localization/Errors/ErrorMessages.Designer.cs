@@ -151,6 +151,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Повилка під час завантаження зовнішніх пакетів даних.
+        /// </summary>
+        public static string ErrorWhileLoadExternalData {
+            get {
+                return ResourceManager.GetString("ErrorWhileLoadExternalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пакет зовнішніх даних не знайдено.
         /// </summary>
         public static string ExternalObjectsNotFound {
@@ -210,6 +219,15 @@ namespace Domain.Resources.Localization.Errors {
         public static string NotAllDataEmbedded {
             get {
                 return ResourceManager.GetString("NotAllDataEmbedded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не всі паки були завантажені.
+        /// </summary>
+        public static string NotAllPacksWereLoaded {
+            get {
+                return ResourceManager.GetString("NotAllPacksWereLoaded", resourceCulture);
             }
         }
         

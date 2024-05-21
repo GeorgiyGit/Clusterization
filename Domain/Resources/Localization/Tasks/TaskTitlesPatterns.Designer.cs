@@ -97,6 +97,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clustering.
+        /// </summary>
+        internal static string Clustering {
+            get {
+                return ResourceManager.GetString("Clustering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ClusterizationDBSCAN.
         /// </summary>
         internal static string ClusterizationDBSCAN {
@@ -142,6 +151,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DimensionReduction.
+        /// </summary>
+        internal static string DimensionReduction {
+            get {
+                return ResourceManager.GetString("DimensionReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LoadingAllEmbeddingsInWorkspace.
         /// </summary>
         internal static string LoadingAllEmbeddingsInWorkspace {
@@ -178,6 +196,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LoadingExternalDataAndAddingToWorkspace.
+        /// </summary>
+        internal static string LoadingExternalDataAndAddingToWorkspace {
+            get {
+                return ResourceManager.GetString("LoadingExternalDataAndAddingToWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LoadingExternalDataObjects.
         /// </summary>
         internal static string LoadingExternalDataObjects {
@@ -210,6 +237,15 @@ namespace Domain.Resources.Localization.Tasks {
         internal static string LoadingVideosFromYoutube {
             get {
                 return ResourceManager.GetString("LoadingVideosFromYoutube", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TilesCreating.
+        /// </summary>
+        internal static string TilesCreating {
+            get {
+                return ResourceManager.GetString("TilesCreating", resourceCulture);
             }
         }
     }

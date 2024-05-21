@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.DTOs.DataSourcesDTOs.ExternalDataDTOs.Requests;
 using Domain.DTOs.DataSourcesDTOs.ExternalDataDTOs.Responses;
 using Domain.DTOs.ExternalData;
+using Domain.DTOs.TaskDTOs.Requests;
 using Domain.DTOs.YoutubeDTOs.Requests;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.DataObjects;
@@ -21,6 +22,7 @@ using Domain.Resources.Localization.Tasks;
 using Domain.Resources.Types;
 using Domain.Resources.Types.Clusterization;
 using Domain.Resources.Types.DataSources;
+using Domain.Resources.Types.Tasks;
 using Hangfire;
 using Microsoft.Extensions.Localization;
 using System;
@@ -87,11 +89,16 @@ namespace Domain.Services.DataSources.ExternalData
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects]
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             await LoadExternalDataObjectBackgroundJob(request, userId, taskId);
         }
-        public async Task<int?> LoadExternalDataObjectBackgroundJob(AddExternalDataRequest request, string userId, int taskId)
+        public async Task<int?> LoadExternalDataObjectBackgroundJob(AddExternalDataRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return null;
@@ -207,11 +214,16 @@ namespace Domain.Services.DataSources.ExternalData
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace]
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => AddExternalDataObjectsToWorkspaceBackgroundJob(request, userId, taskId));
         }
-        public async Task AddExternalDataObjectsToWorkspaceBackgroundJob(AddExternalDataObjectsPacksToWorkspaceRequest request, string userId, int taskId)
+        public async Task AddExternalDataObjectsToWorkspaceBackgroundJob(AddExternalDataObjectsPacksToWorkspaceRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -301,6 +313,7 @@ namespace Domain.Services.DataSources.ExternalData
             {
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
                 await _tasksService.ChangeTaskDescription(taskId, ex.Message);
+                await _tasksService.ChangeParentTaskState(taskId, TaskStates.Error);
             }
         }
 
@@ -309,12 +322,43 @@ namespace Domain.Services.DataSources.ExternalData
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects]);
-            var taskId2 = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace],
+                SubTasksCount=2,
+                IsGroupTask=true
+            };
+            var groupTaskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            var packId = await LoadExternalDataObjectBackgroundJob(request, userId, taskId);
 
-            if (packId == null) return;
+            var createSubTask1 = new CreateSubTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects],
+                GroupTaskId=groupTaskId,
+                Position=1
+            };
+            var taskId1 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
+
+            var createSubTask2 = new CreateSubTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace],
+                GroupTaskId = groupTaskId,
+                Position = 2
+            };
+            var taskId2 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
+
+
+            var packId = await LoadExternalDataObjectBackgroundJob(request, userId, taskId1);
+
+            if (packId == null)
+            {
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ErrorWhileLoadExternalData]);
+                return;
+            }
             _backgroundJobClient.Enqueue(() => AddExternalDataObjectsToWorkspaceBackgroundJob(new AddExternalDataObjectsPacksToWorkspaceRequest()
             {
                 PackId = (int)packId,

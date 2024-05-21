@@ -466,30 +466,42 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MyTasks",
+                name: "MyBaseTasks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Percent = table.Column<float>(type: "real", nullable: false),
                     StateId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntityType = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EntityId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Percent = table.Column<float>(type: "real", nullable: false),
+                    TaskType = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    IsGroupTask = table.Column<bool>(type: "bit", nullable: true),
+                    SubTasksCount = table.Column<int>(type: "int", nullable: true),
+                    Position = table.Column<int>(type: "int", nullable: true),
+                    GroupTaskId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MyTasks", x => x.Id);
+                    table.PrimaryKey("PK_MyBaseTasks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MyTasks_AspNetUsers_CustomerId",
+                        name: "FK_MyBaseTasks_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MyTasks_MyTaskStates_StateId",
+                        name: "FK_MyBaseTasks_MyBaseTasks_GroupTaskId",
+                        column: x => x.GroupTaskId,
+                        principalTable: "MyBaseTasks",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_MyTaskStates_StateId",
                         column: x => x.StateId,
                         principalTable: "MyTaskStates",
                         principalColumn: "Id",
@@ -563,6 +575,7 @@ namespace Infrastructure.Migrations
                     TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
+                    IsPlus = table.Column<bool>(type: "bit", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -817,7 +830,7 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExternalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataObjectId = table.Column<long>(type: "bigint", nullable: false),
+                    DataObjectId = table.Column<long>(type: "bigint", nullable: true),
                     PackId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -985,6 +998,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChildElementsCount = table.Column<int>(type: "int", nullable: false),
                     ProfileId = table.Column<int>(type: "int", nullable: false),
                     ParentClusterId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1470,6 +1485,11 @@ namespace Infrastructure.Migrations
                 column: "DataObjectsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clusters_ChildElementsCount",
+                table: "Clusters",
+                column: "ChildElementsCount");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clusters_ParentClusterId",
                 table: "Clusters",
                 column: "ParentClusterId");
@@ -1560,7 +1580,8 @@ namespace Infrastructure.Migrations
                 name: "IX_ExternalObjects_DataObjectId",
                 table: "ExternalObjects",
                 column: "DataObjectId",
-                unique: true);
+                unique: true,
+                filter: "[DataObjectId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExternalObjects_PackId",
@@ -1573,6 +1594,31 @@ namespace Infrastructure.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_CustomerId",
+                table: "MyBaseTasks",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_GroupTaskId",
+                table: "MyBaseTasks",
+                column: "GroupTaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_Position",
+                table: "MyBaseTasks",
+                column: "Position");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_StartTime_EntityType_TaskType",
+                table: "MyBaseTasks",
+                columns: new[] { "StartTime", "EntityType", "TaskType" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_StateId",
+                table: "MyBaseTasks",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MyDataObject_TypeId",
                 table: "MyDataObject",
                 column: "TypeId");
@@ -1583,14 +1629,9 @@ namespace Infrastructure.Migrations
                 column: "WorkspaceDataObjectsAddPacksId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MyTasks_CustomerId",
-                table: "MyTasks",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MyTasks_StateId",
-                table: "MyTasks",
-                column: "StateId");
+                name: "IX_QuotasLogs_CreationTime",
+                table: "QuotasLogs",
+                column: "CreationTime");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuotasLogs_CustomerId",
@@ -1749,9 +1790,9 @@ namespace Infrastructure.Migrations
                 column: "LoaderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_YoutubeVideos_PublishedAtDateTimeOffset_CommentCount_ViewCount",
+                name: "IX_YoutubeVideos_PublishedAtDateTimeOffset_CommentCount_ViewCount_ChannelId",
                 table: "YoutubeVideos",
-                columns: new[] { "PublishedAtDateTimeOffset", "CommentCount", "ViewCount" });
+                columns: new[] { "PublishedAtDateTimeOffset", "CommentCount", "ViewCount", "ChannelId" });
         }
 
         /// <inheritdoc />
@@ -1794,10 +1835,10 @@ namespace Infrastructure.Migrations
                 name: "ExternalObjects");
 
             migrationBuilder.DropTable(
-                name: "MyDataObjectWorkspaceDataObjectsAddPack");
+                name: "MyBaseTasks");
 
             migrationBuilder.DropTable(
-                name: "MyTasks");
+                name: "MyDataObjectWorkspaceDataObjectsAddPack");
 
             migrationBuilder.DropTable(
                 name: "QuotasLogs");
@@ -1830,10 +1871,10 @@ namespace Infrastructure.Migrations
                 name: "ExternalObjectsPacks");
 
             migrationBuilder.DropTable(
-                name: "WorkspaceDataObjectsAddPacks");
+                name: "MyTaskStates");
 
             migrationBuilder.DropTable(
-                name: "MyTaskStates");
+                name: "WorkspaceDataObjectsAddPacks");
 
             migrationBuilder.DropTable(
                 name: "QuotasTypes");

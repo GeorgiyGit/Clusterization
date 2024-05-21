@@ -108,12 +108,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QuotasTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\Tasks\TaskEntityTypes.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TaskEntityTypes.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Types\Tasks\TaskStates.Designer.cs">
+    <Compile Update="Resources\Types\TaskStates.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TaskStates.resx</DependentUpon>
@@ -127,11 +122,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>VisibleTypes.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Types\Tasks\TaskTypes.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TaskTypes.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -203,11 +193,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QuotasTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\Tasks\TaskEntityTypes.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>TaskEntityTypes.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\Tasks\TaskStates.resx">
+    <EmbeddedResource Update="Resources\Types\TaskStates.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskStates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -219,15 +205,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>VisibleTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Types\Tasks\TaskTypes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TaskTypes.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DTOs\DataObjectDTOs\Requests\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
+    <Folder Include="Resources\Types\NewFolder\" />
   </ItemGroup>
 
 </Project>

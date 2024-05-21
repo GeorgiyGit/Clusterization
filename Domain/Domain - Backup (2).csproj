@@ -128,11 +128,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>VisibleTypes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Types\Tasks\TaskTypes.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TaskTypes.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -221,7 +216,6 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Types\Tasks\TaskTypes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TaskTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

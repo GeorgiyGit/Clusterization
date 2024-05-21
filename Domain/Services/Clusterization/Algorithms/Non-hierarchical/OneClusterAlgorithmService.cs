@@ -29,6 +29,8 @@ using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Resources.Types.Clusterization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Domain.DTOs.TaskDTOs.Requests;
+using Domain.Resources.Types.Tasks;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -107,11 +109,20 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.ClusterizationOneCluser]);
-            
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = profileId + "",
+                EntityType = TaskEntityTypes.ClusterizationProfile,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.ClusterizationOneCluser],
+                IsGroupTask = true,
+                SubTasksCount = 2
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
+
             _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId));
         }
-        public async Task ClusterDataBackgroundJob(int profileId, int taskId, string userId)
+        public async Task ClusterDataBackgroundJob(int profileId, string taskId, string userId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -133,8 +144,27 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 return;
             }
 
-            var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
+            #region tasksCreating
+            var taskOptions1 = new CreateSubTaskOptions()
+            {
+                Position = 1,
+                GroupTaskId = taskId,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction]
+            };
+            var subTaskId1 = await _tasksService.CreateSubTaskWithUserId(taskOptions1);
 
+            var taskOptions2 = new CreateSubTaskOptions()
+            {
+                Position = 2,
+                GroupTaskId = taskId,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating]
+            };
+            var subTaskId2 = await _tasksService.CreateSubTaskWithUserId(taskOptions2);
+            #endregion
+
+            var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
             try
             {
                 profile.IsInCalculation = true;
@@ -166,24 +196,51 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
                 profile.Clusters.Add(cluster);
 
+                await _tasksService.ChangeTaskState(subTaskId1, TaskStates.Process);
                 if (profile.DRTechniqueId != DimensionalityReductionTechniques.JSL)
                 {
-                    await _dimensionalityReductionService.AddEmbeddingValues(profile.WorkspaceId, profile.DRTechniqueId, profile.EmbeddingModelId, profile.DimensionCount);
+                    try
+                    {
+                        await _dimensionalityReductionService.AddEmbeddingValues(profile.WorkspaceId, profile.DRTechniqueId, profile.EmbeddingModelId, profile.DimensionCount);
+                    }
+                    catch (Exception ex)
+                    {
+                        await _tasksService.ChangeTaskState(subTaskId1, TaskStates.Error);
+                        await _tasksService.ChangeTaskDescription(subTaskId1, ex.Message);
+                        throw ex;
+                    }
                 }
+                await _tasksService.ChangeTaskPercent(subTaskId1, 100f);
+                await _tasksService.ChangeTaskState(subTaskId1, TaskStates.Completed);
                 await _tasksService.ChangeTaskPercent(taskId, 50f);
 
-                List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(dataObjects.Count);
-
-                foreach (var dataObject in dataObjects)
+                await _tasksService.ChangeTaskState(subTaskId2, TaskStates.Process);
+                try
                 {
-                    helpModels.Add(new TileGeneratingHelpModel()
-                    {
-                        DataObject = dataObject,
-                        Cluster = cluster
-                    });
-                }
+                    List<TileGeneratingHelpModel> helpModels = new List<TileGeneratingHelpModel>(dataObjects.Count);
 
-                await AddTiles(profile, helpModels);
+                    foreach (var dataObject in dataObjects)
+                    {
+                        helpModels.Add(new TileGeneratingHelpModel()
+                        {
+                            DataObject = dataObject,
+                            Cluster = cluster
+                        });
+                    }
+
+                    await AddTiles(profile, helpModels);
+                }
+                catch (Exception ex)
+                {
+                    await _tasksService.ChangeTaskState(subTaskId2, TaskStates.Error);
+                    await _tasksService.ChangeTaskDescription(subTaskId2, ex.Message);
+                    throw ex;
+                }
+                await _tasksService.ChangeTaskPercent(subTaskId2, 100f);
+                await _tasksService.ChangeTaskState(subTaskId2, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(taskId, 90f);
+                await _tasksService.ChangeTaskPercent(taskId, 50f);
+
 
                 profile.IsInCalculation = false;
                 await _profilesRepository.SaveChangesAsync();

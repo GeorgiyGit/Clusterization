@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Tasks;
 using Domain.Resources.Types;
+using Domain.Resources.Types.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

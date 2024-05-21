@@ -22,6 +22,8 @@ using Domain.Interfaces.Other;
 using Domain.Resources.Types.DataSources.Youtube;
 using Domain.Entities.DataSources.Youtube;
 using Domain.Extensions;
+using Domain.Resources.Types.Tasks;
+using Domain.DTOs.TaskDTOs.Requests;
 
 namespace Domain.Services.DataSources.Youtube
 {
@@ -80,11 +82,18 @@ namespace Domain.Services.DataSources.Youtube
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingVideosFromYoutube]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = options.ParentId + "",
+                EntityType = TaskEntityTypes.YoutubeChannel,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingVideosFromYoutube],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadFromChannelBackgroundJob(options, userId, taskId));
         }
-        public async Task LoadFromChannelBackgroundJob(YoutubeLoadOptions options, string userId, int taskId)
+        public async Task LoadFromChannelBackgroundJob(YoutubeLoadOptions options, string userId, string taskId)
         {
             string channelId = options.ParentId;
 

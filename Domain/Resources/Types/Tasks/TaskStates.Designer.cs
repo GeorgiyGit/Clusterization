@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain.Resources.Types {
+namespace Domain.Resources.Types.Tasks {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Domain.Resources.Types {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.TaskStates", typeof(TaskStates).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.Resources.Types.Tasks.TaskStates", typeof(TaskStates).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
