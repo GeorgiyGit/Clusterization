@@ -26,6 +26,7 @@ using Domain.Entities.Embeddings;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -101,6 +102,11 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
         }
         public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId)
         {
+            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
+            if (stateId != TaskStates.Wait) return;
+
+            await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
+
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
 
             if (profile == null || (profile.ChangingType == ChangingTypes.OnlyOwner && profile.OwnerId != userId))

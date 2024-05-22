@@ -71,6 +71,10 @@ namespace Domain.Services.TaskServices
             {
                 task.EndTime = DateTime.UtcNow;
             }
+            else if (newStateId == TaskStates.Process)
+            {
+                task.StartTime = DateTime.UtcNow;
+            }
             else if (newStateId == TaskStates.Error)
             {
                 if (task.TaskType == TaskTypes.MainTask)
