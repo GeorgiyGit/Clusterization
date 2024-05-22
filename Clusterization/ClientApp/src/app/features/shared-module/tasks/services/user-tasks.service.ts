@@ -26,7 +26,7 @@ export class UserTasksService {
     return this.http.post<IMySubTask[]>(this.controllerUrl + "get_sub_tasks", request);
   }
 
-  getFullTask(id: number): Observable<IMyFullTask> {
+  getFullTask(id: string): Observable<IMyFullTask> {
     return this.http.get<IMyFullTask>(this.controllerUrl + "get_full/" + id);
   }
 }

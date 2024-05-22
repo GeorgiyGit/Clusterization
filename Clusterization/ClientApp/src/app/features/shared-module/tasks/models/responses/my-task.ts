@@ -6,6 +6,7 @@ export interface IMyTask{
     endTime:Date,
 
     percent:number,
+    isPercents:boolean,
     
     stateName:string,
     stateId:string

@@ -25,5 +25,6 @@ namespace Domain.DTOs.TaskDTOs.Requests
         public int? SubTasksCount { get; set; }
 
         public string StateId { get; set; }
+        public bool IsPercents { get; set; } = true;
     }
 }

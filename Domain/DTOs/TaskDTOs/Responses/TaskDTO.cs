@@ -15,6 +15,7 @@ namespace Domain.DTOs.TaskDTOs
         public string Title { get; set; }
 
         public float Percent { get; set; }
+        public bool IsPercents { get; set; }
 
         public string StateName { get; set; }
         public string StateId { get; set; }

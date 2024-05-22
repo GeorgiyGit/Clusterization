@@ -25,21 +25,46 @@
 
         .top-cont {
             display: flex;
+            justify-content: space-between;
             gap: 10px;
             align-items: center;
     
-            .percent-text {
-                color: $first-color-1;
-                font-size: 1.5rem;
+            .text{
+                .percent-text {
+                    color: $first-color-1;
+                    font-size: 1.5rem;
+                }
+        
+                .title-text {
+                    color: $first-color-2;
+                }
+                .error-text{
+                    color: $warn-1;
+                }
+            }
+            .status{
+                width: 30px;
+                height: 30px;
+                border-radius: 8px;
             }
     
-            .title-text {
-                color: $first-color-2;
+            .error {
+                background-color: $warn-1 !important;
             }
-            .error-text{
-                color: $warn-1;
+            .wait{
+                background-color: $first-color-0;
+            }
+            .stopped{
+                background-color: $selection-color;
+            }
+            .process {
+                background-color: $first-color-1;
+            }
+            .complete {
+                background-color: $first-color-4;
             }
         }
+        
         .sub-tasks-cont{
             display: flex;
             gap: 10px;

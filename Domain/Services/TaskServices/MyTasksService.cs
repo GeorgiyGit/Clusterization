@@ -163,7 +163,8 @@ namespace Domain.Services.TaskServices
                 IsGroupTask = options.IsGroupTask,
                 Percent = 0,
                 CustomerId = options.CustomerId,
-                TaskType = TaskTypes.MainTask
+                TaskType = TaskTypes.MainTask,
+                IsPercents = options.IsPercents
             };
 
 
@@ -207,7 +208,8 @@ namespace Domain.Services.TaskServices
                 Position = options.Position,
                 TaskType = TaskTypes.SubTask,
                 EntityId = options.EntityId,
-                EntityType = options.EntityType
+                EntityType = options.EntityType,
+                IsPercents = options.IsPercents
             };
 
             if (options.StateId != null) task.StateId = options.StateId;

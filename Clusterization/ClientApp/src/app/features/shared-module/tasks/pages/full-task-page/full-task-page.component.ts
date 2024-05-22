@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IMyFullTask } from '../../models/responses/my-full-task';
@@ -21,8 +21,12 @@ import { UserTasksService } from '../../services/user-tasks.service';
     ])
   ]
 })
-export class FullTaskPageComponent implements OnInit{
+export class FullTaskPageComponent implements OnInit, OnDestroy {
+  private intervalId: any;
+  public currentTime: string;
+
   animationState:string='in';
+  taskId:string;
 
 
   fullTask:IMyFullTask;
@@ -34,16 +38,36 @@ export class FullTaskPageComponent implements OnInit{
   ngOnInit(): void {
     this.animationState='in';
 
-    let taskId=this.route.snapshot.params['id'];
+    this.taskId=this.route.snapshot.params['id'];
 
-    this.userTasksService.getFullTask(taskId).subscribe(res=>{
+    this.loadTask();
+    this.startTimer();
+  }
+
+  loadTask(){
+    this.userTasksService.getFullTask(this.taskId).subscribe(res=>{
       this.fullTask=res;
-      console.log(res);
+
     },error=>{
       this.toaster.error(error.error.Message);
     })
   }
 
+  ngOnDestroy() {
+    this.clearTimer();
+  }
+
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      this.loadTask();
+    }, 1000);
+  }
+
+  clearTimer() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 
   closeOverflow(){
     this.animationState='hidden';

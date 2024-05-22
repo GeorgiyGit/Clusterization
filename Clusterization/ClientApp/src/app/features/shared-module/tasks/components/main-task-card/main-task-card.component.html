@@ -1,8 +1,17 @@
 <div class="my-card" (click)="openFull($event)">
     <div class="main-cont" [class.gap]="task.isGroupTask">
         <div class="top-cont">
-            <p class="percent-text">{{task.percent.toFixed(1)}}%</p>
-            <p class="title-text" [class.error-text]="task.stateId=='Error'">{{task.title}}</p>
+            <div class="text">
+                <p class="percent-text" *ngIf="task.isPercents">{{task.percent.toFixed(1)}}%</p>
+                <p class="title-text" [class.error-text]="task.stateId=='Error'">{{task.title}}</p>
+            </div>
+            <div class="status" *ngIf="!task.isGroupTask" [class.complete]="task.stateId==taskStates.Completed"
+                [class.error]="task.stateId==taskStates.Error"
+                [class.wait]="task.stateId==taskStates.Wait"
+                [class.stopped]="task.stateId==taskStates.Stopped"
+                [class.process]="task.stateId==taskStates.Process"
+                [matTooltip]="task.stateName">
+            </div>
         </div>
         <div class="sub-tasks-cont" *ngIf="task.isGroupTask">
             @for (subTask of task.subTasks; track $index) {

@@ -29,6 +29,7 @@ namespace Domain.Entities.Tasks
         public string? EntityId { get; set; }
 
         public float Percent { get; set; }
+        public bool IsPercents { get; set; } = true;
 
         public string TaskType { get; set; } = TaskTypes.MainTask;
     }

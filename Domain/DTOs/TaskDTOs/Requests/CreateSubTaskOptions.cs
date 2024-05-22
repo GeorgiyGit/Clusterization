@@ -25,5 +25,6 @@ namespace Domain.DTOs.TaskDTOs.Requests
         public string GroupTaskId { get; set; }
 
         public int Position { get; set; }
+        public bool IsPercents { get; set; } = true;
     }
 }

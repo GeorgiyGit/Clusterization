@@ -149,7 +149,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 Position = 1,
                 GroupTaskId = taskId,
                 CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction]
+                Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction],
+                IsPercents = false
             };
             var subTaskId1 = await _tasksService.CreateSubTaskWithUserId(taskOptions1);
 
@@ -158,7 +159,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 Position = 2,
                 GroupTaskId = taskId,
                 CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.Clustering]
+                Title = _tasksLocalizer[TaskTitlesPatterns.Clustering],
+                IsPercents = false
             };
             var subTaskId2 = await _tasksService.CreateSubTaskWithUserId(taskOptions2);
 
@@ -167,7 +169,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 Position = 3,
                 GroupTaskId = taskId,
                 CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating]
+                Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating],
+                IsPercents = false
             };
             var subTaskId3 = await _tasksService.CreateSubTaskWithUserId(taskOptions3);
             #endregion

@@ -11,7 +11,16 @@
                     [style.stroke-dashoffset]="440 - (440 * fullTask.percent / 100)"></circle>
                 </svg>
                 <div class="num">
-                    <h2>{{fullTask.percent.toFixed(1)}}<span>%</span></h2>
+                    <h2 *ngIf="fullTask.isPercents">{{fullTask.percent.toFixed(1)}}<span>%</span></h2>
+                    <div *ngIf="!fullTask.isPercents" class="status"
+                        [class.complete]="fullTask.stateId==taskStates.Completed"
+                        [class.error]="fullTask.stateId==taskStates.Error"
+                        [class.wait]="fullTask.stateId==taskStates.Wait"
+                        [class.stopped]="fullTask.stateId==taskStates.Stopped"
+                        [class.process]="fullTask.stateId==taskStates.Process"
+                        [matTooltip]="fullTask.stateName">
+
+                    </div>
                 </div>
             </div>
             <h2 class="text">{{fullTask.stateName}}</h2>

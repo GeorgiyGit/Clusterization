@@ -1,7 +1,7 @@
 <div class="my-card" (click)="openFull($event)">
     <div class="top-cont">
         <div class="text">
-            <p class="percent-text">{{task.percent.toFixed(1)}}%</p>
+            <p class="percent-text" *ngIf="task.isPercents">{{task.percent.toFixed(1)}}%</p>
             <p class="title-text" [class.error-text]="task.stateId=='Error'">{{task.title}}</p>
         </div>
         <div class="status" [class.complete]="task.stateId==taskStates.Completed"
@@ -12,7 +12,7 @@
             [matTooltip]="task.stateName">
         </div>
     </div>
-    <div class="progress-bar-cont">
+    <div class="progress-bar-cont" *ngIf="task.isPercents">
         <div class="progress-bar" [style.width.%]="task.percent"
                                   [class.complete]="task.stateId=='Completed'"
                                   [class.error]="task.stateId=='Error'"
