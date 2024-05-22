@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { ICustomerGetTasksRequest } from 'src/app/features/shared-module/tasks/models/requests/customer-get-tasks-request';
-import { IMyTask } from 'src/app/features/shared-module/tasks/models/responses/myTask';
+import { IMyMainTask } from 'src/app/features/shared-module/tasks/models/responses/my-main-task';
+import { IMyTask } from 'src/app/features/shared-module/tasks/models/responses/my-task';
 import { UserTasksService } from 'src/app/features/shared-module/tasks/services/user-tasks.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserTasksService } from 'src/app/features/shared-module/tasks/services/
   styleUrl: './customer-tasks-list.component.scss'
 })
 export class CustomerTasksListComponent implements OnInit {
-  tasks: IMyTask[] = [];
+  tasks: IMyMainTask[] = [];
 
   request: ICustomerGetTasksRequest = {
     taskStateId: undefined,
@@ -31,7 +32,7 @@ export class CustomerTasksListComponent implements OnInit {
     this.request.pageParameters.pageNumber=1;
 
     this.isLoading = true;
-    this.userTasksService.getTasks(this.request).subscribe(res => {
+    this.userTasksService.getMainTasks(this.request).subscribe(res => {
       this.isLoading = false;
       this.tasks = res;
 
@@ -48,7 +49,7 @@ export class CustomerTasksListComponent implements OnInit {
     this.request.pageParameters.pageNumber++;
 
     this.isLoading2 = true;
-    this.userTasksService.getTasks(this.request).subscribe(res => {
+    this.userTasksService.getMainTasks(this.request).subscribe(res => {
       this.isLoading2 = false;
       this.tasks = this.tasks.concat(res);
 

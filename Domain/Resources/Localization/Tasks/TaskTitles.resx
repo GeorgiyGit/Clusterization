@@ -129,6 +129,9 @@
   <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
     <value>Додавання коментарів з платформи Youtube до робочого простору</value>
   </data>
+  <data name="Clustering" xml:space="preserve">
+    <value>Кластеризація</value>
+  </data>
   <data name="ClusterizationDBSCAN" xml:space="preserve">
     <value>Кластеризація (DBSCAN)</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="ClusterizationSpectralClustering" xml:space="preserve">
     <value>Кластеризація (Spectral Clustering)</value>
   </data>
+  <data name="DimensionReduction" xml:space="preserve">
+    <value>Зменшення розмірності</value>
+  </data>
   <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
     <value>Завантаження всіх ембедингів з робочого простору</value>
   </data>
@@ -156,6 +162,9 @@
   <data name="LoadingEmbeddingsPack" xml:space="preserve">
     <value>Завантаження ембедингів з паку</value>
   </data>
+  <data name="LoadingExternalDataAndAddingToWorkspacLoadingExternalDataAndAddingToWorkspace" xml:space="preserve">
+    <value>Заватаження даних із зовнішніх джерел і додавання їх до робочого простору</value>
+  </data>
   <data name="LoadingExternalDataObjects" xml:space="preserve">
     <value>Заватаження даних із зовнішніх джерел</value>
   </data>
@@ -167,5 +176,8 @@
   </data>
   <data name="LoadingVideosFromYoutube" xml:space="preserve">
     <value>Заватаження відео з платформи Youtube</value>
+  </data>
+  <data name="TilesCreating" xml:space="preserve">
+    <value>Створення квадратів із точок</value>
   </data>
 </root>

@@ -7,7 +7,7 @@
     </div>
     <div class="list-cont">
         @for (task of tasks; track $index) {
-            <app-task-card [task]="task"></app-task-card>
+            <app-main-task-card [task]="task"></app-main-task-card>
         }@empty {
             <div class="centered" *ngIf="!isLoading && !isLoading2">
                 <p class="nothing-text" i18n>Завдань не знайдено</p>

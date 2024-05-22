@@ -147,6 +147,9 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>An error occurred while loading embeddings</value>
   </data>
+  <data name="ErrorWhileLoadExternalData" xml:space="preserve">
+    <value>Error while loading external data</value>
+  </data>
   <data name="ExternalObjectsNotFound" xml:space="preserve">
     <value>External objects not found</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Not All Data Embedded</value>
+  </data>
+  <data name="NotAllPacksWereLoaded" xml:space="preserve">
+    <value>Not all packs were loaded</value>
   </data>
   <data name="NotEnoughQuotas" xml:space="preserve">
     <value>Not enough quotas</value>

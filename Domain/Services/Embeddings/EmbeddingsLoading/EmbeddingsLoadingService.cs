@@ -23,6 +23,10 @@ using Domain.Interfaces.Embeddings;
 using Domain.Resources.Types.Clusterization;
 using Domain.DTOs;
 using Domain.Entities.Embeddings;
+using Domain.DTOs.TaskDTOs.Requests;
+using Domain.Resources.Types.Tasks;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -84,55 +88,84 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = profileId + "",
+                EntityType = TaskEntityTypes.ClusterizationProfile,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace],
+                IsGroupTask = true
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId));
         }
-        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, int taskId)
+        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId)
         {
+            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
+            if (stateId != TaskStates.Wait) return;
+
+            await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
+
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
 
             if (profile == null || (profile.ChangingType == ChangingTypes.OnlyOwner && profile.OwnerId != userId))
             {
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.ProfileChangingTypeIsOnlyOwner]);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ProfileChangingTypeIsOnlyOwner]);
             }
             var workspace = (await _workspacesRepository.GetAsync(c => c.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.WorkspaceDataObjectsAddPacks)}")).FirstOrDefault();
 
             if (workspace == null || (workspace.ChangingType == ChangingTypes.OnlyOwner && workspace.OwnerId != userId))
             {
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner]);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.WorkspaceChangingTypeIsOnlyOwner]);
             }
             if (profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded)
             {
-                await _tasksService.ChangeTaskPercent(taskId, 100f);
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 100f);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Completed);
                 return;
             }
 
             bool flag = false;
-            var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted);
-            foreach (var pack in packs)
+            var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted).ToList();
+
+            List<string> taskIds = new List<string>(packs.Count());
+            for(int i = 0; i < packs.Count(); i++)
             {
-                var packTaskId = await _tasksService.CreateTaskWithUserId(_tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack], userId);
+                var createTaskOptions = new CreateSubTaskOptions()
+                {
+                    EntityId = packs[i].Id + "",
+                    EntityType = TaskEntityTypes.ClusterizationAddDataPacks,
+                    CustomerId = userId,
+                    Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
+                    Position = i + 1,
+                    GroupTaskId = groupTaskId
+                };
+                var packTaskId = await _tasksService.CreateSubTaskWithUserId(createTaskOptions);
+                taskIds.Add(packTaskId);
+            }
+            for (int i = 0; i < packs.Count(); i++)
+            {
+                var pack = packs[i];
 
-                await LoadEmbeddingsByWorkspaceDataPackBackgroundJob(pack.Id, userId, packTaskId, profile.EmbeddingModelId);
+                await LoadEmbeddingsByWorkspaceDataPackBackgroundJob(pack.Id, userId, taskIds[i], profile.EmbeddingModelId);
 
-                var taskState = await _tasksService.GetTaskStateId(packTaskId);
+                var taskState = await _tasksService.GetTaskStateId(taskIds[i]);
 
                 if (taskState == TaskStates.Error) flag = true;
             }
 
             if (flag)
             {
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, "Not all packs were loaded");
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.NotAllPacksWereLoaded]);
             }
             else
             {
-                await _tasksService.ChangeTaskPercent(taskId, 100f);
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 100f);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Completed);
             }
 
         }
@@ -141,12 +174,19 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = packId + "",
+                EntityType = TaskEntityTypes.ClusterizationAddDataPacks,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceDataPackBackgroundJob(packId, userId, taskId, embeddingModelId));
         }
 
-        public async Task LoadEmbeddingsByWorkspaceDataPackBackgroundJob(int packId, string userId, int taskId, string embeddingModelId)
+        public async Task LoadEmbeddingsByWorkspaceDataPackBackgroundJob(int packId, string userId, string taskId, string embeddingModelId)
         {
             try
             {

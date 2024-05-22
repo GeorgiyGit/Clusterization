@@ -10,11 +10,12 @@ namespace Domain.DTOs.TaskDTOs
 {
     public class TaskDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Title { get; set; }
 
         public float Percent { get; set; }
+        public bool IsPercents { get; set; }
 
         public string StateName { get; set; }
         public string StateId { get; set; }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ISimpleCustomer } from '../../models/responses/simple-customer';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ISelectAction } from 'src/app/core/models/select-action';
@@ -19,7 +19,8 @@ export class CustomerCardComponent implements OnInit {
   constructor(private clipboard: Clipboard,
     private toastr: ToastrService,
     private router: Router,
-    private rolesService: RolesService) { }
+    private rolesService: RolesService,
+    private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     if (this.customer == null) return;
@@ -42,7 +43,7 @@ export class CustomerCardComponent implements OnInit {
           });
         },
         isForAuthorized: true,
-        isOnlyForUsers:true
+        isOnlyForUsers: true
       });
     }
     else {
@@ -51,7 +52,7 @@ export class CustomerCardComponent implements OnInit {
         action: () => {
           this.rolesService.addModerator(this.customer.id).subscribe(res => {
             this.customer.isModerator = true;
-            
+
             this.actions = [];
             this.addActions();
           }, error => {
@@ -59,16 +60,25 @@ export class CustomerCardComponent implements OnInit {
           });
         },
         isForAuthorized: true,
-        isOnlyForUsers:true
+        isOnlyForUsers: true
       });
     }
     this.actions.push({
       name: $localize`Додати пак квот`,
       action: () => {
-        this.router.navigate([{ outlets: { overflow: 'admin-panel/add-quotas-pack/'+this.customer.id } }]);
+        this.router.navigate([{ outlets: { overflow: 'admin-panel/add-quotas-pack/' + this.customer.id } }]);
       },
       isForAuthorized: true,
-      isOnlyForUsers:true
+      isOnlyForUsers: true
+    });
+
+    this.actions.push({
+      name: $localize`Список завдань`,
+      action: () => {
+        this.router.navigate(['../tasks', this.customer.id], { relativeTo: this.route });
+      },
+      isForAuthorized: true,
+      isOnlyForUsers: true
     });
   }
 

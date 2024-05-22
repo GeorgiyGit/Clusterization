@@ -31,7 +31,7 @@ namespace Domain.Entities.Customers
 
         public ICollection<QuotasPackLogs> QuotasPackLogsCollection { get; set; } = new HashSet<QuotasPackLogs>();
 
-        public ICollection<MyTask> Tasks { get; set; } = new HashSet<MyTask>();
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
 
         public DateTime CreationTime { get; set; } = DateTime.UtcNow;
 

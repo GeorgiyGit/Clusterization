@@ -1,0 +1,17 @@
+<section>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="!isLoading && (subTasks==null || subTasks.length==0)">
+        <p class="nothing-text" i18n>Завдань не знайдено</p>
+    </div>
+    <div *ngFor="let task of subTasks">
+        <app-sub-task-card [task]="task"></app-sub-task-card>
+    </div>
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

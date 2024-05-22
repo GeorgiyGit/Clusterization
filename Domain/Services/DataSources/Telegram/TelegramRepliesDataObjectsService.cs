@@ -20,6 +20,8 @@ using Domain.Entities.DataSources.Telegram;
 using Domain.DTOs.DataSourcesDTOs.TelegramDTOs.SharedDTOs;
 using Domain.Extensions;
 using Domain.Interfaces.DataSources.Telegram;
+using Domain.DTOs.TaskDTOs.Requests;
+using Domain.Resources.Types.Tasks;
 
 namespace Domain.Services.DataSources.Telegram
 {
@@ -66,11 +68,18 @@ namespace Domain.Services.DataSources.Telegram
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingTelegramRepliesToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                EntityId = request.ChannelId + "",
+                EntityType = TaskEntityTypes.TelegramChannel,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingTelegramRepliesToWorkspace],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadRepliesByChannelBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadRepliesByChannelBackgroundJob(AddTelegramRepliesToWorkspaceByChannelRequest request, string userId, int taskId)
+        public async Task LoadRepliesByChannelBackgroundJob(AddTelegramRepliesToWorkspaceByChannelRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;
@@ -184,11 +193,16 @@ namespace Domain.Services.DataSources.Telegram
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            var taskId = await _tasksService.CreateTask(_tasksLocalizer[TaskTitlesPatterns.AddingTelegramRepliesToWorkspace]);
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingTelegramRepliesToWorkspace],
+            };
+            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadRepliesByMessagesBackgroundJob(request, userId, taskId));
         }
-        public async Task LoadRepliesByMessagesBackgroundJob(AddTelegramRepliesToWorkspaceByMessagesRequest request, string userId, int taskId)
+        public async Task LoadRepliesByMessagesBackgroundJob(AddTelegramRepliesToWorkspaceByMessagesRequest request, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return;

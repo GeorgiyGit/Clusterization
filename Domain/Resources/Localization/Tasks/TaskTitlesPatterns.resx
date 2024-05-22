@@ -129,6 +129,9 @@
   <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
     <value>AddingYoutubeCommentsToWorkspace</value>
   </data>
+  <data name="Clustering" xml:space="preserve">
+    <value>Clustering</value>
+  </data>
   <data name="ClusterizationDBSCAN" xml:space="preserve">
     <value>ClusterizationDBSCAN</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="ClusterizationSpectralClustering" xml:space="preserve">
     <value>ClusterizationSpectralClustering</value>
   </data>
+  <data name="DimensionReduction" xml:space="preserve">
+    <value>DimensionReduction</value>
+  </data>
   <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
     <value>LoadingAllEmbeddingsInWorkspace</value>
   </data>
@@ -156,6 +162,9 @@
   <data name="LoadingEmbeddingsPack" xml:space="preserve">
     <value>LoadingEmbeddingsPack</value>
   </data>
+  <data name="LoadingExternalDataAndAddingToWorkspace" xml:space="preserve">
+    <value>LoadingExternalDataAndAddingToWorkspace</value>
+  </data>
   <data name="LoadingExternalDataObjects" xml:space="preserve">
     <value>LoadingExternalDataObjects</value>
   </data>
@@ -167,5 +176,8 @@
   </data>
   <data name="LoadingVideosFromYoutube" xml:space="preserve">
     <value>LoadingVideosFromYoutube</value>
+  </data>
+  <data name="TilesCreating" xml:space="preserve">
+    <value>TilesCreating</value>
   </data>
 </root>

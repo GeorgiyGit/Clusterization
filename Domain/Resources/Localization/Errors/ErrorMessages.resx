@@ -147,6 +147,9 @@
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>
+  <data name="ErrorWhileLoadExternalData" xml:space="preserve">
+    <value>Повилка під час завантаження зовнішніх пакетів даних</value>
+  </data>
   <data name="ExternalObjectsNotFound" xml:space="preserve">
     <value>Пакет зовнішніх даних не знайдено</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="NotAllDataEmbedded" xml:space="preserve">
     <value>Не всі дані вбудовані</value>
+  </data>
+  <data name="NotAllPacksWereLoaded" xml:space="preserve">
+    <value>Не всі паки були завантажені</value>
   </data>
   <data name="NotEnoughQuotas" xml:space="preserve">
     <value>Не достатньо квот</value>

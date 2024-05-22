@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IMyFullTask } from '../../models/responses/my-full-task';
+import { TaskStates } from '../../models/static/task-states';
 
 @Component({
   selector: 'app-circular-progress-bar',
@@ -7,5 +8,7 @@ import { IMyFullTask } from '../../models/responses/my-full-task';
   styleUrl: './circular-progress-bar.component.scss'
 })
 export class CircularProgressBarComponent {
-@Input() fullTask:IMyFullTask;
+  @Input() fullTask: IMyFullTask;
+
+  taskStates = TaskStates;
 }

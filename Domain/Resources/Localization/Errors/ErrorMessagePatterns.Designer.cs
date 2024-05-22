@@ -151,6 +151,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ErrorWhileLoadExternalData.
+        /// </summary>
+        public static string ErrorWhileLoadExternalData {
+            get {
+                return ResourceManager.GetString("ErrorWhileLoadExternalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ExternalObjectsNotFound.
         /// </summary>
         public static string ExternalObjectsNotFound {
@@ -210,6 +219,15 @@ namespace Domain.Resources.Localization.Errors {
         public static string NotAllDataEmbedded {
             get {
                 return ResourceManager.GetString("NotAllDataEmbedded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NotAllPacksWereLoaded.
+        /// </summary>
+        public static string NotAllPacksWereLoaded {
+            get {
+                return ResourceManager.GetString("NotAllPacksWereLoaded", resourceCulture);
             }
         }
         

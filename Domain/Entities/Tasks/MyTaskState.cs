@@ -5,6 +5,6 @@ namespace Domain.Entities.Tasks
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public ICollection<MyTask> Tasks { get; set; } = new HashSet<MyTask>();
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

@@ -57,6 +57,28 @@
     border-radius: 50%;
 }
 
+.status{
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.error {
+    background-color: $warn-1 !important;
+}
+.wait{
+    background-color: $first-color-0;
+}
+.stopped{
+    background-color: $selection-color;
+}
+.process {
+    background-color: $first-color-1;
+}
+.complete {
+    background-color: $first-color-4;
+}
+
 .percent .num h2 {
     color: $first-color-3;
     font-weight: 700;
