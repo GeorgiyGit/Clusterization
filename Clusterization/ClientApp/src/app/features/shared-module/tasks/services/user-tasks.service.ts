@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IMyTask } from '../models/responses/my-task';
 import { ICustomerGetTasksRequest } from '../models/requests/customer-get-tasks-request';
 import { IMyFullTask } from '../models/responses/my-full-task';
 import { IMyMainTask } from '../models/responses/my-main-task';

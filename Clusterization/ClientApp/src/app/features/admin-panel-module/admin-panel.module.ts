@@ -11,6 +11,11 @@ import { SharedModule } from '../shared-module/shared.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WTelegramAdminPageComponent } from './telegram/pages/w-telegram-admin-page/w-telegram-admin-page.component';
+import { ModeratorMainTaskCardComponent } from './tasks/components/moderator-main-task-card/moderator-main-task-card.component';
+import { ModeratorMainTaskListComponent } from './tasks/components/moderator-main-task-list/moderator-main-task-list.component';
+import { ModeratorSubTaskCardComponent } from './tasks/components/moderator-sub-task-card/moderator-sub-task-card.component';
+import { ModeratorSubTaskListComponent } from './tasks/components/moderator-sub-task-list/moderator-sub-task-list.component';
+import { ModeratorTaskListPageComponent } from './tasks/pages/moderator-task-list-page/moderator-task-list-page.component';
 
 
 @NgModule({
@@ -20,7 +25,13 @@ import { WTelegramAdminPageComponent } from './telegram/pages/w-telegram-admin-p
     CustomerListPageComponent,
     AdminPanelNavigationPageComponent,
     AddQuatasPackToCustomerPageComponent,
-    WTelegramAdminPageComponent
+    WTelegramAdminPageComponent,
+
+    ModeratorMainTaskCardComponent,
+    ModeratorMainTaskListComponent,
+    ModeratorSubTaskCardComponent,
+    ModeratorSubTaskListComponent,
+    ModeratorTaskListPageComponent
   ],
   imports: [
     CommonModule,
