@@ -1,16 +1,5 @@
-export interface IMyFullTask{
-    id:number,
-
-    title:string,
+import {IMyTask} from "./my-task";
+export interface IMyFullTask extends IMyTask{
     description:string,
-
-    startTime:Date,
-    endTime:Date,
-
-    percent:number,
-
-    stateName:string,
-    stateId:string,
-
     customerId:string
 }

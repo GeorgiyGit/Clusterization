@@ -64,6 +64,7 @@ namespace Domain.Services.TaskServices
                 var task = tasks[i];
 
                 var subTasks = await _subTasksRepository.GetAsync(e => e.GroupTaskId == task.Id,
+                                                                  order => order.OrderBy(e => e.Position),
                                                                   includeProperties: $"{nameof(MyBaseTask.State)}");
 
                 var mappedSubTasks = _mapper.Map<ICollection<SimpleSubTaskDTO>>(subTasks);
@@ -87,7 +88,7 @@ namespace Domain.Services.TaskServices
             }
 
             var tasks = (await _subTasksRepository.GetAsync(filter: filterCondition,
-                                                       orderBy: e => e.OrderByDescending(e => e.StartTime),
+                                                       orderBy: e => e.OrderBy(e => e.Position),
                                                        includeProperties: $"{nameof(MyBaseTask.State)}",
                                                        pageParameters: request.PageParameters)).ToList();
 

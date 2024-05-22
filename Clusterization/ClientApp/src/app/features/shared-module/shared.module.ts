@@ -7,8 +7,6 @@ import { QuotasPackCardComponent } from './quotas/components/quotas-pack-card/qu
 import { QuotasPackLogsCardComponent } from './quotas/components/quotas-pack-logs-card/quotas-pack-logs-card.component';
 import { QuotasTypesSelectComponent } from './quotas/components/quotas-types-select/quotas-types-select.component';
 import { QuotasPackListComponent } from './quotas/components/quotas-pack-list/quotas-pack-list.component';
-import { TaskCardComponent } from './tasks/components/task-card/task-card.component';
-import { TaskListComponent } from './tasks/components/task-list/task-list.component';
 import { TaskStatusesSelectComponent } from './tasks/components/task-statuses-select/task-statuses-select.component';
 import { FullTaskPageComponent } from './tasks/pages/full-task-page/full-task-page.component';
 import { CoreModule } from 'src/app/core/core.module';
@@ -16,6 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EmailVerificationPageComponent } from './account/pages/email-verification-page/email-verification-page.component';
 import { EmailVerificationAlertPageComponent } from './account/pages/email-verification-alert-page/email-verification-alert-page.component';
+import { SubTaskCardComponent } from './tasks/components/sub-task-card/sub-task-card.component';
+import { SubTaskListComponent } from './tasks/components/sub-task-list/sub-task-list.component';
+import { MainTaskCardComponent } from './tasks/components/main-task-card/main-task-card.component';
+import { MainTaskListComponent } from './tasks/components/main-task-list/main-task-list.component';
 
 
 @NgModule({
@@ -27,8 +29,10 @@ import { EmailVerificationAlertPageComponent } from './account/pages/email-verif
     QuotasPackLogsCardComponent,
 
     FullTaskPageComponent,
-    TaskCardComponent,
-    TaskListComponent,
+    SubTaskCardComponent,
+    SubTaskListComponent,
+    MainTaskCardComponent,
+    MainTaskListComponent,
     TaskStatusesSelectComponent,
 
     LogInPageComponent,
@@ -42,7 +46,8 @@ import { EmailVerificationAlertPageComponent } from './account/pages/email-verif
     QuotasLogsCardComponent,
     QuotasPackLogsCardComponent,
     TaskStatusesSelectComponent,
-    TaskCardComponent
+    MainTaskCardComponent,
+    SubTaskCardComponent
   ],
   imports: [
     CommonModule,

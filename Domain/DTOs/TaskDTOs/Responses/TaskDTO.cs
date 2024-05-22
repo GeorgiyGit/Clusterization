@@ -10,7 +10,7 @@ namespace Domain.DTOs.TaskDTOs
 {
     public class TaskDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Title { get; set; }
 

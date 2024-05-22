@@ -1,0 +1,116 @@
+@import '/src/app/core/styles/base.scss';
+
+.my-card {
+    padding: 10px;
+    background-color: $second-color-1;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: $second-color-3;
+    }
+
+    .main-cont{
+        flex: 1;
+
+        gap: 10px;
+
+        display: flex;
+        flex-direction: column;
+
+        .top-cont {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+    
+            .percent-text {
+                color: $first-color-1;
+                font-size: 1.5rem;
+            }
+    
+            .title-text {
+                color: $first-color-2;
+            }
+            .error-text{
+                color: $warn-1;
+            }
+        }
+        .sub-tasks-cont{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            column-gap: 10px;
+    
+            .sub-task-cont{
+                width: 30px;
+                height: 30px;
+                border-radius: 8px;
+            }
+            .error {
+                background-color: $warn-1 !important;
+            }
+            .wait{
+                background-color: $first-color-0;
+            }
+            .stopped{
+                background-color: $selection-color;
+            }
+            .process {
+                background-color: $first-color-1;
+            }
+            .complete {
+                background-color: $first-color-4;
+            }
+        }
+        .progress-bar-cont {
+            width: 100%;
+            border-radius: 5px;
+            background-color: $second-color-2;
+            height: 25px;
+    
+            .progress-bar {
+                height: 100%;
+                width: auto;
+                border-radius: 5px;
+            }
+    
+            .error {
+                background-color: $warn-1 !important;
+            }
+    
+            .normal {
+                background-color: $first-color-1;
+            }
+    
+            .complete {
+                background-color: $first-color-4;
+            }
+        }
+    }
+    .isGroupTask{
+        gap: 10px;
+    }
+
+    .right-cont{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .icon{
+            font-size: 50px;
+
+            &:hover{
+                color: $first-color-1;
+            }
+        }
+    }
+}
+.sub-tasks{
+    padding-left: 10px;
+    padding-top: 10px;
+}

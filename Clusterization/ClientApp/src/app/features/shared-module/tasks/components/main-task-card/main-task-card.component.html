@@ -1,0 +1,34 @@
+<div class="my-card" (click)="openFull($event)">
+    <div class="main-cont" [class.gap]="task.isGroupTask">
+        <div class="top-cont">
+            <p class="percent-text">{{task.percent.toFixed(1)}}%</p>
+            <p class="title-text" [class.error-text]="task.stateId=='Error'">{{task.title}}</p>
+        </div>
+        <div class="sub-tasks-cont" *ngIf="task.isGroupTask">
+            @for (subTask of task.subTasks; track $index) {
+            <div class="sub-task-cont" [class.complete]="subTask.stateId==taskStates.Completed"
+                [class.error]="subTask.stateId==taskStates.Error"
+                [class.wait]="subTask.stateId==taskStates.Wait"
+                [class.stopped]="subTask.stateId==taskStates.Stopped"
+                [class.process]="subTask.stateId==taskStates.Process"
+                [matTooltip]="subTask.stateId"></div>
+            }
+        </div>
+        <div class="progress-bar-cont" *ngIf="!task.isGroupTask">
+            <div class="progress-bar" [style.width.%]="task.percent"
+                [class.complete]="task.stateId==taskStates.Completed" [class.error]="task.stateId==taskStates.Error"
+                [class.normal]="task.stateId!=taskStates.Error">
+
+            </div>
+        </div>
+    </div>
+    <div class="right-cont" *ngIf="task.isGroupTask">
+        <span class="material-symbols-outlined icon" (click)="toggleSubTasksOpen($event)" translate="no"
+            *ngIf="!this.isSubTasksOpen">expand_more</span>
+        <span class="material-symbols-outlined icon" (click)="toggleSubTasksOpen($event)" translate="no"
+            *ngIf="this.isSubTasksOpen">expand_less</span>
+    </div>
+</div>
+<div class="sub-tasks" *ngIf="task.isGroupTask">
+    <app-sub-task-list *ngIf="task!=null && isSubTasksOpen" [mainTaskId]="task.id"></app-sub-task-list>
+</div>

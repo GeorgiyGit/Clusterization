@@ -12,6 +12,6 @@ namespace Domain.DTOs.TaskDTOs.Responses
         public bool IsGroupTask { get; set; }
 
         public int SubTasksCount { get; set; }
-        public ICollection<SimpleSubTaskDTO> SubTasks { get; set; }
+        public ICollection<SimpleSubTaskDTO> SubTasks { get; set; } = new List<SimpleSubTaskDTO>();
     }
 }
