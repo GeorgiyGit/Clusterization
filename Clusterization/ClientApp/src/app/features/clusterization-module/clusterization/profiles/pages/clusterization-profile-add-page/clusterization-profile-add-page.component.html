@@ -9,7 +9,8 @@
             <app-clusterization-algorithm-types-select (sendEvent)="changeAlgorithmType($event)"
                 [isNullAvailable]="true"></app-clusterization-algorithm-types-select>
             <app-abstract-algorithms-select (sendEvent)="changeAlgorithm($event)"
-                [typeId]="algorithmTypeId"></app-abstract-algorithms-select>
+                [typeId]="algorithmTypeId"
+                [isActive]="isAlgorithmsSelectActive"></app-abstract-algorithms-select>
 
             <app-embedding-models-select [isNullAvailable]="false"
                 (sendEvent)="changeEmbeddingModel($event)"></app-embedding-models-select>

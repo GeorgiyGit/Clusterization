@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Requests;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.TypeDTOs;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Domain.Interfaces.Clusterization.Algorithms
     public interface IGeneralClusterizationAlgorithmService
     {
         public Task<ICollection<AbstractAlgorithmDTO>> GetAllAlgorithms(string typeId);
+        public Task<ICollection<AbstractAlgorithmDTO>> GetAlgorithms(GetAlgorithmsRequest request);
+
         public Task<SimpleAlgorithmTypeDTO?> GetAlgorithmTypeByAlgorithmId(int algorithmId);
 
         public Task<int> CalculateQuotasCount(string algorithmTypeId,int dataObjectsCount, int dimensionCount);

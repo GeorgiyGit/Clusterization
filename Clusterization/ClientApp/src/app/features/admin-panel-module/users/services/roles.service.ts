@@ -14,11 +14,9 @@ export class RolesService {
   }
 
   addModerator(id:string): Observable<any> {
-    console.log(this.controllerUrl + "add_moderator/"+id);
     return this.http.post(this.controllerUrl + "add_moderator/"+id,null);
   }
   removeModerator(id:string): Observable<any> {
-    console.log(this.controllerUrl + "remove_moderator/"+id);
     return this.http.delete(this.controllerUrl + "remove_moderator/"+id);
   }
 }

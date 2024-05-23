@@ -35,6 +35,7 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
   embeddingModelId:string;
 
   isActive: boolean;
+  isAlgorithmsSelectActive:boolean;
 
   constructor(private profilesService: ClusterizationProfilesService,
     private toaster: MyToastrService,
@@ -86,6 +87,8 @@ export class ClusterizationProfileAddPageComponent implements OnInit {
   }
 
   changeAlgorithmType(id: string) {
+    if(id==undefined)this.isAlgorithmsSelectActive=false;
+    else this.isAlgorithmsSelectActive=true;
     this.algorithmTypeId = id;
     this.isActive = false;
   }

@@ -74,7 +74,6 @@ export class LoadExternalObjectsPageComponent implements OnInit {
     model.changingType=this.changingType;
     model.visibleType=this.visibleType;
     model.workspaceId=-1;
-    console.log(model);
 
     this.isLoading=true;
     this.packsService.load(model).subscribe(res => {

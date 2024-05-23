@@ -6,50 +6,66 @@ import { IOptionForSelectInput } from '../../models/option-for-select-input';
   templateUrl: './select-option-input.component.html',
   styleUrls: ['./select-option-input.component.scss']
 })
-export class SelectOptionInputComponent implements OnInit,OnChanges{
-  @Input() matTooltipForIcon:string;
+export class SelectOptionInputComponent implements OnInit, OnChanges {
+  @Input() matTooltipForIcon: string;
 
-  @Input() options:IOptionForSelectInput[]=[];
-  @Input() selectedOption:IOptionForSelectInput;
+  @Input() options: IOptionForSelectInput[] = [];
+  @Input() selectedOption: IOptionForSelectInput;
 
-  @Input() isActive:boolean=true;
+  @Input() isActive: boolean = true;
 
-  @Output() sendResultEvent=new EventEmitter<IOptionForSelectInput>();
+  @Input() isMoreActive: boolean = false;
+  @Input() isMoreLoading: boolean = false;
+
+  @Output() sendResultEvent = new EventEmitter<IOptionForSelectInput>();
+  @Output() loadMoreEvent = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['options'] && !changes['options'].firstChange) {
-      if(this.selectedOption==null){
-        this.selectedOption=this.options[0];
+      if (this.selectedOption == null) {
+        this.selectedOption = this.options[0];
         this.sendResultEvent.emit(this.selectedOption);
       }
     }
   }
   ngOnInit(): void {
-    if(this.selectedOption==null){
-      this.selectedOption=this.options[0];
+    if (this.selectedOption == null) {
+      this.selectedOption = this.options[0];
       this.sendResultEvent.emit(this.selectedOption);
     }
   }
 
-  isOpen:boolean;
-  close(){
-    this.isOpen=false;
+  isOpen: boolean;
+  close() {
+    this.isOpen = false;
   }
-  toggleSelect(event:MouseEvent){
+  toggleSelect(event: MouseEvent) {
     event.stopPropagation();
 
-    if(!this.isActive && this.isOpen==false){
+    if (!this.isActive && this.isOpen == false) {
       return;
     }
-    this.isOpen=!this.isOpen;
+    this.isOpen = !this.isOpen;
   }
-  selectOption(event:MouseEvent,newOption:IOptionForSelectInput){
+  toggleSelectWithoutEvent() {
+    if (!this.isActive && this.isOpen == false) {
+      return;
+    }
+    this.isOpen = !this.isOpen;
+  }
+  selectOption(event: MouseEvent, newOption: IOptionForSelectInput) {
     event.stopPropagation();
 
-    this.selectedOption=newOption;
+    this.selectedOption = newOption;
 
     this.close();
 
     this.sendResultEvent.emit(this.selectedOption);
+  }
+
+  loadMore(event: MouseEvent){
+    event.stopPropagation();
+
+    this.loadMoreEvent.emit();
   }
 }

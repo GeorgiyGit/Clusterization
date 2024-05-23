@@ -31,6 +31,7 @@ using Domain.Resources.Types.Clusterization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
+using Domain.DTOs;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -97,6 +98,13 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
             await _algorithmsRepository.AddAsync(newAlg);
             await _algorithmsRepository.SaveChangesAsync();
+        }
+        public async Task<ICollection<OneClusterAlgorithmDTO>> GetAlgorithms(PageParameters pageParameters)
+        {
+            var algorithms = await _algorithmsRepository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}",
+                                                                  pageParameters: pageParameters);
+
+            return _mapper.Map<ICollection<OneClusterAlgorithmDTO>>(algorithms);
         }
         public async Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount)
         {

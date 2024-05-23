@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Clusterization;
+﻿using Domain.DTOs;
+using Domain.Entities.Clusterization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Domain.Interfaces.Clusterization.Algorithms
     {
         public Task AddAlgorithm(AddDTO model);
         public Task<ICollection<GetDTO>> GetAllAlgorithms();
+        public Task<ICollection<GetDTO>> GetAlgorithms(PageParameters pageParameters);
         public Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount);
         public Task ClusterData(int profileId);
 

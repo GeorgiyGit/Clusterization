@@ -50,6 +50,9 @@
             border-bottom: 3.5px solid $first-color-2;
 
             box-shadow: 0 0 5px 0.1px $first-color-0;
+
+            max-height: 50vh;
+            overflow-y: auto;
             .option{
                 padding: 10px;
                 color: $first-color-2;
@@ -70,4 +73,8 @@
 .disable{
     cursor: no-drop;
     background-color: $second-color-3;
+}
+.centered{
+    display: flex;
+    justify-content: center;
 }

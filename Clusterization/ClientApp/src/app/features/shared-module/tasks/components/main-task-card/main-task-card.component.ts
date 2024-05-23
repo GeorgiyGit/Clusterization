@@ -16,7 +16,6 @@ export class MainTaskCardComponent {
   constructor(private router: Router) { }
   openFull(event: MouseEvent) {
     event.stopPropagation();
-    console.log(this.task);
 
     this.router.navigate([{ outlets: { overflow: 'tasks/full/' + this.task.id } }]);
   }

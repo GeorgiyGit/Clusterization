@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { GeneralClusterizationAlgorithmsService } from '../services/general-clusterization-algorithms.service';
 import { IOptionForSelectInput } from 'src/app/core/models/option-for-select-input';
+import { IPageParameters } from 'src/app/core/models/page-parameters';
+import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 
 @Component({
   selector: 'app-abstract-algorithms-select',
@@ -11,14 +13,20 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable: boolean;
-  @Input() isActive:boolean=false;
+  @Input() isActive: boolean = false;
 
   @Input() typeId: string;
 
-  tooltip:string=$localize`Алгоритм`;
+  tooltip: string = $localize`Алгоритм`;
+
+  pageParameters: IPageParameters = {
+    pageSize: 10,
+    pageNumber: 1
+  }
 
   options: IOptionForSelectInput[] = [];
-  constructor(private generalAlgorithmsService: GeneralClusterizationAlgorithmsService) { }
+  constructor(private generalAlgorithmsService: GeneralClusterizationAlgorithmsService,
+    private toastr:MyToastrService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['typeId'] && !changes['typeId'].firstChange) {
       if (this.typeId == undefined) {
@@ -29,17 +37,23 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
         this.options = [nullOption];
         return;
       }
-      this.load();
+      this.loadFirst();
     }
   }
   ngOnInit(): void {
     if (this.typeId == undefined) return;
 
-    this.load();
+    this.loadFirst();
   }
 
-  load() {
-    this.generalAlgorithmsService.getAlgorithms(this.typeId).subscribe(res => {
+  loadFirst() {
+    this.pageParameters.pageNumber=1;
+
+    this.isMoreActive=false;
+    this.generalAlgorithmsService.getAlgorithms(this.typeId, this.pageParameters).subscribe(res => {
+      if(res.length<this.pageParameters.pageSize)this.isMoreActive=false;
+      else this.isMoreActive=true;
+
       this.options = [];
 
       if (this.isNullAvailable == true) {
@@ -62,8 +76,34 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
         };
         this.options.push(option);
       });
+    },error=>{
+      this.toastr.error(error.error.Message);
+    });
+  }
 
-      this.isActive=true;
+  isLoadingMore: boolean;
+  isMoreActive: boolean;
+  loadMore() {
+    if (!this.isMoreActive) return;
+    this.pageParameters.pageNumber++;
+
+    this.isLoadingMore=true;
+    this.generalAlgorithmsService.getAlgorithms(this.typeId, this.pageParameters).subscribe(res => {
+      if(res.length<this.pageParameters.pageSize)this.isMoreActive=false;
+      else this.isMoreActive=true;
+
+      this.isLoadingMore=false;
+
+      res.forEach(type => {
+        let option: IOptionForSelectInput = {
+          value: type.id + "",
+          description: type.fullTitle
+        };
+        this.options.push(option);
+      });
+    },error=>{
+      this.isLoadingMore=false;
+      this.toastr.error(error.error.Message);
     });
   }
 

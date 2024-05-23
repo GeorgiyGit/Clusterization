@@ -19,6 +19,7 @@ using System.Net;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Interfaces.Customers;
 using Domain.Entities.Clusterization.Profiles;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Requests;
 
 namespace Domain.Services.Clusterization.Algorithms
 {
@@ -86,6 +87,33 @@ namespace Domain.Services.Clusterization.Algorithms
             else if (typeId == ClusterizationAlgorithmTypes.GaussianMixture)
             {
                 return (await _gaussianMixtureService.GetAllAlgorithms()).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else
+            {
+                throw new HttpException(_localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist], System.Net.HttpStatusCode.NotFound);
+            }
+        }
+        public async Task<ICollection<AbstractAlgorithmDTO>> GetAlgorithms(GetAlgorithmsRequest request)
+        {
+            if (request.TypeId == ClusterizationAlgorithmTypes.KMeans)
+            {
+                return (await _kMeansService.GetAlgorithms(request.PageParameters)).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else if (request.TypeId == ClusterizationAlgorithmTypes.OneCluster)
+            {
+                return (await _oneClusterService.GetAlgorithms(request.PageParameters)).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else if (request.TypeId == ClusterizationAlgorithmTypes.DBSCAN)
+            {
+                return (await _dbSCANService.GetAlgorithms(request.PageParameters)).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else if (request.TypeId == ClusterizationAlgorithmTypes.SpectralClustering)
+            {
+                return (await _spectralClusteringService.GetAlgorithms(request.PageParameters)).Cast<AbstractAlgorithmDTO>().ToList();
+            }
+            else if (request.TypeId == ClusterizationAlgorithmTypes.GaussianMixture)
+            {
+                return (await _gaussianMixtureService.GetAlgorithms(request.PageParameters)).Cast<AbstractAlgorithmDTO>().ToList();
             }
             else
             {

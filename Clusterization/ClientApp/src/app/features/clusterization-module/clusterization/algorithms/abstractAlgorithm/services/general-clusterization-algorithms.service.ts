@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IAbstractAlgorithm } from '../models/abstractAlgorithm';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IPageParameters } from 'src/app/core/models/page-parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,13 @@ export class GeneralClusterizationAlgorithmsService {
     this.controllerUrl = environment.apiUrl + "generalClusterizationAlgorithms/";
   }
 
-  getAlgorithms(typeId: string): Observable<IAbstractAlgorithm[]> {
+  getAlgorithms(typeId: string, pageParameters:IPageParameters): Observable<IAbstractAlgorithm[]> {
+    return this.http.post<IAbstractAlgorithm[]>(this.controllerUrl + "get_collection/",{
+      typeId:typeId,
+      pageParameters:pageParameters
+    });
+  }
+  getAllAlgorithms(typeId: string): Observable<IAbstractAlgorithm[]> {
     return this.http.get<IAbstractAlgorithm[]>(this.controllerUrl + "get_all/" + typeId);
   }
   calculateQuotasCount(algorithmTypeId: string, entitiesCount: number, dimensionCount: number): Observable<number> {

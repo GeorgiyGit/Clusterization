@@ -1,3 +1,10 @@
 <div>
-    <app-select-option-input [options]="options" [matTooltipForIcon]="tooltip" [selectedOption]="options[0]" [isActive]="isActive" (sendResultEvent)="select($event)"></app-select-option-input>
+    <app-select-option-input [options]="options"
+        [matTooltipForIcon]="tooltip"
+        [selectedOption]="options[0]"
+        [isActive]="isActive"
+        [isMoreActive]="isMoreActive"
+        [isMoreLoading]="isLoadingMore"
+        (sendResultEvent)="select($event)"
+        (loadMoreEvent)="loadMore()"></app-select-option-input>
 </div>

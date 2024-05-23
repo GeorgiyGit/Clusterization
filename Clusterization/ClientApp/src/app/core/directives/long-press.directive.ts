@@ -10,7 +10,6 @@ export class LongPressDirective {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
-    console.log(123);
     this.timeout = setTimeout(() => {
       this.longPress.emit(event);
     }, 1000);

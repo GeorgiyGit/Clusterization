@@ -28,6 +28,9 @@ using Domain.Resources.Types.Clusterization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Domain.Resources.Types.Tasks;
 using Domain.DTOs.TaskDTOs.Requests;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
+using Domain.DTOs;
+using Domain.Entities.Clusterization.Algorithms;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -94,6 +97,14 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 
             await _algorithmsRepository.AddAsync(newAlg);
             await _algorithmsRepository.SaveChangesAsync();
+        }
+        public async Task<ICollection<SpectralClusteringAlgorithmDTO>> GetAlgorithms(PageParameters pageParameters)
+        {
+            var algorithms = await _algorithmsRepository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}",
+                                                                  orderBy: order => order.OrderBy(e => e.NumClusters),
+                                                                  pageParameters: pageParameters);
+
+            return _mapper.Map<ICollection<SpectralClusteringAlgorithmDTO>>(algorithms);
         }
         public async Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount)
         {

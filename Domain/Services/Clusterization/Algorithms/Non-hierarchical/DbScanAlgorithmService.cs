@@ -27,6 +27,8 @@ using Domain.Resources.Types.Clusterization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
+using Domain.Entities.Clusterization.Algorithms;
+using Domain.DTOs;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -77,6 +79,14 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             _userService = userService;
             _dimensionalityReductionService = dimensionalityReductionService;
             _workspaceRepository = workspaceRepository;
+        }
+        public async Task<ICollection<DBSCANAlgorithmDTO>> GetAlgorithms(PageParameters pageParameters)
+        {
+            var algorithms = await _algorithmsRepository.GetAsync(includeProperties: $"{nameof(ClusterizationAbstactAlgorithm.Type)}",
+                                                                  orderBy: order => order.OrderBy(e => e.Epsilon),
+                                                                  pageParameters: pageParameters);
+
+            return _mapper.Map<ICollection<DBSCANAlgorithmDTO>>(algorithms);
         }
         public async Task AddAlgorithm(AddDBSCANAlgorithmRequest model)
         {

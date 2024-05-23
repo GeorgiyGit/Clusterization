@@ -58,7 +58,6 @@ export class AddQuatasPackToCustomerPageComponent implements OnInit {
       customerId: this.customerId
     };
 
-    console.log(123);
     this.customerQuotasService.addQuotasToCustomer(request).subscribe(res => {
       this.toaster.success($localize`Пак додано`);
       this.isLoading = false;

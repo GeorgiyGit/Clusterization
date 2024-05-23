@@ -57,7 +57,6 @@ export class UpdateWorkspacePageComponent implements OnInit {
         title: [res.title, [Validators.required, Validators.maxLength(100)]],
         description: [res.description, [Validators.maxLength(3000)]],
       });
-      console.log(res);
       this.visibleType=res.visibleType;
       this.changingType=res.changingType;
     },error=>{
