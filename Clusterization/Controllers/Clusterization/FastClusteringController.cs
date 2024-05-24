@@ -46,6 +46,13 @@ namespace Clusterization.Controllers.Clusterization
             return Ok(await service.GetWorkspaces(request));
         }
 
+        [HttpGet("get_workflow_id")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> GetFastClusteringWorkflowId()
+        {
+            return Ok(await service.GetFastClusteringWorkflowId());
+        }
+
         [HttpPost("calculate_profile_initialize_quotas")]
         [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> CalculateInitialProfileQuotas([FromBody] FastClusteringProcessRequest request)

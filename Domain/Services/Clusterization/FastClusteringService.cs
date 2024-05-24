@@ -339,7 +339,16 @@ namespace Domain.Services.Clusterization
                 await _tasksService.ChangeParentTaskState(groupTaskId, TaskStates.Error);
             }
         }
+        public async Task<int> GetFastClusteringWorkflowId()
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
+            var workflow = (await _fastClusteringWorkflowsRepository.GetAsync(e => e.OwnerId == userId)).FirstOrDefault();
+            if (workflow == null) throw new HttpException(_localizer[ErrorMessagePatterns.FastClusteringWorkflowNotFound], HttpStatusCode.NotFound);
+
+            return workflow.Id;
+        }
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(PageParameters pageParameters)
         {
             var userId = await _userService.GetCurrentUserId();
