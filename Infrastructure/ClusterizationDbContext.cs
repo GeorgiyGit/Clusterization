@@ -18,6 +18,7 @@ using Domain.Entities.Embeddings;
 using Domain.Entities.Embeddings.DimensionEntities;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataSources.Telegram;
+using Domain.Entities.Clusterization.FastClustering;
 
 namespace Infrastructure
 {
@@ -75,6 +76,7 @@ namespace Infrastructure
         public virtual DbSet<ClusterizationTilesLevel> ClusterizationTilesLevels { get; set; }
         public virtual DbSet<DisplayedPoint> DisplayedPoints { get; set; }
 
+        public virtual DbSet<FastClusteringWorkflow> FastClusteringWorkflows { get; set; }
 
         #region Algorithms
         public virtual DbSet<ClusterizationAlgorithmType> ClusterizationAlgorithmTypes { get; set; }

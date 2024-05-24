@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Clusterization.Profiles;
+﻿using Domain.Entities.Clusterization.FastClustering;
+using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.Customers;
 using Domain.Entities.DataObjects;
 using Domain.Entities.Embeddings;
@@ -33,5 +34,8 @@ namespace Domain.Entities.Clusterization.Workspaces
         public ICollection<MyDataObject> DataObjects { get; set; } = new HashSet<MyDataObject>();
 
         public ICollection<WorkspaceDataObjectsAddPack> WorkspaceDataObjectsAddPacks { get; set; } = new HashSet<WorkspaceDataObjectsAddPack>();
+    
+        public FastClusteringWorkflow? FastClusteringWorkflow { get; set; }
+        public int? FastClusteringWorkflowId { get; set; }
     }
 }

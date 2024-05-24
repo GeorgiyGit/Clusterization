@@ -24,12 +24,15 @@ using Domain.Resources.Types.Clusterization;
 using Domain.Resources.Types.DataSources;
 using Domain.Resources.Types.Tasks;
 using Hangfire;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,7 +87,7 @@ namespace Domain.Services.DataSources.ExternalData
             _workspacesRepository = workspacesRepository;
             _mapper = mapper;
         }
-        public async Task LoadExternalDataObjectBackgroundJob(AddExternalDataRequest request)
+        public async Task LoadExternalDataObject(AddExternalDataRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -96,9 +99,22 @@ namespace Domain.Services.DataSources.ExternalData
             };
             var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            await LoadExternalDataObjectBackgroundJob(request, userId, taskId);
+            var objectsList = await LoadObjectsListFromFile(request.File, userId, taskId);
+
+            var newRequest = new AddExternalDataWithoutFileRequest()
+            {
+                ChangingType = request.ChangingType,
+                Description = request.Description,
+                Title = request.Title,
+                ObjectsList = objectsList,
+                VisibleType = request.VisibleType,
+                WorkspaceId = request.WorkspaceId
+            };
+
+            _backgroundJobClient.Enqueue(() => LoadExternalDataObjectBackgroundJob(newRequest, userId, taskId));
         }
-        public async Task<int?> LoadExternalDataObjectBackgroundJob(AddExternalDataRequest request, string userId, string taskId)
+
+        public async Task<List<ExternalObjectModelDTO>> LoadObjectsListFromFile(IFormFile file, string userId, string taskId)
         {
             var stateId = await _tasksService.GetTaskStateId(taskId);
             if (stateId != TaskStates.Wait) return null;
@@ -108,24 +124,12 @@ namespace Domain.Services.DataSources.ExternalData
             float percent = 0f;
             try
             {
-                var file = request.File;
-
                 if (file != null && file.Length > 0)
                 {
-                    var pack = new ExternalObjectsPack()
-                    {
-                        ChangingType = request.ChangingType,
-                        VisibleType = request.VisibleType,
-                        Title = request.Title,
-                        Description = request.Description,
-                        OwnerId=userId,
-                    };
-                    await _externalObjectsPacksRepository.AddAsync(pack);
-
                     var fileContent = "";
                     using (var reader = new StreamReader(file.OpenReadStream()))
                     {
-                        fileContent = reader.ReadToEnd(); // Read the text content of the file
+                        fileContent = reader.ReadToEnd();
                     }
 
                     var objectsList = new List<ExternalObjectModelDTO>();
@@ -162,35 +166,7 @@ namespace Domain.Services.DataSources.ExternalData
 
                     if (objectsList == null || objectsList.Count == 0) throw new HttpException(_localizer[ErrorMessagePatterns.FileError], HttpStatusCode.BadRequest);
 
-
-                    var logs = Guid.NewGuid().ToString();
-                    foreach (var newExtObj in objectsList)
-                    {
-                        var extObjectForAdding = new ExternalObject()
-                        {
-                            Text = newExtObj.Text,
-                            ExternalId = newExtObj.Id,
-                            Pack = pack
-                        };
-                        await _externalObjectsRepository.AddAsync(extObjectForAdding);
-
-                        pack.ExternalObjectsCount++;
-
-                        var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.ExternalData, 1, logs);
-
-                        if (!quotasResult)
-                        {
-                            await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                            await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotEnoughQuotas]);
-                            return null;
-                        }
-                        pack.ExternalObjectsCount++;
-                    }
-
-                    await _tasksService.ChangeTaskPercent(taskId, 100f);
-                    await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
-
-                    return pack.Id;
+                    return objectsList;
                 }
                 else
                 {
@@ -199,6 +175,64 @@ namespace Domain.Services.DataSources.ExternalData
 
                     return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(taskId, ex.Message);
+
+                return null;
+            }
+        }
+        public async Task<int?> LoadExternalDataObjectBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string taskId)
+        {
+            var stateId = await _tasksService.GetTaskStateId(taskId);
+            if (stateId != TaskStates.Wait) return null;
+
+            await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
+
+            try
+            {
+                if (request.ObjectsList == null || request.ObjectsList.Count == 0) throw new HttpException(_localizer[ErrorMessagePatterns.FileError], HttpStatusCode.BadRequest);
+
+                var pack = new ExternalObjectsPack()
+                {
+                    ChangingType = request.ChangingType,
+                    VisibleType = request.VisibleType,
+                    Title = request.Title,
+                    Description = request.Description,
+                    OwnerId = userId,
+                };
+                await _externalObjectsPacksRepository.AddAsync(pack);
+
+                var logs = Guid.NewGuid().ToString();
+                foreach (var newExtObj in request.ObjectsList)
+                {
+                    var extObjectForAdding = new ExternalObject()
+                    {
+                        Text = newExtObj.Text,
+                        ExternalId = newExtObj.Id,
+                        Pack = pack
+                    };
+                    await _externalObjectsRepository.AddAsync(extObjectForAdding);
+
+                    pack.ExternalObjectsCount++;
+
+                    var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, QuotasTypes.ExternalData, 1, logs);
+
+                    if (!quotasResult)
+                    {
+                        await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
+                        await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotEnoughQuotas]);
+                        return null;
+                    }
+                    pack.ExternalObjectsCount++;
+                }
+
+                await _tasksService.ChangeTaskPercent(taskId, 100f);
+                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+
+                return pack.Id;
             }
             catch (Exception ex)
             {
@@ -317,7 +351,7 @@ namespace Domain.Services.DataSources.ExternalData
             }
         }
 
-        public async Task LoadingExternalDataAndAddingToWorkspace(AddExternalDataRequest request)
+        public async Task LoadExternalDataAndAddToWorkspace(AddExternalDataRequest request)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
@@ -326,19 +360,35 @@ namespace Domain.Services.DataSources.ExternalData
             {
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace],
-                SubTasksCount=2,
-                IsGroupTask=true
+                SubTasksCount = 2,
+                IsGroupTask = true
             };
             var groupTaskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
+            var objectsList = await LoadObjectsListFromFile(request.File, userId, groupTaskId);
 
+            var newRequest = new AddExternalDataWithoutFileRequest()
+            {
+                ChangingType = request.ChangingType,
+                Description = request.Description,
+                Title = request.Title,
+                ObjectsList = objectsList,
+                VisibleType = request.VisibleType,
+                WorkspaceId = request.WorkspaceId
+            };
+
+            _backgroundJobClient.Enqueue(() => LoadExternalDataAndAddToWorkspaceBackgroundJob(newRequest, userId, groupTaskId, 1));
+        }
+        public async Task LoadExternalDataAndAddToWorkspaceBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string groupTaskId, int subTasksPos)
+        {
             var createSubTask1 = new CreateSubTaskOptions()
             {
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects],
-                GroupTaskId=groupTaskId,
-                Position=1
+                GroupTaskId = groupTaskId,
+                Position = subTasksPos
             };
+            subTasksPos++;
             var taskId1 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
 
             var createSubTask2 = new CreateSubTaskOptions()
@@ -346,10 +396,10 @@ namespace Domain.Services.DataSources.ExternalData
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace],
                 GroupTaskId = groupTaskId,
-                Position = 2
+                Position = subTasksPos
             };
-            var taskId2 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
-
+            subTasksPos++;
+            var taskId2 = await _tasksService.CreateSubTaskWithUserId(createSubTask2);
 
             var packId = await LoadExternalDataObjectBackgroundJob(request, userId, taskId1);
 
@@ -359,13 +409,15 @@ namespace Domain.Services.DataSources.ExternalData
                 await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ErrorWhileLoadExternalData]);
                 return;
             }
-            _backgroundJobClient.Enqueue(() => AddExternalDataObjectsToWorkspaceBackgroundJob(new AddExternalDataObjectsPacksToWorkspaceRequest()
+            await AddExternalDataObjectsToWorkspaceBackgroundJob(new AddExternalDataObjectsPacksToWorkspaceRequest()
             {
                 PackId = (int)packId,
                 WorkspaceId = (int)request.WorkspaceId
-            }, userId, taskId2));
+            }, userId, taskId2);
         }
-
+        
+        
+        
         public async Task UpdatePack(UpdateExternalDataPackRequest request)
         {
             var userId = await _userService.GetCurrentUserId();

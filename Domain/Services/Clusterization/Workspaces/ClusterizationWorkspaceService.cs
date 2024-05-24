@@ -40,11 +40,15 @@ namespace Domain.Services.Clusterization.Workspaces
         }
 
         #region add-update
-        public async Task Add(AddClusterizationWorkspaceRequest model)
+        public async Task<int> Add(AddClusterizationWorkspaceRequest model)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
+            return await AddWithUserId(model, userId);
+        }
+        public async Task<int> AddWithUserId(AddClusterizationWorkspaceRequest model, string userId)
+        {
             string type = null;
 
             if (model.VisibleType == VisibleTypes.AllCustomers)
@@ -75,7 +79,10 @@ namespace Domain.Services.Clusterization.Workspaces
 
             await _repository.AddAsync(newWorkspace);
             await _repository.SaveChangesAsync();
+
+            return newWorkspace.Id;
         }
+
         public async Task Update(UpdateClusterizationWorkspaceRequest model)
         {
             var userId = await _userService.GetCurrentUserId();

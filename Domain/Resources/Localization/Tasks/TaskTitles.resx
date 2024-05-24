@@ -126,6 +126,9 @@
   <data name="AddingTelegramRepliesToWorkspace" xml:space="preserve">
     <value>Додавання повідомлень з платформи Telegram до робочого простору</value>
   </data>
+  <data name="AddingWorkspace" xml:space="preserve">
+    <value>Створення робочого простору</value>
+  </data>
   <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
     <value>Додавання коментарів з платформи Youtube до робочого простору</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="DimensionReduction" xml:space="preserve">
     <value>Зменшення розмірності</value>
+  </data>
+  <data name="InitializingWorkspace" xml:space="preserve">
+    <value>Ініціалізація робочого простору</value>
   </data>
   <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
     <value>Завантаження всіх ембедингів з робочого простору</value>

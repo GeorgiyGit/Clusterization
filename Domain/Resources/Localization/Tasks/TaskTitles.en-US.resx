@@ -126,6 +126,9 @@
   <data name="AddingTelegramRepliesToWorkspace" xml:space="preserve">
     <value>Adding replies from Telegram to workspace</value>
   </data>
+  <data name="AddingWorkspace" xml:space="preserve">
+    <value>Adding workspace</value>
+  </data>
   <data name="AddingYoutubeCommentsToWorkspace" xml:space="preserve">
     <value>Adding comments from Youtube to workspace</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="DimensionReduction" xml:space="preserve">
     <value>Dimension reduction</value>
+  </data>
+  <data name="InitializingWorkspace" xml:space="preserve">
+    <value>Initializing workspace</value>
   </data>
   <data name="LoadingAllEmbeddingsInWorkspace" xml:space="preserve">
     <value>Loading all embeddings in workspace</value>

@@ -25,8 +25,6 @@ using Domain.DTOs;
 using Domain.Entities.Embeddings;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
-using AutoMapper;
-using System.Threading.Tasks;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -98,9 +96,9 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             };
             var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId));
+            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId,1));
         }
-        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId)
+        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId, int subTasksPos)
         {
             var stateId = await _tasksService.GetTaskStateId(groupTaskId);
             if (stateId != TaskStates.Wait) return;
@@ -140,7 +138,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                     EntityType = TaskEntityTypes.ClusterizationAddDataPacks,
                     CustomerId = userId,
                     Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
-                    Position = i + 1,
+                    Position = subTasksPos+ i,
                     GroupTaskId = groupTaskId
                 };
                 var packTaskId = await _tasksService.CreateSubTaskWithUserId(createTaskOptions);
@@ -326,8 +324,7 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                 await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
                 await _tasksService.ChangeTaskDescription(taskId, ex.Message);
             }
-        }
-    
+        }    
         private async Task<EmbeddingCreateResponse> LoadEmbeddings(string embeddingModelId, List<string> dataObjects)
         {
             if (embeddingModelId == EmbeddingModelList.text_embedding_ada_002)

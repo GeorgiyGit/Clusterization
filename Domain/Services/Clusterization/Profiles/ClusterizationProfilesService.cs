@@ -57,11 +57,15 @@ namespace Domain.Services.Clusterization.Profiles
             _embeddingLoadingStatesService = embeddingLoadingStatesService;
         }
 
-        public async Task Add(AddClusterizationProfileRequest model)
+        public async Task<int> Add(AddClusterizationProfileRequest model)
         {
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
+            return await AddWithUserId(model, userId);
+        }
+        public async Task<int> AddWithUserId(AddClusterizationProfileRequest model, string userId)
+        {
             Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.WorkspaceId == model.WorkspaceId && e.AlgorithmId == model.AlgorithmId && e.DimensionCount == model.DimensionCount && e.DRTechniqueId == model.DRTechniqueId && e.ChangingType == model.ChangingType && e.EmbeddingModelId == model.EmbeddingModelId;
 
             if (model.VisibleType == VisibleTypes.AllCustomers)
@@ -89,7 +93,7 @@ namespace Domain.Services.Clusterization.Profiles
                 type = QuotasTypes.PrivateProfiles;
             }
 
-            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1,Guid.NewGuid().ToString());
+            var quotasResult = await _quotasControllerService.TakeCustomerQuotas(userId, type, 1, Guid.NewGuid().ToString());
 
             if (!quotasResult)
             {
@@ -122,8 +126,9 @@ namespace Domain.Services.Clusterization.Profiles
             await _repository.SaveChangesAsync();
 
             await _embeddingLoadingStatesService.ReviewStates(model.WorkspaceId);
-        }
 
+            return newProfile.Id;
+        }
         public async Task<ICollection<SimpleClusterizationProfileDTO>> GetCollection(GetClusterizationProfilesRequest request)
         {
             Expression<Func<ClusterizationProfile, bool>> filterCondition = e => e.WorkspaceId == request.WorkspaceId;

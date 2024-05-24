@@ -156,6 +156,9 @@
   <data name="ExternalObjectsPackVisibleTypeIsOnlyOwner" xml:space="preserve">
     <value>ExternalObjectsPackVisibleTypeIsOnlyOwner</value>
   </data>
+  <data name="FastClusteringWorkflowNotFound" xml:space="preserve">
+    <value>FastClusteringWorkflowNotFound</value>
+  </data>
   <data name="FileError" xml:space="preserve">
     <value>FileError</value>
   </data>

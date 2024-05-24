@@ -71,6 +71,11 @@ namespace Infrastructure.Builders.Customers
             builder.HasMany(e => e.LoadedExternalObjectsPacks)
                    .WithOne(e => e.Owner)
                    .HasForeignKey(e => e.OwnerId);
+
+            builder.HasOne(e => e.FastClusteringWorkflow)
+                   .WithOne(e => e.Owner)
+                   .HasForeignKey<Customer>(e => e.FastClusteringWorkflowId)
+                   .IsRequired(false);
         }
     }
 }

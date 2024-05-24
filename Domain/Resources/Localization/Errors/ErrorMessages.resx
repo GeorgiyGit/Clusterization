@@ -156,6 +156,9 @@
   <data name="ExternalObjectsPackVisibleTypeIsOnlyOwner" xml:space="preserve">
     <value>Цей пакет зовнішніх об'єктів може переглядати лише власник</value>
   </data>
+  <data name="FastClusteringWorkflowNotFound" xml:space="preserve">
+    <value>Робочий простір швидкої кластеризації не знайдено</value>
+  </data>
   <data name="FileError" xml:space="preserve">
     <value>При збереженні файлу виникла помилка</value>
   </data>

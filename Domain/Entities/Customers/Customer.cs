@@ -7,6 +7,7 @@ using Domain.Entities.DataSources.Youtube;
 using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataSources.Telegram;
 using Domain.Entities.DataSources.ExternalData;
+using Domain.Entities.Clusterization.FastClustering;
 
 namespace Domain.Entities.Customers
 {
@@ -44,5 +45,8 @@ namespace Domain.Entities.Customers
         public DateTime? LastEmailConfirmationSend { get; set; }
 
         public ICollection<WorkspaceDataObjectsAddPack> WorkspaceDataObjectsAddPacks { get; set; } = new HashSet<WorkspaceDataObjectsAddPack>();
+    
+        public FastClusteringWorkflow? FastClusteringWorkflow { get; set; }
+        public int? FastClusteringWorkflowId { get; set; }
     }
 }

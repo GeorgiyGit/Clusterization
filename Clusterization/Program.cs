@@ -132,6 +132,8 @@ internal class Program
         builder.Services.AddScoped<IWorkspaceDataObjectsAddPacksService, WorkspaceDataObjectsAddPacksService>();
         builder.Services.AddScoped<IClusterizationProfilesService, ClusterizationProfilesService>();
 
+        builder.Services.AddScoped<IFastClusteringService, FastClusteringService>();
+
         builder.Services.AddScoped<IAccountService, AccountService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IRolesService, RolesService>();

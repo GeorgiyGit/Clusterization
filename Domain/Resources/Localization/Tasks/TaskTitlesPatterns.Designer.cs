@@ -88,6 +88,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddingWorkspace.
+        /// </summary>
+        internal static string AddingWorkspace {
+            get {
+                return ResourceManager.GetString("AddingWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddingYoutubeCommentsToWorkspace.
         /// </summary>
         internal static string AddingYoutubeCommentsToWorkspace {
@@ -156,6 +165,15 @@ namespace Domain.Resources.Localization.Tasks {
         internal static string DimensionReduction {
             get {
                 return ResourceManager.GetString("DimensionReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InitializingWorkspace.
+        /// </summary>
+        internal static string InitializingWorkspace {
+            get {
+                return ResourceManager.GetString("InitializingWorkspace", resourceCulture);
             }
         }
         

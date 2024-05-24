@@ -18,7 +18,9 @@ namespace Domain.Interfaces.Clusterization.Workspaces
         public Task<ClusterizationWorkspaceDTO> GetFullById(int id);
         public Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id);
 
-        public Task Add(AddClusterizationWorkspaceRequest model);
+        public Task<int> Add(AddClusterizationWorkspaceRequest model);
+        public Task<int> AddWithUserId(AddClusterizationWorkspaceRequest model, string userId);
+
         public Task Update(UpdateClusterizationWorkspaceRequest model);
 
         public Task<ICollection<string>> GetAllDataObjectsInList(int id);

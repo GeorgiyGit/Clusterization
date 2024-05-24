@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FastClusteringWorkflowNotFound.
+        /// </summary>
+        public static string FastClusteringWorkflowNotFound {
+            get {
+                return ResourceManager.GetString("FastClusteringWorkflowNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FileError.
         /// </summary>
         public static string FileError {

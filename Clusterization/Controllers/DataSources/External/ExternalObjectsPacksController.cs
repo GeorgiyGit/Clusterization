@@ -23,7 +23,7 @@ namespace Clusterization.Controllers.DataSources.External
         [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadExternalDataObjectBackgroundJob([FromForm] AddExternalDataRequest request)
         {
-            await service.LoadExternalDataObjectBackgroundJob(request);
+            await service.LoadExternalDataObject(request);
             return Ok();
         }
 
@@ -47,7 +47,7 @@ namespace Clusterization.Controllers.DataSources.External
         [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> LoadingExternalDataAndAddingToWorkspace([FromForm] AddExternalDataRequest request)
         {
-            await service.LoadingExternalDataAndAddingToWorkspace(request);
+            await service.LoadExternalDataAndAddToWorkspace(request);
             return Ok();
         }
 

@@ -226,7 +226,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ClusterizationDTOs\FastClusteringDTOs\Responses\" />
+    <Folder Include="DTOs\ClusterizationDTOs\FastClusteringDTOs\NewFolder\" />
+    <Folder Include="DTOs\ClusterizationDTOs\FastClusteringDTOs\Requests\" />
+    <Folder Include="DTOs\ClusterizationDTOs\FastClustering\Responses\" />
     <Folder Include="DTOs\DataObjectDTOs\Requests\" />
     <Folder Include="Entities\Clusterization\Algorithms\Hierarchical\" />
   </ItemGroup>

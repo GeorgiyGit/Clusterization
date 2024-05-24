@@ -178,6 +178,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Робочий простір швидкої кластеризації не знайдено.
+        /// </summary>
+        public static string FastClusteringWorkflowNotFound {
+            get {
+                return ResourceManager.GetString("FastClusteringWorkflowNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to При збереженні файлу виникла помилка.
         /// </summary>
         public static string FileError {

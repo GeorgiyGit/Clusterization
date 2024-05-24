@@ -88,6 +88,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Створення робочого простору.
+        /// </summary>
+        public static string AddingWorkspace {
+            get {
+                return ResourceManager.GetString("AddingWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Додавання коментарів з платформи Youtube до робочого простору.
         /// </summary>
         public static string AddingYoutubeCommentsToWorkspace {
@@ -156,6 +165,15 @@ namespace Domain.Resources.Localization.Tasks {
         public static string DimensionReduction {
             get {
                 return ResourceManager.GetString("DimensionReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ініціалізація робочого простору.
+        /// </summary>
+        public static string InitializingWorkspace {
+            get {
+                return ResourceManager.GetString("InitializingWorkspace", resourceCulture);
             }
         }
         

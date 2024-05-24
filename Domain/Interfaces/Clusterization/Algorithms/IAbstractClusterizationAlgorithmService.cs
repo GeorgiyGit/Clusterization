@@ -14,7 +14,9 @@ namespace Domain.Interfaces.Clusterization.Algorithms
         public Task<ICollection<GetDTO>> GetAllAlgorithms();
         public Task<ICollection<GetDTO>> GetAlgorithms(PageParameters pageParameters);
         public Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount);
+
         public Task ClusterData(int profileId);
+        public Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, int startSubTasksPos);
 
         public Task<bool> ReviewWorkspaceIsProfilesInCalculation(int workspaceId);
     }

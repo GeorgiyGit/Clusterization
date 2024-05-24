@@ -36,6 +36,11 @@ namespace Infrastructure.Builders.Clusterization.Workspaces
             builder.HasMany(e => e.WorkspaceDataObjectsAddPacks)
                    .WithOne(e => e.Workspace)
                    .HasForeignKey(e => e.WorkspaceId);
+
+            builder.HasOne(e => e.FastClusteringWorkflow)
+                   .WithMany(e => e.Workspaces)
+                   .HasForeignKey(e => e.FastClusteringWorkflowId)
+                   .IsRequired(false);
         }
     }
 }

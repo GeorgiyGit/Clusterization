@@ -128,59 +128,62 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             };
             var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId));
+            _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId, 1));
         }
-        public async Task ClusterDataBackgroundJob(int profileId, string taskId, string userId)
+        public async Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, int startSubTasksPos)
         {
-            var stateId = await _tasksService.GetTaskStateId(taskId);
+            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
             if (stateId != TaskStates.Wait) return;
 
-            await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
+            await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
 
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();
             if (profile == null || profile.Algorithm.TypeId != ClusterizationAlgorithmTypes.DBSCAN)
             {
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.ProfileNotFound]);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ProfileNotFound]);
                 return;
             };
 
             if (!profile.EmbeddingLoadingState.IsAllEmbeddingsLoaded)
             {
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, _localizer[ErrorMessagePatterns.NotAllDataEmbedded]);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.NotAllDataEmbedded]);
                 return;
             }
 
             #region tasksCreating
             var taskOptions1 = new CreateSubTaskOptions()
             {
-                Position = 1,
-                GroupTaskId = taskId,
+                Position = startSubTasksPos,
+                GroupTaskId = groupTaskId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction],
                 IsPercents = false
             };
+            startSubTasksPos++;
             var subTaskId1 = await _tasksService.CreateSubTaskWithUserId(taskOptions1);
 
             var taskOptions2 = new CreateSubTaskOptions()
             {
-                Position = 2,
-                GroupTaskId = taskId,
+                Position = startSubTasksPos,
+                GroupTaskId = groupTaskId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.Clustering],
                 IsPercents = false
             };
+            startSubTasksPos++;
             var subTaskId2 = await _tasksService.CreateSubTaskWithUserId(taskOptions2);
 
             var taskOptions3 = new CreateSubTaskOptions()
             {
-                Position = 3,
-                GroupTaskId = taskId,
+                Position = startSubTasksPos,
+                GroupTaskId = groupTaskId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating],
                 IsPercents = false
             };
+            startSubTasksPos++;
             var subTaskId3 = await _tasksService.CreateSubTaskWithUserId(taskOptions3);
             #endregion
 
@@ -223,7 +226,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
                 await _tasksService.ChangeTaskPercent(subTaskId1, 100f);
                 await _tasksService.ChangeTaskState(subTaskId1, TaskStates.Completed);
-                await _tasksService.ChangeTaskPercent(taskId, 30f);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 30f);
 
 
                 List<AddEmbeddingsWithDRHelpModel> entitiesHelpModels = new List<AddEmbeddingsWithDRHelpModel>();
@@ -248,7 +251,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
                 await _tasksService.ChangeTaskPercent(subTaskId2, 100f);
                 await _tasksService.ChangeTaskState(subTaskId2, TaskStates.Completed);
-                await _tasksService.ChangeTaskPercent(taskId, 60f);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 60f);
 
                 await _tasksService.ChangeTaskState(subTaskId3, TaskStates.Process);
                 try
@@ -274,22 +277,22 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 }
                 await _tasksService.ChangeTaskPercent(subTaskId3, 100f);
                 await _tasksService.ChangeTaskState(subTaskId3, TaskStates.Completed);
-                await _tasksService.ChangeTaskPercent(taskId, 90f);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 90f);
 
 
                 profile.IsInCalculation = false;
                 await _profilesRepository.SaveChangesAsync();
                 workspace.IsProfilesInCalculation = await ReviewWorkspaceIsProfilesInCalculation(workspace.Id);
 
-                await _tasksService.ChangeTaskPercent(taskId, 100f);
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Completed);
+                await _tasksService.ChangeTaskPercent(groupTaskId, 100f);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Completed);
             }
             catch (Exception ex)
             {
                 profile.IsInCalculation = false;
                 workspace.IsProfilesInCalculation = await ReviewWorkspaceIsProfilesInCalculation(workspace.Id);
-                await _tasksService.ChangeTaskState(taskId, TaskStates.Error);
-                await _tasksService.ChangeTaskDescription(taskId, ex.Message);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                await _tasksService.ChangeTaskDescription(groupTaskId, ex.Message);
             }
         }
         
