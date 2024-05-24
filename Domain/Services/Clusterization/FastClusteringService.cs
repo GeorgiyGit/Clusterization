@@ -1,4 +1,6 @@
-﻿using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
+﻿using AutoMapper;
+using Domain.DTOs;
+using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.GaussianMixtureDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.KMeansDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.OneClusterDTOs;
@@ -8,10 +10,14 @@ using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.DataSourcesDTOs.ExternalDataDTOs.Requests;
 using Domain.DTOs.ExternalData;
+using Domain.DTOs.QuotaDTOs.CustomerQuotaDTOs.Responses;
+using Domain.DTOs.QuotaDTOs.CustomerQuotasDTOs.Responses;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.Entities.Clusterization.FastClustering;
 using Domain.Entities.Clusterization.Workspaces;
+using Domain.Entities.EmbeddingModels;
+using Domain.Entities.Quotas;
 using Domain.Exceptions;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Clusterization.Algorithms;
@@ -24,10 +30,12 @@ using Domain.Interfaces.Other;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Localization.Tasks;
+using Domain.Resources.Types;
 using Domain.Resources.Types.Clusterization;
 using Domain.Resources.Types.Tasks;
 using Hangfire;
 using Microsoft.Extensions.Localization;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace Domain.Services.Clusterization
@@ -38,6 +46,8 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
         private readonly IRepository<WorkspaceDataObjectsAddPack> _workspaceAddDataPacksRepository;
         private readonly IRepository<ClusterizationAbstactAlgorithm> _abstractAlgorithmsRepository;
+        private readonly IRepository<QuotasType> _quotasTypesRepository;
+        private readonly IRepository<EmbeddingModel> _embeddingModelsRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
         private readonly IStringLocalizer<TaskTitles> _tasksLocalizer;
@@ -49,7 +59,9 @@ namespace Domain.Services.Clusterization
         private readonly IBackgroundJobClient _backgroundJobClient;
         private readonly IMyTasksService _tasksService;
         private readonly IEmbeddingsLoadingService _embeddingsLoadingService;
+        private readonly IMapper _mapper;
 
+        private readonly IGeneralClusterizationAlgorithmService _generalClusterizationAlgorithmService;
         private readonly IAbstractClusterizationAlgorithmService<AddKMeansAlgorithmRequest, KMeansAlgorithmDTO> _kMeansService;
         private readonly IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> _oneClusterService;
         private readonly IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> _dbSCANService;
@@ -73,7 +85,11 @@ namespace Domain.Services.Clusterization
             IAbstractClusterizationAlgorithmService<AddOneClusterAlgorithmRequest, OneClusterAlgorithmDTO> oneClusterService,
             IAbstractClusterizationAlgorithmService<AddDBSCANAlgorithmRequest, DBSCANAlgorithmDTO> dbSCANService,
             IAbstractClusterizationAlgorithmService<AddSpectralClusteringAlgorithmRequest, SpectralClusteringAlgorithmDTO> spectralClusteringService,
-            IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService)
+            IAbstractClusterizationAlgorithmService<AddGaussianMixtureAlgorithmRequest, GaussianMixtureAlgorithmDTO> gaussianMixtureService,
+            IMapper mapper,
+            IRepository<QuotasType> quotasTypesRepository,
+            IRepository<EmbeddingModel> embeddingModelsRepository,
+            IGeneralClusterizationAlgorithmService generalClusterizationAlgorithmService)
         {
             _fastClusteringWorkflowsRepository = fastClusteringWorkflowsRepository;
             _workspacesRepository = workspacesRepository;
@@ -93,6 +109,10 @@ namespace Domain.Services.Clusterization
             _dbSCANService = dbSCANService;
             _spectralClusteringService = spectralClusteringService;
             _gaussianMixtureService = gaussianMixtureService;
+            _mapper = mapper;
+            _quotasTypesRepository = quotasTypesRepository;
+            _embeddingModelsRepository = embeddingModelsRepository;
+            _generalClusterizationAlgorithmService = generalClusterizationAlgorithmService;
         }
 
         public async Task<int> CreateWorkflow()
@@ -318,6 +338,59 @@ namespace Domain.Services.Clusterization
                 await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist]);
                 await _tasksService.ChangeParentTaskState(groupTaskId, TaskStates.Error);
             }
+        }
+
+        public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(PageParameters pageParameters)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            var fastClustering = (await _fastClusteringWorkflowsRepository.GetAsync(e => e.OwnerId == userId)).FirstOrDefault();
+            if (fastClustering == null) throw new HttpException(_localizer[ErrorMessagePatterns.FastClusteringWorkflowNotFound], HttpStatusCode.NotFound);
+
+            var workspaces = (await _workspacesRepository.GetAsync(e => e.FastClusteringWorkflowId == fastClustering.Id,
+                                                                   includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}",
+                                                                   pageParameters: pageParameters));
+
+            return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+        }
+
+        public async Task<ICollection<QuotasCalculationDTO>> CalculateInitialProfileQuotas(FastClusteringProcessRequest request)
+        {
+            var quotasCalculationList = new List<QuotasCalculationDTO>();
+
+            var privateProfileQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.PrivateProfiles);
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = 1,
+                Type = _mapper.Map<QuotasTypeDTO>(privateProfileQuotasType)
+            });
+
+            var embeddingsQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.Embeddings);
+            
+            var embeddingModel = await _embeddingModelsRepository.FindAsync(request.EmbeddingModelId);
+            if (embeddingModel == null) throw new HttpException(_localizer[ErrorMessagePatterns.EmbeddingModelNotFound], HttpStatusCode.NotFound);
+
+            var workspace = await _workspacesRepository.FindAsync(request.WorkspaceId);
+            if (workspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = workspace.EntitiesCount * embeddingModel.MaxInputCount,
+                Type = _mapper.Map<QuotasTypeDTO>(embeddingsQuotasType)
+            });
+
+            var clusteringQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.Clustering);
+            var algorithm = await _abstractAlgorithmsRepository.FindAsync(request.AlgorithmId);
+            var clusterQuotasCount = await _generalClusterizationAlgorithmService.CalculateQuotasCount(algorithm.TypeId, workspace.EntitiesCount, request.DimensionCount);
+
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = clusterQuotasCount,
+                Type = _mapper.Map<QuotasTypeDTO>(clusteringQuotasType)
+            });
+
+            return quotasCalculationList;
         }
     }
 }

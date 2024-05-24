@@ -144,6 +144,9 @@
   <data name="EmailSendingToFast" xml:space="preserve">
     <value>Ви хочете надсилати імейли занадто швидко</value>
   </data>
+  <data name="EmbeddingModelNotFound" xml:space="preserve">
+    <value>Модель завантаження ембедингів не знайдено</value>
+  </data>
   <data name="EmbeddingsLoadingError" xml:space="preserve">
     <value>Сталася помилка при завантажені ембедінгів</value>
   </data>

@@ -17,7 +17,7 @@ namespace Domain.Services.Quotas
     public class CustomerQuotasService : ICustomerQuotasService
     {
         private readonly IRepository<CustomerQuotas> _customerQuotasRepository;
-        private readonly IRepository<QuotasPackItem> _packItemsRepositorty;
+        private readonly IRepository<QuotasPackItem> _packItemsRepository;
         
         private IMapper _mapper;
         private readonly IUserService _userService;
@@ -25,19 +25,19 @@ namespace Domain.Services.Quotas
 
         public CustomerQuotasService(IUserService userService,
             IRepository<CustomerQuotas> customerQuotasRepository,
-            IRepository<QuotasPackItem> packItemsRepositorty,
+            IRepository<QuotasPackItem> packItemsRepository,
             IMapper mapper,
             IQuotasLogsService quotasLogsService)
         {
             _userService = userService;
             _customerQuotasRepository = customerQuotasRepository;
-            _packItemsRepositorty = packItemsRepositorty;
+            _packItemsRepository = packItemsRepository;
             _mapper = mapper;
             _quotasLogsService = quotasLogsService;
         }
         public async Task AddQuotasPackToCustomer(AddQuotasToCustomerRequest request)
         {
-            var packItems = (await _packItemsRepositorty.GetAsync(e => e.PackId == request.PackId, includeProperties: $"{nameof(QuotasPackItem.Type)}"));
+            var packItems = (await _packItemsRepository.GetAsync(e => e.PackId == request.PackId, includeProperties: $"{nameof(QuotasPackItem.Type)}"));
 
             foreach (var packItem in packItems)
             {

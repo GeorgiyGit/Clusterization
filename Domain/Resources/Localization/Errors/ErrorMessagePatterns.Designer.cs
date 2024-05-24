@@ -142,6 +142,15 @@ namespace Domain.Resources.Localization.Errors {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EmbeddingModelNotFound.
+        /// </summary>
+        public static string EmbeddingModelNotFound {
+            get {
+                return ResourceManager.GetString("EmbeddingModelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EmbeddingsLoadingError.
         /// </summary>
         public static string EmbeddingsLoadingError {

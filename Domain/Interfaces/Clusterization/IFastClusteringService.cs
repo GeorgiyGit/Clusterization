@@ -1,8 +1,10 @@
-﻿using Domain.DTOs.ClusterizationDTOs.FastClusteringDTOs.Requests;
+﻿using Domain.DTOs;
+using Domain.DTOs.ClusterizationDTOs.FastClusteringDTOs.Requests;
 using Domain.DTOs.ClusterizationDTOs.ProfileDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.DataSourcesDTOs.ExternalDataDTOs.Requests;
 using Domain.DTOs.ExternalData;
+using Domain.DTOs.QuotaDTOs.CustomerQuotasDTOs.Responses;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Entities.Clusterization.FastClustering;
 using Domain.Entities.Clusterization.Workspaces;
@@ -26,5 +28,7 @@ namespace Domain.Interfaces.Clusterization
         public Task<int> CreateWorkflow();
         public Task<int> InitializeWorkspace(FastClusteringInitialRequest request);
         public Task<int> InitializeProfile(FastClusteringProcessRequest request);
+        public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(PageParameters pageParameters);
+        public Task<ICollection<QuotasCalculationDTO>> CalculateInitialProfileQuotas(FastClusteringProcessRequest request);
     }
 }
