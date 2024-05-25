@@ -28,6 +28,8 @@ namespace Domain.Interfaces.Clusterization
         public Task<int> CreateWorkflow();
         public Task<int> InitializeWorkspace(FastClusteringInitialRequest request);
         public Task<int> InitializeProfile(FastClusteringProcessRequest request);
+        public Task<int> FastClusteringFull(FullFastClusteringRequest request);
+
         public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetWorkspaces(PageParameters pageParameters);
         public Task<ICollection<QuotasCalculationDTO>> CalculateInitialProfileQuotas(FastClusteringProcessRequest request);
         public Task<int> GetFastClusteringWorkflowId();

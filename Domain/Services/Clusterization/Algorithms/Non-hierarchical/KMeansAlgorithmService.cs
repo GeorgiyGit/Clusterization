@@ -134,9 +134,6 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         }
         public async Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, int startSubTasksPos)
         {
-            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
-            if (stateId != TaskStates.Wait) return;
-
             await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
 
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.Algorithm)},{nameof(ClusterizationProfile.Clusters)},{nameof(ClusterizationProfile.Workspace)},{nameof(ClusterizationProfile.TilesLevels)},{nameof(ClusterizationProfile.DRTechnique)},{nameof(ClusterizationProfile.EmbeddingModel)},{nameof(ClusterizationProfile.EmbeddingLoadingState)},{nameof(ClusterizationProfile.Workspace)}")).FirstOrDefault();

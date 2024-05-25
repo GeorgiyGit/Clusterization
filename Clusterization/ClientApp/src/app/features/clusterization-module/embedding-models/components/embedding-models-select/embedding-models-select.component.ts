@@ -11,8 +11,10 @@ export class EmbeddingModelsSelectComponent implements OnInit {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable:boolean;
+  @Input() initialModel: string;
 
   tooltip:string=$localize`Тип моделі ембедингу`;
+  selectedOption: IOptionForSelectInput;
 
   options: IOptionForSelectInput[] = [];
   constructor(private embeddingModelsService: EmbeddingModelsService) { }
@@ -41,6 +43,12 @@ export class EmbeddingModelsSelectComponent implements OnInit {
         };
         this.options.push(option);
       });
+
+      if (this.initialModel == null) this.selectedOption = this.options[0];
+      else {
+        let option = this.options.find(e => e.value == this.initialModel);
+        if (option != null) this.selectedOption = option;
+      }
     });
   }
 

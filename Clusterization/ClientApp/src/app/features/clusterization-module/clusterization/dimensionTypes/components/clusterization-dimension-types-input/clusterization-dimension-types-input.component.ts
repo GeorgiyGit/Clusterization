@@ -12,10 +12,13 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
 
   @Input() isNullAvailable: boolean;
   @Input() embeddingModelId: string | undefined;
+  @Input() initialType: number;
 
   tooltip: string = $localize`Кількість вимірів`;
 
   options: IOptionForSelectInput[] = [];
+  selectedOption: IOptionForSelectInput;
+
   constructor(private typesService: ClusterizationDimensionTypesService) { }
   ngOnInit(): void {
     if (this.embeddingModelId == null) return this.loadAllDimensionTypes();
@@ -40,7 +43,9 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
 
         this.options.push(nullOption);
 
-        this.sendEvent.emit(undefined);
+        if (this.initialType == undefined) {
+          this.sendEvent.emit(undefined);
+        }
       }
       else {
         this.sendEvent.emit(res[0].dimensionCount);
@@ -53,6 +58,12 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
         };
         this.options.push(option);
       });
+
+      if (this.initialType == null) this.selectedOption = this.options[0];
+      else {
+        let option = this.options.find(e => parseInt(e.value ?? '-1') == this.initialType);
+        if (option != null) this.selectedOption = option;
+      }
     });
   }
 
@@ -70,9 +81,12 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
 
         this.options.push(nullOption);
 
-        this.sendEvent.emit(undefined);
+        if (this.initialType == undefined) {
+          this.sendEvent.emit(undefined);
+        }
       }
       else {
+        console.log(321);
         this.sendEvent.emit(res[0].dimensionCount);
       }
 
@@ -91,6 +105,6 @@ export class ClusterizationDimensionTypesInputComponent implements OnInit, OnCha
       var id = parseInt(option.value);
       this.sendEvent.emit(id);
     }
-    else if(this.isNullAvailable)this.sendEvent.emit(undefined);
+    else if (this.isNullAvailable) this.sendEvent.emit(undefined);
   }
 }

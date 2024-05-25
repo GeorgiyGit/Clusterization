@@ -16,6 +16,7 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
   @Input() isActive: boolean = false;
 
   @Input() typeId: string;
+  @Input() initialId: number;
 
   tooltip: string = $localize`Алгоритм`;
 
@@ -25,6 +26,8 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
   }
 
   options: IOptionForSelectInput[] = [];
+  selectedOption: IOptionForSelectInput;
+
   constructor(private generalAlgorithmsService: GeneralClusterizationAlgorithmsService,
     private toastr:MyToastrService) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,7 +69,8 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
         this.sendEvent.emit(undefined);
       }
       else {
-        this.sendEvent.emit(res[0].id + "");
+        if(this.initialId!=undefined) this.sendEvent.emit(this.initialId + "");
+        else this.sendEvent.emit(res[0].id + "");
       }
 
       res.forEach(type => {
@@ -76,6 +80,12 @@ export class AbstractAlgorithmsSelectComponent implements OnInit, OnChanges {
         };
         this.options.push(option);
       });
+
+      if (this.initialId == null) this.selectedOption = this.options[0];
+      else {
+        let option = this.options.find(e => parseInt(e.value??'-1') == this.initialId);
+        if (option != null) this.selectedOption = option;
+      }
     },error=>{
       this.toastr.error(error.error.Message);
     });

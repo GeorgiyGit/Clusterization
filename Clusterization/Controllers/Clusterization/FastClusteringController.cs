@@ -39,6 +39,13 @@ namespace Clusterization.Controllers.Clusterization
             return Ok(await service.InitializeProfile(request));
         }
 
+        [HttpPost("full")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> FastClusteringFull([FromBody] FullFastClusteringRequest request)
+        {
+            return Ok(await service.FastClusteringFull(request));
+        }
+
         [HttpPost("get_workspaces")]
         [Authorize(Roles = UserRoles.User)]
         public async Task<IActionResult> GetWorkspaces([FromBody] PageParameters request)

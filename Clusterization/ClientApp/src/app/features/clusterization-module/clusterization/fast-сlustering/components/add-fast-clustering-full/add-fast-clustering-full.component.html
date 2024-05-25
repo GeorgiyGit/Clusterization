@@ -1,0 +1,77 @@
+<section>
+    <h1 i18n>Швидка кластеризація</h1>
+    <form [formGroup]="fastClusteringForm" (ngSubmit)="submit()">
+        <div>
+            <div class="input-cont">
+                <textarea class="texts" i18n-placeholder placeholder="Текстові дані*" formControlName="text" id="text" wrap="off"></textarea>
+                <span class="material-symbols-outlined icon" translate="no">description</span>
+            </div>
+            <div class="error-cont" *ngIf="description.invalid && description.touched">
+                <p *ngIf="description.errors?.['required']" class="error" i18n>
+                    Текстові дані не можуть бути пустим
+                </p>
+                <p *ngIf="description.errors?.['maxlength']" class="error" i18n>
+                    Максимальна кількість знаків - 30 000
+                </p>
+            </div>
+        </div>
+
+        <div class="centered">
+            <a (click)="toggleMoreOptions()" class="more-open-cont">
+                <p>Інші налаштування</p>
+                <span class="material-symbols-outlined icon" translate="no"
+                    *ngIf="!this.isMoreOptionsOpen">expand_more</span>
+                <span class="material-symbols-outlined icon" translate="no"
+                    *ngIf="this.isMoreOptionsOpen">expand_less</span>
+            </a>
+        </div>
+        <div [class.disable]="!isMoreOptionsOpen" class="more-cont">
+            <div>
+                <div class="input-cont">
+                    <input type="text" i18n-placeholder placeholder="Назва*" formControlName="title" id="title" />
+                    <span class="material-symbols-outlined icon" translate="no">title</span>
+                </div>
+                <div class="error-cont" *ngIf="title.invalid && title.touched">
+                    <p *ngIf="title.errors?.['maxlength']" class="error" i18n>
+                        Максимальна кількість знаків - 100
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="input-cont">
+                    <textarea i18n-placeholder placeholder="Опис*" formControlName="description"
+                        id="description"></textarea>
+                    <span class="material-symbols-outlined icon" translate="no">description</span>
+                </div>
+                <div class="error-cont" *ngIf="description.invalid && description.touched">
+                    <p *ngIf="description.errors?.['maxlength']" class="error" i18n>
+                        Максимальна кількість знаків - 3000
+                    </p>
+                </div>
+            </div>
+            <app-clusterization-algorithm-types-select (sendEvent)="changeAlgorithmType($event)"
+                [isNullAvailable]="true"
+                [initialType]="'DBSCAN'"></app-clusterization-algorithm-types-select>
+            <app-abstract-algorithms-select (sendEvent)="changeAlgorithm($event)"
+                [typeId]="algorithmTypeId"
+                [initialId]="1"
+                [isActive]="isAlgorithmsSelectActive"></app-abstract-algorithms-select>
+
+            <app-embedding-models-select [isNullAvailable]="false"
+                (sendEvent)="changeEmbeddingModel($event)"
+                [initialModel]="'text-embedding-3-small'"></app-embedding-models-select>
+            <app-clusterization-dimension-types-input [embeddingModelId]="embeddingModelId"
+                (sendEvent)="changeDimensionType($event)"
+                [initialType]="2"></app-clusterization-dimension-types-input>
+
+            <app-dimensionality-reduction-techniques-select
+                (sendEvent)="changeDRTechniqueId($event)"
+                [initialTechnique]="'t-SNE'"></app-dimensionality-reduction-techniques-select>
+        </div>
+
+        <div class="centered">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
+        </div>
+    </form>
+</section>

@@ -70,6 +70,15 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddingProfiles.
+        /// </summary>
+        internal static string AddingProfiles {
+            get {
+                return ResourceManager.GetString("AddingProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddingTelegramMessagesToWorkspace.
         /// </summary>
         internal static string AddingTelegramMessagesToWorkspace {

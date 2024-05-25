@@ -50,6 +50,10 @@ import { ExternalDataDataObjectComponent } from './data-objects/components/exter
 import { DataObjectFullPageComponent } from './data-objects/pages/data-object-full-page/data-object-full-page.component';
 import { TelegramModule } from '../dataSources-modules/telegram/telegram.module';
 import { LoadClustersFilePageComponent } from './clusters/pages/load-clusters-file-page/load-clusters-file-page.component';
+import { FastClusteringMainPageComponent } from './clusterization/fast-сlustering/pages/fast-clustering-main-page/fast-clustering-main-page.component';
+import { FastClusteringWorkspacesListComponent } from './clusterization/fast-сlustering/components/fast-clustering-workspaces-list/fast-clustering-workspaces-list.component';
+import { AddFastClusteringWorkspaceComponent } from './clusterization/fast-сlustering/components/add-fast-clustering-workspace/add-fast-clustering-workspace.component';
+import { AddFastClusteringFullComponent } from './clusterization/fast-сlustering/components/add-fast-clustering-full/add-fast-clustering-full.component';
 
 
 @NgModule({
@@ -105,6 +109,11 @@ import { LoadClustersFilePageComponent } from './clusters/pages/load-clusters-fi
     TelegramReplyDataObjectComponent,
     ExternalDataDataObjectComponent,
     DataObjectFullPageComponent,
+
+    FastClusteringMainPageComponent,
+    FastClusteringWorkspacesListComponent,
+    AddFastClusteringWorkspaceComponent,
+    AddFastClusteringFullComponent
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,

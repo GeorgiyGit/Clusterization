@@ -6,6 +6,8 @@ import { ClusterizationProfileListPageComponent } from './clusterization/profile
 import { WorkspaceAddDataPackListPageComponent } from './clusterization/workspaceAddDataPacks/pages/workspace-add-data-pack-list-page/workspace-add-data-pack-list-page.component';
 import { ClusterizationFullProfilePageComponent } from './clusterization/profiles/pages/clusterization-full-profile-page/clusterization-full-profile-page.component';
 import { PointsMapPageComponent } from './points-map/pages/points-map-page/points-map-page.component';
+import { FastClusteringMainPageComponent } from './clusterization/fast-сlustering/pages/fast-clustering-main-page/fast-clustering-main-page.component';
+import { CustomerGuard } from 'src/app/core/guard/customer.guard';
 const routes: Routes = [
   {
     path: 'workspaces',
@@ -55,6 +57,12 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path:'fast-clustering',
+    component:FastClusteringMainPageComponent,
+    canActivate: [CustomerGuard],
+    canActivateChild: [CustomerGuard],
+  }
 ];
 
 @NgModule({

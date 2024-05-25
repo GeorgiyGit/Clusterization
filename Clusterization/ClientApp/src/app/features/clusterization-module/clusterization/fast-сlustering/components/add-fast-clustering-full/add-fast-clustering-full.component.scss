@@ -1,0 +1,52 @@
+@import '/src/app/core/styles/base.scss';
+
+
+section{
+    background-color: $second-color-1;
+    padding: 20px;
+    border-radius: 8px;
+
+    min-height: 70vh;
+
+    h1{
+        text-align: center;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .texts{
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .more-open-cont{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            cursor: pointer;
+            text-decoration: none;
+            color: $first-color-3;
+
+            &:hover{
+                color: $first-color-1;
+
+                p{
+                    color: $first-color-1;
+                }
+            }
+        }
+
+        .more-cont{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .disable{
+            display: none;
+        }
+    }
+}

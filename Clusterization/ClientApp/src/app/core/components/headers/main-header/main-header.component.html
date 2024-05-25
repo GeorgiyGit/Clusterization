@@ -22,6 +22,7 @@
                 <li routerLink="/main-layout/clusterization/workspaces/list" i18n>Робочі простори</li>
                 <li routerLink="/main-layout/admin-panel" i18n *ngIf="accountService.isUserModerator()">Панель адміністратора</li>
                 <li (click)="openAddAlgorithm($event)" i18n>Додати алгоритм</li>
+                <li (click)="openFastClustering($event)" i18n>Швидка кластеризація</li>
             </ul>
         </div>
         <div>

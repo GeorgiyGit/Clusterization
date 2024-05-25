@@ -145,6 +145,21 @@ export class MainHeaderComponent implements OnInit {
     this.closeDisplayPhoneMenu();
     this.router.navigate([{ outlets: { overflow: 'clusterization/algorithms/add' } }]);
   }
+  openFastClustering(event: MouseEvent) {
+    event.stopPropagation();
+
+    if (!this.accountService.isAuthenticated()) {
+      this.toaster.error(this.notAuthorizedErrorStr);
+      return;
+    }
+    if (!this.accountService.isUserUser()) {
+      this.toaster.error(this.visitorError);
+      return;
+    }
+
+    this.closeDisplayPhoneMenu();
+    this.router.navigateByUrl('/main-layout/clusterization/fast-clustering');
+  }
 
   isDataSourceMenuOpen: boolean;
   toggleDataSourceMenu(event: MouseEvent) {

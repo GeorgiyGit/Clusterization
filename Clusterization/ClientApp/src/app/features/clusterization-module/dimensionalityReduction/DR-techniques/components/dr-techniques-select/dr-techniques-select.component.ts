@@ -11,9 +11,13 @@ export class DRTechniquesSelectComponent implements OnInit {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable:boolean;
+  @Input() initialTechnique: string;
 
   tooltip:string=$localize`Тип проекції`;
+
   options: IOptionForSelectInput[] = [];
+  selectedOption: IOptionForSelectInput;
+
   constructor(private drTechniquesService: DimensionalityReductionTechniquesService) { }
   ngOnInit(): void {
     this.drTechniquesService.getAll().subscribe(res => {
@@ -40,6 +44,12 @@ export class DRTechniquesSelectComponent implements OnInit {
         };
         this.options.push(option);
       });
+
+      if (this.initialTechnique == null) this.selectedOption = this.options[0];
+      else {
+        let option = this.options.find(e => e.value == this.initialTechnique);
+        if (option != null) this.selectedOption = option;
+      }
     });
   }
 

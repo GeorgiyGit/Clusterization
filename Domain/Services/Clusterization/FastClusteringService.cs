@@ -198,11 +198,11 @@ namespace Domain.Services.Clusterization
             {
                 await _tasksService.ChangeTaskDescription(taskId1, ex.Message);
                 await _tasksService.ChangeTaskState(taskId1, TaskStates.Error);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
                 throw ex;
             }
             await _tasksService.ChangeTaskPercent(taskId1, 100f);
             await _tasksService.ChangeTaskState(taskId1, TaskStates.Completed);
-            await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
 
             _backgroundJobClient.Enqueue(() => InitializeWorkspaceBackgroundJob(request, userId, groupTaskId, workspaceId, 2, newTitle, newDescription));
 
@@ -290,11 +290,11 @@ namespace Domain.Services.Clusterization
             {
                 await _tasksService.ChangeTaskDescription(taskId1, ex.Message);
                 await _tasksService.ChangeTaskState(taskId1, TaskStates.Error);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
                 throw ex;
             }
             await _tasksService.ChangeTaskPercent(taskId1, 100f);
             await _tasksService.ChangeTaskState(taskId1, TaskStates.Completed);
-            await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
 
             _backgroundJobClient.Enqueue(() => InitializeProfileBackgroundJob(profileId, userId, groupTaskId, 2, request.AlgorithmId, request.WorkspaceId));
 
@@ -339,6 +339,186 @@ namespace Domain.Services.Clusterization
                 await _tasksService.ChangeParentTaskState(groupTaskId, TaskStates.Error);
             }
         }
+
+        public async Task<int> FastClusteringFull(FullFastClusteringRequest request)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            var workflow = (await _fastClusteringWorkflowsRepository.GetAsync(e => e.OwnerId == userId)).FirstOrDefault();
+            if (workflow == null) throw new HttpException(_localizer[ErrorMessagePatterns.FastClusteringWorkflowNotFound], HttpStatusCode.NotFound);
+
+            var createTaskOptions = new CreateMainTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.Clustering],
+                SubTasksCount = 4,
+                IsGroupTask = true
+            };
+            var groupTaskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
+
+            #region addWorkspace
+            var createSubTask1 = new CreateSubTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingWorkspace],
+                GroupTaskId = groupTaskId,
+                Position = 1
+            };
+            var taskId1 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
+
+
+            await _tasksService.ChangeTaskState(taskId1, TaskStates.Process);
+
+            int workspaceId;
+            string newTitle;
+            string newDescription;
+            try
+            {
+                var addWorkspaceRequest = new AddClusterizationWorkspaceRequest()
+                {
+                    ChangingType = ChangingTypes.OnlyOwner,
+                    VisibleType = ChangingTypes.OnlyOwner,
+                    TypeId = ClusterizationTypes.External
+                };
+
+
+                if (request.Title == null || request.Title == "") newTitle = "Fast clustering";
+                else newTitle = request.Title;
+
+
+                if (request.Description == null || request.Description == "") newDescription = "Fast clustering";
+                else newDescription = request.Description;
+
+                addWorkspaceRequest.Title = newTitle;
+                addWorkspaceRequest.Description = newDescription;
+
+                workspaceId = await _workspacesService.Add(addWorkspaceRequest);
+
+                var origWorkspace = (await _workspacesRepository.GetAsync(e => e.Id == workspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.FastClusteringWorkflow)}")).FirstOrDefault();
+                if (origWorkspace == null) throw new HttpException(_localizer[ErrorMessagePatterns.WorkspaceNotFound], HttpStatusCode.NotFound);
+
+                origWorkspace.FastClusteringWorkflowId = workflow.Id;
+                await _fastClusteringWorkflowsRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                await _tasksService.ChangeTaskDescription(taskId1, ex.Message);
+                await _tasksService.ChangeTaskState(taskId1, TaskStates.Error);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                throw ex;
+            }
+            await _tasksService.ChangeTaskPercent(taskId1, 100f);
+            await _tasksService.ChangeTaskState(taskId1, TaskStates.Completed);
+            #endregion
+
+            #region addProfile
+            var createSubTask2 = new CreateSubTaskOptions()
+            {
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.AddingProfiles],
+                GroupTaskId = groupTaskId,
+                Position = 2
+            };
+            var taskId2 = await _tasksService.CreateSubTaskWithUserId(createSubTask2);
+
+
+            await _tasksService.ChangeTaskState(taskId2, TaskStates.Process);
+
+            int profileId;
+            try
+            {
+                var addProfileRequest = new AddClusterizationProfileRequest()
+                {
+                    ChangingType = ChangingTypes.OnlyOwner,
+                    VisibleType = ChangingTypes.OnlyOwner,
+                    WorkspaceId = workspaceId,
+                    AlgorithmId = request.AlgorithmId,
+                    EmbeddingModelId = request.EmbeddingModelId,
+                    DimensionCount = request.DimensionCount,
+                    DRTechniqueId = request.DRTechniqueId,
+                };
+
+                profileId = await _profilesService.Add(addProfileRequest);
+            }
+            catch (Exception ex)
+            {
+                await _tasksService.ChangeTaskDescription(taskId2, ex.Message);
+                await _tasksService.ChangeTaskState(taskId2, TaskStates.Error);
+                await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Error);
+                throw ex;
+            }
+            await _tasksService.ChangeTaskPercent(taskId2, 100f);
+            await _tasksService.ChangeTaskState(taskId2, TaskStates.Completed);
+
+            #endregion
+
+            _backgroundJobClient.Enqueue(() => FastClusteringFullBackgroundJob(request, userId, groupTaskId, 3, newTitle, newDescription, profileId, workspaceId));
+
+            return profileId;
+        }
+        public async Task FastClusteringFullBackgroundJob(FullFastClusteringRequest request, string userId, string groupTaskId, int subTasksPos, string newTitle, string newDescription, int profileId, int workspaceId)
+        {
+            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
+            if (stateId != TaskStates.Wait) return;
+
+            var objectsList = new List<ExternalObjectModelDTO>(request.Texts.Count);
+
+            for (int i = 0; i < request.Texts.Count; i++)
+            {
+                objectsList.Add(new ExternalObjectModelDTO()
+                {
+                    Id = i + "",
+                    Text = request.Texts.ElementAt(i)
+                });
+            }
+
+            var addDataRequest = new AddExternalDataWithoutFileRequest()
+            {
+                ChangingType = ChangingTypes.OnlyOwner,
+                VisibleType = ChangingTypes.OnlyOwner,
+                Description = newDescription,
+                Title = newTitle,
+                WorkspaceId = workspaceId,
+                ObjectsList = objectsList
+            };
+
+            await _externalDataObjectsPacksService.LoadExternalDataAndAddToWorkspaceBackgroundJob(addDataRequest, userId, groupTaskId, subTasksPos);
+
+            await _embeddingsLoadingService.LoadEmbeddingsByProfileBackgroundJob(profileId, userId, groupTaskId, subTasksPos+2);
+
+            var algorithm = await _abstractAlgorithmsRepository.FindAsync(request.AlgorithmId);
+
+            var algorithmTypeId = algorithm.TypeId;
+
+            if (algorithmTypeId == ClusterizationAlgorithmTypes.KMeans)
+            {
+                await _kMeansService.ClusterDataBackgroundJob(profileId, groupTaskId, userId, subTasksPos+3);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.OneCluster)
+            {
+                await _oneClusterService.ClusterDataBackgroundJob(profileId, groupTaskId, userId, subTasksPos + 3);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.DBSCAN)
+            {
+                await _dbSCANService.ClusterDataBackgroundJob(profileId, groupTaskId, userId, subTasksPos + 3);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.SpectralClustering)
+            {
+                await _spectralClusteringService.ClusterDataBackgroundJob(profileId, groupTaskId, userId, subTasksPos + 3);
+            }
+            else if (algorithmTypeId == ClusterizationAlgorithmTypes.GaussianMixture)
+            {
+                await _gaussianMixtureService.ClusterDataBackgroundJob(profileId, groupTaskId, userId, subTasksPos + 3);
+            }
+            else
+            {
+                await _tasksService.ChangeTaskDescription(groupTaskId, _localizer[ErrorMessagePatterns.ClusterizationAlgorithmTypeIdNotExist]);
+                await _tasksService.ChangeParentTaskState(groupTaskId, TaskStates.Error);
+            }
+        }
+
+
         public async Task<int> GetFastClusteringWorkflowId()
         {
             var userId = await _userService.GetCurrentUserId();

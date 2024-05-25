@@ -165,7 +165,6 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
                 await _tasksService.ChangeTaskPercent(groupTaskId, 100f);
                 await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Completed);
             }
-
         }
         public async Task LoadEmbeddingsByWorkspaceDataPack(int packId, string embeddingModelId)
         {

@@ -11,10 +11,13 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
   @Output() sendEvent = new EventEmitter<string>();
 
   @Input() isNullAvailable:boolean;
+  @Input() initialType: string;
 
   tooltip:string=$localize`Тип алгоритму`;
 
   options: IOptionForSelectInput[] = [];
+  selectedOption: IOptionForSelectInput;
+
   constructor(private algorithmTypesService: ClusterizationAlgorithmTypesService) { }
   ngOnInit(): void {
     this.algorithmTypesService.getAll().subscribe(res => {
@@ -28,7 +31,9 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
 
         this.options.push(nullOption);
 
-        this.sendEvent.emit(undefined);
+        if(this.initialType==null){
+          this.sendEvent.emit(undefined);
+        }
       }
       else { 
         this.sendEvent.emit(res[0].id);
@@ -41,6 +46,12 @@ export class ClusterizationAlgorithmTypesSelectComponent implements OnInit {
         };
         this.options.push(option);
       });
+
+      if (this.initialType == null) this.selectedOption = this.options[0];
+      else {
+        let option = this.options.find(e => e.value == this.initialType);
+        if (option != null) this.selectedOption = option;
+      }
     });
   }
 

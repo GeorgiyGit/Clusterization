@@ -120,6 +120,9 @@
   <data name="AddingExternalDataToWorkspace" xml:space="preserve">
     <value>Додавання зовнішніх даних до робочого простору</value>
   </data>
+  <data name="AddingProfiles" xml:space="preserve">
+    <value>Додавання профілів</value>
+  </data>
   <data name="AddingTelegramMessagesToWorkspace" xml:space="preserve">
     <value>Додавання відповідей з платформи Telegram до робочого простору</value>
   </data>

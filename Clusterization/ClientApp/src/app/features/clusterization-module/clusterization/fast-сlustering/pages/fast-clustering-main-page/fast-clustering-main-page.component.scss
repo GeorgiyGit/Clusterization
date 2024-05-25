@@ -1,0 +1,15 @@
+section{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+
+    padding: 50px;
+    padding-top: 100px;
+
+    app-add-fast-clustering-full{
+        flex: 2;
+    }
+    app-fast-clustering-workspaces-list{
+        flex: 1;
+    }
+}
