@@ -116,9 +116,6 @@ namespace Domain.Services.DataSources.ExternalData
 
         public async Task<List<ExternalObjectModelDTO>> LoadObjectsListFromFile(IFormFile file, string userId, string taskId)
         {
-            var stateId = await _tasksService.GetTaskStateId(taskId);
-            if (stateId != TaskStates.Wait) return null;
-
             await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
             float percent = 0f;
@@ -186,9 +183,6 @@ namespace Domain.Services.DataSources.ExternalData
         }
         public async Task<int?> LoadExternalDataObjectBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string taskId)
         {
-            var stateId = await _tasksService.GetTaskStateId(taskId);
-            if (stateId != TaskStates.Wait) return null;
-
             await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
             try
@@ -250,6 +244,7 @@ namespace Domain.Services.DataSources.ExternalData
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
+                WorkspaceId = request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace]
             };
@@ -259,8 +254,6 @@ namespace Domain.Services.DataSources.ExternalData
         }
         public async Task AddExternalDataObjectsToWorkspaceBackgroundJob(AddExternalDataObjectsPacksToWorkspaceRequest request, string userId, string taskId)
         {
-            var stateId = await _tasksService.GetTaskStateId(taskId);
-            if (stateId != TaskStates.Wait) return;
 
             await _tasksService.ChangeTaskState(taskId, TaskStates.Process);
 
@@ -358,9 +351,9 @@ namespace Domain.Services.DataSources.ExternalData
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace],
-                SubTasksCount = 2,
                 IsGroupTask = true
             };
             var groupTaskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
@@ -377,31 +370,31 @@ namespace Domain.Services.DataSources.ExternalData
                 WorkspaceId = request.WorkspaceId
             };
 
-            _backgroundJobClient.Enqueue(() => LoadExternalDataAndAddToWorkspaceBackgroundJob(newRequest, userId, groupTaskId, 1));
-        }
-        public async Task LoadExternalDataAndAddToWorkspaceBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string groupTaskId, int subTasksPos)
-        {
             var createSubTask1 = new CreateSubTaskOptions()
             {
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingExternalDataObjects],
                 GroupTaskId = groupTaskId,
-                Position = subTasksPos
+                Position = 1
             };
-            subTasksPos++;
             var taskId1 = await _tasksService.CreateSubTaskWithUserId(createSubTask1);
 
             var createSubTask2 = new CreateSubTaskOptions()
             {
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingExternalDataToWorkspace],
                 GroupTaskId = groupTaskId,
-                Position = subTasksPos
+                Position = 2
             };
-            subTasksPos++;
             var taskId2 = await _tasksService.CreateSubTaskWithUserId(createSubTask2);
 
-            var packId = await LoadExternalDataObjectBackgroundJob(request, userId, taskId1);
+            _backgroundJobClient.Enqueue(() => LoadExternalDataAndAddToWorkspaceBackgroundJob(newRequest, userId, groupTaskId, new List<string> { taskId1, taskId2 }));
+        }
+        public async Task LoadExternalDataAndAddToWorkspaceBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string groupTaskId, List<string> subTaskIds)
+        {
+            var packId = await LoadExternalDataObjectBackgroundJob(request, userId, subTaskIds[0]);
 
             if (packId == null)
             {
@@ -413,7 +406,7 @@ namespace Domain.Services.DataSources.ExternalData
             {
                 PackId = (int)packId,
                 WorkspaceId = (int)request.WorkspaceId
-            }, userId, taskId2);
+            }, userId, subTaskIds[1]);
         }
         
         

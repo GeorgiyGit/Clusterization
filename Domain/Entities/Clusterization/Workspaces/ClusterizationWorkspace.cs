@@ -4,6 +4,7 @@ using Domain.Entities.Customers;
 using Domain.Entities.DataObjects;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Monitorings;
+using Domain.Entities.Tasks;
 
 namespace Domain.Entities.Clusterization.Workspaces
 {
@@ -37,5 +38,7 @@ namespace Domain.Entities.Clusterization.Workspaces
     
         public FastClusteringWorkflow? FastClusteringWorkflow { get; set; }
         public int? FastClusteringWorkflowId { get; set; }
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

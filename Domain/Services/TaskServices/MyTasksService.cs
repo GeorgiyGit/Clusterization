@@ -10,6 +10,7 @@ using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
 using Domain.Resources.Types.Tasks;
+using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
@@ -144,6 +145,26 @@ namespace Domain.Services.TaskServices
 
             await _baseTasksRepository.SaveChangesAsync();
         }
+        public async Task ChangeTaskReferences(string id, ChangeTaskReferencesRequest request)
+        {
+            var task = await _baseTasksRepository.FindAsync(id);
+            if (task == null) return;
+
+            task.YoutubeChannelId = request.YoutubeChannelId;
+            task.YoutubeVideoId = request.YoutubeVideoId;
+
+            task.TelegramChannelId = request.TelegramChannelId;
+            task.TelegramMessageId = request.TelegramMessageId;
+
+            task.ExternalObjectsPackId= request.ExternalObjectsPackId;
+
+            task.FastClusteringWorkflowId= request.FastClusteringWorkflowId;
+            task.ClusterizationProfileId = request.ClusterizationProfileId;
+            task.WorkspaceId = request.WorkspaceId;
+            task.AddPackId = request.AddPackId;
+
+            await _baseTasksRepository.SaveChangesAsync();
+        }
 
         public async Task<string> CreateMainTask(CreateMainTaskOptions options)
         {
@@ -161,8 +182,15 @@ namespace Domain.Services.TaskServices
             {
                 Title = options.Title,
                 Description = options.Description,
-                EntityId = options.EntityId,
-                EntityType = options.EntityType,
+                WorkspaceId=options.WorkspaceId,
+                ClusterizationProfileId=options.ClusterizationProfileId,
+                ExternalObjectsPackId=options.ExternalObjectsPackId,
+                AddPackId=options.AddPackId,
+                FastClusteringWorkflowId=options.FastClusteringWorkflowId,
+                TelegramChannelId=options.TelegramChannelId,
+                TelegramMessageId=options.TelegramMessageId,
+                YoutubeChannelId=options.YoutubeChannelId,
+                YoutubeVideoId=options.YoutubeVideoId,
                 Id = options.Id,
                 IsGroupTask = options.IsGroupTask,
                 Percent = 0,
@@ -171,15 +199,8 @@ namespace Domain.Services.TaskServices
                 IsPercents = options.IsPercents
             };
 
-
             if (options.StateId != null) task.StateId = options.StateId;
             else task.StateId = TaskStates.Wait;
-
-            if (options.IsGroupTask)
-            {
-                if (options.SubTasksCount != null) task.SubTasksCount = (int)options.SubTasksCount;
-                else task.SubTasksCount = 0;
-            }
 
             await _mainTasksRepository.AddAsync(task);
             await _mainTasksRepository.SaveChangesAsync();
@@ -199,8 +220,6 @@ namespace Domain.Services.TaskServices
         }
         public async Task<string> CreateSubTaskWithUserId(CreateSubTaskOptions options)
         {
-            var state = await _statesRepository.FindAsync(TaskStates.Wait);
-
             var task = new MySubTask()
             {
                 Title = options.Title,
@@ -211,8 +230,15 @@ namespace Domain.Services.TaskServices
                 CustomerId = options.CustomerId,
                 Position = options.Position,
                 TaskType = TaskTypes.SubTask,
-                EntityId = options.EntityId,
-                EntityType = options.EntityType,
+                WorkspaceId = options.WorkspaceId,
+                ClusterizationProfileId = options.ClusterizationProfileId,
+                ExternalObjectsPackId = options.ExternalObjectsPackId,
+                AddPackId = options.AddPackId,
+                FastClusteringWorkflowId = options.FastClusteringWorkflowId,
+                TelegramChannelId = options.TelegramChannelId,
+                TelegramMessageId = options.TelegramMessageId,
+                YoutubeChannelId = options.YoutubeChannelId,
+                YoutubeVideoId = options.YoutubeVideoId,
                 IsPercents = options.IsPercents
             };
 

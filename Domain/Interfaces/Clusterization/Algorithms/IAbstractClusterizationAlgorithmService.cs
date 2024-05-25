@@ -16,7 +16,7 @@ namespace Domain.Interfaces.Clusterization.Algorithms
         public Task<int> CalculateQuotasCount(int dataObjectsCount, int dimensionCount);
 
         public Task ClusterData(int profileId);
-        public Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, int startSubTasksPos);
+        public Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, List<string> subTaskIds);
 
         public Task<bool> ReviewWorkspaceIsProfilesInCalculation(int workspaceId);
     }

@@ -63,7 +63,6 @@ namespace Domain.Services.DataSources.Youtube
 
             var channelsRequest = _youtubeService.Channels.List("snippet,statistics");
 
-            // Set the channelId to load the specific channel
             channelsRequest.Id = id;
 
             var response = new ChannelListResponse();

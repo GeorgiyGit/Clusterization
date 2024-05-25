@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Customers;
+using Domain.Entities.Tasks;
 
 namespace Domain.Entities.DataSources.Youtube
 {
@@ -39,5 +40,7 @@ namespace Domain.Entities.DataSources.Youtube
 
         public Customer Loader { get; set; }
         public string LoaderId { get; set; }
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

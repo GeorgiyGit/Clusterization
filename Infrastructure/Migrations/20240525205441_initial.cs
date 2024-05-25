@@ -28,37 +28,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsEdited = table.Column<bool>(type: "bit", nullable: false),
-                    LastEmailConfirmationSend = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ClusterizationAlgorithmTypes",
                 columns: table => new
                 {
@@ -105,6 +74,19 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DimensionTypes", x => x.DimensionCount);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FastClusteringWorkflows",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FastClusteringWorkflows", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +155,144 @@ namespace Infrastructure.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClusterizationAbstractAlgorithms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
+                    Epsilon = table.Column<double>(type: "float", nullable: true),
+                    MinimumPointsPerCluster = table.Column<int>(type: "int", nullable: true),
+                    NumberOfComponents = table.Column<int>(type: "int", nullable: true),
+                    NumClusters = table.Column<int>(type: "int", nullable: true),
+                    Seed = table.Column<int>(type: "int", nullable: true),
+                    ClusterColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpectralClusteringAlgorithm_NumClusters = table.Column<int>(type: "int", nullable: true),
+                    Gamma = table.Column<double>(type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClusterizationAbstractAlgorithms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClusterizationAbstractAlgorithms_ClusterizationAlgorithmTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "ClusterizationAlgorithmTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmbeddingModels",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaxInputCount = table.Column<int>(type: "int", nullable: false),
+                    QuotasPrice = table.Column<int>(type: "int", nullable: false),
+                    DimensionTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmbeddingModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmbeddingModels_DimensionTypes_DimensionTypeId",
+                        column: x => x.DimensionTypeId,
+                        principalTable: "DimensionTypes",
+                        principalColumn: "DimensionCount",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false),
+                    LastEmailConfirmationSend = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FastClusteringWorkflowId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_FastClusteringWorkflows_FastClusteringWorkflowId",
+                        column: x => x.FastClusteringWorkflowId,
+                        principalTable: "FastClusteringWorkflows",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MyDataObject",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    YoutubeCommentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExternalObjectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TelegramMessageId = table.Column<long>(type: "bigint", nullable: true),
+                    TelegramReplyId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MyDataObject", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MyDataObject_MyDataObjectType_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "MyDataObjectType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuotasPackItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PackId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuotasPackItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuotasPackItems_QuotasPacks_PackId",
+                        column: x => x.PackId,
+                        principalTable: "QuotasPacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QuotasPackItems_QuotasTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "QuotasTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -263,6 +383,77 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClusterizationWorkspaces",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntitiesCount = table.Column<int>(type: "int", nullable: false),
+                    VisibleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChangingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsProfilesInCalculation = table.Column<bool>(type: "bit", nullable: false),
+                    FastClusteringWorkflowId = table.Column<int>(type: "int", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClusterizationWorkspaces", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClusterizationWorkspaces_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClusterizationWorkspaces_ClusterizationTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "ClusterizationTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClusterizationWorkspaces_FastClusteringWorkflows_FastClusteringWorkflowId",
+                        column: x => x.FastClusteringWorkflowId,
+                        principalTable: "FastClusteringWorkflows",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerQuotas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExpiredCount = table.Column<int>(type: "int", nullable: false),
+                    AvailableCount = table.Column<int>(type: "int", nullable: false),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerQuotas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerQuotas_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerQuotas_QuotasTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "QuotasTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExternalObjectsPacks",
                 columns: table => new
                 {
@@ -287,6 +478,69 @@ namespace Infrastructure.Migrations
                         name: "FK_ExternalObjectsPacks_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuotasLogs",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    IsPlus = table.Column<bool>(type: "bit", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuotasLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuotasLogs_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QuotasLogs_QuotasTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "QuotasTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuotasPackLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PackId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuotasPackLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuotasPackLogs_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QuotasPackLogs_QuotasPacks_PackId",
+                        column: x => x.PackId,
+                        principalTable: "QuotasPacks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -352,350 +606,6 @@ namespace Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClusterizationAbstractAlgorithms",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
-                    Epsilon = table.Column<double>(type: "float", nullable: true),
-                    MinimumPointsPerCluster = table.Column<int>(type: "int", nullable: true),
-                    NumberOfComponents = table.Column<int>(type: "int", nullable: true),
-                    NumClusters = table.Column<int>(type: "int", nullable: true),
-                    Seed = table.Column<int>(type: "int", nullable: true),
-                    ClusterColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpectralClusteringAlgorithm_NumClusters = table.Column<int>(type: "int", nullable: true),
-                    Gamma = table.Column<double>(type: "float", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClusterizationAbstractAlgorithms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClusterizationAbstractAlgorithms_ClusterizationAlgorithmTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ClusterizationAlgorithmTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClusterizationWorkspaces",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EntitiesCount = table.Column<int>(type: "int", nullable: false),
-                    VisibleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChangingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsProfilesInCalculation = table.Column<bool>(type: "bit", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClusterizationWorkspaces", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClusterizationWorkspaces_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClusterizationWorkspaces_ClusterizationTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ClusterizationTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmbeddingModels",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaxInputCount = table.Column<int>(type: "int", nullable: false),
-                    QuotasPrice = table.Column<int>(type: "int", nullable: false),
-                    DimensionTypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmbeddingModels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmbeddingModels_DimensionTypes_DimensionTypeId",
-                        column: x => x.DimensionTypeId,
-                        principalTable: "DimensionTypes",
-                        principalColumn: "DimensionCount",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MyDataObject",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    YoutubeCommentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExternalObjectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TelegramMessageId = table.Column<long>(type: "bigint", nullable: true),
-                    TelegramReplyId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MyDataObject", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MyDataObject_MyDataObjectType_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "MyDataObjectType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MyBaseTasks",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StateId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EntityType = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    EntityId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Percent = table.Column<float>(type: "real", nullable: false),
-                    TaskType = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    IsGroupTask = table.Column<bool>(type: "bit", nullable: true),
-                    SubTasksCount = table.Column<int>(type: "int", nullable: true),
-                    Position = table.Column<int>(type: "int", nullable: true),
-                    GroupTaskId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MyBaseTasks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MyBaseTasks_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MyBaseTasks_MyBaseTasks_GroupTaskId",
-                        column: x => x.GroupTaskId,
-                        principalTable: "MyBaseTasks",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_MyBaseTasks_MyTaskStates_StateId",
-                        column: x => x.StateId,
-                        principalTable: "MyTaskStates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QuotasPackLogs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PackId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuotasPackLogs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_QuotasPackLogs_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_QuotasPackLogs_QuotasPacks_PackId",
-                        column: x => x.PackId,
-                        principalTable: "QuotasPacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerQuotas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExpiredCount = table.Column<int>(type: "int", nullable: false),
-                    AvailableCount = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerQuotas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerQuotas_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerQuotas_QuotasTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "QuotasTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QuotasLogs",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false),
-                    IsPlus = table.Column<bool>(type: "bit", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuotasLogs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_QuotasLogs_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_QuotasLogs_QuotasTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "QuotasTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QuotasPackItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Count = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PackId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuotasPackItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_QuotasPackItems_QuotasPacks_PackId",
-                        column: x => x.PackId,
-                        principalTable: "QuotasPacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_QuotasPackItems_QuotasTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "QuotasTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "YoutubeVideos",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ETag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChannelTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LiveBroadcaseContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PublishedAtDateTimeOffset = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    PublishedAtRaw = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DefaultAudioLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DefaultLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VideoImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CommentCount = table.Column<int>(type: "int", nullable: false),
-                    LoadedCommentCount = table.Column<int>(type: "int", nullable: false),
-                    LikeCount = table.Column<int>(type: "int", nullable: false),
-                    ViewCount = table.Column<long>(type: "bigint", nullable: false),
-                    ChannelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_YoutubeVideos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_YoutubeVideos_AspNetUsers_LoaderId",
-                        column: x => x.LoaderId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_YoutubeVideos_YoutubeChannels_ChannelId",
-                        column: x => x.ChannelId,
-                        principalTable: "YoutubeChannels",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkspaceDataObjectsAddPacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataObjectsCount = table.Column<int>(type: "int", nullable: false),
-                    WorkspaceId = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkspaceDataObjectsAddPacks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkspaceDataObjectsAddPacks_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_WorkspaceDataObjectsAddPacks_ClusterizationWorkspaces_WorkspaceId",
-                        column: x => x.WorkspaceId,
-                        principalTable: "ClusterizationWorkspaces",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -823,6 +733,37 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WorkspaceDataObjectsAddPacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataObjectsCount = table.Column<int>(type: "int", nullable: false),
+                    WorkspaceId = table.Column<int>(type: "int", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastDeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsEdited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkspaceDataObjectsAddPacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkspaceDataObjectsAddPacks_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkspaceDataObjectsAddPacks_ClusterizationWorkspaces_WorkspaceId",
+                        column: x => x.WorkspaceId,
+                        principalTable: "ClusterizationWorkspaces",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExternalObjects",
                 columns: table => new
                 {
@@ -889,80 +830,44 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "YoutubeComments",
+                name: "YoutubeVideos",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ETag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CanReply = table.Column<bool>(type: "bit", nullable: false),
-                    TotalReplyCount = table.Column<short>(type: "smallint", nullable: false),
-                    AuthorChannelUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorChannelId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LikeCount = table.Column<int>(type: "int", nullable: false),
-                    TextDisplay = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TextOriginal = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAtDateTimeOffset = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAtRaw = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChannelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    VideoId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ChannelTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LiveBroadcaseContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PublishedAtDateTimeOffset = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     PublishedAtRaw = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DefaultAudioLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DefaultLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VideoImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentCount = table.Column<int>(type: "int", nullable: false),
+                    LoadedCommentCount = table.Column<int>(type: "int", nullable: false),
+                    LikeCount = table.Column<int>(type: "int", nullable: false),
+                    ViewCount = table.Column<long>(type: "bigint", nullable: false),
+                    ChannelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataObjectId = table.Column<long>(type: "bigint", nullable: true),
                     LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_YoutubeComments", x => x.Id);
+                    table.PrimaryKey("PK_YoutubeVideos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_YoutubeComments_AspNetUsers_LoaderId",
+                        name: "FK_YoutubeVideos_AspNetUsers_LoaderId",
                         column: x => x.LoaderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_YoutubeComments_MyDataObject_DataObjectId",
-                        column: x => x.DataObjectId,
-                        principalTable: "MyDataObject",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_YoutubeComments_YoutubeChannels_ChannelId",
+                        name: "FK_YoutubeVideos_YoutubeChannels_ChannelId",
                         column: x => x.ChannelId,
                         principalTable: "YoutubeChannels",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_YoutubeComments_YoutubeVideos_VideoId",
-                        column: x => x.VideoId,
-                        principalTable: "YoutubeVideos",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MyDataObjectWorkspaceDataObjectsAddPack",
-                columns: table => new
-                {
-                    DataObjectsId = table.Column<long>(type: "bigint", nullable: false),
-                    WorkspaceDataObjectsAddPacksId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MyDataObjectWorkspaceDataObjectsAddPack", x => new { x.DataObjectsId, x.WorkspaceDataObjectsAddPacksId });
-                    table.ForeignKey(
-                        name: "FK_MyDataObjectWorkspaceDataObjectsAddPack_MyDataObject_DataObjectsId",
-                        column: x => x.DataObjectsId,
-                        principalTable: "MyDataObject",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MyDataObjectWorkspaceDataObjectsAddPack_WorkspaceDataObjectsAddPacks_WorkspaceDataObjectsAddPacksId",
-                        column: x => x.WorkspaceDataObjectsAddPacksId,
-                        principalTable: "WorkspaceDataObjectsAddPacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1020,6 +925,32 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DimensionEmbeddingObjects",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TypeId = table.Column<int>(type: "int", nullable: false),
+                    ValuesString = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmbeddingObjectsGroupId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DimensionEmbeddingObjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DimensionEmbeddingObjects_DimensionTypes_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "DimensionTypes",
+                        principalColumn: "DimensionCount",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DimensionEmbeddingObjects_EmbeddingObjectsGroups_EmbeddingObjectsGroupId",
+                        column: x => x.EmbeddingObjectsGroupId,
+                        principalTable: "EmbeddingObjectsGroups",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmbeddingLoadingStates",
                 columns: table => new
                 {
@@ -1052,29 +983,27 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DimensionEmbeddingObjects",
+                name: "MyDataObjectWorkspaceDataObjectsAddPack",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<int>(type: "int", nullable: false),
-                    ValuesString = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmbeddingObjectsGroupId = table.Column<long>(type: "bigint", nullable: false)
+                    DataObjectsId = table.Column<long>(type: "bigint", nullable: false),
+                    WorkspaceDataObjectsAddPacksId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DimensionEmbeddingObjects", x => x.Id);
+                    table.PrimaryKey("PK_MyDataObjectWorkspaceDataObjectsAddPack", x => new { x.DataObjectsId, x.WorkspaceDataObjectsAddPacksId });
                     table.ForeignKey(
-                        name: "FK_DimensionEmbeddingObjects_DimensionTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "DimensionTypes",
-                        principalColumn: "DimensionCount",
+                        name: "FK_MyDataObjectWorkspaceDataObjectsAddPack_MyDataObject_DataObjectsId",
+                        column: x => x.DataObjectsId,
+                        principalTable: "MyDataObject",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DimensionEmbeddingObjects_EmbeddingObjectsGroups_EmbeddingObjectsGroupId",
-                        column: x => x.EmbeddingObjectsGroupId,
-                        principalTable: "EmbeddingObjectsGroups",
-                        principalColumn: "Id");
+                        name: "FK_MyDataObjectWorkspaceDataObjectsAddPack_WorkspaceDataObjectsAddPacks_WorkspaceDataObjectsAddPacksId",
+                        column: x => x.WorkspaceDataObjectsAddPacksId,
+                        principalTable: "WorkspaceDataObjectsAddPacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1117,6 +1046,155 @@ namespace Infrastructure.Migrations
                         name: "FK_TelegramReplies_TelegramMessages_TelegramMessageId",
                         column: x => x.TelegramMessageId,
                         principalTable: "TelegramMessages",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MyBaseTasks",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Percent = table.Column<float>(type: "real", nullable: false),
+                    IsPercents = table.Column<bool>(type: "bit", nullable: false),
+                    TaskType = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FastClusteringWorkflowId = table.Column<int>(type: "int", nullable: true),
+                    ClusterizationProfileId = table.Column<int>(type: "int", nullable: true),
+                    WorkspaceId = table.Column<int>(type: "int", nullable: true),
+                    AddPackId = table.Column<int>(type: "int", nullable: true),
+                    YoutubeChannelId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    YoutubeVideoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TelegramChannelId = table.Column<long>(type: "bigint", nullable: true),
+                    TelegramMessageId = table.Column<long>(type: "bigint", nullable: true),
+                    ExternalObjectsPackId = table.Column<int>(type: "int", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    IsGroupTask = table.Column<bool>(type: "bit", nullable: true),
+                    SubTasksCount = table.Column<int>(type: "int", nullable: true),
+                    Position = table.Column<int>(type: "int", nullable: true),
+                    GroupTaskId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MyBaseTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_ClusterizationProfiles_ClusterizationProfileId",
+                        column: x => x.ClusterizationProfileId,
+                        principalTable: "ClusterizationProfiles",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_ClusterizationWorkspaces_WorkspaceId",
+                        column: x => x.WorkspaceId,
+                        principalTable: "ClusterizationWorkspaces",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_ExternalObjectsPacks_ExternalObjectsPackId",
+                        column: x => x.ExternalObjectsPackId,
+                        principalTable: "ExternalObjectsPacks",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_FastClusteringWorkflows_FastClusteringWorkflowId",
+                        column: x => x.FastClusteringWorkflowId,
+                        principalTable: "FastClusteringWorkflows",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_MyBaseTasks_GroupTaskId",
+                        column: x => x.GroupTaskId,
+                        principalTable: "MyBaseTasks",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_MyTaskStates_StateId",
+                        column: x => x.StateId,
+                        principalTable: "MyTaskStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_TelegramChannels_TelegramChannelId",
+                        column: x => x.TelegramChannelId,
+                        principalTable: "TelegramChannels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_TelegramMessages_TelegramMessageId",
+                        column: x => x.TelegramMessageId,
+                        principalTable: "TelegramMessages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_WorkspaceDataObjectsAddPacks_AddPackId",
+                        column: x => x.AddPackId,
+                        principalTable: "WorkspaceDataObjectsAddPacks",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_YoutubeChannels_YoutubeChannelId",
+                        column: x => x.YoutubeChannelId,
+                        principalTable: "YoutubeChannels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MyBaseTasks_YoutubeVideos_YoutubeVideoId",
+                        column: x => x.YoutubeVideoId,
+                        principalTable: "YoutubeVideos",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "YoutubeComments",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ETag = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CanReply = table.Column<bool>(type: "bit", nullable: false),
+                    TotalReplyCount = table.Column<short>(type: "smallint", nullable: false),
+                    AuthorChannelUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorChannelId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LikeCount = table.Column<int>(type: "int", nullable: false),
+                    TextDisplay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TextOriginal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAtDateTimeOffset = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAtRaw = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChannelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    VideoId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PublishedAtDateTimeOffset = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    PublishedAtRaw = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LoadedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataObjectId = table.Column<long>(type: "bigint", nullable: true),
+                    LoaderId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YoutubeComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_YoutubeComments_AspNetUsers_LoaderId",
+                        column: x => x.LoaderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_YoutubeComments_MyDataObject_DataObjectId",
+                        column: x => x.DataObjectId,
+                        principalTable: "MyDataObject",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_YoutubeComments_YoutubeChannels_ChannelId",
+                        column: x => x.ChannelId,
+                        principalTable: "YoutubeChannels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_YoutubeComments_YoutubeVideos_VideoId",
+                        column: x => x.VideoId,
+                        principalTable: "YoutubeVideos",
                         principalColumn: "Id");
                 });
 
@@ -1403,11 +1481,38 @@ namespace Infrastructure.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_FastClusteringWorkflowId",
+                table: "AspNetUsers",
+                column: "FastClusteringWorkflowId",
+                unique: true,
+                filter: "[FastClusteringWorkflowId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClusterizationAbstractAlgorithms_Epsilon",
+                table: "ClusterizationAbstractAlgorithms",
+                column: "Epsilon");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClusterizationAbstractAlgorithms_NumberOfComponents",
+                table: "ClusterizationAbstractAlgorithms",
+                column: "NumberOfComponents");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClusterizationAbstractAlgorithms_NumClusters",
+                table: "ClusterizationAbstractAlgorithms",
+                column: "NumClusters");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClusterizationAbstractAlgorithms_SpectralClusteringAlgorithm_NumClusters",
+                table: "ClusterizationAbstractAlgorithms",
+                column: "SpectralClusteringAlgorithm_NumClusters");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClusterizationAbstractAlgorithms_TypeId",
@@ -1468,6 +1573,11 @@ namespace Infrastructure.Migrations
                 name: "IX_ClusterizationWorkspaceMyDataObject_WorkspacesId",
                 table: "ClusterizationWorkspaceMyDataObject",
                 column: "WorkspacesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClusterizationWorkspaces_FastClusteringWorkflowId",
+                table: "ClusterizationWorkspaces",
+                column: "FastClusteringWorkflowId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClusterizationWorkspaces_OwnerId",
@@ -1594,9 +1704,29 @@ namespace Infrastructure.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_AddPackId",
+                table: "MyBaseTasks",
+                column: "AddPackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_ClusterizationProfileId",
+                table: "MyBaseTasks",
+                column: "ClusterizationProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MyBaseTasks_CustomerId",
                 table: "MyBaseTasks",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_ExternalObjectsPackId",
+                table: "MyBaseTasks",
+                column: "ExternalObjectsPackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_FastClusteringWorkflowId",
+                table: "MyBaseTasks",
+                column: "FastClusteringWorkflowId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MyBaseTasks_GroupTaskId",
@@ -1609,14 +1739,39 @@ namespace Infrastructure.Migrations
                 column: "Position");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MyBaseTasks_StartTime_EntityType_TaskType",
+                name: "IX_MyBaseTasks_StartTime_TaskType",
                 table: "MyBaseTasks",
-                columns: new[] { "StartTime", "EntityType", "TaskType" });
+                columns: new[] { "StartTime", "TaskType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MyBaseTasks_StateId",
                 table: "MyBaseTasks",
                 column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_TelegramChannelId",
+                table: "MyBaseTasks",
+                column: "TelegramChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_TelegramMessageId",
+                table: "MyBaseTasks",
+                column: "TelegramMessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_WorkspaceId",
+                table: "MyBaseTasks",
+                column: "WorkspaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_YoutubeChannelId",
+                table: "MyBaseTasks",
+                column: "YoutubeChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyBaseTasks_YoutubeVideoId",
+                table: "MyBaseTasks",
+                column: "YoutubeVideoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MyDataObject_TypeId",
@@ -1932,6 +2087,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "DimensionTypes");
+
+            migrationBuilder.DropTable(
+                name: "FastClusteringWorkflows");
         }
     }
 }

@@ -1810,6 +1810,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("AddPackId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClusterizationProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -1825,11 +1831,11 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EntityId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ExternalObjectsPackId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("EntityType")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("FastClusteringWorkflowId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsPercents")
                         .HasColumnType("bit");
@@ -1848,17 +1854,50 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<long?>("TelegramChannelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TelegramMessageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkspaceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("YoutubeChannelId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("YoutubeVideoId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddPackId");
+
+                    b.HasIndex("ClusterizationProfileId");
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("ExternalObjectsPackId");
+
+                    b.HasIndex("FastClusteringWorkflowId");
+
                     b.HasIndex("StateId");
 
-                    b.HasIndex("StartTime", "EntityType", "TaskType");
+                    b.HasIndex("TelegramChannelId");
+
+                    b.HasIndex("TelegramMessageId");
+
+                    b.HasIndex("WorkspaceId");
+
+                    b.HasIndex("YoutubeChannelId");
+
+                    b.HasIndex("YoutubeVideoId");
+
+                    b.HasIndex("StartTime", "TaskType");
 
                     b.ToTable("MyBaseTasks");
 
@@ -2738,11 +2777,27 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Tasks.MyBaseTask", b =>
                 {
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", "AddPack")
+                        .WithMany("Tasks")
+                        .HasForeignKey("AddPackId");
+
+                    b.HasOne("Domain.Entities.Clusterization.Profiles.ClusterizationProfile", "ClusterizationProfile")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ClusterizationProfileId");
+
                     b.HasOne("Domain.Entities.Customers.Customer", "Customer")
                         .WithMany("Tasks")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", "ExternalObjectsPack")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ExternalObjectsPackId");
+
+                    b.HasOne("Domain.Entities.Clusterization.FastClustering.FastClusteringWorkflow", "FastClusteringWorkflow")
+                        .WithMany("Tasks")
+                        .HasForeignKey("FastClusteringWorkflowId");
 
                     b.HasOne("Domain.Entities.Tasks.MyTaskState", "State")
                         .WithMany("Tasks")
@@ -2750,9 +2805,47 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramChannel", "TelegramChannel")
+                        .WithMany("Tasks")
+                        .HasForeignKey("TelegramChannelId");
+
+                    b.HasOne("Domain.Entities.DataSources.Telegram.TelegramMessage", "TelegramMessage")
+                        .WithMany("Tasks")
+                        .HasForeignKey("TelegramMessageId");
+
+                    b.HasOne("Domain.Entities.Clusterization.Workspaces.ClusterizationWorkspace", "Workspace")
+                        .WithMany("Tasks")
+                        .HasForeignKey("WorkspaceId");
+
+                    b.HasOne("Domain.Entities.DataSources.Youtube.YoutubeChannel", "YoutubeChannel")
+                        .WithMany("Tasks")
+                        .HasForeignKey("YoutubeChannelId");
+
+                    b.HasOne("Domain.Entities.DataSources.Youtube.YoutubeVideo", "YoutubeVideo")
+                        .WithMany("Tasks")
+                        .HasForeignKey("YoutubeVideoId");
+
+                    b.Navigation("AddPack");
+
+                    b.Navigation("ClusterizationProfile");
+
                     b.Navigation("Customer");
 
+                    b.Navigation("ExternalObjectsPack");
+
+                    b.Navigation("FastClusteringWorkflow");
+
                     b.Navigation("State");
+
+                    b.Navigation("TelegramChannel");
+
+                    b.Navigation("TelegramMessage");
+
+                    b.Navigation("Workspace");
+
+                    b.Navigation("YoutubeChannel");
+
+                    b.Navigation("YoutubeVideo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2871,6 +2964,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Owner")
                         .IsRequired();
 
+                    b.Navigation("Tasks");
+
                     b.Navigation("Workspaces");
                 });
 
@@ -2880,6 +2975,8 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("EmbeddingLoadingState")
                         .IsRequired();
+
+                    b.Navigation("Tasks");
 
                     b.Navigation("Tiles");
 
@@ -2892,12 +2989,16 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Profiles");
 
+                    b.Navigation("Tasks");
+
                     b.Navigation("WorkspaceDataObjectsAddPacks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Workspaces.WorkspaceDataObjectsAddPack", b =>
                 {
                     b.Navigation("EmbeddingLoadingStates");
+
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Customers.Customer", b =>
@@ -2954,10 +3055,14 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.DataSources.ExternalData.ExternalObjectsPack", b =>
                 {
                     b.Navigation("ExternalObjects");
+
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramChannel", b =>
                 {
+                    b.Navigation("Tasks");
+
                     b.Navigation("TelegramMessages");
 
                     b.Navigation("TelegramReplies");
@@ -2966,6 +3071,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.DataSources.Telegram.TelegramMessage", b =>
                 {
                     b.Navigation("Reactions");
+
+                    b.Navigation("Tasks");
 
                     b.Navigation("TelegramReplies");
                 });
@@ -2979,12 +3086,16 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("Tasks");
+
                     b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataSources.Youtube.YoutubeVideo", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("Domain.Entities.DimensionalityReductionEntities.DimensionalityReductionTechnique", b =>

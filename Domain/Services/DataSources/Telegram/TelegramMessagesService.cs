@@ -77,8 +77,7 @@ namespace Domain.Services.DataSources.Telegram
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = options.ParentId + "",
-                EntityType = TaskEntityTypes.TelegramChannel,
+                TelegramChannelId=options.ParentId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingMessagesFromTelegram],
             };

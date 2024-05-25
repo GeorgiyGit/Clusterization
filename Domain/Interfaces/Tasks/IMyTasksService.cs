@@ -14,6 +14,7 @@ namespace Domain.Interfaces.Tasks
         public Task ChangeTaskState(string id, string newStateId);
         public Task ChangeParentTaskState(string id, string newStateId);
         public Task ChangeTaskDescription(string id, string description);
+        public Task ChangeTaskReferences(string id, ChangeTaskReferencesRequest request);
 
         public Task<string> CreateMainTask(CreateMainTaskOptions options);
         public Task<string> CreateMainTaskWithUserId(CreateMainTaskOptions options);

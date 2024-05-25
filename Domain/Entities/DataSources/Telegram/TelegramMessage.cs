@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Customers;
 using Domain.Entities.DataObjects;
+using Domain.Entities.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,7 @@ namespace Domain.Entities.DataSources.Telegram
 
         public MyDataObject? DataObject { get; set; }
         public long? DataObjectId { get; set; }
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

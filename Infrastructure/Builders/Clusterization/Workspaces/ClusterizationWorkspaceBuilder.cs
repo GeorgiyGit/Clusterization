@@ -41,6 +41,11 @@ namespace Infrastructure.Builders.Clusterization.Workspaces
                    .WithMany(e => e.Workspaces)
                    .HasForeignKey(e => e.FastClusteringWorkflowId)
                    .IsRequired(false);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.Workspace)
+                   .HasForeignKey(e => e.WorkspaceId)
+                   .IsRequired(false);
         }
     }
 }

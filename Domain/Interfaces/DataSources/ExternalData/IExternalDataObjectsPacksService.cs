@@ -16,7 +16,7 @@ namespace Domain.Interfaces.DataSources.ExternalData
         public Task AddExternalDataObjectsToWorkspaceBackgroundJob(AddExternalDataObjectsPacksToWorkspaceRequest request, string userId, string taskId);
 
         public Task LoadExternalDataAndAddToWorkspace(AddExternalDataRequest request);
-        public Task LoadExternalDataAndAddToWorkspaceBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string groupTaskId, int subTasksPos);
+        public Task LoadExternalDataAndAddToWorkspaceBackgroundJob(AddExternalDataWithoutFileRequest request, string userId, string groupTaskId, List<string> subTaskIds);
 
 
         public Task UpdatePack(UpdateExternalDataPackRequest request);

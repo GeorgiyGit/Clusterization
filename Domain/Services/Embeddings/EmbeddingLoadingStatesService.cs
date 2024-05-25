@@ -2,20 +2,9 @@
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
-using Domain.Exceptions;
 using Domain.Interfaces.EmbeddingModels;
 using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Other;
-using Domain.Resources.Localization.Errors;
-using Domain.Resources.Types;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services.Embeddings
 {

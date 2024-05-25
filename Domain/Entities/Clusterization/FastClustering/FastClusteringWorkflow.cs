@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.Customers;
+using Domain.Entities.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Domain.Entities.Clusterization.FastClustering
         public string OwnerId { get; set; }
 
         public ICollection<ClusterizationWorkspace> Workspaces { get; set; } = new HashSet<ClusterizationWorkspace>();
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

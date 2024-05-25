@@ -25,6 +25,8 @@ using Domain.DTOs;
 using Domain.Entities.Embeddings;
 using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
+using AutoMapper;
+using TL;
 
 namespace Domain.Services.Embeddings.EmbeddingsLoading
 {
@@ -86,23 +88,24 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
+            var profile = await _profilesRepository.FindAsync(profileId);
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = profileId + "",
-                EntityType = TaskEntityTypes.ClusterizationProfile,
+                ClusterizationProfileId=profileId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingAllEmbeddingsInWorkspace],
                 IsGroupTask = true
             };
+            if (profile != null) createTaskOptions.WorkspaceId = profile.WorkspaceId;
+
             var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId,1));
-        }
-        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId, int subTasksPos)
-        {
-            var stateId = await _tasksService.GetTaskStateId(groupTaskId);
-            if (stateId != TaskStates.Wait) return;
+            var subTaskIds = await CreateSubTasks(profileId, userId, taskId, 1);
 
+            _backgroundJobClient.Enqueue(() => LoadEmbeddingsByProfileBackgroundJob(profileId, userId, taskId, subTaskIds));
+        }
+        public async Task LoadEmbeddingsByProfileBackgroundJob(int profileId, string userId, string groupTaskId, List<string> subTaskIds)
+        {
             await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
 
             var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
@@ -129,28 +132,13 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             bool flag = false;
             var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted).ToList();
 
-            List<string> taskIds = new List<string>(packs.Count());
-            for(int i = 0; i < packs.Count(); i++)
-            {
-                var createTaskOptions = new CreateSubTaskOptions()
-                {
-                    EntityId = packs[i].Id + "",
-                    EntityType = TaskEntityTypes.ClusterizationAddDataPacks,
-                    CustomerId = userId,
-                    Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
-                    Position = subTasksPos+ i,
-                    GroupTaskId = groupTaskId
-                };
-                var packTaskId = await _tasksService.CreateSubTaskWithUserId(createTaskOptions);
-                taskIds.Add(packTaskId);
-            }
             for (int i = 0; i < packs.Count(); i++)
             {
                 var pack = packs[i];
 
-                await LoadEmbeddingsByWorkspaceDataPackBackgroundJob(pack.Id, userId, taskIds[i], profile.EmbeddingModelId);
+                await LoadEmbeddingsByWorkspaceDataPackBackgroundJob(pack.Id, userId, subTaskIds[i], profile.EmbeddingModelId);
 
-                var taskState = await _tasksService.GetTaskStateId(taskIds[i]);
+                var taskState = await _tasksService.GetTaskStateId(subTaskIds[i]);
 
                 if (taskState == TaskStates.Error) flag = true;
             }
@@ -171,16 +159,47 @@ namespace Domain.Services.Embeddings.EmbeddingsLoading
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], System.Net.HttpStatusCode.BadRequest);
 
+            var pack = await _dataPacksRepository.FindAsync(packId);
+
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = packId + "",
-                EntityType = TaskEntityTypes.ClusterizationAddDataPacks,
+                AddPackId = packId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
             };
+            if (pack != null) createTaskOptions.WorkspaceId = pack.WorkspaceId;
+
             var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
             _backgroundJobClient.Enqueue(() => LoadEmbeddingsByWorkspaceDataPackBackgroundJob(packId, userId, taskId, embeddingModelId));
+        }
+
+        public async Task<List<string>> CreateSubTasks(int profileId, string userId, string groupTaskId, int subTasksPos)
+        {
+            var profile = (await _profilesRepository.GetAsync(c => c.Id == profileId, includeProperties: $"{nameof(ClusterizationProfile.EmbeddingLoadingState)}")).FirstOrDefault();
+            if (profile == null) return null;
+
+            var workspace = (await _workspacesRepository.GetAsync(c => c.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.WorkspaceDataObjectsAddPacks)}")).FirstOrDefault();
+            if (workspace == null) return null;
+
+            var packs = workspace.WorkspaceDataObjectsAddPacks.Where(e => !e.IsDeleted).ToList();
+
+            List<string> taskIds = new List<string>(packs.Count());
+            for (int i = 0; i < packs.Count(); i++)
+            {
+                var createTaskOptions = new CreateSubTaskOptions()
+                {
+                    AddPackId = packs[i].Id,
+                    WorkspaceId = workspace.Id,
+                    CustomerId = userId,
+                    Title = _tasksLocalizer[TaskTitlesPatterns.LoadingEmbeddingsPack],
+                    Position = subTasksPos + i,
+                    GroupTaskId = groupTaskId
+                };
+                var packTaskId = await _tasksService.CreateSubTaskWithUserId(createTaskOptions);
+                taskIds.Add(packTaskId);
+            }
+            return taskIds;
         }
 
         public async Task LoadEmbeddingsByWorkspaceDataPackBackgroundJob(int packId, string userId, string taskId, string embeddingModelId)

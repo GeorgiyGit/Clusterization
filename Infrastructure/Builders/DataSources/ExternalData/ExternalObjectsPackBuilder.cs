@@ -20,6 +20,11 @@ namespace Infrastructure.Builders.DataSources.ExternalData
             builder.HasOne(e => e.Owner)
                    .WithMany(e => e.LoadedExternalObjectsPacks)
                    .HasForeignKey(e => e.OwnerId);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.ExternalObjectsPack)
+                   .HasForeignKey(e => e.ExternalObjectsPackId)
+                   .IsRequired(false);
         }
     }
 }

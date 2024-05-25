@@ -6,6 +6,7 @@ using Domain.Entities.DimensionalityReductionEntities;
 using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
+using Domain.Entities.Tasks;
 
 namespace Domain.Entities.Clusterization.Profiles
 {
@@ -49,5 +50,7 @@ namespace Domain.Entities.Clusterization.Profiles
 
         public EmbeddingLoadingState EmbeddingLoadingState { get; set; }
         public int EmbeddingLoadingStateId { get; set; }
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

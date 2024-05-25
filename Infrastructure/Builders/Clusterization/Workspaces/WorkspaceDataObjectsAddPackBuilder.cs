@@ -29,6 +29,11 @@ namespace Infrastructure.Builders.Clusterization.Workspaces
                    .WithOne(e => e.AddPack)
                    .HasForeignKey(e => e.AddPackId)
                    .IsRequired(false);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.AddPack)
+                   .HasForeignKey(e => e.AddPackId)
+                   .IsRequired(false);
         }
     }
 }

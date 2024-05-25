@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Customers;
 using Domain.Entities.Monitorings;
+using Domain.Entities.Tasks;
 
 namespace Domain.Entities.DataSources.ExternalData
 {
@@ -18,5 +19,7 @@ namespace Domain.Entities.DataSources.ExternalData
     
         public Customer Owner { get; set; }
         public string OwnerId { get; set; }
+
+        public ICollection<MyBaseTask> Tasks { get; set; } = new HashSet<MyBaseTask>();
     }
 }

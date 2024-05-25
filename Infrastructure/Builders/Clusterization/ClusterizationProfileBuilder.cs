@@ -54,6 +54,11 @@ namespace Infrastructure.Builders.Clusterization
             builder.HasOne(e => e.EmbeddingLoadingState)
                    .WithOne(e => e.Profile)
                    .HasForeignKey<ClusterizationProfile>(e => e.EmbeddingLoadingStateId);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.ClusterizationProfile)
+                   .HasForeignKey(e => e.ClusterizationProfileId)
+                   .IsRequired(false);
         }
     }
 }

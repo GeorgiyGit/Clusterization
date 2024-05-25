@@ -89,8 +89,7 @@ namespace Domain.Services.DataSources.Telegram
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId=options.ParentId+"",
-                EntityType=TaskEntityTypes.TelegramMessage,
+                TelegramMessageId=options.ParentId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingRepliesFromTelegram],
             };
@@ -265,8 +264,7 @@ namespace Domain.Services.DataSources.Telegram
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = options.ChannelId + "",
-                EntityType = TaskEntityTypes.TelegramChannel,
+                TelegramChannelId=options.ChannelId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingRepliesFromTelegram],
             };

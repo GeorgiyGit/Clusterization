@@ -22,6 +22,11 @@ namespace Infrastructure.Builders.Clusterization.FastClustering
                    .WithOne(e => e.FastClusteringWorkflow)
                    .HasForeignKey(e => e.FastClusteringWorkflowId)
                    .IsRequired(false);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.FastClusteringWorkflow)
+                   .HasForeignKey(e => e.FastClusteringWorkflowId)
+                   .IsRequired(false);
         }
     }
 }

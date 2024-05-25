@@ -84,8 +84,7 @@ namespace Domain.Services.DataSources.Youtube
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = options.ParentId + "",
-                EntityType = TaskEntityTypes.YoutubeChannel,
+                YoutubeChannelId=options.ParentId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.LoadingVideosFromYoutube],
             };

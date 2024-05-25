@@ -38,6 +38,11 @@ namespace Infrastructure.Builders.DataSources.Telegram
                    .IsRequired(false);
 
             builder.HasIndex(e => new { e.Date, e.TelegramRepliesCount, e.Views, e.TelegramID });
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.TelegramMessage)
+                   .HasForeignKey(e => e.TelegramMessageId)
+                   .IsRequired(false);
         }
     }
 }

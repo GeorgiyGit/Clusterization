@@ -76,8 +76,8 @@ namespace Domain.Services.DataSources.Telegram
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = request.ChannelId + "",
-                EntityType = TaskEntityTypes.TelegramChannel,
+                TelegramChannelId=request.ChannelId,
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingTelegramMessagesToWorkspace],
             };

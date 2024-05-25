@@ -21,7 +21,7 @@ namespace Infrastructure.Builders.Tasks
                    .WithMany(e => e.Tasks)
                    .HasForeignKey(e => e.CustomerId);
 
-            builder.HasIndex(e => new { e.StartTime, e.EntityType, e.TaskType });
+            builder.HasIndex(e => new { e.StartTime, e.TaskType });
         }
     }
 }

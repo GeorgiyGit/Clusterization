@@ -117,20 +117,54 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
+
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = profileId + "",
-                EntityType = TaskEntityTypes.ClusterizationProfile,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.ClusterizationDBSCAN],
                 IsGroupTask = true,
-                SubTasksCount = 3
+                ClusterizationProfileId = profileId
             };
-            var taskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
+            var groupTaskId = await _tasksService.CreateMainTaskWithUserId(createTaskOptions);
 
-            _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, taskId, userId, 1));
+            #region tasksCreating
+            var taskOptions1 = new CreateSubTaskOptions()
+            {
+                Position = 1,
+                GroupTaskId = groupTaskId,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction],
+                IsPercents = false,
+                ClusterizationProfileId = profileId
+            };
+            var subTaskId1 = await _tasksService.CreateSubTaskWithUserId(taskOptions1);
+
+            var taskOptions2 = new CreateSubTaskOptions()
+            {
+                Position = 2,
+                GroupTaskId = groupTaskId,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.Clustering],
+                IsPercents = false,
+                ClusterizationProfileId = profileId
+            };
+            var subTaskId2 = await _tasksService.CreateSubTaskWithUserId(taskOptions2);
+
+            var taskOptions3 = new CreateSubTaskOptions()
+            {
+                Position = 3,
+                GroupTaskId = groupTaskId,
+                CustomerId = userId,
+                Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating],
+                IsPercents = false,
+                ClusterizationProfileId = profileId
+            };
+            var subTaskId3 = await _tasksService.CreateSubTaskWithUserId(taskOptions3);
+            #endregion
+
+            _backgroundJobClient.Enqueue(() => ClusterDataBackgroundJob(profileId, groupTaskId, userId, new List<string>() { subTaskId1, subTaskId2, subTaskId3 }));
         }
-        public async Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, int startSubTasksPos)
+        public async Task ClusterDataBackgroundJob(int profileId, string groupTaskId, string userId, List<string> subTaskIds)
         {
             await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Process);
 
@@ -149,44 +183,13 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 return;
             }
 
-            #region tasksCreating
-            var taskOptions1 = new CreateSubTaskOptions()
-            {
-                Position = startSubTasksPos,
-                GroupTaskId = groupTaskId,
-                CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.DimensionReduction],
-                IsPercents = false
-            };
-            startSubTasksPos++;
-            var subTaskId1 = await _tasksService.CreateSubTaskWithUserId(taskOptions1);
-
-            var taskOptions2 = new CreateSubTaskOptions()
-            {
-                Position = startSubTasksPos,
-                GroupTaskId = groupTaskId,
-                CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.Clustering],
-                IsPercents = false
-            };
-            startSubTasksPos++;
-            var subTaskId2 = await _tasksService.CreateSubTaskWithUserId(taskOptions2);
-
-            var taskOptions3 = new CreateSubTaskOptions()
-            {
-                Position = startSubTasksPos,
-                GroupTaskId = groupTaskId,
-                CustomerId = userId,
-                Title = _tasksLocalizer[TaskTitlesPatterns.TilesCreating],
-                IsPercents = false
-            };
-            startSubTasksPos++;
-            var subTaskId3 = await _tasksService.CreateSubTaskWithUserId(taskOptions3);
-            #endregion
-
             var workspace = (await _workspaceRepository.GetAsync(e => e.Id == profile.WorkspaceId, includeProperties: $"{nameof(ClusterizationWorkspace.DataObjects)}")).FirstOrDefault();
             try
             {
+                var subTaskId1 = subTaskIds[0];
+                var subTaskId2 = subTaskIds[1];
+                var subTaskId3 = subTaskIds[2];
+
                 profile.IsInCalculation = true;
                 workspace.IsProfilesInCalculation = true;
                 await _workspaceRepository.SaveChangesAsync();

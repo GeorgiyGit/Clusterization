@@ -4,25 +4,13 @@ using Domain.DTOs.ClusterizationDTOs.ClusterDTOs.Responses;
 using Domain.Entities.Clusterization;
 using Domain.Entities.Clusterization.Displaying;
 using Domain.Entities.Clusterization.Profiles;
-using Domain.Entities.DataObjects;
 using Domain.Exceptions;
 using Domain.Interfaces.Clusterization;
-using Domain.Interfaces.Clusterization.Algorithms;
 using Domain.Interfaces.Customers;
-using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Other;
-using Domain.Interfaces.Quotas;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types.Clusterization;
-using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services.Clusterization
 {

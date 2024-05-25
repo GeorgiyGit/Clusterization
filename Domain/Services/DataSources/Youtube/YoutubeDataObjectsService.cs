@@ -69,8 +69,8 @@ namespace Domain.Services.DataSources.Youtube
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
-                EntityId = request.ChannelId + "",
-                EntityType = TaskEntityTypes.YoutubeChannel,
+                YoutubeChannelId=request.ChannelId,
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace],
             };
@@ -194,6 +194,7 @@ namespace Domain.Services.DataSources.Youtube
 
             var createTaskOptions = new CreateMainTaskOptions()
             {
+                WorkspaceId=request.WorkspaceId,
                 CustomerId = userId,
                 Title = _tasksLocalizer[TaskTitlesPatterns.AddingYoutubeCommentsToWorkspace],
             };

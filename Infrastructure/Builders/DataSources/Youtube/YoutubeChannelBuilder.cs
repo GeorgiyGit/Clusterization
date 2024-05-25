@@ -1,4 +1,5 @@
-﻿using Domain.Entities.DataSources.Youtube;
+﻿using Accord.Math;
+using Domain.Entities.DataSources.Youtube;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,11 @@ namespace Infrastructure.Builders.DataSources.Youtube
             builder.HasOne(e => e.Loader)
                    .WithMany(e => e.LoadedYoutubeChannels)
                    .HasForeignKey(e => e.LoaderId);
+
+            builder.HasMany(e => e.Tasks)
+                   .WithOne(e => e.YoutubeChannel)
+                   .HasForeignKey(e => e.YoutubeChannelId)
+                   .IsRequired(false);
         }
     }
 }
