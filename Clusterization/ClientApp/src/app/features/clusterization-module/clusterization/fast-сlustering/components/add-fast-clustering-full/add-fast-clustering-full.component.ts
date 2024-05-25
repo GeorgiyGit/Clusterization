@@ -71,6 +71,9 @@ export class AddFastClusteringFullComponent implements AfterViewInit {
       texts:formModel.text.split('\n')
     };
 
+
+    console.log(model);
+    
     this.isLoading = true;
     this.fastClusteringService.fullFastClustering(model).subscribe(res => {
       this.toaster.success($localize`Завдання створено`);

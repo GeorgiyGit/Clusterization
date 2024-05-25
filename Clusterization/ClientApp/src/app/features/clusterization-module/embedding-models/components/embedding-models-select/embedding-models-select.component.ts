@@ -30,10 +30,14 @@ export class EmbeddingModelsSelectComponent implements OnInit {
 
         this.options.push(nullOption);
 
-        this.sendEvent.emit(undefined);
+        if(this.initialModel==null){
+          this.sendEvent.emit(undefined);
+        }
       }
       else { 
-        this.sendEvent.emit(res[0].id);
+        if(this.initialModel==null){
+          this.sendEvent.emit(res[0].id);
+        }
       }
       
       res.forEach(type => {

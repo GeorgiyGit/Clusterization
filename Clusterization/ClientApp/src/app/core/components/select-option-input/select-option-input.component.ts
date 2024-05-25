@@ -17,6 +17,8 @@ export class SelectOptionInputComponent implements OnInit, OnChanges {
   @Input() isMoreActive: boolean = false;
   @Input() isMoreLoading: boolean = false;
 
+  @Input() isGetFirst:boolean;
+
   @Output() sendResultEvent = new EventEmitter<IOptionForSelectInput>();
   @Output() loadMoreEvent = new EventEmitter();
 
@@ -24,14 +26,20 @@ export class SelectOptionInputComponent implements OnInit, OnChanges {
     if (changes['options'] && !changes['options'].firstChange) {
       if (this.selectedOption == null) {
         this.selectedOption = this.options[0];
-        this.sendResultEvent.emit(this.selectedOption);
+
+        if(this.isGetFirst){
+          this.sendResultEvent.emit(this.selectedOption);
+        }
       }
     }
   }
   ngOnInit(): void {
     if (this.selectedOption == null) {
       this.selectedOption = this.options[0];
-      this.sendResultEvent.emit(this.selectedOption);
+
+      if(this.isGetFirst){
+        this.sendResultEvent.emit(this.selectedOption);
+      }
     }
   }
 

@@ -31,10 +31,14 @@ export class DRTechniquesSelectComponent implements OnInit {
 
         this.options.push(nullOption);
 
-        this.sendEvent.emit(undefined);
+        if(this.initialTechnique==null){
+          this.sendEvent.emit(undefined);
+        }
       }
-      else { 
-        this.sendEvent.emit(res[0].id);
+      else {
+        if(this.initialTechnique==null){
+          this.sendEvent.emit(res[0].id);
+        }
       }
       
       res.forEach(type => {
