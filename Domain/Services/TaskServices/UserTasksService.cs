@@ -9,7 +9,6 @@ using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
-using Domain.Resources.Types.Tasks;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using System.Net;

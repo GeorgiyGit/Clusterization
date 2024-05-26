@@ -1,5 +1,6 @@
 ﻿using Domain.Entitie.Clusterization.Algorithms.Non_hierarchical;
 using Domain.Entities.Clusterization.Algorithms;
+using Domain.Resources.Types.Clusterization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,6 +16,14 @@ namespace Infrastructure.Builders.Clusterization.Algorithms.Non_hierarchical
         public void Configure(EntityTypeBuilder<DBSCANAlgorithm> builder)
         {
             builder.HasIndex(e => e.Epsilon);
+
+            builder.HasData(new DBSCANAlgorithm()
+            {
+                Id = 1,
+                Epsilon = 50,
+                MinimumPointsPerCluster = 2,
+                TypeId = ClusterizationAlgorithmTypes.DBSCAN
+            });
         }
     }
 }

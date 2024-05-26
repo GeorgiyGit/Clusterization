@@ -1,5 +1,5 @@
 <section>
-    <div class="info-cont">
+    <div class="info-cont" *ngIf="personalInfo!=null">
         <div class="block">
             <p i18n>Email</p>
             <p>{{ personalInfo.email }}</p>
@@ -29,5 +29,8 @@
                 Надіслати лист підтвердження
             </button>
         </div>
+    </div>
+    <div class="centered">
+        <app-loader *ngIf="personalInfo==null"></app-loader>
     </div>
 </section>

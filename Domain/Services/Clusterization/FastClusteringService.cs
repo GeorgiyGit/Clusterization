@@ -535,7 +535,8 @@ namespace Domain.Services.Clusterization
             await _tasksService.ChangeTaskState(taskId1, TaskStates.Completed);
             await _tasksService.ChangeTaskReferences(taskId1, new ChangeTaskReferencesRequest()
             {
-                WorkspaceId = workspaceId
+                WorkspaceId = workspaceId,
+                FastClusteringWorkflowId = workflow.Id
             });
             #endregion
 

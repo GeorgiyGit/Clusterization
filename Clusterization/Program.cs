@@ -166,6 +166,7 @@ internal class Program
         builder.Services.AddScoped<IMyTasksService, MyTasksService>();
         builder.Services.AddScoped<IUserTasksService, UserTasksService>();
         builder.Services.AddScoped<IModeratorTasksService, ModeratorTasksService>();
+        builder.Services.AddScoped<IEntitiesTasksService, EntitiesTasksService>();
 
         builder.Services.AddScoped<IQuotasPacksService, QuotasPacksService>();
         builder.Services.AddScoped<ICustomerQuotasService, CustomerQuotasService>();

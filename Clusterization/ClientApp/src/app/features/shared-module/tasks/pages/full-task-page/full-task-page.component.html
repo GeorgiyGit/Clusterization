@@ -18,5 +18,16 @@
         </div>
         <p class="error" *ngIf="fullTask!=null && fullTask.description!=null" i18n-matTooltip matTooltip="Помилка">
             {{fullTask.description}}</p>
+
+        <h2 i18n>Прив'язані сутності</h2>
+        <div class="references-cont" *ngIf="fullTask!=null">
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.clusterizationProfileId!=null" i18n (click)="navigateToProfile()">Профіль кластеризації</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.workspaceId!=null" i18n (click)="navigateToWorkspace()">Робочий простір</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.youtubeChannelId!=null" i18n (click)="navigateToYoutubeChannel()">Youtube канал</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.youtubeVideoId!=null" i18n (click)="navigateToYoutubeVideo()">Youtube відео</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.telegramChannelId!=null" i18n (click)="navigateToTelegramChannel()">Telegram канал</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.telegramMessageId!=null" i18n (click)="navigateToTelegramMessage()">Telegram повідомлення</a>
+            <a class="reference" matTooltip="Відвідати" *ngIf="fullTask.externalObjectsPackId!=null" i18n (click)="navigateToExternalObjectsPack()">Пакет зовнішніх даних</a>
+        </div>
     </div>
 </section>

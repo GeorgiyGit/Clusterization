@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClusterizationDbContext))]
-    [Migration("20240525205441_initial")]
+    [Migration("20240525210741_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -2111,6 +2111,15 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Epsilon");
 
                     b.HasDiscriminator().HasValue("DBSCANAlgorithm");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            TypeId = "DBSCAN",
+                            Epsilon = 50.0,
+                            MinimumPointsPerCluster = 2
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Clusterization.Algorithms.Non_hierarchical.GaussianMixtureAlgorithm", b =>

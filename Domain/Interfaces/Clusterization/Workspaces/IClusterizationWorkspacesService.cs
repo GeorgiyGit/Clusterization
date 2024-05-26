@@ -1,4 +1,5 @@
-﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
+﻿using Domain.DTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,9 @@ namespace Domain.Interfaces.Clusterization.Workspaces
     {
         public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request);
         public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCustomerCollection(GetWorkspacesRequest request);
+        public Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetFastClusteringCollection(PageParameters pageParameters);
+
+
         public Task<ClusterizationWorkspaceDTO> GetFullById(int id);
         public Task<SimpleClusterizationWorkspaceDTO> GetSimpleById(int id);
 

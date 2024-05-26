@@ -1414,6 +1414,11 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ClusterizationAbstractAlgorithms",
+                columns: new[] { "Id", "Discriminator", "Epsilon", "MinimumPointsPerCluster", "TypeId" },
+                values: new object[] { 1, "DBSCANAlgorithm", 50.0, 2, "DBSCAN" });
+
+            migrationBuilder.InsertData(
                 table: "EmbeddingModels",
                 columns: new[] { "Id", "Description", "DimensionTypeId", "MaxInputCount", "Name", "QuotasPrice" },
                 values: new object[,]

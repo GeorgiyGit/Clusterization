@@ -61,7 +61,7 @@ namespace Domain.Resources.Localization.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding external data to workspace.
+        ///   Looks up a localized string similar to AddingExternalDataToWorkspace.
         /// </summary>
         internal static string AddingExternalDataToWorkspace {
             get {

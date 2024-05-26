@@ -9,6 +9,12 @@ section {
         h1{
             margin-bottom: 20px;
         }
+        h2{
+            font-size: 1em;
+            color: $first-color-1;
+            text-align: center;
+            margin-top: 20px;
+        }
 
         .time-cont{
             display: flex;
@@ -25,6 +31,25 @@ section {
         .error{
             color: $warn-1;
             text-align: center;
+        }
+        .references-cont{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            .reference{
+                text-decoration: none;
+                color: $first-color-3;
+                background-color: $second-color-1;
+                padding: 10px;
+                border-radius: 8px;
+
+                cursor: pointer;
+
+                &:hover{
+                    color: $first-color-1;
+                }
+            }
         }
     }
 }

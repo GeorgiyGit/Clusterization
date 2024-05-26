@@ -14,12 +14,14 @@ using Domain.Entities.Clusterization.Workspaces;
 using Domain.Interfaces.Clusterization.Workspaces;
 using Domain.Interfaces.Other;
 using Domain.Resources.Types.Clusterization;
+using Domain.DTOs;
 
 namespace Domain.Services.Clusterization.Workspaces
 {
     public class ClusterizationWorkspacesService : IClusterizationWorkspacesService
     {
         private readonly IRepository<ClusterizationWorkspace> _repository;
+        private readonly IRepository<ClusterizationWorkspace> _workspacesRepository;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -27,12 +29,14 @@ namespace Domain.Services.Clusterization.Workspaces
         private readonly IUserService _userService;
         private readonly IQuotasControllerService _quotasControllerService;
         public ClusterizationWorkspacesService(IRepository<ClusterizationWorkspace> repository,
-                                               IStringLocalizer<ErrorMessages> localizer,
-                                               IMapper mapper,
-                                               IUserService userService,
-                                               IQuotasControllerService quotasControllerService)
+            IRepository<ClusterizationWorkspace> workspacesRepository,
+            IStringLocalizer<ErrorMessages> localizer,
+            IMapper mapper,
+            IUserService userService,
+            IQuotasControllerService quotasControllerService)
         {
             _repository = repository;
+            _workspacesRepository = workspacesRepository;
             _localizer = localizer;
             _mapper = mapper;
             _userService = userService;
@@ -150,7 +154,7 @@ namespace Domain.Services.Clusterization.Workspaces
 
         public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetCollection(GetWorkspacesRequest request)
         {
-            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => true;
+            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.FastClusteringWorkflowId == null;
 
 
             if (request.FilterStr != null && request.FilterStr != "")
@@ -193,7 +197,7 @@ namespace Domain.Services.Clusterization.Workspaces
             var userId = await _userService.GetCurrentUserId();
             if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
 
-            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.OwnerId == userId;
+            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.OwnerId == userId && e.FastClusteringWorkflowId == null;
 
 
             if (request.FilterStr != null && request.FilterStr != "")
@@ -225,6 +229,18 @@ namespace Domain.Services.Clusterization.Workspaces
             }
 
             var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}", pageParameters: request.PageParameters));
+
+            return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
+        }
+
+        public async Task<ICollection<SimpleClusterizationWorkspaceDTO>> GetFastClusteringCollection(PageParameters pageParameters)
+        {
+            var userId = await _userService.GetCurrentUserId();
+            if (userId == null) throw new HttpException(_localizer[ErrorMessagePatterns.UserNotAuthorized], HttpStatusCode.BadRequest);
+
+            Expression<Func<ClusterizationWorkspace, bool>> filterCondition = e => e.OwnerId == userId && e.FastClusteringWorkflowId != null;
+
+            var workspaces = (await _repository.GetAsync(filterCondition, includeProperties: $"{nameof(ClusterizationWorkspace.Type)},{nameof(ClusterizationWorkspace.Owner)}", pageParameters: pageParameters));
 
             return _mapper.Map<ICollection<SimpleClusterizationWorkspaceDTO>>(workspaces);
         }

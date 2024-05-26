@@ -1,4 +1,5 @@
-﻿using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
+﻿using Domain.DTOs;
+using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.ModelDTOs;
 using Domain.DTOs.ClusterizationDTOs.WorkspaceDTOs.RequestDTOs;
 using Domain.DTOs.ExternalData;
 using Domain.Interfaces.Clusterization.Workspaces;
@@ -73,6 +74,12 @@ namespace Clusterization.Controllers.Clusterization.Workspaces
         public async Task<IActionResult> GetCustomerCollection([FromBody] GetWorkspacesRequest request)
         {
             return Ok(await service.GetCustomerCollection(request));
+        }
+        [HttpPost("get_fast_clustering_collection")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> GetFastClusteringCollection([FromBody] PageParameters request)
+        {
+            return Ok(await service.GetFastClusteringCollection(request));
         }
 
         [HttpGet("get_entities/{id}"), DisableRequestSizeLimit]
