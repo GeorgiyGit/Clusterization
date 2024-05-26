@@ -17,7 +17,7 @@ export class SelectOptionInputComponent implements OnInit, OnChanges {
   @Input() isMoreActive: boolean = false;
   @Input() isMoreLoading: boolean = false;
 
-  @Input() isGetFirst:boolean;
+  @Input() isGetFirst:boolean=true;
 
   @Output() sendResultEvent = new EventEmitter<IOptionForSelectInput>();
   @Output() loadMoreEvent = new EventEmitter();
@@ -27,7 +27,7 @@ export class SelectOptionInputComponent implements OnInit, OnChanges {
       if (this.selectedOption == null) {
         this.selectedOption = this.options[0];
 
-        if(this.isGetFirst){
+        if(this.isGetFirst && this.selectedOption!=null){
           this.sendResultEvent.emit(this.selectedOption);
         }
       }
@@ -37,7 +37,7 @@ export class SelectOptionInputComponent implements OnInit, OnChanges {
     if (this.selectedOption == null) {
       this.selectedOption = this.options[0];
 
-      if(this.isGetFirst){
+      if(this.isGetFirst && this.selectedOption!=null){
         this.sendResultEvent.emit(this.selectedOption);
       }
     }

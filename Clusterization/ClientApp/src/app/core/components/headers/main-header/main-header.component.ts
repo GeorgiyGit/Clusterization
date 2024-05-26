@@ -166,7 +166,8 @@ export class MainHeaderComponent implements OnInit {
     event.stopPropagation();
     this.isDataSourceMenuOpen = !this.isDataSourceMenuOpen;
   }
-  closeDataSourceMenu(event: any) {
+  closeDataSourceMenu() {
+    console.log(123);
     this.isDataSourceMenuOpen = false;
   }
 }

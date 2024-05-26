@@ -20,6 +20,7 @@ import { TelegramLayoutComponent } from './core/components/layouts/telegram-layo
 import { TelegramHeaderComponent } from './core/components/headers/telegram-header/telegram-header.component';
 import { ExternalDataLayoutComponent } from './core/components/layouts/external-data-layout/external-data-layout.component';
 import { ExternalDataHeaderComponent } from './core/components/headers/external-data-header/external-data-header.component';
+import { CloseOutsideDirective } from './core/directives/close-outside.directive';
 
 export function tokenGetter() {
   return localStorage.getItem("user-token");
@@ -37,7 +38,9 @@ export function tokenGetter() {
     MainLayoutComponent,
     YoutubeLayoutComponent,
     TelegramLayoutComponent,
-    ExternalDataLayoutComponent
+    ExternalDataLayoutComponent,
+
+    CloseOutsideDirective
   ],
   imports:[
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

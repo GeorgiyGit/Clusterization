@@ -89,34 +89,34 @@ export class FullTaskPageComponent implements OnInit, OnDestroy {
   }
 
   navigateToProfile() {
-    this.router.navigate([`/${this.relativePath}/clusterization/profiles/full/`+this.fullTask.clusterizationProfileId]);
+    this.router.navigate([`/main-layout/clusterization/profiles/full/`+this.fullTask.clusterizationProfileId]);
     this.closeOverflow();
   }
   navigateToWorkspace() {
-    this.router.navigate([`/${this.relativePath}/clusterization/workspaces/full/`+ this.fullTask.workspaceId + '/profiles-list/' + this.fullTask.workspaceId]);
+    this.router.navigate([`/main-layout/clusterization/workspaces/full/`+ this.fullTask.workspaceId + '/profiles-list/' + this.fullTask.workspaceId]);
     this.closeOverflow();
   }
 
   navigateToYoutubeChannel() {
-    this.router.navigate([`/${this.relativePath}/dataSources/youtube/channels/full/`+this.fullTask.youtubeChannelId + '/list/' + this.fullTask.youtubeChannelId]);
+    this.router.navigate([`/youtube-layout/dataSources/youtube/channels/full/`+this.fullTask.youtubeChannelId + '/list/' + this.fullTask.youtubeChannelId]);
     this.closeOverflow();
   }
   navigateToYoutubeVideo() {
-    this.router.navigate([`/${this.relativePath}/dataSources/youtube/videos/full/`+this.fullTask.youtubeVideoId]);
+    this.router.navigate([`/youtube-layout/dataSources/youtube/videos/full/`+this.fullTask.youtubeVideoId]);
     this.closeOverflow();
   }
 
   navigateToTelegramChannel() {
-    this.router.navigate([`/${this.relativePath}/dataSources/telegram/channels/full/`+this.fullTask.telegramChannelId + '/list/' + this.fullTask.telegramChannelId]);
+    this.router.navigate([`/telegram-layout/dataSources/telegram/channels/full/`+this.fullTask.telegramChannelId + '/list/' + this.fullTask.telegramChannelId]);
     this.closeOverflow();
   }
   navigateToTelegramMessage() {
-    this.router.navigate([`/${this.relativePath}/dataSources/telegram/messages/full/`+this.fullTask.telegramMessageId]);
+    this.router.navigate([`/telegram-layout/dataSources/telegram/messages/full/`+this.fullTask.telegramMessageId]);
     this.closeOverflow();
   }
 
   navigateToExternalObjectsPack() {
-    this.router.navigate([`/${this.relativePath}/dataSources/externalData/packs/full/`, this.fullTask.externalObjectsPackId + '/list/' + this.fullTask.externalObjectsPackId]);
+    this.router.navigate([`/externalData-layout/dataSources/externalData/packs/full/`, this.fullTask.externalObjectsPackId + '/list/' + this.fullTask.externalObjectsPackId]);
     this.closeOverflow();
   }
 }

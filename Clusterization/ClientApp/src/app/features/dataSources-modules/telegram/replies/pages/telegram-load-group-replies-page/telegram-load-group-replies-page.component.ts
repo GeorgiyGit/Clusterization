@@ -5,11 +5,23 @@ import { QuotasCalculationList } from 'src/app/features/shared-module/quotas/sta
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-telegram-load-group-replies-page',
   templateUrl: './telegram-load-group-replies-page.component.html',
-  styleUrl: './telegram-load-group-replies-page.component.scss'
+  styleUrl: './telegram-load-group-replies-page.component.scss',
+  animations: [
+    trigger('popUpAnimation', [
+      state('in', style({ transform: 'translateY(0)' })),
+      state('hidden', style({ transform: 'translateY(100%)' })),
+      transition('void => in', [
+        style({ transform: 'translateY(100%)' }),
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)')
+      ]),
+      transition('in => hidden', animate('300ms cubic-bezier(0.4, 0, 0.2, 1)'))
+    ])
+  ]
 })
 export class TelegramLoadGroupRepliesPageComponent implements OnInit{
   animationState:string='in';

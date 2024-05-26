@@ -34,7 +34,7 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li routerLinkActive="active" i18n>Статистика</li>
+                    <li *ngIf="video!=null" routerLinkActive="active" [routerLink]="'tasks/'+video.id" i18n>Завдання</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

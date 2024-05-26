@@ -21,7 +21,6 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 @NgModule({
   declarations: [
     SearchInputComponent,
-    CloseOutsideDirective,
     LongPressDirective,
     SelectOptionInputComponent,
     LoaderComponent,
@@ -36,7 +35,6 @@ import { TruncatePipe } from './pipes/truncate.pipe';
   ],
   exports:[
     SearchInputComponent,
-    CloseOutsideDirective,
     LongPressDirective,
     SelectOptionInputComponent,
     LoaderComponent,

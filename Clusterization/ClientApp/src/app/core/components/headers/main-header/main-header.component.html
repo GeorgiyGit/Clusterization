@@ -7,7 +7,7 @@
                     <a i18n>Evoclust</a>
                 </li>
                 <li routerLink="/main-layout/documentation" i18n>Документація</li>
-                <li class="data-source-li" (click)="toggleDataSourceMenu($event)" [class.data-source-li-active]="isDataSourceMenuOpen">
+                <li class="data-source-li" (clickOutside)="closeDataSourceMenu()" (click)="toggleDataSourceMenu($event)" [class.data-source-li-active]="isDataSourceMenuOpen">
                     <a (click)="toggleDataSourceMenu($event)">
                         <p>Джерела даних</p>
                         <span *ngIf="!isDataSourceMenuOpen" class="material-symbols-outlined icon" translate="no">expand_more</span>

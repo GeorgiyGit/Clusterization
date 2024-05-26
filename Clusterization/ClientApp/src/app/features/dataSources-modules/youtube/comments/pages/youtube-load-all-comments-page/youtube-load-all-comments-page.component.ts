@@ -5,11 +5,23 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MyToastrService } from 'src/app/core/services/my-toastr.service';
 import { IYoutubeCommentLoadOptions } from '../../models/youtube-comment-load-options';
 import { QuotasCalculationList } from 'src/app/features/shared-module/quotas/static/quotas-calculation-list';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-youtube-load-all-comments-page',
   templateUrl: './youtube-load-all-comments-page.component.html',
-  styleUrls: ['./youtube-load-all-comments-page.component.scss']
+  styleUrls: ['./youtube-load-all-comments-page.component.scss'],
+  animations: [
+    trigger('popUpAnimation', [
+      state('in', style({ transform: 'translateY(0)' })),
+      state('hidden', style({ transform: 'translateY(100%)' })),
+      transition('void => in', [
+        style({ transform: 'translateY(100%)' }),
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)')
+      ]),
+      transition('in => hidden', animate('300ms cubic-bezier(0.4, 0, 0.2, 1)'))
+    ])
+  ]
 })
 export class YoutubeLoadAllCommentsPageComponent implements OnInit{
   animationState:string='in';

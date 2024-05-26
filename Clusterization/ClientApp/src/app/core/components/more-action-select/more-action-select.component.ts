@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { IOptionForSelectInput } from '../../models/option-for-select-input';
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { ISelectAction } from '../../models/select-action';
 import { MyToastrService } from '../../services/my-toastr.service';
 import { AccountService } from 'src/app/features/shared-module/account/services/account.service';

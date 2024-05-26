@@ -33,7 +33,7 @@ export class AddTelegramMessageRepliesToWorkspaceComponent implements OnInit{
   optionsForm: FormGroup = this.fb.group({
     dateFrom: [null],
     dateTo: [null],
-    maxCountInVideo:[]
+    maxCountInMessage:[]
   });
 
   get formValue() {
