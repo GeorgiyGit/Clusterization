@@ -32,6 +32,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { YoutubeChannelPhoneCardComponent } from './channels/components/youtube-channel-phone-card/youtube-channel-phone-card.component';
 import { YoutubeVideoPhoneCardComponent } from './videos/components/youtube-video-phone-card/youtube-video-phone-card.component';
+import { YoutubeChannelTasksListPageComponent } from './channels/pages/youtube-channel-tasks-list-page/youtube-channel-tasks-list-page.component';
+import { SharedModule } from '../../shared-module/shared.module';
+import { YoutubeVideosTaskListPageComponent } from './videos/pages/youtube-videos-task-list-page/youtube-videos-task-list-page.component';
 
 
 @NgModule({
@@ -61,7 +64,9 @@ import { YoutubeVideoPhoneCardComponent } from './videos/components/youtube-vide
     YoutubeLoadCommentsByChannelPageComponent,
     AddYoutubeVideosCommentsToWorkspaceComponent,
     YoutubeChannelPhoneCardComponent,
-    YoutubeVideoPhoneCardComponent
+    YoutubeVideoPhoneCardComponent,
+    YoutubeChannelTasksListPageComponent,
+    YoutubeVideosTaskListPageComponent
   ],
   exports:[
     YoutubeChannelListComponent,
@@ -76,7 +81,8 @@ import { YoutubeVideoPhoneCardComponent } from './videos/components/youtube-vide
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SharedModule
   ]
 })
 export class YoutubeModule { }

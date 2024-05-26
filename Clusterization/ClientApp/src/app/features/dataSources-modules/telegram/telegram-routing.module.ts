@@ -7,6 +7,8 @@ import { TelegramMessageListPageComponent } from './messages/pages/telegram-mess
 import { TelegramFullMessagePageComponent } from './messages/pages/telegram-full-message-page/telegram-full-message-page.component';
 import { TelegramLoadGroupMessagesPageComponent } from './messages/pages/telegram-load-group-messages-page/telegram-load-group-messages-page.component';
 import { TelegramLoadMultipleMessagesComponent } from './messages/components/telegram-load-multiple-messages/telegram-load-multiple-messages.component';
+import { TelegramMessagesTasksListPageComponent } from './messages/pages/telegram-messages-tasks-list-page/telegram-messages-tasks-list-page.component';
+import { TelegramChannelsTasksListPageComponent } from './channels/pages/telegram-channels-tasks-list-page/telegram-channels-tasks-list-page.component';
 
 const routes: Routes = [
   {
@@ -44,7 +46,11 @@ const routes: Routes = [
             component: TelegramLoadMultipleMessagesComponent,
             canActivate: [CustomerGuard],
             canActivateChild: [CustomerGuard],
-          }
+          },
+          {
+            path: 'tasks/:channelId',
+            component: TelegramChannelsTasksListPageComponent
+          },
         ]
       }
     ]
@@ -63,7 +69,13 @@ const routes: Routes = [
       },
       {
         path: 'full/:id',
-        component: TelegramFullMessagePageComponent
+        component: TelegramFullMessagePageComponent,
+        children:[
+          {
+            path: 'tasks/:messageId',
+            component: TelegramMessagesTasksListPageComponent
+          }
+        ]
       }
     ]
   }

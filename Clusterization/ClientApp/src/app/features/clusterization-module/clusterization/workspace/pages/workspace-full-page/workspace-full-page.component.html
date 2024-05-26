@@ -38,6 +38,7 @@
                 <ul class="ul-list-navigation">
                     <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'profiles-list/'+workspace.id" i18n>Профілі</li>
                     <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'workspace-add-data-packs/list/'+workspace.id" i18n>Пакети додавання даних</li>
+                    <li *ngIf="workspace!=null" routerLinkActive="active" [routerLink]="'tasks/'+workspace.id" i18n>Завдання</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

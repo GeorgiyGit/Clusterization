@@ -4,6 +4,7 @@ import { ExternalObjectsPackFullPageComponent } from './external-objects-packs/p
 import { ExternalObjectListComponent } from './external-objects/components/external-object-list/external-object-list.component';
 import { ExternalObjectsPackListPageComponent } from './external-objects-packs/pages/external-objects-pack-list-page/external-objects-pack-list-page.component';
 import { ExternalObjectListPageComponent } from './external-objects/pages/external-object-list-page/external-object-list-page.component';
+import { ExternalPacksTasksPageComponent } from './external-objects-packs/pages/external-packs-tasks-page/external-packs-tasks-page.component';
 
 const routes: Routes = [  {
   path:'',
@@ -34,6 +35,10 @@ const routes: Routes = [  {
         {
           path: 'list/:id',
           component: ExternalObjectListPageComponent
+        },
+        {
+          path: 'tasks/:packId',
+          component: ExternalPacksTasksPageComponent
         }
       ]
     }

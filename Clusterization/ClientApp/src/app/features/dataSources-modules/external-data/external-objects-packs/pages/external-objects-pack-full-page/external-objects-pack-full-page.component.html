@@ -28,7 +28,8 @@
         <div class="main-cont">
             <div class="nav-cont">
                 <ul class="ul-list-navigation">
-                    <li *ngIf="pack!=null" routerLinkActive="active" [routerLink]="'objects-list/'+pack.id" i18n>Дані</li>
+                    <li *ngIf="pack!=null" routerLinkActive="active" [routerLink]="'list/'+pack.id" i18n>Дані</li>
+                    <li *ngIf="pack!=null" routerLinkActive="active" [routerLink]="'tasks/'+pack.id" i18n>Завдання</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

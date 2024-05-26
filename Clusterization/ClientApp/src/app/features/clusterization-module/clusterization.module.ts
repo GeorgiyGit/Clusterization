@@ -54,6 +54,9 @@ import { FastClusteringMainPageComponent } from './clusterization/fast-сlusteri
 import { FastClusteringWorkspacesListComponent } from './clusterization/fast-сlustering/components/fast-clustering-workspaces-list/fast-clustering-workspaces-list.component';
 import { AddFastClusteringWorkspaceComponent } from './clusterization/fast-сlustering/components/add-fast-clustering-workspace/add-fast-clustering-workspace.component';
 import { AddFastClusteringFullComponent } from './clusterization/fast-сlustering/components/add-fast-clustering-full/add-fast-clustering-full.component';
+import { ClusterizationProfileTasksListPageComponent } from './clusterization/profiles/pages/clusterization-profile-tasks-list-page/clusterization-profile-tasks-list-page.component';
+import { SharedModule } from '../shared-module/shared.module';
+import { WorkspaceTasksListPageComponent } from './clusterization/workspace/pages/workspace-tasks-list-page/workspace-tasks-list-page.component';
 
 
 @NgModule({
@@ -113,7 +116,9 @@ import { AddFastClusteringFullComponent } from './clusterization/fast-сlusterin
     FastClusteringMainPageComponent,
     FastClusteringWorkspacesListComponent,
     AddFastClusteringWorkspaceComponent,
-    AddFastClusteringFullComponent
+    AddFastClusteringFullComponent,
+    ClusterizationProfileTasksListPageComponent,
+    WorkspaceTasksListPageComponent
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
@@ -130,7 +135,8 @@ import { AddFastClusteringFullComponent } from './clusterization/fast-сlusterin
     FormsModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    TelegramModule
+    TelegramModule,
+    SharedModule
   ]
 })
 export class ClusterizationModule { }

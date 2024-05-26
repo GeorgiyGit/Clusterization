@@ -29,6 +29,9 @@ import { TelegramChannelPhoneCardComponent } from './channels/components/telegra
 import { TelegramMessagePhoneCardComponent } from './messages/components/telegram-message-phone-card/telegram-message-phone-card.component';
 import { TelegramReactionComponent } from './reactions/components/telegram-reaction/telegram-reaction.component';
 import { TelegramReactionListComponent } from './reactions/components/telegram-reaction-list/telegram-reaction-list.component';
+import { TelegramMessagesTasksListPageComponent } from './messages/pages/telegram-messages-tasks-list-page/telegram-messages-tasks-list-page.component';
+import { SharedModule } from '../../shared-module/shared.module';
+import { TelegramChannelsTasksListPageComponent } from './channels/pages/telegram-channels-tasks-list-page/telegram-channels-tasks-list-page.component';
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { TelegramReactionListComponent } from './reactions/components/telegram-r
     TelegramLoadMultipleChannelsComponent,
     TelegramFullChannelPageComponent,
     TelegramChannelPhoneCardComponent,
+    TelegramChannelsTasksListPageComponent,
     
     TelegramLoadMultipleMessagesComponent,
     TelegramMessageCardComponent,
@@ -51,7 +55,8 @@ import { TelegramReactionListComponent } from './reactions/components/telegram-r
     TelegramLoadGroupMessagesPageComponent,
     TelegramMessageListPageComponent,
     TelegramMessagePhoneCardComponent,
-
+    TelegramMessagesTasksListPageComponent,
+    
     TelegramLoadRepliesByChannelPageComponent,
     TelegramLoadGroupRepliesPageComponent,
 
@@ -75,7 +80,8 @@ import { TelegramReactionListComponent } from './reactions/components/telegram-r
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SharedModule
   ]
 })
 export class TelegramModule { }

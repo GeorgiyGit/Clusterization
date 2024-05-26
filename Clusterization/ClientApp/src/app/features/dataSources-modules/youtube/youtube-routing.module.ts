@@ -7,6 +7,8 @@ import { YoutubeLoadMultipleVideosComponent } from './videos/components/youtube-
 import { YoutubeVideoListPageComponent } from './videos/pages/youtube-video-list-page/youtube-video-list-page.component';
 import { YoutubeFullVideoPageComponent } from './videos/pages/youtube-full-video-page/youtube-full-video-page.component';
 import { YoutubeCommentListPageComponent } from './comments/pages/youtube-comment-list-page/youtube-comment-list-page.component';
+import { YoutubeChannelTasksListPageComponent } from './channels/pages/youtube-channel-tasks-list-page/youtube-channel-tasks-list-page.component';
+import { YoutubeVideosTaskListPageComponent } from './videos/pages/youtube-videos-task-list-page/youtube-videos-task-list-page.component';
 
 const routes: Routes = [
   {
@@ -44,7 +46,11 @@ const routes: Routes = [
             component: YoutubeLoadMultipleVideosComponent,
             canActivate: [CustomerGuard],
             canActivateChild: [CustomerGuard],
-          }
+          },
+          {
+            path: 'tasks/:channelId',
+            component: YoutubeChannelTasksListPageComponent
+          },
         ]
       }
     ]
@@ -63,8 +69,14 @@ const routes: Routes = [
       },
       {
         path: 'full/:id',
-        component: YoutubeFullVideoPageComponent
-      }
+        component: YoutubeFullVideoPageComponent,
+        children:[
+          {
+            path: 'tasks/:videoId',
+            component: YoutubeVideosTaskListPageComponent
+          }
+        ]
+      },
     ]
   },
   {

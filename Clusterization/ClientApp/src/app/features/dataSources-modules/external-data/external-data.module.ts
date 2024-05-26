@@ -16,6 +16,8 @@ import { ClusterizationModule } from '../../clusterization-module/clusterization
 import { MatTooltip } from '@angular/material/tooltip';
 import { ExternalObjectListPageComponent } from './external-objects/pages/external-object-list-page/external-object-list-page.component';
 import { UpdateExternalObjectsPackPageComponent } from './external-objects-packs/pages/update-external-objects-pack-page/update-external-objects-pack-page.component';
+import { SharedModule } from '../../shared-module/shared.module';
+import { ExternalPacksTasksPageComponent } from './external-objects-packs/pages/external-packs-tasks-page/external-packs-tasks-page.component';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { UpdateExternalObjectsPackPageComponent } from './external-objects-packs
     ExternalObjectsPackListPageComponent,
     ExternalObjectsPackFullPageComponent,
     UpdateExternalObjectsPackPageComponent,
+    ExternalPacksTasksPageComponent,
 
     LoadExternalObjectsPageComponent,
     LoadAndAddExternalObjectsPageComponent,
@@ -43,7 +46,8 @@ import { UpdateExternalObjectsPackPageComponent } from './external-objects-packs
     FormsModule,
     ReactiveFormsModule,
     ClusterizationModule,
-    MatTooltip
+    MatTooltip,
+    SharedModule
   ]
 })
 export class ExternalDataModule { }

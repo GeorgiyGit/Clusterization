@@ -42,6 +42,7 @@
                 <ul class="ul-list-navigation" *ngIf="channel!=null">
                     <li routerLinkActive="active" [routerLink]="'list/'+channel.id" i18n>Завантажені відео</li>
                     <li routerLinkActive="active" [routerLink]="'add-many/'+channel.id" (click)="openFindNewVideos($event)" i18n>Шукати нове відео</li>
+                    <li routerLinkActive="active" [routerLink]="'tasks/'+channel.id" i18n>Завдання</li>
                 </ul>
                 <app-more-action-select [actions]="actions"></app-more-action-select>
             </div>

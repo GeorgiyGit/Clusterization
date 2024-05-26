@@ -8,6 +8,8 @@ import { ClusterizationFullProfilePageComponent } from './clusterization/profile
 import { PointsMapPageComponent } from './points-map/pages/points-map-page/points-map-page.component';
 import { FastClusteringMainPageComponent } from './clusterization/fast-сlustering/pages/fast-clustering-main-page/fast-clustering-main-page.component';
 import { CustomerGuard } from 'src/app/core/guard/customer.guard';
+import { ClusterizationProfileTasksListPageComponent } from './clusterization/profiles/pages/clusterization-profile-tasks-list-page/clusterization-profile-tasks-list-page.component';
+import { WorkspaceTasksListPageComponent } from './clusterization/workspace/pages/workspace-tasks-list-page/workspace-tasks-list-page.component';
 const routes: Routes = [
   {
     path: 'workspaces',
@@ -37,7 +39,11 @@ const routes: Routes = [
           {
             path:'workspace-add-data-packs/list/:workspaceId',
             component:WorkspaceAddDataPackListPageComponent
-          }
+          },
+          {
+            path:'tasks/:workspaceId',
+            component:WorkspaceTasksListPageComponent
+          },
         ]
       },
     ]
@@ -52,6 +58,10 @@ const routes: Routes = [
           {
             path:'profile-points-map/:profileId',
             component:PointsMapPageComponent
+          },
+          {
+            path:'tasks/:profileId',
+            component:ClusterizationProfileTasksListPageComponent
           }
         ]
       },

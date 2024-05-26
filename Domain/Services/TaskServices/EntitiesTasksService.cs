@@ -87,7 +87,7 @@ namespace Domain.Services.TaskServices
                 if (customerId != workspace.OwnerId) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], HttpStatusCode.NotFound);
             }
 
-            Expression<Func<MyMainTask, bool>> filterCondition = e => e.ClusterizationProfileId == workspace.Id;
+            Expression<Func<MyMainTask, bool>> filterCondition = e => e.WorkspaceId == workspace.Id;
             if (request.TaskStateId != null)
             {
                 filterCondition = filterCondition.And(e => e.StateId == request.TaskStateId);
