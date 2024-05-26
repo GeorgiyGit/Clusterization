@@ -66,5 +66,12 @@ namespace Clusterization.Controllers.Clusterization
         {
             return Ok(await service.CalculateInitialProfileQuotas(request));
         }
+
+        [HttpPost("calculate_full_fast_clustering_quotas")]
+        [Authorize(Roles = UserRoles.User)]
+        public async Task<IActionResult> CalculateFullFastClustering([FromBody] FullFastClusteringRequest request)
+        {
+            return Ok(await service.CalculateFullFastClustering(request));
+        }
     }
 }

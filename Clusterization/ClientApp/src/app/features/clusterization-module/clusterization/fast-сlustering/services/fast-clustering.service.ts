@@ -46,4 +46,8 @@ export class FastClusteringService {
   calculateInitialProfileQuotas(request:IFastClusteringProcessRequest): Observable<IQuotasCalculation[]> {
     return this.http.post<IQuotasCalculation[]>(this.controllerUrl + "calculate_profile_initialize_quotas/",request);
   }
+
+  calculateFullFastClusteringQuotas(request:IFullFastClustering): Observable<IQuotasCalculation[]> {
+    return this.http.post<IQuotasCalculation[]>(this.controllerUrl + "calculate_full_fast_clustering_quotas/",request);
+  }
 }

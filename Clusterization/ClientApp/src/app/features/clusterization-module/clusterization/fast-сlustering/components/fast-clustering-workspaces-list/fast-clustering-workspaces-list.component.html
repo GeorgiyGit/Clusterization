@@ -1,1 +1,16 @@
-<p>fast-clustering-workspaces-list works!</p>
+<section>
+    <h2 i18n>Список робочих просторів</h2>
+    <div class="centered" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="!isLoading && (workspaces==null || workspaces.length==0)">
+        <p class="nothing-text" i18n>Робочих просторів не знайдено</p>
+    </div>
+    <app-workspace-list [workspaces]="workspaces" [class.disable]="isLoading"></app-workspace-list>
+    <div class="centered" *ngIf="isLoading2">
+        <app-loader></app-loader>
+    </div>
+    <div class="centered" *ngIf="isLoadMoreAvailable && !isLoading && !isLoading2">
+        <button class="more-btn" (click)="addMore()" i18n>Завантажити більше</button>
+    </div>
+</section>

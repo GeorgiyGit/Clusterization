@@ -1,0 +1,13 @@
+@import '/src/app/core/styles/base.scss';
+
+.cont{
+    display: flex;
+    flex-direction: column;
+
+    .quotas-cont{
+        display: flex;
+        border-bottom: 1px dashed $first-color-2;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

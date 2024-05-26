@@ -776,13 +776,63 @@ namespace Domain.Services.Clusterization
 
             quotasCalculationList.Add(new QuotasCalculationDTO()
             {
-                Count = workspace.EntitiesCount * embeddingModel.MaxInputCount,
+                Count = workspace.EntitiesCount * embeddingModel.QuotasPrice,
                 Type = _mapper.Map<QuotasTypeDTO>(embeddingsQuotasType)
             });
 
             var clusteringQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.Clustering);
             var algorithm = await _abstractAlgorithmsRepository.FindAsync(request.AlgorithmId);
             var clusterQuotasCount = await _generalClusterizationAlgorithmService.CalculateQuotasCount(algorithm.TypeId, workspace.EntitiesCount, request.DimensionCount);
+
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = clusterQuotasCount,
+                Type = _mapper.Map<QuotasTypeDTO>(clusteringQuotasType)
+            });
+
+            return quotasCalculationList;
+        }
+
+        public async Task<ICollection<QuotasCalculationDTO>> CalculateFullFastClustering(FullFastClusteringRequest request)
+        {
+            int entitiesCount = request.Texts.Count;
+            var quotasCalculationList = new List<QuotasCalculationDTO>();
+
+            var privateWorkspaceQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.PrivateWorkspaces);
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = 1,
+                Type = _mapper.Map<QuotasTypeDTO>(privateWorkspaceQuotasType)
+            });
+
+            var externalDataQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.ExternalData);
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = entitiesCount,
+                Type = _mapper.Map<QuotasTypeDTO>(externalDataQuotasType)
+            });
+
+            var privateProfileQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.PrivateProfiles);
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = 1,
+                Type = _mapper.Map<QuotasTypeDTO>(privateProfileQuotasType)
+            });
+
+            var embeddingsQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.Embeddings);
+
+            var embeddingModel = await _embeddingModelsRepository.FindAsync(request.EmbeddingModelId);
+            if (embeddingModel == null) throw new HttpException(_localizer[ErrorMessagePatterns.EmbeddingModelNotFound], HttpStatusCode.NotFound);
+
+            quotasCalculationList.Add(new QuotasCalculationDTO()
+            {
+                Count = entitiesCount * embeddingModel.QuotasPrice,
+                Type = _mapper.Map<QuotasTypeDTO>(embeddingsQuotasType)
+            });
+
+            var clusteringQuotasType = await _quotasTypesRepository.FindAsync(QuotasTypes.Clustering);
+            var algorithm = await _abstractAlgorithmsRepository.FindAsync(request.AlgorithmId);
+            var clusterQuotasCount = await _generalClusterizationAlgorithmService.CalculateQuotasCount(algorithm.TypeId, entitiesCount, request.DimensionCount);
 
             quotasCalculationList.Add(new QuotasCalculationDTO()
             {

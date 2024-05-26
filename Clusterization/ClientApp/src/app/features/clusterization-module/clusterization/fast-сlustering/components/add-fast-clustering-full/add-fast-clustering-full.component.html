@@ -1,5 +1,5 @@
 <section>
-    <h1 i18n>Швидка кластеризація</h1>
+    <h2 i18n>Налаштування</h2>
     <form [formGroup]="fastClusteringForm" (ngSubmit)="submit()">
         <div>
             <div class="input-cont">
@@ -71,7 +71,10 @@
 
         <div class="centered">
             <app-loader *ngIf="isLoading"></app-loader>
-            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Додати</button>
+            <button class="standard-btn" type="submit" *ngIf="!isLoading" i18n>Почати</button>
         </div>
     </form>
 </section>
+<app-fast-clustering-quotas-calculating-page *ngIf="isFastClsuteringConfirmOpen"
+[request]="request"
+(confirmEvent)="fastClusteringConfirm($event)"></app-fast-clustering-quotas-calculating-page>

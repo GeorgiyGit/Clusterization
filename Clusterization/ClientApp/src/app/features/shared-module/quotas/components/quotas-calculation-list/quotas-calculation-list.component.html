@@ -1,0 +1,8 @@
+<div class="cont">
+    @for (quotasCalculation of quotascalculationList; track $index) {
+        <div class="quotas-cont">
+            <p>{{quotasCalculation.type.name}}</p>
+            <p>{{quotasCalculation.count}}</p>
+        </div>
+    }
+</div>

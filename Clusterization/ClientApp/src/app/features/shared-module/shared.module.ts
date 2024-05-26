@@ -18,6 +18,7 @@ import { SubTaskCardComponent } from './tasks/components/sub-task-card/sub-task-
 import { SubTaskListComponent } from './tasks/components/sub-task-list/sub-task-list.component';
 import { MainTaskCardComponent } from './tasks/components/main-task-card/main-task-card.component';
 import { MainTaskListComponent } from './tasks/components/main-task-list/main-task-list.component';
+import { QuotasCalculationListComponent } from './quotas/components/quotas-calculation-list/quotas-calculation-list.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MainTaskListComponent } from './tasks/components/main-task-list/main-ta
     QuotasTypesSelectComponent,
     QuotasLogsCardComponent,
     QuotasPackLogsCardComponent,
+    QuotasCalculationListComponent,
 
     FullTaskPageComponent,
     SubTaskCardComponent,
@@ -47,7 +49,8 @@ import { MainTaskListComponent } from './tasks/components/main-task-list/main-ta
     QuotasPackLogsCardComponent,
     TaskStatusesSelectComponent,
     MainTaskCardComponent,
-    SubTaskCardComponent
+    SubTaskCardComponent,
+    QuotasCalculationListComponent
   ],
   imports: [
     CommonModule,

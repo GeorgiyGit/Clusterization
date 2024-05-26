@@ -21,6 +21,7 @@ export class AddFastClusteringFullComponent implements AfterViewInit {
   embeddingModelId: string = 'text-embedding-3-small';
 
   isAlgorithmsSelectActive: boolean = true;
+  isFastClsuteringConfirmOpen:boolean;
 
   isMoreOptionsOpen: boolean;
 
@@ -70,12 +71,21 @@ export class AddFastClusteringFullComponent implements AfterViewInit {
       embeddingModelId:this.embeddingModelId,
       texts:formModel.text.split('\n')
     };
+    this.request=model;
 
+    this.isFastClsuteringConfirmOpen=true;
+  }
 
-    console.log(model);
-    
+  request:IFullFastClustering;
+
+  fastClusteringConfirm(result:boolean){
+    this.isFastClsuteringConfirmOpen=false;
+    if (result == false) {
+      return;
+    }
+
     this.isLoading = true;
-    this.fastClusteringService.fullFastClustering(model).subscribe(res => {
+    this.fastClusteringService.fullFastClustering(this.request).subscribe(res => {
       this.toaster.success($localize`Завдання створено`);
       this.isLoading = false;
 

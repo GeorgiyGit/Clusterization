@@ -57,6 +57,7 @@ import { AddFastClusteringFullComponent } from './clusterization/fast-сlusterin
 import { ClusterizationProfileTasksListPageComponent } from './clusterization/profiles/pages/clusterization-profile-tasks-list-page/clusterization-profile-tasks-list-page.component';
 import { SharedModule } from '../shared-module/shared.module';
 import { WorkspaceTasksListPageComponent } from './clusterization/workspace/pages/workspace-tasks-list-page/workspace-tasks-list-page.component';
+import { FastClusteringQuotasCalculatingPageComponent } from './clusterization/fast-сlustering/components/fast-clustering-quotas-calculating-page/fast-clustering-quotas-calculating-page.component';
 
 
 @NgModule({
@@ -118,7 +119,8 @@ import { WorkspaceTasksListPageComponent } from './clusterization/workspace/page
     AddFastClusteringWorkspaceComponent,
     AddFastClusteringFullComponent,
     ClusterizationProfileTasksListPageComponent,
-    WorkspaceTasksListPageComponent
+    WorkspaceTasksListPageComponent,
+    FastClusteringQuotasCalculatingPageComponent
   ],
   exports:[
     ClusterizationProfileSearchFilterComponent,
