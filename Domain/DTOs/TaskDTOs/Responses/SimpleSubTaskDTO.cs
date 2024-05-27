@@ -8,6 +8,7 @@ namespace Domain.DTOs.TaskDTOs.Responses
 {
     public class SimpleSubTaskDTO
     {
+        public string Id { get; set; }
         public int Position { get; set; }
         public string StateId { get; set; }
     }

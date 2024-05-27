@@ -1,4 +1,5 @@
-﻿using Clusterization.Middlewares;
+﻿using Clusterization.Hubs;
+using Clusterization.Middlewares;
 using Clusterization.Seeders;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.DBScanDTOs;
 using Domain.DTOs.ClusterizationDTOs.AlghorithmDTOs.Non_hierarchical.GaussianMixtureDTOs;
@@ -23,6 +24,7 @@ using Domain.Interfaces.Embeddings;
 using Domain.Interfaces.Embeddings.EmbeddingsLoading;
 using Domain.Interfaces.Other;
 using Domain.Interfaces.Quotas;
+using Domain.Interfaces.SignalR;
 using Domain.Interfaces.Tasks;
 using Domain.Services.Clusterization;
 using Domain.Services.Clusterization.Algorithms;
@@ -176,6 +178,9 @@ internal class Program
 
         builder.Services.AddScoped<IMyDataObjectsService, MyDataObjectsService>();
 
+        builder.Services.AddSignalR();
+        builder.Services.AddScoped<IMyHubHelper, MyHubHelper>();
+
         builder.Services.AddOpenAIService();
 
         builder.Services.AddIdentity<Customer, IdentityRole>(o =>
@@ -316,6 +321,8 @@ internal class Program
         {
             UserSeeders.Configure(scope.ServiceProvider, builder.Configuration).Wait();
         }
+
+        app.MapHub<MySignalRHub>("signalR_hub");
 
         app.Run();
     }
