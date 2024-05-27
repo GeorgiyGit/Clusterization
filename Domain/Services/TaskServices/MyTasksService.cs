@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Domain.DTOs.TaskDTOs;
 using Domain.DTOs.TaskDTOs.Requests;
+using Domain.DTOs.TaskDTOs.SignalRDTOs;
 using Domain.Entities.Customers;
 using Domain.Entities.Tasks;
 using Domain.Exceptions;
 using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
+using Domain.Interfaces.SignalR;
 using Domain.Interfaces.Tasks;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types;
@@ -15,9 +17,11 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,12 +33,14 @@ namespace Domain.Services.TaskServices
         private readonly IRepository<MyMainTask> _mainTasksRepository;
         private readonly IRepository<MySubTask> _subTasksRepository;
         private readonly IRepository<MyTaskState> _statesRepository;
+        private readonly IMyHubHelper _signalRHub;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
         private readonly IUserService _userService;
 
         public MyTasksService(IRepository<MyBaseTask> baseTasksRepository,
+                              IMyHubHelper signalRHub,
                               IRepository<MySubTask> subTasksRepository,
                               IRepository<MyMainTask> mainTasksRepository,
                               IRepository<MyTaskState> state_repository,
@@ -47,6 +53,7 @@ namespace Domain.Services.TaskServices
             _statesRepository = state_repository;
             _userService = userService;
             _localizer = localizer;
+            _signalRHub = signalRHub;
         }
 
 
@@ -59,6 +66,22 @@ namespace Domain.Services.TaskServices
             task.Percent = newPercent;
 
             await _baseTasksRepository.SaveChangesAsync();
+
+            var taskEvent = new ChangeTaskPercentsEvent()
+            {
+                TaskId = task.Id,
+                Percents = task.Percent,
+                DataType = SignalRDataTypes.ChangeTaskPercents
+            };
+            if (task.TaskType == TaskTypes.SubTask)
+            {
+                var origTask = (await _subTasksRepository.FindAsync(task.Id));
+                if (origTask != null)
+                {
+                    taskEvent.GroupTaskId = origTask.GroupTaskId;
+                }
+            }
+            await _signalRHub.Send(task.CustomerId, taskEvent);
         }
         public async Task ChangeTaskState(string id, string newStateId)
         {
@@ -66,7 +89,7 @@ namespace Domain.Services.TaskServices
             if (task == null) return;
 
             var taskState = await _statesRepository.FindAsync(newStateId);
-            if(taskState == null) return;
+            if (taskState == null) return;
 
             if (newStateId == TaskStates.Completed)
             {
@@ -95,7 +118,25 @@ namespace Domain.Services.TaskServices
             task.StateId = newStateId;
             task.State = taskState;
 
-            await _baseTasksRepository.SaveChangesAsync(); 
+            await _baseTasksRepository.SaveChangesAsync();
+
+            var taskEvent = new ChangeTaskStateEvent()
+            {
+                TaskId = task.Id,
+                StateId = taskState.Id,
+                StateName = taskState.Name,
+                DataType = SignalRDataTypes.ChangeTaskStates,
+            };
+            if (task.TaskType == TaskTypes.SubTask)
+            {
+                var origTask = (await _subTasksRepository.FindAsync(task.Id));
+                if (origTask != null)
+                {
+                    taskEvent.GroupTaskId = origTask.GroupTaskId;
+                }
+            }
+
+            await _signalRHub.Send(task.CustomerId, taskEvent);
         }
         public async Task ChangeParentTaskState(string id, string newStateId)
         {
@@ -134,6 +175,14 @@ namespace Domain.Services.TaskServices
                 }
 
                 await _baseTasksRepository.SaveChangesAsync();
+
+                await _signalRHub.Send(task.CustomerId, new ChangeTaskStateEvent()
+                {
+                    TaskId = groupTask.Id,
+                    StateId = taskState.Id,
+                    StateName = taskState.Name,
+                    DataType = SignalRDataTypes.ChangeTaskStates,
+                });
             }
         }
         public async Task ChangeTaskDescription(string id, string description)
