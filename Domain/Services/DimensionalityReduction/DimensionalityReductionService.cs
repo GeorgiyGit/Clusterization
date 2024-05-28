@@ -109,18 +109,18 @@ namespace Domain.Services.DimensionalityReduction
                 }
                 else if (!isNotAll2Flag && !isNotAllCurrentFlag)
                 {
-                    var dimensionEmbeddingCurrent = embeddingObjectsGroup.DimensionEmbeddingObjects.Where(e => e.TypeId == dimensionCount);
+                    var dimensionEmbeddingCurrent = embeddingObjectsGroup.DimensionEmbeddingObjects.Where(e => e.TypeId == dimensionCount).FirstOrDefault();
 
                     if (dimensionEmbeddingCurrent == null)
                     {
                         isNotAllCurrentFlag = false;
                     }
 
-                    var dimensionEmbedding2 = embeddingObjectsGroup.DimensionEmbeddingObjects.Where(e => e.TypeId == 2);
+                    var dimensionEmbedding2 = embeddingObjectsGroup.DimensionEmbeddingObjects.Where(e => e.TypeId == 2).FirstOrDefault();
 
                     if (dimensionEmbedding2 == null)
                     {
-                        isNotAll2Flag = false;
+                        isNotAll2Flag = true;
                     }
                 }
             }
