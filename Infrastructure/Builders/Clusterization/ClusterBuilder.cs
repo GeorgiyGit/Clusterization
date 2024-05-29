@@ -29,7 +29,8 @@ namespace Infrastructure.Builders.Clusterization
                    .WithOne(e => e.Cluster)
                    .HasForeignKey(e => e.ClusterId);
 
-            builder.HasIndex(e => new { e.ChildElementsCount });
+            builder.HasIndex(e => new { e.ChildElementsCount })
+                   .IsDescending(true);
         }
     }
 }

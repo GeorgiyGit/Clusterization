@@ -7,9 +7,11 @@ using Domain.Entities.Clusterization.Workspaces;
 using Domain.Entities.EmbeddingModels;
 using Domain.Entities.Embeddings;
 using Domain.Entities.Tasks;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities.Clusterization.Profiles
 {
+    [DataContract(IsReference = true)]
     public class ClusterizationProfile
     {
         public int Id { get; set; }

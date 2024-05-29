@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, ElementRef, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, ElementRef, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, Renderer2, HostListener } from '@angular/core';
 import { IDisplayedPoint } from '../../models/displayed-points';
 import { IMyPosition } from '../../models/my-position';
 import { IClusterizationTile } from '../../models/clusterization-tile';
@@ -29,6 +29,7 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
 
   radius: number = 7;
   @ViewChild('pointCanvas', { static: true }) canvas: ElementRef;
+  @ViewChild('parent', { static: true }) parent: ElementRef<HTMLElement>;
   private ctx: CanvasRenderingContext2D;
 
   constructor(private el: ElementRef,
@@ -78,12 +79,22 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.el.nativeElement.removeEventListener('touchend', this.touchEndHandler.bind(this));
   }
 
-  ngAfterViewInit(): void {
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.calculateCanvasSize();
+  }
+
+  calculateCanvasSize(){
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
     const ratio = window.devicePixelRatio;
 
-    const canvasSize = Math.min(window.innerWidth, window.innerHeight);
+    const width = this.parent.nativeElement.offsetWidth;
+    const height = width;
+
+    const canvasSize = Math.min(width, height)//Math.min(window.innerWidth, window.innerHeight);
+
+    console.log(width,height,window.innerWidth,window.innerHeight);
 
     this.ctx.canvas.width = canvasSize * ratio;
     this.ctx.canvas.height = canvasSize * ratio;
@@ -94,6 +105,9 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     this.convertLayerValue();
     this.tilesCalculation();
     this.drawPoints();
+  }
+  ngAfterViewInit(): void {
+    this.calculateCanvasSize();
   }
 
   convertLayerValue() {
@@ -140,16 +154,16 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
         newVisibleAreaMatrix[y][x] = true;
       }
     }
-    let flag=false;
+    let flag = false;
     for (let y = 0; y < this.tilesLevel.tileCount; y++) {
       for (let x = 0; x < this.tilesLevel.tileCount; x++) {
         if (this.visibleAreaMatrix[y][x] != newVisibleAreaMatrix[y][x]) {
           this.visibleAreaMatrix = newVisibleAreaMatrix;
           this.calculateDisplayedPoints();
-          flag=true;
+          flag = true;
           break;
         }
-        if(flag)break;
+        if (flag) break;
       }
     }
 

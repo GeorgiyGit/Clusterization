@@ -4,4 +4,9 @@
     padding: 5px;
     background-color: $second-color-1;
     border-radius: 8px;
+
+    max-width: 100%;
+    .break-p{
+        word-wrap: break-word;
+    }
 }

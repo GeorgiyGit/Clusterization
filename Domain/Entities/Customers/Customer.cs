@@ -8,9 +8,11 @@ using Domain.Entities.Clusterization.Profiles;
 using Domain.Entities.DataSources.Telegram;
 using Domain.Entities.DataSources.ExternalData;
 using Domain.Entities.Clusterization.FastClustering;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities.Customers
 {
+    [DataContract(IsReference = true)]
     public class Customer : IdentityUser, IMonitoring
     {
         public ICollection<ClusterizationWorkspace> Workspaces { get; set; } = new HashSet<ClusterizationWorkspace>();

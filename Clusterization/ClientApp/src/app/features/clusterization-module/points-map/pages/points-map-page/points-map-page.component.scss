@@ -15,12 +15,23 @@
         gap: 10px;
     }
 }
+section{
+    max-width: 100%;
+}
 .main-cont{
     display: flex;
     justify-content: space-between;
 
     gap: 10px;
-    app-clusters-list{
-        flex: 1;
+
+    max-width: 100%;
+    width: 100%;
+    .flex-2{
+        flex-basis: 2;
+        width: 66%;
+    }
+    .flex-1{
+        flex-basis: 1;
+        width: 34%;
     }
 }

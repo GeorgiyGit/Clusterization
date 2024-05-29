@@ -10,16 +10,20 @@
         </div>
     </div>
     <div class="main-cont">
-        <app-points-map-plane
-        [layerValue]="layerValue"
-        (addTileEvent)="addTile($event)"
-        [tilesLevel]="tilesLevel"
-        [tiles]="tiles"
-        (addMultipleTilesEvent)="addManyTiles($event)"
-        [loadingMatrix]="loadingMatrix"
-        (wheel)="handleMouseWheel($event)"></app-points-map-plane>
-        <app-clusters-list [profileId]="profileId"
+        <div class="flex-2">
+            <app-points-map-plane
+            [layerValue]="layerValue"
+            (addTileEvent)="addTile($event)"
+            [tilesLevel]="tilesLevel"
+            [tiles]="tiles"
+            (addMultipleTilesEvent)="addManyTiles($event)"
+            [loadingMatrix]="loadingMatrix"
+            (wheel)="handleMouseWheel($event)"></app-points-map-plane>
+        </div>
+        <div class="flex-1">
+            <app-clusters-list [profileId]="profileId"
             (selectClusterEvent)="addAllowedClusterId($event)"
             (unSelectClusterEvent)="removeAllowedClusterId($event)"></app-clusters-list>
+        </div>
     </div>
 </section>
