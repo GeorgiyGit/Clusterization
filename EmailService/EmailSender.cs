@@ -4,7 +4,7 @@ using Domain.Interfaces.Other;
 
 namespace EmailService
 {
-    public class EmailSender: IMyEmailSender
+    public class EmailSender : IMyEmailSender
     {
         private readonly IConfigurationSection _emailSenderOptions;
         public EmailSender(IConfiguration configuration)
