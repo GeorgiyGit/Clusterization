@@ -10,7 +10,10 @@ using Domain.Interfaces.Customers;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
 using Domain.Resources.Types.Clusterization;
+using Domain.Services.Redis;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 
 namespace Domain.Services.Clusterization
 {
@@ -19,6 +22,7 @@ namespace Domain.Services.Clusterization
         private readonly IRepository<Cluster> _clustersRepository;
         private readonly IRepository<ClusterizationProfile> _profilesRepository;
         private readonly IRepository<DisplayedPoint> _pointsRepository;
+        private readonly IDistributedCache _distributedCache;
 
         private readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -30,7 +34,8 @@ namespace Domain.Services.Clusterization
             IRepository<DisplayedPoint> pointsRepository,
             IStringLocalizer<ErrorMessages> localizer,
             IMapper mapper,
-            IUserService userService)
+            IUserService userService,
+            IDistributedCache distributedCache)
         {
             _clustersRepository = clustersRepository;
             _profilesRepository = profilesRepository;
@@ -38,6 +43,7 @@ namespace Domain.Services.Clusterization
             _localizer = localizer;
             _mapper = mapper;
             _userService = userService;
+            _distributedCache = distributedCache;
         }
 
         public async Task<ICollection<ClusterDTO>> GetClusters(GetClustersRequest request)
@@ -47,11 +53,26 @@ namespace Domain.Services.Clusterization
 
             if (profile == null || (profile.VisibleType == VisibleTypes.OnlyOwner && profile.OwnerId != userId)) throw new HttpException(_localizer[ErrorMessagePatterns.ProfileNotFound], System.Net.HttpStatusCode.NotFound);
 
-            var clusters = await _clustersRepository.GetAsync(e => e.ProfileId == request.ProfileId,
-                                                              orderBy: order => order.OrderByDescending(e => e.ChildElementsCount),
-                                                              pageParameters: request.PageParameters);
+            string cacheRedordId = "clusters" + request.ProfileId;
+            if (request.PageParameters.PageNumber == 1)
+            {
+                var cache = await _distributedCache.GetRecordAsync<ICollection<ClusterDTO>>(cacheRedordId);
 
-            return _mapper.Map<ICollection<ClusterDTO>>(clusters);
+                if (cache != null) return cache;
+            }
+
+            var clusters = await _clustersRepository.GetAsync(e => e.ProfileId == request.ProfileId,
+                                  orderBy: order => order.OrderByDescending(e => e.ChildElementsCount),
+                                  pageParameters: request.PageParameters);
+
+            var mappedClusters = _mapper.Map<ICollection<ClusterDTO>>(clusters);
+
+            if (request.PageParameters.PageNumber == 1)
+            {
+                await _distributedCache.SetRecordAsync<ICollection<ClusterDTO>>(cacheRedordId, mappedClusters);
+            }
+
+            return mappedClusters;
         }
         public async Task<ICollection<ClusterDataDTO>> GetClusterEntities(GetClusterDataRequest request)
         {

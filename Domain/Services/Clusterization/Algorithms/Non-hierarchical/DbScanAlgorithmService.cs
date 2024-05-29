@@ -29,6 +29,7 @@ using Domain.DTOs.TaskDTOs.Requests;
 using Domain.Resources.Types.Tasks;
 using Domain.Entities.Clusterization.Algorithms;
 using Domain.DTOs;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
 {
@@ -61,16 +62,18 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                                       IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
                                       IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
                                       IRepository<ClusterizationWorkspace> workspaceRepository,
-                                      IRepository<DisplayedPoint> displayedPointsRepository) : base(clustersRepository,
-                                                                                                       tilesService,
-                                                                                                       tilesLevelRepository,
-                                                                                                       algorithmsRepository,
-                                                                                                       mapper,
-                                                                                                       localizer,
-                                                                                                       profilesRepository,
-                                                                                                       embeddingObjectsGroupsRepository,
-                                                                                                       dimensionEmbeddingObjectsRepository,
-                                                                                                       displayedPointsRepository)
+                                      IRepository<DisplayedPoint> displayedPointsRepository,
+                                      IDistributedCache distributedCache) : base(clustersRepository,
+                                          tilesService,
+                                          tilesLevelRepository,
+                                          algorithmsRepository,
+                                          mapper,
+                                          localizer,
+                                          profilesRepository,
+                                          embeddingObjectsGroupsRepository,
+                                          dimensionEmbeddingObjectsRepository,
+                                          displayedPointsRepository,
+                                          distributedCache)
         {
             _backgroundJobClient = backgroundJobClient;
             _tasksService = tasksService;
@@ -283,6 +286,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
                 profile.IsInCalculation = false;
                 await _profilesRepository.SaveChangesAsync();
                 workspace.IsProfilesInCalculation = await ReviewWorkspaceIsProfilesInCalculation(workspace.Id);
+
+                await RemoveCache(profileId);
 
                 await _tasksService.ChangeTaskPercent(groupTaskId, 100f);
                 await _tasksService.ChangeTaskState(groupTaskId, TaskStates.Completed);

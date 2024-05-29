@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Domain.DTOs.ClusterizationDTOs.DimensionTypeDTO;
 using Domain.DTOs.ClusterizationDTOs.TypeDTO;
 using Domain.Entities.Clusterization;
 using Domain.Interfaces.Clusterization;
 using Domain.Interfaces.Other;
+using Domain.Services.Redis;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Domain.Services.Clusterization
 {
@@ -10,17 +13,29 @@ namespace Domain.Services.Clusterization
     {
         private readonly IRepository<ClusterizationType> _repository;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _distributedCache;
+
         public ClusterizationTypeService(IRepository<ClusterizationType> repository,
-                                         IMapper mapper)
+                                         IMapper mapper,
+                                         IDistributedCache distributedCache)
         {
             _repository = repository;
             _mapper = mapper;
+            _distributedCache = distributedCache;
         }
         public async Task<ICollection<ClusterizationTypeDTO>> GetAll()
         {
-            var types = await _repository.GetAsync();
+            var recordId = "ClusterizationTypes";
 
-            return _mapper.Map<ICollection<ClusterizationTypeDTO>>(types);
+            var cache = await _distributedCache.GetRecordAsync<ICollection<ClusterizationTypeDTO>>(recordId);
+            if (cache != null) return cache;
+
+            var types = await _repository.GetAsync();
+            var mappedTypes = _mapper.Map<ICollection<ClusterizationTypeDTO>>(types);
+
+            await _distributedCache.SetRecordAsync<ICollection<ClusterizationTypeDTO>>(recordId, mappedTypes);
+
+            return mappedTypes;
         }
     }
 }

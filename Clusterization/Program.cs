@@ -83,6 +83,12 @@ internal class Program
             builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
         }));
 
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("LocalRedis");
+            options.InstanceName = "Clusterization_";
+        });
+
 
         builder.Services.AddHangfire(configuration => configuration
                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)

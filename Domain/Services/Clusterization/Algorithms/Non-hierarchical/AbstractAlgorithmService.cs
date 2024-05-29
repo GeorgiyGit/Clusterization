@@ -11,6 +11,7 @@ using Domain.HelpModels;
 using Domain.Interfaces.Clusterization.Displaying;
 using Domain.Interfaces.Other;
 using Domain.Resources.Localization.Errors;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Localization;
 using System.Net;
 
@@ -25,6 +26,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         protected readonly IRepository<EmbeddingObjectsGroup> _embeddingObjectsGroupsRepository;
         protected readonly IRepository<DimensionEmbeddingObject> _dimensionEmbeddingObjectsRepository;
         protected readonly IRepository<DisplayedPoint> _displayedPointsRepository;
+        protected readonly IDistributedCache _distributedCache;
 
         protected readonly IStringLocalizer<ErrorMessages> _localizer;
 
@@ -43,7 +45,8 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             IRepository<ClusterizationProfile> profilesRepository,
             IRepository<EmbeddingObjectsGroup> embeddingObjectsGroupsRepository,
             IRepository<DimensionEmbeddingObject> dimensionEmbeddingObjectsRepository,
-            IRepository<DisplayedPoint> displayedPointsRepository)
+            IRepository<DisplayedPoint> displayedPointsRepository,
+            IDistributedCache distributedCache)
         {
             _clustersRepository = clustersRepository;
             _tilesService = tilesService;
@@ -55,6 +58,7 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
             _profilesRepository = profilesRepository;
             _embeddingObjectsGroupsRepository = embeddingObjectsGroupsRepository;
             _dimensionEmbeddingObjectsRepository = dimensionEmbeddingObjectsRepository;
+            _distributedCache = distributedCache;
         }
         protected virtual async Task RemoveClusters(ClusterizationProfile profile)
         {
@@ -150,6 +154,11 @@ namespace Domain.Services.Clusterization.Algorithms.Non_hierarchical
         public async Task<bool> ReviewWorkspaceIsProfilesInCalculation(int workspaceId)
         {
             return (await _profilesRepository.GetAsync(e => e.WorkspaceId == workspaceId && e.IsInCalculation)).Any();
+        }
+
+        public async Task RemoveCache(int profileId)
+        {
+            await _distributedCache.RemoveAsync("clusters" + profileId);
         }
     }
 }
