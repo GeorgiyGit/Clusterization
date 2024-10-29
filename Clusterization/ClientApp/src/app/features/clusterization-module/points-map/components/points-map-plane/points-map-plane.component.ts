@@ -322,9 +322,10 @@ export class PointsMapPlaneComponent implements AfterViewInit, OnChanges, OnInit
     const croppedCanvas = document.createElement('canvas');
     croppedCanvas.width = rectLength;
     croppedCanvas.height = rectLength;
-    const context = croppedCanvas.getContext('2d', { alpha: false });
+    const context = croppedCanvas.getContext('2d', { alpha: true });
 
     if (context == null) return;
+
     context.drawImage(canvas, rectX, rectY, rectLength, rectLength, 0, 0, rectLength, rectLength);
 
     const dataUrl: string = croppedCanvas.toDataURL('image/png');
